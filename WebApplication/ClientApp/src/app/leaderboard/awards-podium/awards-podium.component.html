@@ -1,0 +1,77 @@
+
+<div *ngIf="eventsBreadcrumbResult" class="mb-3">
+  <a [routerLink]="EventsPage">All Events</a> >
+  <a [routerLink]="[EventsStatePage, eventsBreadcrumbResult.locationInfoWithUrl.stateUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.state}}</a> >
+  <a [routerLink]="[EventsAreaPage, eventsBreadcrumbResult.locationInfoWithUrl.areaUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.area}}</a> >
+  <a [routerLink]="[EventsCityPage, eventsBreadcrumbResult.locationInfoWithUrl.cityUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.city}}</a> >
+  <a [routerLink]="[RaceSeriesDashboardPage, eventsBreadcrumbResult.raceSeriesDisplayWithId.id]">{{eventsBreadcrumbResult.raceSeriesDisplayWithId.displayName}}</a> >
+  <a [routerLink]="[RaceLeaderboardPage, eventsBreadcrumbResult.raceDisplayWithId.id]">{{eventsBreadcrumbResult.raceDisplayWithId.displayName}}</a> >
+  Awards Podium
+</div>
+
+<hr />
+
+<ng-container *ngIf="dataLoaded">
+
+  <div>
+    <img width="120px" height="120px" [src]="courseInfo.raceSeriesImageUrl">
+  </div>
+
+  <div class="mt-4 font-24 font-weight-bold">{{courseInfo.raceName}}</div>
+  <div class="font-18 primary-color font-weight-bold">{{courseInfo.courseName}}</div>
+  <div class="font-14">
+    <div>{{courseInfo.raceSeriesCity}}, {{courseInfo.raceSeriesState}}</div>
+    <div>Distance: {{courseInfo.courseDistance}}</div>
+    <div>{{courseInfo.courseDate}} at <strong>{{courseInfo.courseTime}}</strong></div>
+  </div>
+  <div class="font-12 font-italic font-weight-bold">- "{{courseInfo.raceSeriesDescription}}"</div>
+
+  <hr />
+
+  <table class="my-5 genericDataTable">
+    <thead>
+      <tr>
+        <th class="text-left pb-2" style="width: 25%"></th>
+        <th class="font-24 text-left pb-2" style="width: 25%"><i class="fa fa-trophy mr-1" aria-hidden="true"></i>Winner</th>
+        <th class="font-24 text-left pb-2" style="width: 25%">Second Place</th>
+        <th class="font-24 text-left pb-2" style="width: 25%">Third Place</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let awardPodium of awards">
+        <td class="text-left py-2"><strong>{{awardPodium.bracketName}}</strong></td>
+        <td class="text-left py-2">
+          <ng-container *ngTemplateOutlet="athleteTemplate; context:{athlete: awardPodium.firstPlaceAthlete}"></ng-container>
+        </td>
+        <td class="text-left py-2">
+          <ng-container *ngTemplateOutlet="athleteTemplate; context:{athlete: awardPodium.secondPlaceAthlete}"></ng-container>
+        </td>
+        <td class="text-left py-2">
+          <ng-container *ngTemplateOutlet="athleteTemplate; context:{athlete: awardPodium.thirdPlaceAthlete}"></ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</ng-container>
+
+<ng-template #athleteTemplate let-athlete="athlete">
+  <ng-container *ngIf="athlete">
+    <div>
+      <a style="color: black;" title="view athlete profile" class="font-18 font-weight-bold" [routerLink]="[AthletePage, athlete.athleteId]">
+        {{athlete.fullName}}
+      </a>
+    </div>
+    <div class="primary-color font-weight-bold">{{athlete.finishTime}}</div>
+    <div>
+      <span class="font-12 font-weight-bold"><strong>{{athlete.paceWithTime.timeFormatted}}</strong></span>
+      <span style="font-size: 12px;" *ngIf="athlete.paceWithTime.hasPace">
+        ({{athlete.paceWithTime.paceValue}} {{athlete.paceWithTime.paceLabel}})
+      </span>
+    </div>
+    <div><a class="font-12" title="view result" [routerLink]="[IndividualResultPage, athlete.athleteCourseId]">View</a></div>
+  </ng-container>
+  <ng-container *ngIf="!athlete">
+    --
+  </ng-container>
+</ng-template>

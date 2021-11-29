@@ -1,0 +1,36 @@
+
+.navbar {
+  background-color: #24325a;
+  border-bottom: 1px #00212d solid;
+  border-top: 1px #00212d solid;
+  margin-bottom: 0;
+}
+
+a.nav-link {
+  color: white;
+}
+
+a.nav-link:hover {
+  color: #00a9e1;
+  text-decoration: none;
+}
+
+a.nav-link:visited {
+  text-decoration: none;
+}
+
+a.nav-link:active {
+  text-decoration: none;
+}
+
+.searchResultsContainer {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: white;
+  height: 300px;
+  width: 450px;
+  border: 1px solid black;
+  z-index: 2000; /* set to a random number so it will appear above all other content. */
+  overflow-y: scroll;
+}

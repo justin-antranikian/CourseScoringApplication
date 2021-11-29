@@ -1,0 +1,23 @@
+
+ul {
+  padding: 0px;
+  margin-bottom: 3px;
+}
+
+li {
+  list-style: none;
+  font-size: 14px;
+}
+
+li i {
+  font-size: 8px;
+  border: 1px solid rgba(0,0,0,.125);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+}
+
+.highlighted {
+  color: #1c7430;
+  font-weight: bold;
+}

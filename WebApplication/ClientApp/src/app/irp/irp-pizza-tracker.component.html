@@ -1,0 +1,71 @@
+
+<div ngbDropdown class="d-inline-block">
+
+  <button class="btn-plain pizzeTrackerCompleted" placement="top" [ngbTooltip]="intervalName" ngbDropdownToggle>
+    <ng-container *ngIf="!isFullCourse">
+      <i *ngIf="intervalFinished" class="fa fa-check-circle-o fa-lg text-success"></i>
+      <i *ngIf="!intervalFinished" class="fa fa-circle-o fa-lg text-secondary"></i>
+    </ng-container>
+
+    <ng-container *ngIf="isFullCourse">
+      <i *ngIf="intervalFinished" class="fa fa-flag-checkered fa-lg text-success"></i>
+      <i *ngIf="!intervalFinished" class="fa fa-flag-checkered fa-lg text-secondary"></i>
+    </ng-container>
+  </button>
+
+  <div style="width: 300px; max-height: 300px; overflow-y: scroll;" class="p-2" ngbDropdownMenu aria-labelledby="intervalDescriptionDrop">
+
+    <div>
+      <img width="80" height="80" [src]="intervalTypeImageUrl" />
+      <span class="font-20 font-weight-bold ml-2">{{intervalName}}</span>
+    </div>
+
+    <div class="my-2">
+      <ng-container *ngIf="percentile">
+        <i class="fa fa-check-circle-o fa-lg text-success"></i>
+        <strong class="text-success ml-1">Completed</strong>
+      </ng-container>
+    
+      <ng-container *ngIf="!percentile">
+        <i class="fa fa-circle-o fa-lg text-secondary"></i>
+        <strong class="ml-1 text-secondary">Not Completed</strong>
+      </ng-container>
+    </div>
+
+    <hr />
+
+    <div *ngIf="overallRank" class="font-weight-bold font-12">
+      <div>percentile (overall): {{percentile}}</div>
+      <div>
+        overall: {{overallRank}} of {{overallCount}}
+        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: overallIndicator}"></ng-container>
+      </div>
+      <div>
+        gender: {{genderRank}} of {{genderCount}}
+        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: genderIndicator}"></ng-container>
+      </div>
+      <div>
+        division: {{primaryDivisionRank}} of {{primaryDivisionCount}}
+        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: primaryDivisionIndicator}"></ng-container>
+      </div>
+
+      <hr />
+    </div>
+
+    <div class="font-weight-bold font-12">distance (interval): {{intervalDistance}}</div>
+    <div class="font-weight-bold font-12">distance (cumulative): {{cumulativeDistance}}</div>
+
+    <hr />
+
+    <div class="mb-3">- "{{intervalDescription}}"</div>
+  </div>
+</div>
+
+<ng-template #trendingIndicatior let-indicator="indicator">
+
+  <span class="ml-2">
+    <span *ngIf="indicator === 1"><i style="color: green;" class="fa fa-long-arrow-up"></i><span class="ml-1" style="font-size: 10px;">(Better)</span></span>
+    <span *ngIf="indicator === 2"><i style="color: red;" class="fa fa-long-arrow-down"></i><span class="ml-1" style="font-size: 10px;">(Worse)</span></span>
+  </span>
+
+</ng-template>

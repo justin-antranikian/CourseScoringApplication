@@ -1,0 +1,170 @@
+
+<div *ngIf="arpLoaded" class="mb-3">
+  <app-athlete-bread-crumb
+    [breadcrumbResult]="athletesBreadcrumbResult"
+    [breadcrumbLocation]="breadcrumbLocation"
+    [titleOverride]="fullName">
+  </app-athlete-bread-crumb>
+</div>
+
+<hr />
+
+<div *ngIf="arpLoaded" class="row">
+  <div class="col-3">
+    <div><img width="120px" height="120px" src="/assets/img/Athlete.png"></div>
+    <div class="mt-4 font-24 font-weight-bold">{{fullName}}</div>
+    <div class="font-18">{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
+    <div class="font-12">{{genderAbbreviated}} | {{age}}</div>
+
+    <hr />
+    <app-location-info-rankings [locationInfoWithRank]="locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+
+    <hr />
+    <div class="mb-1" *ngFor="let tag of tags">
+      <span class="font-20 badge badge-primary primary-background">{{tag}}</span>
+    </div>
+
+    <hr />
+    <div>{{firstName}}'s training and diet</div>
+    <ul class="mt-3">
+      <li class="font-12" *ngFor="let wellnessEntry of wellnessTrainingAndDiet">{{wellnessEntry.description}}</li>
+    </ul>
+
+    <hr />
+    <div>{{firstName}}'s goals</div>
+    <div class="mt-3 font-12 font-italic" *ngFor="let wellnessEntry of wellnessGoals">
+      "{{wellnessEntry.description}}"
+    </div>
+
+    <hr />
+    <div>{{firstName}}'s gear</div>
+    <ul class="mt-3">
+      <li class="font-12" *ngFor="let wellnessEntry of wellnessGearList">{{wellnessEntry.description}}</li>
+    </ul>
+
+    <hr />
+    <div>{{firstName}}'s inspiration</div>
+    <div class="mt-3 primary-color font-12 font-weight-bold font-italic" *ngFor="let wellnessEntry of wellnessMotivationalList">
+      "{{wellnessEntry.description}}"
+    </div>
+  </div>
+  <div class="col-9">
+    <ng-container *ngTemplateOutlet="stats"></ng-container>
+    <hr />
+    <ng-container *ngTemplateOutlet="otherAthletes"></ng-container>
+    <hr />
+    <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>
+  </div>
+</div>
+
+<ng-template #stats>
+
+  <div class="font-20 font-weight-bold">Stats</div>
+
+  <div class="my-5 row">
+    <div class="col-4">
+      <div class="mb-4" *ngFor="let goal of goals">
+        <div (click)="onViewGoalsClicked(goalsModal, goal)" class="font-weight-bold" style="cursor: pointer;">{{goal.raceSeriesTypeName}}</div>
+        <div class="font-12">Completed: <strong>{{goal.actualTotal}}</strong> of <strong>{{goal.goalTotal}}</strong> events</div>
+        <div class="pr-3" placement="top" ngbTooltip="distance completed: {{goal.totalDistance}} ">
+          <ngb-progressbar type="success" [value]="goal.percentComplete" [striped]="true"></ngb-progressbar>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="chart-wrapper">
+        <canvas baseChart 
+          [datasets]="chartOptions.data"
+          [labels]="chartOptions.labels"
+          [plugins]="chartOptions.plugins"
+          [legend]="chartOptions.legend"
+          [colors]="chartOptions.colors"
+          [chartType]="chartOptions.type">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #otherAthletes>
+
+  <div class="font-20 font-weight-bold">Other Athletes</div>
+
+  <div class="row my-5">
+    <div class="col-6">
+      <div class="mb-1" *ngFor="let athlete of rivals">
+        <div title="Rival" class="py-2 border-bottom">
+          <i class="fa fa fa-compress"></i>
+          <span class="ml-3"><a [routerLink]="[AthletePage, athlete.id]">View</a></span>
+          <span class="ml-5">{{athlete.displayName}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="mb-1" *ngFor="let athlete of followings">
+        <div title="Following" class="py-2 border-bottom">
+          <i class="fa fa-thumbs-o-up"></i>
+          <span class="ml-3"><a [routerLink]="[AthletePage, athlete.id]">View</a></span>
+          <span class="ml-5">{{athlete.displayName}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #resultsTemplate>
+
+  <div class="font-20 font-weight-bold">Results</div>
+
+  <table class="my-5 genericDataTable">
+    <thead>
+      <tr>
+        <th style="width: 5%" scope="col"></th>
+        <th style="width: 15%" scope="col"></th>
+        <th style="width: 30%" class="text-left" scope="col">Event Name</th>
+        <th style="width: 10%" scope="col">Overall</th>
+        <th style="width: 10%" scope="col">Gender</th>
+        <th style="width: 10%" scope="col">Division</th>
+        <th style="width: 20%" scope="col">Total Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let result of results">
+        <tr style="height: 85px;" app-arp-result [arpResultDto]="result"></tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+</ng-template>
+
+<ng-template #goalsModal let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">{{selectedGoal.raceSeriesTypeName}} events</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div style="max-height: 325px; overflow-y: scroll;" class="modal-body">
+    <div class="mb-4" *ngFor="let course of selectedGoal.courses">
+      <div>
+        <a class="font-24 font-weight-bold" style="color: black;" (click)="modal.close('Close click')" [routerLink]="[RaceLeaderboardPage, course.raceId]">
+          {{course.raceName}}
+        </a>
+      </div>
+      <div>
+        <a class="font-18 primary-color font-weight-bold" (click)="modal.close('Close click')" [routerLink]="[CourseLeaderboardPage, course.courseId]">
+          {{course.courseName}}
+        </a>
+      </div>
+      <div class="font-14">{{course.raceSeriesCity}}, {{course.raceSeriesState}}</div>
+      <div class="font-12 font-italic font-weight-bold">- "{{course.raceSeriesDescription}}"</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+
+</ng-template>

@@ -1,0 +1,90 @@
+
+<div class="px-4 py-2">
+  <a [routerLink]="[AthletePage, id]">
+    <img style="width: 100%; height: 90px;" src="/assets/img/Athlete.png">
+  </a>
+</div>
+
+<div class="py-2 text-center secondary-background">
+  <strong>{{fullName}}</strong>
+</div>
+
+<div class="mt-2 px-2">
+  <app-location-info-rankings [locationInfoWithRank]="locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+  <div class="text-right">
+    <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewArpClicked(athleteInfoModal)" ></i>
+  </div>
+</div>
+
+<ng-template #athleteInfoModal let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Athlete Quick View</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div style="max-height: 400px; overflow-y: scroll;" class="modal-body">
+    <div class="row">
+      <div class="col-4">
+        <div><img width="120px" height="120px" src="/assets/img/Athlete.png"></div>
+        <div class="font-24 font-weight-bold">{{fullName}}</div>
+        <div class="font-18 text-truncated">{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
+        <div class="font-12">{{genderAbbreviated}} | {{age}}</div>
+
+        <hr />
+        <div class="mb-1" *ngFor="let tag of tags">
+          <span class="font-20 badge badge-primary primary-background">{{tag}}</span>
+        </div>
+      </div>
+      <div class="col-8">
+
+        <div class="mb-5">
+          <div class="font-20 font-weight-bold">{{allEventsGoal.raceSeriesTypeName}}</div>
+          <div class="font-12">Completed: <strong>{{allEventsGoal.actualTotal}}</strong> of <strong>{{allEventsGoal.goalTotal}}</strong> events</div>
+          <div class="pr-3" placement="top" ngbTooltip="distance completed: {{allEventsGoal.totalDistance}} ">
+            <ngb-progressbar type="success" [value]="allEventsGoal.percentComplete" [striped]="true"></ngb-progressbar>
+          </div>
+        </div>
+        
+        <hr />
+
+        <div class="font-20 font-weight-bold">Results</div>
+
+        <table class="my-5 genericDataTable">
+          <thead>
+            <tr>
+              <th style="width: 25%" class="text-left" scope="col">Event Name</th>
+              <th style="width: 15%" scope="col">Overall</th>
+              <th style="width: 15%" scope="col">Gender</th>
+              <th style="width: 15%" scope="col">Division</th>
+              <th style="width: 30%" scope="col">Total Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of results">
+              <td class="text-left font-weight-bold">
+                <a class="viewIrpLink" (click)="modal.close('Close click')" [routerLink]="[IndividualResultPage, result.athleteCourseId]">{{result.raceName}}</a>
+              </td>
+              <td>
+                <app-bracket-rank [rank]="result.overallRank" [total]="result.overallCount"></app-bracket-rank>
+              </td>
+              <td>
+                <app-bracket-rank [rank]="result.genderRank" [total]="result.genderCount"></app-bracket-rank>
+              </td>
+              <td>
+                <app-bracket-rank [rank]="result.primaryDivisionRank" [total]="result.primaryDivisionCount"></app-bracket-rank>
+              </td>
+              <td><app-interval-time [paceTime]="result.paceWithTimeCumulative"></app-interval-time></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+
+</ng-template>

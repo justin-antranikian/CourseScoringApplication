@@ -1,0 +1,88 @@
+
+body {
+  background-color: #F5F5F5;
+}
+
+a {
+  color: #00a9e1;
+}
+
+a:hover {
+  color: #00435a;
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+/* font sizes commonly used by the site. */
+.font-24 {
+  font-size: 24px;
+}
+
+.font-20 {
+  font-size: 20px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+/* primary color used for different purposes. */
+.primary-color {
+  color: #00A9E1
+}
+
+.primary-background {
+  background-color: #00A9E1;
+  color: white;
+}
+
+/* used on the landing pages for events and athletes. */
+.secondary-background {
+  background-color: #24325a;
+  color: white;
+}
+
+ul {
+  padding-left: 25px;
+}
+
+/* table styles to be resued on multiple pages (arp, irp, courseLeaderborad, etc) */
+.genericDataTable {
+  width: 100%;
+}
+
+.genericDataTable th {
+  text-align: center;
+  border-bottom: 1px solid #989898;
+  vertical-align: middle;
+  height: 30px;
+}
+
+.genericDataTable td {
+  text-align: center;
+  border-bottom: 1px solid #989898;
+  vertical-align: middle;
+  height: 60px;
+}
+
+.btn-plain {
+  /* outline: none !important; */
+  padding: 0;
+  border: 0;
+  line-height: 1;
+}

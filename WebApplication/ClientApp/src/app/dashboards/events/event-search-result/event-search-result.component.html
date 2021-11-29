@@ -1,0 +1,119 @@
+
+<div class="raceSeriesDashboarLinkContainer">
+  <a class="raceSeriesDashboarLink" [routerLink]="[RaceSeriesDashboardPage, id]">
+    <img class="raceSeriesImage" [src]="raceSeriesImageUrl">
+  </a>
+  <div class="expandedViewDropDownContainer">
+    <div ngbDropdown placement="bottom-center" class="d-inline-block">
+      <button class="btn btn-outline-secondary btn-sm" ngbDropdownToggle></button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem [routerLink]="[RaceSeriesDashboardPage, id]">Landing Page</a>
+        <div class="dropdown-divider"></div>
+        <a ngbDropdownItem [routerLink]="[RaceLeaderboardPage, upcomingRaceId]">Leaderboard</a>
+        <div class="dropdown-divider"></div>
+        <a *ngFor="let course of eventSearchResult.courses" ngbDropdownItem [routerLink]="[CourseLeaderboardPage, course.id]">
+          {{course.displayName}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-2 text-center secondary-background">
+  <strong>{{name}}</strong>
+</div>
+
+<div class="mt-2 p-2">
+  <app-location-info-rankings [locationInfoWithRank]="eventSearchResult.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+
+  <div class="text-right">
+    <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewLeaderboardClicked(raceLeaderboardModal)" ></i>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col-9">
+      <ngb-rating [rate]="rating"></ngb-rating>
+    </div>
+    <div class="col-3 text-right">
+      <i class="fa fa-heart-o fa-lg text-danger"></i>
+    </div>
+  </div>
+</div>
+
+<ng-template #raceLeaderboardModal let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Race Leaderboard Quick View</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div style="max-height: 400px; overflow-y: scroll;" class="modal-body">
+    <div class="row">
+      <div class="col-3">
+        <div><img width="120px" height="120px" [src]="raceSeriesImageUrl"></div>
+        <div class="mt-4 font-24 font-weight-bold">{{raceName}}</div>
+        <div class="font-18 primary-color font-weight-bold">All Courses</div>
+    
+        <div class="font-14">
+          <div>{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
+          <div class="font-weight-bold">{{raceKickOffDate}}</div>
+        </div>
+
+        <hr />
+        <div class="font-12 font-weight-bold font-italic">- "{{raceSeriesDescription}}"</div>
+      </div>
+      <div class="col-9">
+
+        <div class="mb-5" *ngFor="let leaderboard of leaderboards">
+          <div class="font-20 primary-color font-weight-bold">{{leaderboard.courseName}}</div>
+          <div class="card p-1 primary-background">
+            <div>
+              <span class="mr-2">
+                <img width="40" height="40" [src]="leaderboard.intervalTypeImageUrl">
+              </span>
+              <span class="font-weight-bold">{{leaderboard.highestIntervalName}}</span>
+            </div>
+          </div>
+          <div class="mb-5 font-12 font-weight-bold font-italic">Top 3 athletes</div>
+
+          <ng-container *ngTemplateOutlet="resultsTableTemplate;context:{leaderboard:leaderboard}" ></ng-container>
+
+          <div class="my-5 text-center">
+            <a class="btn btn-outline-primary" (click)="modal.dismiss()" [routerLink]="[CourseLeaderboardPage, leaderboard.courseId]">View All</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close()">Close</button>
+  </div>
+
+</ng-template>
+
+<ng-template #resultsTableTemplate let-leaderboard="leaderboard">
+
+  <table class="genericDataTable">
+    <thead>
+      <tr>
+        <th style="width: 10%"></th>
+        <th style="width: 15%">Bib</th>
+        <th style="width: 20%">Name</th>
+        <th style="width: 10%">Overall</th>
+        <th style="width: 10%">Gender</th>
+        <th style="width: 10%">Division</th>
+        <th style="width: 15%">Time</th>
+        <th style="width: 10%">Pace</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let result of leaderboard.results">
+        <tr app-leaderboard-result [leaderboardResult]="result" [hideViewIrpButton]="true"></tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+</ng-template>
