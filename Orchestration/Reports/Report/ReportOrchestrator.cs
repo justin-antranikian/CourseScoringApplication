@@ -27,7 +27,7 @@ namespace Orchestration.Reports.RacesByMonthReport
 
 			foreach (var grouping in allRaces.GroupBy(oo => oo.RaceSeries.RaceSeriesType))
 			{
-				//var x = grouping.Gr
+				//var x = grouping.Group
 
 			}
 
