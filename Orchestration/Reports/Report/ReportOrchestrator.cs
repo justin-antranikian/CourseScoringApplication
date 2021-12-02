@@ -24,13 +24,6 @@ namespace Orchestration.Reports.RacesByMonthReport
 			var endOfYear = new DateTime(yearAsInt + 1, 1, 1);
 
 			var allRaces = await _scoringDbContext.Races.Include(oo => oo.Courses).Include(oo => oo.RaceSeries).ToListAsync();
-
-			foreach (var grouping in allRaces.GroupBy(oo => oo.RaceSeries.RaceSeriesType))
-			{
-				//var x = grouping.Group
-
-			}
-
 			return null;
 		}
 	}
