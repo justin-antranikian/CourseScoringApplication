@@ -11,7 +11,7 @@ namespace Core
 				"Pacific Standard Time" => "PST",
 				"Mountain Standard Time" => "MST",
 				"Central Standard Time" => "CST",
-				"Eastern Standard Time" => "CST",
+				"Eastern Standard Time" => "EST",
 				_ => throw new NotImplementedException()
 			};
 		}

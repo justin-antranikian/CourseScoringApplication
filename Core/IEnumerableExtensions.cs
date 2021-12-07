@@ -8,9 +8,7 @@ namespace Core
 	{
 		public static T GetRandomValue<T>(this IEnumerable<T> items)
 		{
-			var itemsAsList = items.ToList();
-			var randomIndex = new Random().Next(itemsAsList.Count);
-			return itemsAsList[randomIndex];
+			return items.OrderBy(oo => Guid.NewGuid()).FirstOrDefault();
 		}
 
 		/// <summary>

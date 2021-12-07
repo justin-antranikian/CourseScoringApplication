@@ -1,92 +1,48 @@
-﻿using Core;
-using DataModels;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace Orchestration.GetRaceSeriesSearch;
 
-namespace Orchestration.GetRaceSeriesSearch
+public static class EventSearchResultDtoMapper
 {
-	public static class EventSearchResultDtoMapper
+	public static List<EventSearchResultDto> GetEventSearchResultDto(List<RaceSeries> raceSeriesEntries)
 	{
-		public static List<EventSearchResultDto> GetEventSearchResultDto(List<RaceSeries> raceSeriesEntries)
-		{
-			return raceSeriesEntries.Select(GetEventSearchResultDto).ToList();
-		}
-
-		public static EventSearchResultDto GetEventSearchResultDto(RaceSeries raceSeries)
-		{
-			var upcomingRace = raceSeries.Races.OrderByDescending(oo => oo.KickOffDate).First();
-			var courses = upcomingRace.Courses.Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
-			var (dateFormatted, timeFormatted) = DateTimeHelper.GetFormattedFields(upcomingRace.KickOffDate);
-
-			var eventSearchResultDto = new EventSearchResultDto
-			(
-				raceSeries.Id,
-				raceSeries.Name,
-				raceSeries.RaceSeriesType,
-				raceSeries.RaceSeriesType.ToFriendlyText(),
-				upcomingRace.Id,
-				dateFormatted,
-				timeFormatted,
-				raceSeries.Description,
-				courses,
-				new LocationInfoWithRank(raceSeries),
-				raceSeries.Rating
-			);
-
-			return eventSearchResultDto;
-		}
+		return raceSeriesEntries.Select(GetEventSearchResultDto).ToList();
 	}
 
-	public class EventSearchResultDto
+	public static EventSearchResultDto GetEventSearchResultDto(RaceSeries raceSeries)
 	{
-		public int Id { get; }
+		var upcomingRace = raceSeries.Races.OrderByDescending(oo => oo.KickOffDate).First();
+		var courses = upcomingRace.Courses.Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
+		var (dateFormatted, timeFormatted) = DateTimeHelper.GetFormattedFields(upcomingRace.KickOffDate);
 
-		public string Name { get; }
-
-		public RaceSeriesType RaceSeriesType { get; }
-
-		public string RaceSeriesTypeName { get; }
-
-		public int UpcomingRaceId { get; }
-
-		public string KickOffDate { get; }
-
-		public string KickOffTime { get; }
-
-		public string Description { get; }
-
-		public List<DisplayNameWithIdDto> Courses { get; }
-
-		public LocationInfoWithRank LocationInfoWithRank { get; }
-
-		public int Rating { get; }
-
-		public EventSearchResultDto
+		var eventSearchResultDto = new EventSearchResultDto
 		(
-			int id,
-			string name,
-			RaceSeriesType raceSeriesType,
-			string raceSeriesTypeName,
-			int upcomingRaceId,
-			string kickOffDate,
-			string kickOffTime,
-			string description,
-			List<DisplayNameWithIdDto> courses,
-			LocationInfoWithRank locationInfoWithRank,
-			int rating
-		)
-		{
-			Id = id;
-			Name = name;
-			RaceSeriesType = raceSeriesType;
-			RaceSeriesTypeName = raceSeriesTypeName;
-			UpcomingRaceId = upcomingRaceId;
-			KickOffDate = kickOffDate;
-			KickOffTime = kickOffTime;
-			Description = description;
-			Courses = courses;
-			LocationInfoWithRank = locationInfoWithRank;
-			Rating = rating;
-		}
+			raceSeries.Id,
+			raceSeries.Name,
+			raceSeries.RaceSeriesType,
+			raceSeries.RaceSeriesType.ToFriendlyText(),
+			upcomingRace.Id,
+			dateFormatted,
+			timeFormatted,
+			raceSeries.Description,
+			courses,
+			new LocationInfoWithRank(raceSeries),
+			raceSeries.Rating
+		);
+
+		return eventSearchResultDto;
 	}
 }
+
+public record EventSearchResultDto
+(
+	int Id,
+	string Name,
+	RaceSeriesType RaceSeriesType,
+	string RaceSeriesTypeName,
+	int UpcomingRaceId,
+	string KickOffDate,
+	string KickOffTime,
+	string Description,
+	List<DisplayNameWithIdDto> Courses,
+	LocationInfoWithRank LocationInfoWithRank,
+	int Rating
+);

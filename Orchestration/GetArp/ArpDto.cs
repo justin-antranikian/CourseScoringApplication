@@ -1,9 +1,4 @@
-﻿using Core;
-using Core.Enums;
-using DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Core.Enums;
 using static Core.Enums.AthleteWellnessType;
 
 namespace Orchestration.GetArp

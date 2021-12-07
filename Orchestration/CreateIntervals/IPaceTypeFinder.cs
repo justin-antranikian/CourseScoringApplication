@@ -1,11 +1,8 @@
-﻿using Core;
+﻿namespace Orchestration.CreateIntervals;
 
-namespace Orchestration.CreateIntervals
+internal interface IPaceTypeFinder
 {
-	internal interface IPaceTypeFinder
-	{
-		public PaceType GetPaceType(string intervalName);
+	public PaceType GetPaceType(string intervalName);
 
-		public IntervalType GetIntervalType(string intervalName);
-	}
+	public IntervalType GetIntervalType(string intervalName);
 }

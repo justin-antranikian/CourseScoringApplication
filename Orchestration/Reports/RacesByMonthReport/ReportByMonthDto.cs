@@ -1,10 +1,5 @@
-﻿using Core;
-using System;
-using System.Collections.Generic;
+﻿namespace Orchestration.Reports.RacesByMonthReport;
 
-namespace Orchestration.Reports.RacesByMonthReport
-{
-	public record ReportByMonthRaceDto(int Id, string Name, DateTime KickOffDate, RaceSeriesType RaceSeriesType);
+public record ReportByMonthRaceDto(int Id, string Name, DateTime KickOffDate, RaceSeriesType RaceSeriesType);
 
-	public record ReportByMonthDto(string MonthName, List<ReportByMonthRaceDto> Races);
-}
+public record ReportByMonthDto(string MonthName, List<ReportByMonthRaceDto> Races);
