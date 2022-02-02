@@ -6,8 +6,8 @@ public static class AthletesUpdator
 {
 	public static void SetRelationships(List<Athlete> athletes)
 	{
-		static AthleteRelationshipEntry MapToRival(Athlete athlete) => new AthleteRelationshipEntry(athlete.Id, AthleteRelationshipType.Rival);
-		static AthleteRelationshipEntry MapToFollowing(Athlete athlete) => new AthleteRelationshipEntry(athlete.Id, AthleteRelationshipType.Following);
+		static AthleteRelationshipEntry MapToRival(Athlete athlete) => new (athlete.Id, AthleteRelationshipType.Rival);
+		static AthleteRelationshipEntry MapToFollowing(Athlete athlete) => new (athlete.Id, AthleteRelationshipType.Following);
 
 		foreach (var athlete in athletes)
 		{

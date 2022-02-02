@@ -6,7 +6,7 @@ namespace Orchestration.GetBreadcrumb.EventsBreadcrumbCreators
 {
 	internal class CourseBreadcrumbCreator : EventsBreadcrumbCreatorBase
 	{
-		public override async Task<EventsBreadcrumbResultDto> GetBreadcrumbResult(BreadcrumbRequestDto breadcrumbRequestDto, ScoringDbContext scoringDbContext)
+		public override sealed async Task<EventsBreadcrumbResultDto> GetBreadcrumbResult(BreadcrumbRequestDto breadcrumbRequestDto, ScoringDbContext scoringDbContext)
 		{
 			var courseId = int.Parse(breadcrumbRequestDto.SearchTerm);
 			var course = await scoringDbContext.Courses.Include(oo => oo.Race).ThenInclude(oo => oo.RaceSeries).SingleAsync(oo => oo.Id == courseId);

@@ -1,7 +1,4 @@
-﻿using Core;
-using System;
-
-namespace Orchestration.GetBreadcrumb
+﻿namespace Orchestration.GetBreadcrumb
 {
 	public abstract class GetBreadcrumbOrchestratorBase
 	{

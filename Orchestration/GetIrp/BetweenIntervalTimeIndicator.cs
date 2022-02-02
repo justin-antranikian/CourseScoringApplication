@@ -1,11 +1,10 @@
 ﻿
-namespace Orchestration.GetIrp
+namespace Orchestration.GetIrp;
+
+public enum BetweenIntervalTimeIndicator
 {
-	public enum BetweenIntervalTimeIndicator
-	{
-		StartingOrSame,
-		Improving,
-		GettingWorse,
-		NotStarted
-	}
+	StartingOrSame,
+	Improving,
+	GettingWorse,
+	NotStarted
 }

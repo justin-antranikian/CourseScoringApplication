@@ -1,22 +1,21 @@
 ﻿
-namespace Orchestration.GetBreadcrumb
+namespace Orchestration.GetBreadcrumb;
+
+public enum BreadcrumbNavigationLevel
 {
-	public enum BreadcrumbNavigationLevel
-	{
-		All,
-		State,
-		Area,
-		City,
-		ArpOrRaceSeriesDashboard,
-		RaceLeaderboard,
-		CourseLeaderboard,
-		Irp
-	}
+	All,
+	State,
+	Area,
+	City,
+	ArpOrRaceSeriesDashboard,
+	RaceLeaderboard,
+	CourseLeaderboard,
+	Irp
+}
 
-	public record BreadcrumbRequestDto
-	{
-		public BreadcrumbNavigationLevel BreadcrumbNavigationLevel { get; set; }
+public record BreadcrumbRequestDto
+{
+	public BreadcrumbNavigationLevel BreadcrumbNavigationLevel { get; set; }
 
-		public string SearchTerm { get; set; }
-	};
+	public string SearchTerm { get; set; }
 }

@@ -98,11 +98,6 @@ public class SandBox
 	{
 		var stringLength = str.Length;
 
-		if (stringLength % 2 == 0)
-		{
-			return false;
-		}
-
 		for (var i = 0; i < stringLength / 2; i++)
 		{
 			var fromStart = str[i];

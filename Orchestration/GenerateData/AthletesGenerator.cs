@@ -5,6 +5,8 @@ namespace Orchestration.GenerateData;
 
 internal class AthleteFaker
 {
+	public AthleteFaker() { }
+
 	public readonly Guid Identifier;
 	public readonly string FirstName;
 	public readonly string LastName;
