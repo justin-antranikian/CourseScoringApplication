@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Orchestration.CreateIntervals;
 using Orchestration.ScoreCourses;
 using System.Threading.Tasks;
 
@@ -82,16 +83,16 @@ public class GenerateDataOrchestrator
 
 	public async Task Generate()
 	{
-		//await GenerateRaceSeriesThroughCourses();
-		//await GenerateBrackets();
+        await GenerateRaceSeriesThroughCourses();
+        await GenerateBrackets();
 
-		//await new CreateIntervalsOrchestrator(_scoringDbContext).Create();
+        await new CreateIntervalsOrchestrator(_scoringDbContext).Create();
 
-		//await GenerateAthletes();
-		//await GenerateAthleteCoursesAndCourseBrackets();
-		//await RankAthletes();
+        await GenerateAthletes();
+        await GenerateAthleteCoursesAndCourseBrackets();
+        await RankAthletes();
 
-		//await GenerateTagReads();
-		await new ScoreCoursesOrchestrator(_scoringDbContext).Score();
+        await GenerateTagReads();
+        await new ScoreCoursesOrchestrator(_scoringDbContext).Score();
 	}
 }

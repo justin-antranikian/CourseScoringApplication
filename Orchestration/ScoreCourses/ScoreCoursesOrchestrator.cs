@@ -1,13 +1,9 @@
-﻿using DataModels;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Orchestration.ScoreCourses
 {
-	public class ScoreCoursesOrchestrator
+    public class ScoreCoursesOrchestrator
 	{
 		private readonly ScoringDbContext _scoringDbContext;
 
@@ -18,78 +14,78 @@ namespace Orchestration.ScoreCourses
 
 		public async Task Score()
 		{
-			//var allCourses = await _scoringDbContext.Courses.ToListAsync();
-			//var allBrackets = await _scoringDbContext.Brackets.ToListAsync();
-			//var allIntervals = await _scoringDbContext.Intervals.ToListAsync();
-			//var allReads = await _scoringDbContext.TagReads.ToListAsync();
-			//var allAthleteCourseBrackets = await _scoringDbContext.AtheleteCourseBrackets.ToListAsync();
+            var allCourses = await _scoringDbContext.Courses.ToListAsync();
+            var allBrackets = await _scoringDbContext.Brackets.ToListAsync();
+            var allIntervals = await _scoringDbContext.Intervals.ToListAsync();
+            var allReads = await _scoringDbContext.TagReads.ToListAsync();
+            var allAthleteCourseBrackets = await _scoringDbContext.AtheleteCourseBrackets.ToListAsync();
 
-			//var statistics = new List<CourseStatistic>();
+            var statistics = new List<CourseStatistic>();
 
-			//var allScoringResults = allCourses.Select(course =>
-			//{
-			//	var courseId = course.Id;
+            var allScoringResults = allCourses.Select(course =>
+            {
+                var courseId = course.Id;
 
-			//	var brackets = allBrackets.Where(oo => oo.CourseId == courseId).ToList();
-			//	var intervals = allIntervals.Where(oo => oo.CourseId == courseId).ToList();
-			//	var courseReads = allReads.Where(oo => oo.CourseId == courseId).ToList();
-			//	var athleteBracketsForCourse = allAthleteCourseBrackets.Where(oo => oo.CourseId == courseId).ToList();
+                var brackets = allBrackets.Where(oo => oo.CourseId == courseId).ToList();
+                var intervals = allIntervals.Where(oo => oo.CourseId == courseId).ToList();
+                var courseReads = allReads.Where(oo => oo.CourseId == courseId).ToList();
+                var athleteBracketsForCourse = allAthleteCourseBrackets.Where(oo => oo.CourseId == courseId).ToList();
 
-			//	if (courseReads.Count == 0)
-			//	{
-			//		throw new Exception("Cannot Score a race with no tag reads");
-			//	}
+                if (courseReads.Count == 0)
+                {
+                    throw new Exception("Cannot Score a race with no tag reads");
+                }
 
-			//	foreach (var bracket in brackets)
-			//	{
-			//		var athleteBracketsForBracket = athleteBracketsForCourse.Where(oo => oo.BracketId == bracket.Id).Select(oo => oo.AthleteCourseId).ToList();
-			//		var readsForBracket = courseReads.Where(oo => athleteBracketsForBracket.Contains(oo.AthleteCourseId)).ToList();
+                foreach (var bracket in brackets)
+                {
+                    var athleteBracketsForBracket = athleteBracketsForCourse.Where(oo => oo.BracketId == bracket.Id).Select(oo => oo.AthleteCourseId).ToList();
+                    var readsForBracket = courseReads.Where(oo => athleteBracketsForBracket.Contains(oo.AthleteCourseId)).ToList();
 
-			//		if (!readsForBracket.Any())
-			//		{
-			//			continue;
-			//		}
+                    if (!readsForBracket.Any())
+                    {
+                        continue;
+                    }
 
-			//		var maxIntervalReadsForBracket = GetReadsForMaxInterval(readsForBracket, intervals);
+                    var maxIntervalReadsForBracket = GetReadsForMaxInterval(readsForBracket, intervals);
 
-			//		var bracketStatistic = new CourseStatistic
-			//		{
-			//			CourseId = courseId,
-			//			BracketId = bracket.Id,
-			//			AverageTotalTimeInMilleseconds = (int)maxIntervalReadsForBracket.Average(oo => oo.TimeOnCourse),
-			//			FastestTimeInMilleseconds = maxIntervalReadsForBracket.Min(oo => oo.TimeOnCourse),
-			//			SlowestTimeInMilleseconds = maxIntervalReadsForBracket.Max(oo => oo.TimeOnCourse),
-			//		};
+                    var bracketStatistic = new CourseStatistic
+                    {
+                        CourseId = courseId,
+                        BracketId = bracket.Id,
+                        AverageTotalTimeInMilleseconds = (int)maxIntervalReadsForBracket.Average(oo => oo.TimeOnCourse),
+                        FastestTimeInMilleseconds = maxIntervalReadsForBracket.Min(oo => oo.TimeOnCourse),
+                        SlowestTimeInMilleseconds = maxIntervalReadsForBracket.Max(oo => oo.TimeOnCourse),
+                    };
 
-			//		statistics.Add(bracketStatistic);
-			//	}
+                    statistics.Add(bracketStatistic);
+                }
 
-			//	var maxIntervalReads = GetReadsForMaxInterval(courseReads, intervals);
+                var maxIntervalReads = GetReadsForMaxInterval(courseReads, intervals);
 
-			//	var allBracketsStatistic = new CourseStatistic
-			//	{
-			//		CourseId = courseId,
-			//		AverageTotalTimeInMilleseconds = (int)maxIntervalReads.Average(oo => oo.TimeOnCourse),
-			//		FastestTimeInMilleseconds = maxIntervalReads.Min(oo => oo.TimeOnCourse),
-			//		SlowestTimeInMilleseconds = maxIntervalReads.Max(oo => oo.TimeOnCourse),
-			//	};
+                var allBracketsStatistic = new CourseStatistic
+                {
+                    CourseId = courseId,
+                    AverageTotalTimeInMilleseconds = (int)maxIntervalReads.Average(oo => oo.TimeOnCourse),
+                    FastestTimeInMilleseconds = maxIntervalReads.Min(oo => oo.TimeOnCourse),
+                    SlowestTimeInMilleseconds = maxIntervalReads.Max(oo => oo.TimeOnCourse),
+                };
 
-			//	statistics.Add(allBracketsStatistic);
+                statistics.Add(allBracketsStatistic);
 
-			//	var scorer = new CourseScorer(course, brackets, courseReads, athleteBracketsForCourse, intervals);
-			//	var scoringResult = scorer.GetScoringResult();
-			//	return scoringResult;
-			//}).ToList();
+                var scorer = new CourseScorer(course, brackets, courseReads, athleteBracketsForCourse, intervals);
+                var scoringResult = scorer.GetScoringResult();
+                return scoringResult;
+            }).ToList();
 
-			//var metaResults = allScoringResults.SelectMany(oo => oo.MetadataResults);
-			//var results = allScoringResults.SelectMany(oo => oo.Results);
+            var metaResults = allScoringResults.SelectMany(oo => oo.MetadataResults);
+            var results = allScoringResults.SelectMany(oo => oo.Results);
 
-			//await _scoringDbContext.BracketMetadataEntries.AddRangeAsync(metaResults);
-			//await _scoringDbContext.Results.AddRangeAsync(results);
-			//await _scoringDbContext.CourseStatistics.AddRangeAsync(statistics);
-			//await _scoringDbContext.SaveChangesAsync();
+            await _scoringDbContext.BracketMetadataEntries.AddRangeAsync(metaResults);
+            await _scoringDbContext.Results.AddRangeAsync(results);
+            await _scoringDbContext.CourseStatistics.AddRangeAsync(statistics);
+            await _scoringDbContext.SaveChangesAsync();
 
-			var courseTypeStats = await GetCourseTypeStatistics();
+            var courseTypeStats = await GetCourseTypeStatistics();
 			await _scoringDbContext.CourseTypeStatistics.AddRangeAsync(courseTypeStats);
 			await _scoringDbContext.SaveChangesAsync();
 		}
