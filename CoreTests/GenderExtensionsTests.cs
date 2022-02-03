@@ -1,16 +1,15 @@
 ﻿using Core;
 using Xunit;
 
-namespace CoreTests
+namespace CoreTests;
+
+public class GenderExtensionsTests
 {
-	public class GenderExtensionsTests
+	[Theory]
+	[InlineData(Gender.Femail, "F")]
+	[InlineData(Gender.Male, "M")]
+	public void ToAbbreviation_ReturnsCorrectResults(Gender gender, string genderAbbreviated)
 	{
-		[Theory]
-		[InlineData(Gender.Femail, "F")]
-		[InlineData(Gender.Male, "M")]
-		public void ToAbbreviation_ReturnsCorrectResults(Gender gender, string genderAbbreviated)
-		{
-			Assert.Equal(genderAbbreviated, gender.ToAbbreviation());
-		}
+		Assert.Equal(genderAbbreviated, gender.ToAbbreviation());
 	}
 }

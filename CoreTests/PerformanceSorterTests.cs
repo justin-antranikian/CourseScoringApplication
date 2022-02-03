@@ -7,13 +7,18 @@ namespace CoreTests;
 
 public class PerformanceSorterTests
 {
+	public static List<Student> GetStudents(int amount)
+    {
+		return Enumerable.Range(1, amount).Select(oo =>
+		{
+			return new Student(oo, oo + "Name", oo, true, 1);
+		}).ToList();
+	}
+
 	[Fact]
 	public void GetLessEffecient_ReturnsCorrectResults()
 	{
-		var generalStudentBody = Enumerable.Range(1, 200000).Select(oo =>
-        {
-			return new Student(oo, oo + "Name", oo, true, 1);
-        }).ToList();
+		var generalStudentBody = GetStudents(200000);
 
 		var generalStudentBodyNameMatches = new List<Student>
 		{
@@ -26,10 +31,7 @@ public class PerformanceSorterTests
 
 		generalStudentBody.AddRange(generalStudentBodyNameMatches);
 
-		var generalTeachersBody = Enumerable.Range(1, 50000).Select(oo =>
-		{
-			return new Student(oo, oo + "Name", oo, true, 1);
-		}).ToList();
+		var generalTeachersBody = GetStudents(50000);
 
 		var teachers = new List<Student>
 		{

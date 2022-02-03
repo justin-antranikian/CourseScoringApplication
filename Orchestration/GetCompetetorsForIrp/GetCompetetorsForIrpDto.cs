@@ -1,17 +1,14 @@
-﻿using System.Collections.Generic;
+﻿namespace Orchestration.GetCompetetorsForIrp;
 
-namespace Orchestration.GetCompetetorsForIrp
+public class GetCompetetorsForIrpDto
 {
-	public class GetCompetetorsForIrpDto
+	public List<IrpCompetetorDto> FasterAthletes { get; }
+
+	public List<IrpCompetetorDto> SlowerAthletes { get; }
+
+	public GetCompetetorsForIrpDto(List<IrpCompetetorDto> fasterAthletes, List<IrpCompetetorDto> slowerAthletes)
 	{
-		public List<IrpCompetetorDto> FasterAthletes { get; }
-
-		public List<IrpCompetetorDto> SlowerAthletes { get; }
-
-		public GetCompetetorsForIrpDto(List<IrpCompetetorDto> fasterAthletes, List<IrpCompetetorDto> slowerAthletes)
-		{
-			FasterAthletes = fasterAthletes;
-			SlowerAthletes = slowerAthletes;
-		}
+		FasterAthletes = fasterAthletes;
+		SlowerAthletes = slowerAthletes;
 	}
 }

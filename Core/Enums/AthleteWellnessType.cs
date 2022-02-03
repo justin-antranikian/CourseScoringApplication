@@ -1,12 +1,10 @@
-﻿
-namespace Core.Enums
+﻿namespace Core.Enums;
+
+public enum AthleteWellnessType
 {
-	public enum AthleteWellnessType
-	{
-		Goal,
-		Training,
-		Gear,
-		Diet,
-		Motivational
-	}
+	Goal,
+	Training,
+	Gear,
+	Diet,
+	Motivational
 }

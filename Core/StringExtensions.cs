@@ -1,11 +1,9 @@
-﻿
-namespace Core
+﻿namespace Core;
+
+public static class StringExtensions
 {
-	public static class StringExtensions
+	public static string ToUrlFriendlyText(this string text)
 	{
-		public static string ToUrlFriendlyText(this string text)
-		{
-			return text.ToLower().Replace(" ", "-");
-		}
+		return text.ToLower().Replace(" ", "-");
 	}
 }

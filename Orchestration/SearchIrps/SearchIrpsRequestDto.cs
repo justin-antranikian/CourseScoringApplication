@@ -1,14 +1,12 @@
-﻿
-namespace Orchestration.SearchIrps
+﻿namespace Orchestration.SearchIrps;
+
+public record SearchIrpsRequestDto
 {
-	public record SearchIrpsRequestDto
-	{
-		public int? RaceId { get; init; }
+	public int? RaceId { get; init; }
 
-		public int? CourseId { get; init; }
+	public int? CourseId { get; init; }
 
-		public SearchOnField SearchOn { get; init; }
+	public SearchOnField SearchOn { get; init; }
 
-		public string SearchTerm { get; init; }
-	}
+	public string SearchTerm { get; init; }
 }

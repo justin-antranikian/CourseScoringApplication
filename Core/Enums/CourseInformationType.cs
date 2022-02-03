@@ -1,10 +1,8 @@
-﻿
-namespace Core.Enums
+﻿namespace Core.Enums;
+
+public enum CourseInformationType
 {
-	public enum CourseInformationType
-	{
-		Description,
-		Promotional,
-		HowToPrepare
-	}
+	Description,
+	Promotional,
+	HowToPrepare
 }

@@ -1,13 +1,10 @@
-﻿using Core;
+﻿namespace Orchestration.GetAwardsPodium;
 
-namespace Orchestration.GetAwardsPodium
-{
-	public record AwardWinnerDto
-	(
-		int AthleteId,
-		int AthleteCourseId,
-		string FullName,
-		string FinishTime,
-		PaceWithTime PaceWithTime
-	);
-}
+public record AwardWinnerDto
+(
+	int AthleteId,
+	int AthleteCourseId,
+	string FullName,
+	string FinishTime,
+	PaceWithTime PaceWithTime
+);

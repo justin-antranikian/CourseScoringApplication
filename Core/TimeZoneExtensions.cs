@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace Core
+namespace Core;
+
+public static class TimeZoneExtensions
 {
-	public static class TimeZoneExtensions
+	public static string ToAbbreviation(this string timeZoneId)
 	{
-		public static string ToAbbreviation(this string timeZoneId)
+		return timeZoneId switch
 		{
-			return timeZoneId switch
-			{
-				"Pacific Standard Time" => "PST",
-				"Mountain Standard Time" => "MST",
-				"Central Standard Time" => "CST",
-				"Eastern Standard Time" => "EST",
-				_ => throw new NotImplementedException()
-			};
-		}
+			"Pacific Standard Time" => "PST",
+			"Mountain Standard Time" => "MST",
+			"Central Standard Time" => "CST",
+			"Eastern Standard Time" => "EST",
+			_ => throw new NotImplementedException()
+		};
 	}
 }

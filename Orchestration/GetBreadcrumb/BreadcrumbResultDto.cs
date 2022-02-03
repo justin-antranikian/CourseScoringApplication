@@ -1,5 +1,3 @@
-﻿
-namespace Orchestration.GetBreadcrumb
-{
-	public record BreadcrumbResultDto(LocationInfoWithUrl LocationInfoWithUrl);
-}
+﻿namespace Orchestration.GetBreadcrumb;
+
+public record BreadcrumbResultDto(LocationInfoWithUrl LocationInfoWithUrl);

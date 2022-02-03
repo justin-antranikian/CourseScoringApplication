@@ -1,23 +1,22 @@
 ﻿using System;
 
-namespace Core
-{
-	public enum Gender
-	{
-		Male,
-		Femail
-	}
+namespace Core;
 
-	public static class GenderExtensions
+public enum Gender
+{
+	Male,
+	Femail
+}
+
+public static class GenderExtensions
+{
+	public static string ToAbbreviation(this Gender gender)
 	{
-		public static string ToAbbreviation(this Gender gender)
+		return gender switch
 		{
-			return gender switch
-			{
-				Gender.Femail => "F",
-				Gender.Male => "M",
-				_ => throw new NotImplementedException()
-			};
-		}
+			Gender.Femail => "F",
+			Gender.Male => "M",
+			_ => throw new NotImplementedException()
+		};
 	}
 }

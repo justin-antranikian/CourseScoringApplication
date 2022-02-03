@@ -1,11 +1,9 @@
-﻿
-namespace Orchestration.SearchIrps
+﻿namespace Orchestration.SearchIrps;
+
+public enum SearchOnField
 {
-	public enum SearchOnField
-	{
-		Bib,
-		FirstName,
-		LastName,
-		FullName
-	}
+	Bib,
+	FirstName,
+	LastName,
+	FullName
 }

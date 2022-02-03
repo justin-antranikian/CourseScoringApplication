@@ -1,11 +1,9 @@
-﻿
-namespace Core
+﻿namespace Core;
+
+public enum BracketType
 {
-	public enum BracketType
-	{
-		Overall,
-		Gender,
-		PrimaryDivision,
-		NonPrimaryDivision,
-	}
+	Overall,
+	Gender,
+	PrimaryDivision,
+	NonPrimaryDivision,
 }
