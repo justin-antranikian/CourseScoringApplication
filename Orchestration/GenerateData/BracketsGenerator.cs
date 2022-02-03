@@ -17,7 +17,7 @@ public static class BracketsGenerator
 			var overallBracket = new Bracket(courseId, "Overall", BracketType.Overall);
 			yield return overallBracket;
 			yield return overallBracket with { Name = "Male", BracketType = BracketType.Gender };
-			yield return overallBracket with { Name = "Femail", BracketType = BracketType.Gender };
+			yield return overallBracket with { Name = "Female", BracketType = BracketType.Gender };
 
 			var primaryBracketNames = new[] { "M20-25", "F20-25", "M25-30", "F25-30", "M30-35", "F30-35" };
 			foreach (var primaryBracketName in primaryBracketNames)

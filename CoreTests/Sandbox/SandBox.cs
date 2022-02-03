@@ -1,19 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using CoreTests.Sandbox;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CoreTests;
-
-public record Employee(int Id, int? ParentId);
-
-public record EmployeeViewModel(int Id, List<EmployeeViewModel> EmployeeViewModels);
-
-public record Student(int Id, string Name, int Age, bool IsStudent, int StudentTypeId);
-
-public record StudentType(int Id, string StudentTypeName);
-
-public record StudentByTypeGrouping(string StudentTypeName, int Count, List<StudentByTypeViewModel> students);
-
-public record StudentByTypeViewModel(string StudentName, bool IsStudent);
 
 public class SandBox
 {
@@ -70,7 +59,7 @@ public class SandBox
 		return query.ToList();
 	}
 
-	internal static List<(Student Student, string TypeName)> GetStudentsWithName(List<Student> allStudentsPool, List<StudentType> studentTypes)
+	internal static List<(Student Student, string TypeName)> GetStudentsWithTypeName(List<Student> allStudentsPool, List<StudentType> studentTypes)
 	{
 		var studentsWithName = allStudentsPool.Join(studentTypes,
 			student => student.StudentTypeId,
@@ -112,19 +101,6 @@ public class SandBox
 		return true;
 	}
 
-	public static EmployeeViewModel GetTopLevelBoss(List<Employee> employees)
-	{
-		var theBoss = employees.Single(oo => oo.ParentId == null);
-		return GetViewModel(employees, theBoss.Id);
-	}
-
-	public static EmployeeViewModel GetViewModel(List<Employee> employees, int id)
-	{
-		var employeesUnderBoss = employees.Where(oo => oo.ParentId == id);
-		var employeesToAdd = employeesUnderBoss.Select(oo => GetViewModel(employees, oo.Id)).ToList();
-		return new EmployeeViewModel(id, employeesToAdd);
-	}
-
 	public static List<string> GetSortedNames(List<Student> students)
 	{
 		var sorted = new List<string>();
@@ -147,5 +123,29 @@ public class SandBox
 		}
 
 		return sorted;
+	}
+
+	public static IEnumerable<(int StudentId, int StudentWithSameAgeId)> GetLessEffecient(List<Student> students, List<Student> otherStudents)
+    {
+		foreach (var student in students)
+        {
+			var studentWithSameName = otherStudents.Where(oo => oo.Name == student.Name).FirstOrDefault();
+			yield return (student.Id, studentWithSameName?.Id ?? 0);			
+        }
+    }
+
+	public static IEnumerable<(int StudentId, int? StudentWithSameAgeId)> GetMoreEffecient(List<Student> students, List<Student> otherStudents)
+	{
+		var keyValuePairs = otherStudents
+								.GroupBy(oo => oo.Name)
+								.Select(oo => oo.First())
+								.ToDictionary(oo => oo.Name, oo => oo.Id);
+
+		foreach (var student in students)
+		{
+            var hasValue = keyValuePairs.TryGetValue(student.Name, out int value);
+			int? studentWithSameAgeId = hasValue ? value : null;
+			yield return (student.Id, studentWithSameAgeId);
+		}
 	}
 }

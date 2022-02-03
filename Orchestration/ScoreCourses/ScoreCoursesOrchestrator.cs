@@ -14,11 +14,11 @@ namespace Orchestration.ScoreCourses
 
 		public async Task Score()
 		{
-            var allCourses = await _scoringDbContext.Courses.ToListAsync();
-            var allBrackets = await _scoringDbContext.Brackets.ToListAsync();
-            var allIntervals = await _scoringDbContext.Intervals.ToListAsync();
-            var allReads = await _scoringDbContext.TagReads.ToListAsync();
-            var allAthleteCourseBrackets = await _scoringDbContext.AtheleteCourseBrackets.ToListAsync();
+            var allCourses = await _scoringDbContext.Courses.AsNoTracking().ToListAsync();
+            var allBrackets = await _scoringDbContext.Brackets.AsNoTracking().ToListAsync();
+            var allIntervals = await _scoringDbContext.Intervals.AsNoTracking().ToListAsync();
+            var allReads = await _scoringDbContext.TagReads.AsNoTracking().ToListAsync();
+            var allAthleteCourseBrackets = await _scoringDbContext.AtheleteCourseBrackets.AsNoTracking().ToListAsync();
 
             var statistics = new List<CourseStatistic>();
 

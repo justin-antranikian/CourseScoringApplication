@@ -44,16 +44,16 @@ public class GenerateDataOrchestrator
 		await _scoringDbContext.Athletes.AddRangeAsync(athletes);
 		await _scoringDbContext.SaveChangesAsync();
 
-		var persistedAthletes = await _scoringDbContext.Athletes.ToListAsync();
+		var persistedAthletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
 		AthletesUpdator.SetRelationships(persistedAthletes);
 		await _scoringDbContext.SaveChangesAsync();
 	}
 
 	public async Task GenerateAthleteCoursesAndCourseBrackets()
 	{
-		var courses = await _scoringDbContext.Courses.ToListAsync();
-		var athletes = await _scoringDbContext.Athletes.ToListAsync();
-		var brackets = await _scoringDbContext.Brackets.ToListAsync();
+		var courses = await _scoringDbContext.Courses.AsNoTracking().ToListAsync();
+		var athletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
+		var brackets = await _scoringDbContext.Brackets.AsNoTracking().ToListAsync();
 
 		var athleteCourses = AthleteCoursesGenerator.GetAthleteCourses(courses, athletes).ToList();
 		await _scoringDbContext.AthleteCourses.AddRangeAsync(athleteCourses);
@@ -73,8 +73,8 @@ public class GenerateDataOrchestrator
 
 	public async Task GenerateTagReads()
 	{
-		var athleteCourses = await _scoringDbContext.AthleteCourses.ToListAsync();
-		var allIntervals = await _scoringDbContext.Intervals.ToListAsync();
+		var athleteCourses = await _scoringDbContext.AthleteCourses.AsNoTracking().ToListAsync();
+		var allIntervals = await _scoringDbContext.Intervals.AsNoTracking().ToListAsync();
 
 		var reads = TagReadsGenerator.GetTagReads(allIntervals, athleteCourses);
 		await _scoringDbContext.TagReads.AddRangeAsync(reads);
