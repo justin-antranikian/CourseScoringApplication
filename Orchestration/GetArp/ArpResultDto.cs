@@ -1,58 +1,54 @@
-﻿using Core;
-using DataModels;
+﻿namespace Orchestration.GetArp;
 
-namespace Orchestration.GetArp
+public static class ArpResultDtoMapper
 {
-	public static class ArpResultDtoMapper
+	public static ArpResultDto GetArpResultDto(ResultWithBracketType result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
 	{
-		public static ArpResultDto GetArpResultDto(ResultWithBracketType result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
-		{
-			var race = course.Race;
-			var raceSeries = race.RaceSeries;
+		var race = course.Race;
+		var raceSeries = race.RaceSeries;
 
-			var overallTotal = metadataGetTotalHelper.GetOverallTotal();
-			var genderTotal = metadataGetTotalHelper.GetGenderTotal();
-			var primaryTotal = metadataGetTotalHelper.GetPrimaryDivisionTotal();
+		var overallTotal = metadataGetTotalHelper.GetOverallTotal();
+		var genderTotal = metadataGetTotalHelper.GetGenderTotal();
+		var primaryTotal = metadataGetTotalHelper.GetPrimaryDivisionTotal();
 
-			var arpResultDto = new ArpResultDto
-			(
-				result.AthleteCourseId,
-				course.RaceId,
-				race.Name,
-				raceSeries.RaceSeriesType,
-				course.Id,
-				course.Name,
-				raceSeries.State,
-				raceSeries.City,
-				result.OverallRank,
-				result.GenderRank,
-				result.DivisionRank,
-				overallTotal,
-				genderTotal,
-				primaryTotal,
-				paceWithTimeCumulative
-			);
+		var arpResultDto = new ArpResultDto
+		(
+			result.AthleteCourseId,
+			course.RaceId,
+			race.Name,
+			raceSeries.RaceSeriesType,
+			course.Id,
+			course.Name,
+			raceSeries.State,
+			raceSeries.City,
+			result.OverallRank,
+			result.GenderRank,
+			result.DivisionRank,
+			overallTotal,
+			genderTotal,
+			primaryTotal,
+			paceWithTimeCumulative
+		);
 
-			return arpResultDto;
-		}
+		return arpResultDto;
 	}
-
-	public record ArpResultDto
-	(
-		int AthleteCourseId,
-		int RaceId,
-		string RaceName,
-		RaceSeriesType RaceSeriesType,
-		int CourseId,
-		string CourseName,
-		string State,
-		string City,
-		int OverallRank,
-		int GenderRank,
-		int PrimaryDivisionRank,
-		int OverallCount,
-		int GenderCount,
-		int PrimaryDivisionCount,
-		PaceWithTime PaceWithTimeCumulative
-	);
 }
+
+public record ArpResultDto
+(
+	int AthleteCourseId,
+	int RaceId,
+	string RaceName,
+	RaceSeriesType RaceSeriesType,
+	int CourseId,
+	string CourseName,
+	string State,
+	string City,
+	int OverallRank,
+	int GenderRank,
+	int PrimaryDivisionRank,
+	int OverallCount,
+	int GenderCount,
+	int PrimaryDivisionCount,
+	PaceWithTime PaceWithTimeCumulative
+);

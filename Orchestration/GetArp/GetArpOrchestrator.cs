@@ -1,16 +1,12 @@
-﻿using Core;
-using DataModels;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Orchestration.GetArp
 {
-	/// <summary>
-	/// Gets the Arp (Athlete Results Page) dto object.
-	/// </summary>
-	public class GetArpOrchestrator
+    /// <summary>
+    /// Gets the Arp (Athlete Results Page) dto object.
+    /// </summary>
+    public class GetArpOrchestrator
 	{
 		private readonly ScoringDbContext _scoringDbContext;
 

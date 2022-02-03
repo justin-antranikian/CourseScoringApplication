@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Orchestration.GetCourseStatistics;
+﻿namespace Orchestration.GetCourseStatistics;
 
 public record CourseStatisticDto
 (

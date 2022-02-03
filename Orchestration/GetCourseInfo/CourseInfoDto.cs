@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Orchestration.GetCourseInfo;
+﻿namespace Orchestration.GetCourseInfo;
 
 public record CourseInfoDto
 (

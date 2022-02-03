@@ -1,5 +1,4 @@
-﻿
-namespace Orchestration.GetBreadcrumb;
+﻿namespace Orchestration.GetBreadcrumb;
 
 public class GetAthleteBreadcrumbOrchestrator : GetBreadcrumbOrchestratorBase
 {

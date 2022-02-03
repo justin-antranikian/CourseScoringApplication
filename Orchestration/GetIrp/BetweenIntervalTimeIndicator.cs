@@ -1,5 +1,4 @@
-﻿
-namespace Orchestration.GetIrp;
+﻿namespace Orchestration.GetIrp;
 
 public enum BetweenIntervalTimeIndicator
 {
