@@ -2,23 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetDashboardInfo;
 
-namespace WebApplicationSandbox.Controllers
+namespace WebApplicationSandbox.Controllers;
+
+[Route("[controller]")]
+public class DashboardInfoApiController : ControllerBase
 {
-	[Route("[controller]")]
-	public class DashboardInfoApiController : ControllerBase
+	private readonly ScoringDbContext _scoringDbContext;
+
+	public DashboardInfoApiController(ScoringDbContext scoringDbContext)
 	{
-		private readonly ScoringDbContext _scoringDbContext;
+		_scoringDbContext = scoringDbContext;
+	}
 
-		public DashboardInfoApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		public DashboardInfoResponseDto Get([FromQuery] DashboardInfoRequestDto requestDto)
-		{
-			var orchestrator = new GetDashboardInfoOrchestrator(_scoringDbContext);
-			return orchestrator.GetResult(requestDto);
-		}
+	[HttpGet]
+	public DashboardInfoResponseDto Get([FromQuery] DashboardInfoRequestDto requestDto)
+	{
+		var orchestrator = new GetDashboardInfoOrchestrator(_scoringDbContext);
+		return orchestrator.GetResult(requestDto);
 	}
 }

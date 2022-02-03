@@ -2,7 +2,6 @@
 using DataModels;
 using Orchestration.GetLeaderboard.GetCourseLeaderboard;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace OrchestrationTests.GetLeaderboard.GetCourseLeaderboard;

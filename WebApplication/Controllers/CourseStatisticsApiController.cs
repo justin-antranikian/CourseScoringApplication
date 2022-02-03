@@ -4,24 +4,23 @@ using DataModels;
 using Orchestration.GetCourseStatistics;
 using System.Collections.Generic;
 
-namespace WebApplicationSandbox.Controllers
+namespace WebApplicationSandbox.Controllers;
+
+[Route("[controller]")]
+public class CourseStatisticsApiController : ControllerBase
 {
-	[Route("[controller]")]
-	public class CourseStatisticsApiController : ControllerBase
+	private readonly ScoringDbContext _scoringDbContext;
+
+	public CourseStatisticsApiController(ScoringDbContext scoringDbContext)
 	{
-		private readonly ScoringDbContext _scoringDbContext;
+		_scoringDbContext = scoringDbContext;
+	}
 
-		public CourseStatisticsApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		[Route("{athleteCourseId:int}")]
-		public async Task<List<CourseStatisticDto>> Get(int athleteCourseId)
-		{
-			var orchestrator = new GetCourseStatisticsOrchestrator(_scoringDbContext);
-			return await orchestrator.GetStatisticDto(athleteCourseId);
-		}
+	[HttpGet]
+	[Route("{athleteCourseId:int}")]
+	public async Task<List<CourseStatisticDto>> Get(int athleteCourseId)
+	{
+		var orchestrator = new GetCourseStatisticsOrchestrator(_scoringDbContext);
+		return await orchestrator.GetStatisticDto(athleteCourseId);
 	}
 }
