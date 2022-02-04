@@ -18,9 +18,9 @@ public class PerformanceSorterTests
 	[Fact]
 	public void GetLessEffecient_ReturnsCorrectResults()
 	{
-		var generalStudentBody = GetStudents(200000);
+		var extraStudents = GetStudents(200000);
 
-		var generalStudentBodyNameMatches = new List<Student>
+		var students = new List<Student>
 		{
 			new (500000000, "Nancy", 50, false, 1),
 			new (200000000, "Bill", 20, false, 1),
@@ -29,9 +29,9 @@ public class PerformanceSorterTests
 			new (300000000, "Ron", 30, false, 1),
 		};
 
-		generalStudentBody.AddRange(generalStudentBodyNameMatches);
+		extraStudents.AddRange(students);
 
-		var generalTeachersBody = GetStudents(50000);
+		var extraTeachers = GetStudents(50000);
 
 		var teachers = new List<Student>
 		{
@@ -42,17 +42,17 @@ public class PerformanceSorterTests
 			new (5, "Nancy", 50, false, 1),
 		};
 
-		teachers.AddRange(generalTeachersBody);
+		teachers.AddRange(extraTeachers);
 
-		var sortedStudentNames = PerformanceSorter.GetMoreEffecient(teachers, generalStudentBody).ToArray();
+		var sortedStudentNames = PerformanceSorter.GetMoreEffecient(teachers, extraStudents).ToArray();
 
 		Assert.Collection(sortedStudentNames[0..2], result =>
 		{
-			Assert.Equal(1, result.StudentId);
+			Assert.Equal(1, result.TeacherId);
 			Assert.Equal(100000000, result.StudentWithSameAgeId);
 		}, result =>
 		{
-			Assert.Equal(2, result.StudentId);
+			Assert.Equal(2, result.TeacherId);
 			Assert.Equal(200000000, result.StudentWithSameAgeId);
 		});
 	}

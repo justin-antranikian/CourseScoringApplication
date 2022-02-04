@@ -232,6 +232,7 @@ _Pvt_Extensions
 
 bin
 obj
+.vs
 
 DatabaseProject.jfm
 
