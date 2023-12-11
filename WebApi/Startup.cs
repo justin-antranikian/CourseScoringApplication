@@ -22,7 +22,15 @@ namespace WebApi
 		{
 			services.AddControllers();
 
-			var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true";
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader());
+            });
+
+            var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true";
 			services.AddDbContextPool<ScoringDbContext>(options => options.UseSqlServer(dbConnection));
 		}
 
@@ -40,7 +48,9 @@ namespace WebApi
 
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoints =>
+            app.UseCors("AllowAll");
+
+            app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
 			});

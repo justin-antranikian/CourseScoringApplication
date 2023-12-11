@@ -39,7 +39,8 @@ public class SandBoxTests
 	{
 		Assert.False(SandBox.IsPalidrome("magic"));
 		Assert.True(SandBox.IsPalidrome("terret"));
-		Assert.True(SandBox.IsPalidrome("racecar"));
+		Assert.False(SandBox.IsPalidrome("terreu"));
+        Assert.True(SandBox.IsPalidrome("racecar"));
 	}
 
 	[Fact]

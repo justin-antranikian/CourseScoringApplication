@@ -20,6 +20,7 @@ import { IrpSearchResultDto } from '../_orchestration/searchIrps/irpSearchResult
 import { DashboardInfoRequestDto } from '../_orchestration/getDashboardInfo/dashboardInfoRequestDto';
 import { DashboardInfoResponseDto } from '../_orchestration/getDashboardInfo/dashboardInfoResponseDto';
 import { GetCompetetorsForIrpDto } from '../_orchestration/getCompetetorsForIrp/GetCompetetorsForIrpDto';
+// import { GetCompetetorsForIrpDto } from '../_orchestration/getCompetetorsForIrp/GetCompetetorsForIrpDto';
 
 @Injectable({
   providedIn: 'root'

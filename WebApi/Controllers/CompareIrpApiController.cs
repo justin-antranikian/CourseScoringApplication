@@ -6,25 +6,20 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
-	public class CompareIrpApiRequest
+    public class CompareIrpApiRequest
 	{
 		public List<int> AthleteCourseIds { get; set; }
 	}
 
 	[Route("[controller]")]
-	public class CompareIrpApiController : ControllerBase
+	public class CompareIrpApiController(ScoringDbContext scoringDbContext) : ControllerBase
 	{
-		private readonly ScoringDbContext _scoringDbContext;
+		private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
 
-		public CompareIrpApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpPost]
+        [HttpPost]
 		public async Task<List<CompareIrpsAthleteInfoDto>> Post([FromBody]CompareIrpApiRequest compareIrpApiRequest)
 		{
-			var orchestrator = new CompareIrpsOrchestrator(_scoringDbContext);
+            var orchestrator = new CompareIrpsOrchestrator(_scoringDbContext);
 			return await orchestrator.GetCompareIrpsDto(compareIrpApiRequest.AthleteCourseIds);
 		}
 	}
