@@ -2,6 +2,7 @@ import { RaceSeriesType } from "../_core/enums/raceSeriesType"
 import { removeUndefinedKeyValues } from "./jsonHelpers"
 
 export class RaceTypeFilterModel {
+
   constructor (
     public running: boolean = true,
     public triathalon: boolean = true,

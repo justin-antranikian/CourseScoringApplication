@@ -2,6 +2,12 @@
 
 namespace CoreTests.Sandbox;
 
+public record EmployeeWithBower(int Id, List<EmployeeWithBower> EmployeeViewModels)
+{
+    public int leftBower;
+    public int rightBower;
+};
+
 public record Employee(int Id, int? ParentId);
 
 public record EmployeeViewModel(int Id, List<EmployeeViewModel> EmployeeViewModels);

@@ -18,7 +18,8 @@ public class StudentHelperTests
 			new (3, "one", 21, true, 1),
 			new (4, "one", 20, false, 1),
 			new (5, "one", 25, true, 1),
-		};
+            new (5, "two", 25, true, 1),
+        };
 
 		var filteredStudents = StudentHelper.GetFilteredStudents(students);
 

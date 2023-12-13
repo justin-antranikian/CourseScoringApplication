@@ -28,18 +28,25 @@ public class SandBox
 			}
 		}
 
-		return noDups.ToArray();
+		return [.. noDups];
 	}
 
 	internal static List<string> GetSortedNames(List<Student> students)
 	{
-		var sorted = new List<string>();
-		foreach (var name in students.Select(oo => oo.Name))
+		var filteredNames = new List<string>();
+
+        foreach (var name in students.Select(oo => oo.Name))
 		{
 			var index = 0;
-			foreach (var studentPoolName in sorted.Where(oo => oo != name))
+
+            if (filteredNames.Contains(name))
+            {
+                break;
+            }
+
+            foreach (var existingName in filteredNames)
 			{
-				var comesBefore = name.CompareTo(studentPoolName) == -1;
+				var comesBefore = name.CompareTo(existingName) == -1;
 
 				if (comesBefore)
 				{
@@ -49,20 +56,21 @@ public class SandBox
 				index++;
 			}
 
-			sorted.Insert(index, name);
-		}
+            filteredNames.Insert(index, name);
+        }
 
-		return sorted;
+		return filteredNames;
 	}
 
 	internal static bool IsPalidrome(string str)
 	{
 		var stringLength = str.Length;
+		var endingIndex = stringLength - 1;
 
 		for (var i = 0; i < stringLength / 2; i++)
 		{
 			var fromStart = str[i];
-			var fromEnd = str[stringLength - 1 - i];
+			var fromEnd = str[endingIndex - i];
 
 			if (fromStart != fromEnd)
 			{
