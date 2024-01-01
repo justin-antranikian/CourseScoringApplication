@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchestrationTests", "Orche
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{FC1716BD-5D58-425D-869F-3C73214AE9CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{53D09931-3FA7-4AAA-98C5-C8A26FDFBB96}"
-EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabaseProject", "DatabaseProject\DatabaseProject.sqlproj", "{6084F807-AEB4-4A7E-9A57-D3C882980701}"
 EndProject
 Global
@@ -51,10 +49,6 @@ Global
 		{FC1716BD-5D58-425D-869F-3C73214AE9CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC1716BD-5D58-425D-869F-3C73214AE9CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC1716BD-5D58-425D-869F-3C73214AE9CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53D09931-3FA7-4AAA-98C5-C8A26FDFBB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53D09931-3FA7-4AAA-98C5-C8A26FDFBB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53D09931-3FA7-4AAA-98C5-C8A26FDFBB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53D09931-3FA7-4AAA-98C5-C8A26FDFBB96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6084F807-AEB4-4A7E-9A57-D3C882980701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6084F807-AEB4-4A7E-9A57-D3C882980701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6084F807-AEB4-4A7E-9A57-D3C882980701}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
