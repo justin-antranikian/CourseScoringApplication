@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using DataModels;
 using System.Collections.Generic;
 using Orchestration.AthletesSearch;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 
 namespace WebApplicationSandbox.Controllers
 {
@@ -11,16 +13,38 @@ namespace WebApplicationSandbox.Controllers
 	{
 		private readonly ScoringDbContext _scoringDbContext;
 
-		public AthleteSearchApiController(ScoringDbContext scoringDbContext)
+		private readonly IMemoryCache _memoryCache;
+
+		public AthleteSearchApiController(ScoringDbContext scoringDbContext, IMemoryCache memoryCache)
 		{
 			_scoringDbContext = scoringDbContext;
+			_memoryCache = memoryCache;
 		}
+
+		private static object LockObject = new();
 
 		[HttpGet]
 		public async Task<List<AthleteSearchResultDto>> Get(SearchAthletesRequestDto searchRequestDto)
 		{
-			var orchestrator = new SearchAthletesOrchestrator(_scoringDbContext);
-			return await orchestrator.GetSearchResults(searchRequestDto);
+			var fromCache = _memoryCache.Get<List<AthleteSearchResultDto>>("SeachResults");
+
+			if (fromCache != null)
+			{
+				return fromCache;
+			}
+
+            var orchestrator = new SearchAthletesOrchestrator(_scoringDbContext);
+			var results = await orchestrator.GetSearchResults(searchRequestDto);
+
+			lock (LockObject)
+			{
+				if (_memoryCache.TryGetValue("SeachResults", out var _))
+				{
+                    _memoryCache.Set("SeachResults", results, TimeSpan.FromDays(1));
+                }
+            }
+
+            return results;
 		}
 	}
 }

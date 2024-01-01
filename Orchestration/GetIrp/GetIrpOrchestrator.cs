@@ -1,14 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using DataModels;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Orchestration.GetIrp;
 
 public class GetIrpOrchestrator
 {
 	private readonly GetIrpRepository _getIrpRepository;
+	private readonly ScoringDbContext dbContext;
 
-	public GetIrpOrchestrator(ScoringDbContext scoringDbContext)
+    public GetIrpOrchestrator(ScoringDbContext scoringDbContext)
 	{
 		_getIrpRepository = new GetIrpRepository(scoringDbContext);
+		dbContext = scoringDbContext;
 	}
 
 	public async Task<IrpDto> GetIrpDto(int athleteCourseId)
@@ -23,7 +27,7 @@ public class GetIrpOrchestrator
 		var paceWithTimeCumulative = course.GetPaceWithTime(highestIntervalResult.TimeOnCourse, highestInterval.DistanceFromStart);
 
 		var irpDto = IrpDtoMapper.GetIrpDto(athleteCourse, course, paceWithTimeCumulative, bracketResults, intervalResults);
-		return irpDto;
+        return irpDto;
 	}
 
 	private static IEnumerable<IrpResultByBracketDto> GetIrpResultByBrackets(Course course, List<BracketMetadata> metadataEntries, List<Result> results)

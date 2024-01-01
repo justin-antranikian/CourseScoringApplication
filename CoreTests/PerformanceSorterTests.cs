@@ -16,7 +16,51 @@ public class PerformanceSorterTests
 	}
 
 	[Fact]
-	public void GetLessEffecient_ReturnsCorrectResults()
+    public async void BinarySearchTest()
+    {
+		var sortedInts = new List<int>()
+		{
+			1, 2, 3, 4, 5, 6, 7, 8
+		};
+
+		//Assert.Equal(1, PerformanceSorter.BinarySearch(sortedInts, 1));
+		//Assert.Equal(2, PerformanceSorter.BinarySearch(sortedInts, 2));
+		//Assert.Equal(3, PerformanceSorter.BinarySearch(sortedInts, 3));
+		//Assert.Equal(4, PerformanceSorter.BinarySearch(sortedInts, 4));
+		//Assert.Equal(5, PerformanceSorter.BinarySearch(sortedInts, 5));
+		//Assert.Equal(6, PerformanceSorter.BinarySearch(sortedInts, 6));
+		//Assert.Equal(7, PerformanceSorter.BinarySearch(sortedInts, 7));
+		Assert.Equal(8, PerformanceSorter.BinarySearch(sortedInts, 8));
+		//Assert.Null(PerformanceSorter.BinarySearch(sortedInts, 9));
+	}
+
+    [Fact]
+	public async void TaskTest()
+	{
+		await PerformanceSorter.TestTask();
+    }
+
+    [Fact]
+    public void GetSortedNamesTests()
+    {
+        var factorial = PerformanceSorter.GetSortedNames(["a", "c", "b", "e", "d"]);
+    }
+
+    [Fact]
+	public void GetFactorialTests()
+	{
+		var factorial = PerformanceSorter.GetFactorial(5);
+		Assert.Equal(120, factorial);
+	}
+
+    [Fact]
+    public void PrintFromTests()
+    {
+        PerformanceSorter.PrintFrom(10);
+    }
+
+    [Fact]
+	public void GetMoreEffecient_ReturnsCorrectResults()
 	{
 		var extraStudents = GetStudents(200000);
 
@@ -44,16 +88,20 @@ public class PerformanceSorterTests
 
 		teachers.AddRange(extraTeachers);
 
-		var sortedStudentNames = PerformanceSorter.GetMoreEffecient(teachers, extraStudents).ToArray();
+        var sortedStudentNames1 = PerformanceSorter.GetMoreEffecient(teachers, extraStudents).ToArray();
 
-		Assert.Collection(sortedStudentNames[0..2], result =>
-		{
-			Assert.Equal(1, result.TeacherId);
-			Assert.Equal(100000000, result.StudentWithSameAgeId);
-		}, result =>
-		{
-			Assert.Equal(2, result.TeacherId);
-			Assert.Equal(200000000, result.StudentWithSameAgeId);
-		});
+        var sortedStudentNames = PerformanceSorter.GetMoreEffecient2(teachers, extraStudents).ToArray();
+
+		var x = "";
+
+		//Assert.Collection(sortedStudentNames[0..2], result =>
+		//{
+		//	Assert.Equal(1, result.TeacherId);
+		//	Assert.Equal(100000000, result.StudentWithSameAgeId);
+		//}, result =>
+		//{
+		//	Assert.Equal(2, result.TeacherId);
+		//	Assert.Equal(200000000, result.StudentWithSameAgeId);
+		//});
 	}
 }

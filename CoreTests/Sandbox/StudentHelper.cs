@@ -23,12 +23,26 @@ public class StudentHelper
 		var query = unfilteredStudents
 						.Where(oo => oo.Age >= 20 && oo.IsStudent)
 						.GroupBy(oo => oo.Name)
-						.Select(oo => oo.OrderBy(oo => oo.Age).First());
+						.Select(oo => oo.MinBy(oo => oo.Age));
 
 		return query.ToList();
 	}
 
-	internal static List<(int StudentId, string TypeName)> GetStudentsWithDefaultName(List<Student> allStudentsPool, List<StudentType> studentTypes, int ageThreshold)
+	internal static List<(int StudentId, string TypeName)> GetStudentsWithDefaultName2(List<Student> allStudentsPool, List<StudentType> studentTypes, int ageThreshold)
+	{
+		var studentTypeLookups = studentTypes.ToDictionary(oo => oo.Id, oo => oo.StudentTypeName);
+
+		var results = new List<(int StudentId, string TypeName)>();
+		foreach (var student in allStudentsPool)
+		{
+			var studentTypeLookup = studentTypeLookups.TryGetValue(student.StudentTypeId, out string value) ? value : "Unknown";
+			results.Add((student.Id, studentTypeLookup));
+		}
+
+		return results;
+    }
+
+    internal static List<(int StudentId, string TypeName)> GetStudentsWithDefaultName(List<Student> allStudentsPool, List<StudentType> studentTypes, int ageThreshold)
 	{
 		var studentTypeKeys = studentTypes.ToDictionary(oo => oo.Id, oo => oo.StudentTypeName);
 
@@ -39,11 +53,5 @@ public class StudentHelper
 		}
 
 		return allStudentsPool.Where(oo => oo.Age > ageThreshold).Select(MapToTypeName).ToList();
-	}
-
-	internal static List<Student> CreateTheUnitTestsFor(List<Student> unfilteredStudents)
-	{
-		var query = unfilteredStudents.Where(oo => (oo.IsStudent || oo.StudentTypeId == 1) && oo.Age >= 20);
-		return query.ToList();
 	}
 }

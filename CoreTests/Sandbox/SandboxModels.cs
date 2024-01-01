@@ -12,7 +12,10 @@ public record Employee(int Id, int? ParentId);
 
 public record EmployeeViewModel(int Id, List<EmployeeViewModel> EmployeeViewModels);
 
-public record Student(int Id, string Name, int Age, bool IsStudent, int StudentTypeId);
+public record Student(int Id, string Name, int Age, bool IsStudent, int StudentTypeId)
+{
+    public static Student CreateDefault() => new (0, "", 10, true, 1);
+};
 
 public record StudentType(int Id, string StudentTypeName);
 

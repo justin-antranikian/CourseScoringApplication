@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using DataModels;
 using Orchestration.GetIrp;
+using System.Linq;
+using System.Data.Entity;
 
 namespace WebApplicationSandbox.Controllers
 {
@@ -20,7 +22,8 @@ namespace WebApplicationSandbox.Controllers
 		public async Task<IrpDto> Get(int athleteCourseId)
 		{
 			var orchestrator = new GetIrpOrchestrator(_scoringDbContext);
-			return await orchestrator.GetIrpDto(athleteCourseId);
+
+            return await orchestrator.GetIrpDto(athleteCourseId);
 		}
 	}
 }

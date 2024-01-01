@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace CoreTests.Sandbox;
 
 internal class GetTopLevelBossHelper
 {
-	internal static int BowerCount = 0;
-
 	internal static EmployeeViewModel GetTopLevelBoss(List<Employee> employees)
 	{
 		var theBoss = employees.Single(oo => oo.ParentId == null);
@@ -65,4 +64,3 @@ internal class GetTopLevelBossHelper
 		return empoloyeeWithBower;
 	}
 }
-

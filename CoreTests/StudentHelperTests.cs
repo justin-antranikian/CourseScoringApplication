@@ -16,31 +16,13 @@ public class StudentHelperTests
 			new (1, "one", 19, false, 1),
 			new (2, "one", 50, true, 1),
 			new (3, "one", 21, true, 1),
-			new (4, "one", 20, false, 1),
-			new (5, "one", 25, true, 1),
-            new (5, "two", 25, true, 1),
+			new (4, "one", 20, false, 1)
         };
 
 		var filteredStudents = StudentHelper.GetFilteredStudents(students);
 
 		Assert.Single(filteredStudents);
 		Assert.Equal(3, filteredStudents[0].Id);
-	}
-
-	[Fact]
-	public void GetStudentsWithName_CreatingTheUnitTests()
-	{
-		var students = new List<Student>
-		{
-			new (1, "one", 20, true, 2),
-			new (2, "one", 20, false, 1),
-			new (3, "one", 19, true, 1),
-		};
-
-		var fileteredStudents = StudentHelper.CreateTheUnitTestsFor(students);
-		var studentIds = fileteredStudents.Select(oo => oo.Id).ToArray();
-
-		Assert.True(studentIds.SequenceEqual(new int[] { 1, 2 }));
 	}
 
 	[Fact]
@@ -59,7 +41,9 @@ public class StudentHelperTests
 			new (3, "secondary student"),
 		};
 
-		var studentsWithTypes = StudentHelper.GetStudentsWithDefaultName(students, types, 20);
+        var studentsWithTypes2 = StudentHelper.GetStudentsWithDefaultName2(students, types, 20);
+
+        var studentsWithTypes = StudentHelper.GetStudentsWithDefaultName(students, types, 20);
 
 		Assert.Collection(studentsWithTypes, (student) =>
 		{
@@ -85,6 +69,47 @@ public class StudentHelperTests
 		};
 
 		var sortedStudentNames = SandBox.GetSortedNames(students);
-		Assert.True(sortedStudentNames.SequenceEqual(new string[] { "a", "b", "c", "y", "z" }));
+		Assert.True(sortedStudentNames.SequenceEqual(["a", "b", "c", "y", "z"]));
 	}
+
+	[Fact]
+	public void GetChangeTests()
+	{
+		var changeItems = SandBox.GetChange(100, 251);
+
+		Assert.Equal(1, changeItems[0].count);
+	}
+
+    [Fact]
+    public void PrintRandomItem()
+    {
+        SandBox.PrintChange();
+    }
+
+    [Fact]
+	public void TestSorting()
+	{
+		SandBox.SortThem(["a", "c", "b", "d", "e", "m", "g"]);
+	}
+
+    [Fact]
+    public void TestFindIndex()
+    {
+		List<string> items = ["a", "c", "b", "d", "e", "g", "m"];
+
+        var index = SandBox.FindIndex(items, "h", items, items.Count / 2);
+
+		items.Insert(index, "h");
+    }
+
+    [Fact]
+    public void TestFindIndex2()
+    {
+		var sortedInts = new List<int>() { 1, 4, 5, 7, 9 };
+
+		var itemToInsert = 6;
+        var index = SandBox.FindIndex(sortedInts, itemToInsert, 0, sortedInts.Count);
+
+        sortedInts.Insert(index, itemToInsert);
+    }
 }

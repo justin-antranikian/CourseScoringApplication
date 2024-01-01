@@ -3,11 +3,8 @@
 public class LocationInfoWithRank : LocationInfoWithUrl
 {
 	public int OverallRank { get; }
-
 	public int StateRank { get; }
-
 	public int AreaRank { get; }
-
 	public int CityRank { get; }
 
 	public LocationInfoWithRank(RaceSeries raceSeries) : base(raceSeries)
