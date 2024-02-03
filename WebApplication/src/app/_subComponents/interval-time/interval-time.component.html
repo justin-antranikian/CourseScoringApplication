@@ -1,0 +1,8 @@
+
+<div *ngIf="paceTime">
+  <div class="font-20 font-weight-bold">{{paceTime.timeFormatted}}</div>
+  <div *ngIf="paceTime.hasPace">
+    <strong class="mr-1">{{paceTime.paceValue || 'N/A'}}</strong>{{paceTime.paceLabel}}
+  </div>
+</div>
+<div *ngIf="!paceTime">--</div>

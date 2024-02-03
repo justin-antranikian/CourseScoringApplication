@@ -1,0 +1,36 @@
+
+<ng-container *ngIf="breadcrumbLocation === breadcrumbAll">
+  All Events
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbState">
+  <a [routerLink]="EventsPage">All Events</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbArea">
+  <a [routerLink]="[EventsStatePage, stateUrl]">{{state}}</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbCity">
+  <a [routerLink]="[EventsAreaPage, areaUrl]">{{area}}</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbRaceSeriesOrArp">
+  <a [routerLink]="[EventsCityPage, cityUrl]">{{city}}</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbRaceLeaderboard">
+  <a [routerLink]="[RaceSeriesDashboardPage, raceSeriesDisplayWithId.id]">{{raceSeriesDisplayWithId.displayName}}</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbCourseLeaderboard">
+  <a [routerLink]="[RaceLeaderboardPage, raceDisplayWithId.id]">{{raceDisplayWithId.displayName}}</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbIrp">
+  <a [routerLink]="[CourseLeaderboardPage, courseDisplayWithId.id]">{{courseDisplayWithId.displayName}}</a> >
+</ng-container>
+
+<ng-container *ngIf="breadcrumbLocation >= breadcrumbState">
+  {{title}}
+</ng-container>

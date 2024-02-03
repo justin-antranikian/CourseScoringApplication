@@ -1,0 +1,104 @@
+
+<div *ngIf="eventsBreadcrumbResult" class="mb-3">
+  <a [routerLink]="EventsPage">All Events</a> >
+  <a [routerLink]="[EventsStatePage, eventsBreadcrumbResult.locationInfoWithUrl.stateUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.state}}</a> >
+  <a [routerLink]="[EventsAreaPage, eventsBreadcrumbResult.locationInfoWithUrl.areaUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.area}}</a> >
+  <a [routerLink]="[EventsCityPage, eventsBreadcrumbResult.locationInfoWithUrl.cityUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.city}}</a> >
+  <a [routerLink]="[RaceSeriesDashboardPage, eventsBreadcrumbResult.raceSeriesDisplayWithId.id]">{{eventsBreadcrumbResult.raceSeriesDisplayWithId.displayName}}</a> >
+  <a [routerLink]="[RaceLeaderboardPage, eventsBreadcrumbResult.raceDisplayWithId.id]">{{eventsBreadcrumbResult.raceDisplayWithId.displayName}}</a> >
+  <a [routerLink]="[CourseLeaderboardPage, eventsBreadcrumbResult.courseDisplayWithId.id]">{{eventsBreadcrumbResult.courseDisplayWithId.displayName}}</a> >
+  Compare Results
+</div>
+
+<hr />
+
+<ng-container *ngIf="dataLoaded">
+
+  <div>
+    <img width="120px" height="120px" [src]="courseInfo.raceSeriesImageUrl">
+  </div>
+
+  <div class="mt-4 font-24 font-weight-bold">{{courseInfo.raceName}}</div>
+  <div class="font-18 primary-color font-weight-bold">{{courseInfo.courseName}}</div>
+  <div class="font-14">
+    <div>{{courseInfo.raceSeriesCity}}, {{courseInfo.raceSeriesState}}</div>
+    <div>Distance: {{courseInfo.courseDistance}}</div>
+    <div>{{courseInfo.courseDate}} at <strong>{{courseInfo.courseTime}}</strong></div>
+  </div>
+  <div class="font-12 font-italic font-weight-bold">- "{{courseInfo.raceSeriesDescription}}"</div>
+
+  <hr />
+
+  <div class="row mb-4">
+    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+
+      <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="font-24 font-weight-bold">{{athleteInfo.fullName}}</div>
+      <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="font-18">{{athleteInfo.city}}, {{athleteInfo.state}}</div>
+      <div class="font-12">{{athleteInfo.genderAbbreviated}} | {{athleteInfo.raceAge}}</div>
+      <div><span class="mt-2 font-20 badge badge-dark" title="bib">{{athleteInfo.bib}}</span></div>
+
+      <div *ngIf="athleteInfo.finishInfo">
+        <div>{{athleteInfo.finishInfo.finishTime}}</div>
+        <div>
+        <span class="font-20 font-weight-bold">{{athleteInfo.finishInfo.paceWithTimeCumulative.timeFormatted}}</span>
+          <ng-container *ngIf="athleteInfo.finishInfo.paceWithTimeCumulative.hasPace">
+            ({{athleteInfo.finishInfo.paceWithTimeCumulative.paceValue}} {{athleteInfo.finishInfo.paceWithTimeCumulative.paceLabel}})
+          </ng-container>
+        </div>
+      </div>
+
+      <div *ngIf="!athleteInfo.finishInfo">
+        --
+      </div>
+
+      <div>
+        <a [routerLink]="[IndividualResultPage, athleteInfo.athleteCourseId]" title="view result" class="badge badge-info">
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 0"><i class="fa fa-trophy mr-1" aria-hidden="true"></i>Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 1">2nd Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 2">3rd Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 3">4rth Best Result</ng-container>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row mb-4">
+    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+      <table class="my-5 genericDataTable">
+        <thead>
+          <tr>
+            <th style="width: 81%" class="text-left" scope="col"></th>
+            <th title="Overall" style="width: 7%" scope="col">O</th>
+            <th title="Gender" style="width: 7%" scope="col">G</th>
+            <th title="Division" style="width: 7%" scope="col">D</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of athleteInfo.compareIrpsIntervalDtos">
+            <td class="text-left py-2">
+              <div class="font-18 font-weight-bold">{{result.intervalName}}</div>
+              <div class="primary-color font-weight-bold">{{result.crossingTime ? result.crossingTime : "--"}}</div>
+              <div *ngIf="result.paceWithTime">
+                <span class="font-12 font-weight-bold"><strong>{{result.paceWithTime.timeFormatted}}</strong></span>
+                <span style="font-size: 12px;" *ngIf="result.paceWithTime.hasPace">
+                  ({{result.paceWithTime.paceValue}} {{result.paceWithTime.paceLabel}})
+                </span>
+              </div>
+              <div *ngIf="!result.paceWithTime">
+                --
+              </div>
+            </td>
+
+            <td class="py-1">{{result.overallRank ? result.overallRank : '--'}}</td>
+            <td class="py-1">{{result.genderRank ? result.genderRank : '--'}}</td>
+            <td class="py-1">{{result.primaryDivisionRank ? result.primaryDivisionRank : '--'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</ng-container>

@@ -1,0 +1,58 @@
+<div class="row mt-3">
+  <div class="col-4">
+    <ng-container *ngTemplateOutlet="courseInfoTemplate"></ng-container>
+  </div>
+  <div class="col-8 text-center">
+    <img src="/assets/img/map2.png">
+    <div class="mt-4 text-center">
+      <a class="btn btn btn-outline-primary" [routerLink]="[CourseLeaderboardPage, id]" role="button">Course Leaderboard</a>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="font-20 font-weight-bold">Participants</div>
+<ng-container *ngTemplateOutlet="participantsTableTemplate"></ng-container>
+
+<ng-template #courseInfoTemplate>
+
+  <div class="font-18 font-weight-bold">Course Info</div>
+  <div class="mt-3 font-12 primary-color font-italic" *ngFor="let courseInfo of descriptionEntries">
+    <strong>"{{courseInfo.description}}"</strong>
+  </div>
+
+  <hr />
+  <div class="font-18 font-weight-bold">Promotional</div>
+  <div class="mt-3 font-12 font-italic" *ngFor="let courseInfo of promotionalEntries">
+    "{{courseInfo.description}}" (course sponser)
+  </div>
+
+  <hr />
+  <div class="font-18 font-weight-bold">How To Prepare</div>
+  <ul class="mt-3">
+    <li class="font-12" *ngFor="let prepareEntry of howToPrepareEntries">{{prepareEntry.description}}</li>
+  </ul>
+
+</ng-template>
+
+<ng-template #participantsTableTemplate>
+
+  <table class="my-5 genericDataTable">
+    <thead>
+      <tr>
+        <th style="width: 5%"></th>
+        <th style="width: 10%" scope="col"></th>
+        <th style="width: 20%" scope="col">Bib</th>
+        <th style="width: 35%" scope="col">Name</th>
+        <th style="width: 30%" scope="col">State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let participant of participants">
+        <tr app-race-series-participant [participant]="participant"></tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+</ng-template>

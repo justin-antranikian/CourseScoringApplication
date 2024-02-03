@@ -1,0 +1,13 @@
+
+.searchResultsContainer {
+  position: absolute;
+  top: 108px;
+  right: 43px;
+  padding: 20px 10px;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid black;
+  width: 348px;
+  overflow-y: scroll;
+  max-height: 300px;
+}

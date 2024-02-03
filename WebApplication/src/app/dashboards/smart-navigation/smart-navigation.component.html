@@ -1,0 +1,40 @@
+<ul class="text-success">
+  <li>
+    <ng-container *ngTemplateOutlet="expandCollapse;context:{navItem: dashboardInfoResponseDto.stateNavigationItem}"></ng-container>
+    <ng-container *ngTemplateOutlet="details;context:{navItem: dashboardInfoResponseDto.stateNavigationItem, url: stateRoute}"></ng-container>
+  </li>
+  <ul class="ml-2" *ngIf="dashboardInfoResponseDto.stateNavigationItem.isOpen">
+    <li [title]="navItem.displayName" *ngFor="let navItem of dashboardInfoResponseDto.areas">
+      <ng-container *ngTemplateOutlet="expandCollapse;context:{navItem: navItem}"></ng-container>
+      <ng-container *ngTemplateOutlet="details;context:{navItem: navItem, url: areaRoute}"></ng-container>
+      <ul *ngIf="navItem.isOpen">
+        <li class="ml-4" [title]="item.displayName" *ngFor="let item of navItem.items">
+          <ng-container *ngTemplateOutlet="details;context:{navItem: item, url: cityRoute}"></ng-container>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</ul>
+
+<hr />
+
+<app-smart-navigation-states [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="useEventsNavigation"></app-smart-navigation-states>
+
+<ng-template #details let-navItem="navItem" let-url="url">
+
+  <span title="{{navItem.displayName}} ({{navItem.count}} total)">
+    <a *ngIf="!navItem.isHighlighted" class="text-success" [routerLink]="[url, navItem.displayNameUrl]">{{navItem.displayName}}</a>
+    <span class="highlighted" *ngIf="navItem.isHighlighted">{{navItem.displayName}}</span>
+    <span class="float-right badge badge-success">{{navItem.count}}</span>
+  </span>
+
+</ng-template>
+
+<ng-template #expandCollapse let-navItem="navItem">
+
+  <button class="btn-plain text-dark mr-1" (click)="navItem.isOpen = !navItem.isOpen">
+    <i *ngIf="!navItem.isOpen" class="fa fa-plus"></i>
+    <i *ngIf="navItem.isOpen" class="fa fa-minus"></i>
+  </button>
+
+</ng-template>
