@@ -2,7 +2,7 @@
 
 public enum CourseInformationType
 {
-	Description,
-	Promotional,
-	HowToPrepare
+    Description,
+    Promotional,
+    HowToPrepare
 }

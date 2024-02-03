@@ -2,9 +2,9 @@
 
 public enum AthleteWellnessType
 {
-	Goal,
-	Training,
-	Gear,
-	Diet,
-	Motivational
+    Goal,
+    Training,
+    Gear,
+    Diet,
+    Motivational
 }

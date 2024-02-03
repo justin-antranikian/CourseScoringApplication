@@ -2,8 +2,8 @@
 
 public enum BracketType
 {
-	Overall,
-	Gender,
-	PrimaryDivision,
-	NonPrimaryDivision,
+    Overall,
+    Gender,
+    PrimaryDivision,
+    NonPrimaryDivision,
 }

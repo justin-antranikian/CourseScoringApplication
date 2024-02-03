@@ -2,26 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetCompetetorsForIrp;
 using System.Threading.Tasks;
-using static Orchestration.GetCompetetorsForIrp.IrpCompetetorDto;
 
-namespace WebApplication.Controllers
+namespace WebApplication.Controllers;
+
+[Route("[controller]")]
+public class IrpCompetetorsApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-	[Route("[controller]")]
-	public class IrpCompetetorsApiController : ControllerBase
-	{
-		private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
 
-		public IrpCompetetorsApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		[Route("{athleteCourseId:int}")]
-		public async Task<GetCompetetorsForIrpDto> Get(int athleteCourseId)
-		{
-			var orchestrator = new GetCompetetorsForIrpOrchestrator(_scoringDbContext);
-			return await orchestrator.GetCompetetorsForIrpResult(athleteCourseId);
-		}
-	}
+    [HttpGet]
+    [Route("{athleteCourseId:int}")]
+    public async Task<GetCompetetorsForIrpDto> Get(int athleteCourseId)
+    {
+        var orchestrator = new GetCompetetorsForIrpOrchestrator(_scoringDbContext);
+        return await orchestrator.GetCompetetorsForIrpResult(athleteCourseId);
+    }
 }

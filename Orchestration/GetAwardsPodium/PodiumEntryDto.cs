@@ -2,8 +2,8 @@
 
 public record PodiumEntryDto
 (
-	string BracketName,
-	AwardWinnerDto? FirstPlaceAthlete,
-	AwardWinnerDto? SecondPlaceAthlete,
-	AwardWinnerDto? ThirdPlaceAthlete
+    string BracketName,
+    AwardWinnerDto? FirstPlaceAthlete,
+    AwardWinnerDto? SecondPlaceAthlete,
+    AwardWinnerDto? ThirdPlaceAthlete
 );

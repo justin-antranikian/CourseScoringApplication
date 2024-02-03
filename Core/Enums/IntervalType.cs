@@ -2,11 +2,11 @@
 
 public enum IntervalType
 {
-	Swim,
-	Bike,
-	Run,
-	Transition,
-	FullCourse,
-	MountainBike,
-	CrossCountrySki,
+    Swim,
+    Bike,
+    Run,
+    Transition,
+    FullCourse,
+    MountainBike,
+    CrossCountrySki,
 }

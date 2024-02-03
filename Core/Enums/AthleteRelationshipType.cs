@@ -2,6 +2,6 @@
 
 public enum AthleteRelationshipType
 {
-	Rival,
-	Following
+    Rival,
+    Following
 }

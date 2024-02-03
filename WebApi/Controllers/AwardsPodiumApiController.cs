@@ -4,24 +4,18 @@ using DataModels;
 using Orchestration.GetAwardsPodium;
 using System.Collections.Generic;
 
-namespace WebApplicationSandbox.Controllers
+namespace WebApplicationSandbox.Controllers;
+
+[Route("[controller]")]
+public class AwardsPodiumApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-	[Route("[controller]")]
-	public class AwardsPodiumApiController : ControllerBase
-	{
-		private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
 
-		public AwardsPodiumApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		[Route("{courseId:int}")]
-		public async Task<List<PodiumEntryDto>> Get(int courseId)
-		{
-			var orchestrator = new GetAwardsPodiumOrchestrator(_scoringDbContext);
-			return await orchestrator.GetPodiumEntries(courseId);
-		}
-	}
+    [HttpGet]
+    [Route("{courseId:int}")]
+    public async Task<List<PodiumEntryDto>> Get(int courseId)
+    {
+        var orchestrator = new GetAwardsPodiumOrchestrator(_scoringDbContext);
+        return await orchestrator.GetPodiumEntries(courseId);
+    }
 }

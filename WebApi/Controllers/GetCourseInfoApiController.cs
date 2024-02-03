@@ -3,24 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetCourseInfo;
 using System.Threading.Tasks;
 
-namespace WebApplication.Controllers
+namespace WebApplication.Controllers;
+
+[Route("[controller]")]
+public class GetCourseInfoApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-	[Route("[controller]")]
-	public class GetCourseInfoApiController : ControllerBase
-	{
-		private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
 
-		public GetCourseInfoApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		[Route("{courseId:int}")]
-		public async Task<CourseInfoDto> Get(int courseId)
-		{
-			var orchestrator = new GetCourseInfoOrchestrator(_scoringDbContext);
-			return await orchestrator.GetCourseInfo(courseId);
-		}
-	}
+    [HttpGet]
+    [Route("{courseId:int}")]
+    public async Task<CourseInfoDto> Get(int courseId)
+    {
+        var orchestrator = new GetCourseInfoOrchestrator(_scoringDbContext);
+        return await orchestrator.GetCourseInfo(courseId);
+    }
 }

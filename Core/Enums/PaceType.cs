@@ -2,8 +2,8 @@
 
 public enum PaceType
 {
-	None,
-	MilesOrKilometersPerHour,
-	MinuteMileOrKilometer,
-	MinutePer100Meters
+    None,
+    MilesOrKilometersPerHour,
+    MinuteMileOrKilometer,
+    MinutePer100Meters
 }

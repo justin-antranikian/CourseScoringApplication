@@ -7,21 +7,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WebApi
+namespace WebApi;
+
+public class Startup(IConfiguration configuration)
 {
-	public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+    public IConfiguration Configuration { get; } = configuration;
 
-		public IConfiguration Configuration { get; }
-
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddControllers();
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
 
             services.AddCors(options =>
             {
@@ -31,32 +26,31 @@ namespace WebApi
                                       .AllowAnyHeader());
             });
 
-            var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true";
-			services.AddDbContextPool<ScoringDbContext>(options => options.UseSqlServer(dbConnection));
+        var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true";
+        services.AddDbContextPool<ScoringDbContext>(options => options.UseSqlServer(dbConnection));
 
-			services.AddSingleton<IMemoryCache, MemoryCache>();
-		}
+        services.AddSingleton<IMemoryCache, MemoryCache>();
+    }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
 
-			app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
-			app.UseRouting();
+        app.UseRouting();
 
-			app.UseAuthorization();
+        app.UseAuthorization();
 
-            app.UseCors("AllowAll");
+        app.UseCors("AllowAll");
 
-            app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-			});
-		}
-	}
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+    }
 }

@@ -7,82 +7,82 @@ namespace Orchestration.GenerateData;
 
 public class GenerateDataOrchestrator
 {
-	private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext;
 
-	public GenerateDataOrchestrator(ScoringDbContext scoringDbContext)
-	{
-		_scoringDbContext = scoringDbContext;
-	}
+    public GenerateDataOrchestrator(ScoringDbContext scoringDbContext)
+    {
+        _scoringDbContext = scoringDbContext;
+    }
 
-	private async Task GenerateRaceSeriesThroughCourses()
-	{
-		var raceSeries = RaceSeriesGenerator.GetRaceSeries();
-		_scoringDbContext.RaceSeries.AddRange(raceSeries);
-		await _scoringDbContext.SaveChangesAsync();
+    private async Task GenerateRaceSeriesThroughCourses()
+    {
+        var raceSeries = RaceSeriesGenerator.GetRaceSeries();
+        _scoringDbContext.RaceSeries.AddRange(raceSeries);
+        await _scoringDbContext.SaveChangesAsync();
 
-		var races = RaceGenerator.GetRaces(raceSeries).ToList();
-		await _scoringDbContext.Races.AddRangeAsync(races);
-		await _scoringDbContext.SaveChangesAsync();
+        var races = RaceGenerator.GetRaces(raceSeries).ToList();
+        await _scoringDbContext.Races.AddRangeAsync(races);
+        await _scoringDbContext.SaveChangesAsync();
 
-		var courses = CourseGenerator.GetCourses(races);
-		await _scoringDbContext.Courses.AddRangeAsync(courses);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+        var courses = CourseGenerator.GetCourses(races);
+        await _scoringDbContext.Courses.AddRangeAsync(courses);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	private async Task GenerateBrackets()
-	{
-		var courses = await _scoringDbContext.Courses.ToListAsync();
-		var brackets = BracketsGenerator.GetBrackets(courses);
+    private async Task GenerateBrackets()
+    {
+        var courses = await _scoringDbContext.Courses.ToListAsync();
+        var brackets = BracketsGenerator.GetBrackets(courses);
 
-		_scoringDbContext.Brackets.AddRange(brackets);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+        _scoringDbContext.Brackets.AddRange(brackets);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	private async Task GenerateAthletes()
-	{
-		var athletes = AthletesGenerator.GetAthletes();
-		await _scoringDbContext.Athletes.AddRangeAsync(athletes);
-		await _scoringDbContext.SaveChangesAsync();
+    private async Task GenerateAthletes()
+    {
+        var athletes = AthletesGenerator.GetAthletes();
+        await _scoringDbContext.Athletes.AddRangeAsync(athletes);
+        await _scoringDbContext.SaveChangesAsync();
 
-		var persistedAthletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
-		AthletesUpdator.SetRelationships(persistedAthletes);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+        var persistedAthletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
+        AthletesUpdator.SetRelationships(persistedAthletes);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	public async Task GenerateAthleteCoursesAndCourseBrackets()
-	{
-		var courses = await _scoringDbContext.Courses.AsNoTracking().ToListAsync();
-		var athletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
-		var brackets = await _scoringDbContext.Brackets.AsNoTracking().ToListAsync();
+    public async Task GenerateAthleteCoursesAndCourseBrackets()
+    {
+        var courses = await _scoringDbContext.Courses.AsNoTracking().ToListAsync();
+        var athletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
+        var brackets = await _scoringDbContext.Brackets.AsNoTracking().ToListAsync();
 
-		var athleteCourses = AthleteCoursesGenerator.GetAthleteCourses(courses, athletes).ToList();
-		await _scoringDbContext.AthleteCourses.AddRangeAsync(athleteCourses);
-		await _scoringDbContext.SaveChangesAsync();
+        var athleteCourses = AthleteCoursesGenerator.GetAthleteCourses(courses, athletes).ToList();
+        await _scoringDbContext.AthleteCourses.AddRangeAsync(athleteCourses);
+        await _scoringDbContext.SaveChangesAsync();
 
-		var athleteCourseBrackets = AthleteCourseBracketGenerator.GetAthleteCourseBrackets(athleteCourses, athletes, brackets);
-		await _scoringDbContext.AtheleteCourseBrackets.AddRangeAsync(athleteCourseBrackets);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+        var athleteCourseBrackets = AthleteCourseBracketGenerator.GetAthleteCourseBrackets(athleteCourses, athletes, brackets);
+        await _scoringDbContext.AtheleteCourseBrackets.AddRangeAsync(athleteCourseBrackets);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	public async Task RankAthletes()
-	{
-		var athletes = await _scoringDbContext.Athletes.Include(oo => oo.AthleteCourses).ToListAsync();
-		AthletesUpdator.RankAthletes(athletes);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+    public async Task RankAthletes()
+    {
+        var athletes = await _scoringDbContext.Athletes.Include(oo => oo.AthleteCourses).ToListAsync();
+        AthletesUpdator.RankAthletes(athletes);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	public async Task GenerateTagReads()
-	{
-		var athleteCourses = await _scoringDbContext.AthleteCourses.AsNoTracking().ToListAsync();
-		var allIntervals = await _scoringDbContext.Intervals.AsNoTracking().ToListAsync();
+    public async Task GenerateTagReads()
+    {
+        var athleteCourses = await _scoringDbContext.AthleteCourses.AsNoTracking().ToListAsync();
+        var allIntervals = await _scoringDbContext.Intervals.AsNoTracking().ToListAsync();
 
-		var reads = TagReadsGenerator.GetTagReads(allIntervals, athleteCourses);
-		await _scoringDbContext.TagReads.AddRangeAsync(reads);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+        var reads = TagReadsGenerator.GetTagReads(allIntervals, athleteCourses);
+        await _scoringDbContext.TagReads.AddRangeAsync(reads);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	public async Task Generate()
-	{
+    public async Task Generate()
+    {
         await GenerateRaceSeriesThroughCourses();
         await GenerateBrackets();
 
@@ -94,5 +94,5 @@ public class GenerateDataOrchestrator
 
         await GenerateTagReads();
         await new ScoreCoursesOrchestrator(_scoringDbContext).Score();
-	}
+    }
 }

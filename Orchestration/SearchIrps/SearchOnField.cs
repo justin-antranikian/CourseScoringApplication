@@ -2,8 +2,8 @@
 
 public enum SearchOnField
 {
-	Bib,
-	FirstName,
-	LastName,
-	FullName
+    Bib,
+    FirstName,
+    LastName,
+    FullName
 }

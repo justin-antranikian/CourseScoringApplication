@@ -3,23 +3,17 @@ using System.Threading.Tasks;
 using DataModels;
 using Orchestration.GetSearchAllEntitiesSearch;
 
-namespace WebApplicationSandbox.Controllers
+namespace WebApplicationSandbox.Controllers;
+
+[Route("[controller]")]
+public class SearchAllEntitiesSearchApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-	[Route("[controller]")]
-	public class SearchAllEntitiesSearchApiController : ControllerBase
-	{
-		private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
 
-		public SearchAllEntitiesSearchApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		public async Task<AllEntitiesSearchResultDto> Get([FromQuery] string searchTerm)
-		{
-			var orchestrator = new SearchAllEntitiesOrchestrator(_scoringDbContext);
-			return await orchestrator.GetSearchResults(searchTerm);
-		}
-	}
+    [HttpGet]
+    public async Task<AllEntitiesSearchResultDto> Get([FromQuery] string searchTerm)
+    {
+        var orchestrator = new SearchAllEntitiesOrchestrator(_scoringDbContext);
+        return await orchestrator.GetSearchResults(searchTerm);
+    }
 }

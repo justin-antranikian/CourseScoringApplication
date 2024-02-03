@@ -2,28 +2,19 @@
 using System.Threading.Tasks;
 using DataModels;
 using Orchestration.GetIrp;
-using System.Linq;
-using System.Data.Entity;
 
-namespace WebApplicationSandbox.Controllers
+namespace WebApplicationSandbox.Controllers;
+
+[Route("[controller]")]
+public class IrpApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-	[Route("[controller]")]
-	public class IrpApiController : ControllerBase
-	{
-		private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
 
-		public IrpApiController(ScoringDbContext scoringDbContext)
-		{
-			_scoringDbContext = scoringDbContext;
-		}
-
-		[HttpGet]
-		[Route("{athleteCourseId:int}")]
-		public async Task<IrpDto> Get(int athleteCourseId)
-		{
-			var orchestrator = new GetIrpOrchestrator(_scoringDbContext);
-
-            return await orchestrator.GetIrpDto(athleteCourseId);
-		}
-	}
+    [HttpGet]
+    [Route("{athleteCourseId:int}")]
+    public async Task<IrpDto> Get(int athleteCourseId)
+    {
+        var orchestrator = new GetIrpOrchestrator(_scoringDbContext);
+        return await orchestrator.GetIrpDto(athleteCourseId);
+    }
 }

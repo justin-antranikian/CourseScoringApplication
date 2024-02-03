@@ -2,9 +2,9 @@
 
 public record AwardWinnerDto
 (
-	int AthleteId,
-	int AthleteCourseId,
-	string FullName,
-	string FinishTime,
-	PaceWithTime PaceWithTime
+    int AthleteId,
+    int AthleteCourseId,
+    string FullName,
+    string FinishTime,
+    PaceWithTime PaceWithTime
 );

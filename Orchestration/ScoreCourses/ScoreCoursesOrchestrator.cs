@@ -5,15 +5,15 @@ namespace Orchestration.ScoreCourses;
 
 public class ScoreCoursesOrchestrator
 {
-	private readonly ScoringDbContext _scoringDbContext;
+    private readonly ScoringDbContext _scoringDbContext;
 
-	public ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
-	{
-		_scoringDbContext = scoringDbContext;
-	}
+    public ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
+    {
+        _scoringDbContext = scoringDbContext;
+    }
 
-	public async Task Score()
-	{
+    public async Task Score()
+    {
         var allCourses = await _scoringDbContext.Courses.AsNoTracking().ToListAsync();
         var allBrackets = await _scoringDbContext.Brackets.AsNoTracking().ToListAsync();
         var allIntervals = await _scoringDbContext.Intervals.AsNoTracking().ToListAsync();
@@ -86,48 +86,48 @@ public class ScoreCoursesOrchestrator
         await _scoringDbContext.SaveChangesAsync();
 
         var courseTypeStats = await GetCourseTypeStatistics();
-		await _scoringDbContext.CourseTypeStatistics.AddRangeAsync(courseTypeStats);
-		await _scoringDbContext.SaveChangesAsync();
-	}
+        await _scoringDbContext.CourseTypeStatistics.AddRangeAsync(courseTypeStats);
+        await _scoringDbContext.SaveChangesAsync();
+    }
 
-	private async Task<List<CourseTypeStatistic>> GetCourseTypeStatistics()
-	{
-		var courses = await _scoringDbContext.Courses.ToListAsync();
-		var results = await _scoringDbContext.Results.Include(oo => oo.AthleteCourse).Where(oo => oo.IsHighestIntervalCompleted).ToListAsync();
-		var resultsGroupedByAthletes = results.GroupBy(oo => oo.AthleteCourse.AthleteId).ToList();
-		var stats = new List<CourseTypeStatistic>();
+    private async Task<List<CourseTypeStatistic>> GetCourseTypeStatistics()
+    {
+        var courses = await _scoringDbContext.Courses.ToListAsync();
+        var results = await _scoringDbContext.Results.Include(oo => oo.AthleteCourse).Where(oo => oo.IsHighestIntervalCompleted).ToListAsync();
+        var resultsGroupedByAthletes = results.GroupBy(oo => oo.AthleteCourse.AthleteId).ToList();
+        var stats = new List<CourseTypeStatistic>();
 
-		foreach (var result in resultsGroupedByAthletes)
-		{
-			var uniqueCourseResults = result.GroupBy(oo => oo.AthleteCourseId).Select(oo => oo.First()).ToList();
+        foreach (var result in resultsGroupedByAthletes)
+        {
+            var uniqueCourseResults = result.GroupBy(oo => oo.AthleteCourseId).Select(oo => oo.First()).ToList();
 
-			var query = from course in courses
-						join courseResults in uniqueCourseResults on course.Id equals courseResults.CourseId
-						group courseResults by course.CourseType into newGroup
-						select newGroup;
+            var query = from course in courses
+                        join courseResults in uniqueCourseResults on course.Id equals courseResults.CourseId
+                        group courseResults by course.CourseType into newGroup
+                        select newGroup;
 
-			foreach (var courseTypeGrouping in query.ToList())
-			{
-				var stat = new CourseTypeStatistic
-				{
-					CourseType = courseTypeGrouping.Key,
-					AthleteId = result.Key,
-					AverageTotalTimeInMilleseconds = (int)courseTypeGrouping.Average(oo => oo.TimeOnCourse),
-					FastestTimeInMilleseconds = courseTypeGrouping.Min(oo => oo.TimeOnCourse),
-					SlowestTimeInMilleseconds = courseTypeGrouping.Max(oo => oo.TimeOnCourse),
-				};
+            foreach (var courseTypeGrouping in query.ToList())
+            {
+                var stat = new CourseTypeStatistic
+                {
+                    CourseType = courseTypeGrouping.Key,
+                    AthleteId = result.Key,
+                    AverageTotalTimeInMilleseconds = (int)courseTypeGrouping.Average(oo => oo.TimeOnCourse),
+                    FastestTimeInMilleseconds = courseTypeGrouping.Min(oo => oo.TimeOnCourse),
+                    SlowestTimeInMilleseconds = courseTypeGrouping.Max(oo => oo.TimeOnCourse),
+                };
 
-				stats.Add(stat);
-			}
-		}
+                stats.Add(stat);
+            }
+        }
 
-		return stats;
-	}
+        return stats;
+    }
 
-	private static List<TagRead> GetReadsForMaxInterval(List<TagRead> reads, List<Interval> intervals)
-	{
-		var intervalsFromReads = reads.Select(oo => oo.IntervalId).Distinct().ToList();
-		var maxIntervalId = intervals.Where(oo => intervalsFromReads.Contains(oo.Id)).OrderByDescending(oo => oo.Order).First().Id;
-		return reads.Where(oo => oo.IntervalId == maxIntervalId).ToList();
-	}
+    private static List<TagRead> GetReadsForMaxInterval(List<TagRead> reads, List<Interval> intervals)
+    {
+        var intervalsFromReads = reads.Select(oo => oo.IntervalId).Distinct().ToList();
+        var maxIntervalId = intervals.Where(oo => intervalsFromReads.Contains(oo.Id)).OrderByDescending(oo => oo.Order).First().Id;
+        return reads.Where(oo => oo.IntervalId == maxIntervalId).ToList();
+    }
 }

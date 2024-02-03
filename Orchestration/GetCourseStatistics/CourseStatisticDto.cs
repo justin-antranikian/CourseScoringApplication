@@ -2,8 +2,8 @@
 
 public record CourseStatisticDto
 (
-	int? BracketId,
-	PaceWithTime AveragePaceWithTime,
-	PaceWithTime FastestPaceWithTime,
-	PaceWithTime SlowestPaceWithTime
+    int? BracketId,
+    PaceWithTime AveragePaceWithTime,
+    PaceWithTime FastestPaceWithTime,
+    PaceWithTime SlowestPaceWithTime
 );

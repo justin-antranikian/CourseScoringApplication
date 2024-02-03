@@ -11,7 +11,7 @@ public class LocationInfoWithUrl(string state, string area, string city)
 
     public LocationInfoWithUrl(Location location) : this(location.State, location.Area, location.City) { }
 
-	public LocationInfoWithUrl(RaceSeries raceSeries) : this(raceSeries.State, raceSeries.Area, raceSeries.City) { }
+    public LocationInfoWithUrl(RaceSeries raceSeries) : this(raceSeries.State, raceSeries.Area, raceSeries.City) { }
 
-	public LocationInfoWithUrl(Athlete athlete) : this(athlete.State, athlete.Area, athlete.City) { }
+    public LocationInfoWithUrl(Athlete athlete) : this(athlete.State, athlete.Area, athlete.City) { }
 }
