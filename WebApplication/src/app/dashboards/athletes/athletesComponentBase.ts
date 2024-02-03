@@ -9,24 +9,18 @@ import { AthleteSearchResultDto } from '../../_orchestration/searchAthletes/athl
 import { SearchAthletesRequestDto } from '../../_orchestration/searchAthletes/searchAthletesRequestDto';
 import { getHttpParams } from '../../_common/httpParamsHelpers';
 import { Observable } from 'rxjs';
-// import { ApiRequestService } from "../../_services/api-request.service";
-// import { BreadcrumbComponent } from 'src/app/_common/breadcrumbComponent';
-// import { SearchAthletesRequestDto } from 'src/app/_orchestration/searchAthletes/searchAthletesRequestDto';
-// import { AthleteSearchResultDto } from 'src/app/_orchestration/searchAthletes/athleteSearchResultDto';
-// import { DashboardInfoResponseDto } from 'src/app/_orchestration/getDashboardInfo/dashboardInfoResponseDto';
-// import { DashboardInfoRequestDto } from 'src/app/_orchestration/getDashboardInfo/dashboardInfoRequestDto';
-// import { BreadcrumbsApiRequestService } from 'src/app/_services/breadcrumbs-api-request.service';
+import { config } from '../../config';
 
 export abstract class AthletesComponentBase extends BreadcrumbComponent {
 
   public getAthletesHttp(searchAthletesRequest: SearchAthletesRequestDto): Observable<AthleteSearchResultDto[]> {
     const httpParams = getHttpParams(searchAthletesRequest.getAsParamsObject())
-    return this.http.get<AthleteSearchResultDto[]>(`https://localhost:44308/athleteSearchApi`, httpParams)
+    return this.http.get<AthleteSearchResultDto[]>(`${config.apiUrl}/athleteSearchApi`, httpParams)
   }
 
   public getDashboardInfo(dashboardInfoRequest: DashboardInfoRequestDto): Observable<DashboardInfoResponseDto> {
     const httpParams = getHttpParams(dashboardInfoRequest.getAsParamsObject())
-    return this.http.get<DashboardInfoResponseDto>(`https://localhost:44308/dashboardInfoApi`, httpParams)
+    return this.http.get<DashboardInfoResponseDto>(`${config.apiUrl}/dashboardInfoApi`, httpParams)
   }
 
   protected static readonly EventsPerRow: number = 4

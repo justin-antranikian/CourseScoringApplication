@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../_core/getBreadcrumb/breadcrumbRequestDto';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { config } from '../config';
 
 @Component({
   standalone: true,
@@ -22,7 +23,7 @@ export class IrpCompareComponent extends BreadcrumbComponent implements OnInit {
       AthleteCourseIds: athleteCourseIds
     };
 
-    return this.http.post<any>(`https://localhost:44308/compareIrpApi`, body)
+    return this.http.post<any>(`${config.apiUrl}/compareIrpApi`, body)
   }
 
   public athleteInfoDtos!: any[]

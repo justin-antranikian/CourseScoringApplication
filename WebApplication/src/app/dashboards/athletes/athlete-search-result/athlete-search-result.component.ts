@@ -10,11 +10,7 @@ import { BracketRankComponent } from '../../../_subComponents/bracket-rank/brack
 import { IntervalTimeComponent } from '../../../_subComponents/interval-time/interval-time.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-// import { ComponentBaseWithRoutes } from 'src/app/_common/componentBaseWithRoutes';
-// import { ArpDto, ArpGoalDto, ArpResultDto } from 'src/app/_orchestration/getArp/arpDto';
-// import { AthleteSearchResultDto } from 'src/app/_orchestration/searchAthletes/athleteSearchResultDto';
-// import { LocationInfoWithRank } from 'src/app/_orchestration/locationInfoWithRank';
-// import { ApiRequestService } from 'src/app/_services/api-request.service';
+import { config } from '../../../config';
 
 @Component({
   standalone: true,
@@ -26,7 +22,7 @@ import { CommonModule } from '@angular/common';
 export class AthleteSearchResultComponent extends ComponentBaseWithRoutes implements OnInit {
 
   public getArpDto(athleteId: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:44308/arpApi/${athleteId}`).pipe(
+    return this.http.get<any>(`${config.apiUrl}/arpApi/${athleteId}`).pipe(
       map((arpDto: any): any => ({
         ...arpDto,
         results: this.mapSeriesTypeImages(arpDto.results)

@@ -10,6 +10,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { mapRaceSeriesTypeToImageUrl } from '../../_common/IRaceSeriesType';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { config } from '../../config';
 // import { BreadcrumbLocation } from 'src/app/_common/breadcrumbLocation';
 // import { ComponentBaseWithRoutes } from 'src/app/_common/componentBaseWithRoutes';
 // import { AthleteSearchResultDto } from 'src/app/_orchestration/searchAthletes/athleteSearchResultDto';
@@ -54,7 +55,7 @@ export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnI
   public getRaceSeriesSearchResults(searchEventsRequest: SearchEventsRequestDto): Observable<any[]> {
     const httpParams = getHttpParams(searchEventsRequest.getAsParamsObject())
 
-    const raceSeriesSearch$ = this.http.get<any[]>(`https://localhost:44308/raceSeriesSearchApi`, httpParams).pipe(
+    const raceSeriesSearch$ = this.http.get<any[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
       map((raceSeriesEntries: any[]): any[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
     )
 
@@ -63,7 +64,7 @@ export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnI
 
   public getAthletes(searchAthletesRequest: SearchAthletesRequestDto): Observable<any[]> {
     const httpParams = getHttpParams(searchAthletesRequest.getAsParamsObject())
-    return this.http.get<any[]>(`https://localhost:44308/athleteSearchApi`, httpParams)
+    return this.http.get<any[]>(`${config.apiUrl}/athleteSearchApi`, httpParams)
   }
 
   constructor(

@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
+import { config } from '../config';
 
 @Component({
   standalone: true, 
@@ -21,7 +22,7 @@ export class ArpCompareComponent extends BreadcrumbComponent implements OnInit {
       AthleteIds: athleteIds
     };
 
-    const url = `https://localhost:44308/compareAthletesApi`
+    const url = `${config.apiUrl}/compareAthletesApi`
     return this.http.post<any>(url, body)
   }
 

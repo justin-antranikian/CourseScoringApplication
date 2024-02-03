@@ -12,6 +12,7 @@ import { getHttpParams } from '../_common/httpParamsHelpers';
 import { mapRaceSeriesTypeToImageUrl } from '../_common/IRaceSeriesType';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { config } from '../config';
 
 @Component({
   standalone: true,
@@ -25,7 +26,7 @@ export class AdvancedSearchComponent extends ComponentBaseWithRoutes implements 
   public getRaceSeriesSearchResults(searchEventsRequest: SearchEventsRequestDto): Observable<EventSearchResultDto[]> {
     const httpParams = getHttpParams(searchEventsRequest.getAsParamsObject())
 
-    const raceSeriesSearch$ = this.http.get<EventSearchResultDto[]>(`https://localhost:44308/raceSeriesSearchApi`, httpParams).pipe(
+    const raceSeriesSearch$ = this.http.get<EventSearchResultDto[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
       map((raceSeriesEntries: EventSearchResultDto[]): EventSearchResultDto[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
     )
 

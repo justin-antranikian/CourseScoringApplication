@@ -7,6 +7,7 @@ import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/getBreadcrumb/breadcrumbRequestDto';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { config } from '../../config';
 
 @Component({
   standalone: true,
@@ -18,7 +19,7 @@ import { CommonModule } from '@angular/common';
 export class AwardsPodiumComponent extends BreadcrumbComponent implements OnInit {
 
   public getAwardsPodium(courseId: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:44308/awardsPodiumApi/${courseId}`)
+    return this.http.get<any>(`${config.apiUrl}/awardsPodiumApi/${courseId}`)
   }
 
   public awards: any[] = []

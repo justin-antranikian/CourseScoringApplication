@@ -6,17 +6,11 @@ import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoute
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { mapRaceSeriesTypeToImageUrl } from '../../../_common/IRaceSeriesType';
-import { IIntervalType, mapIntervalTypeToImageUrl } from '../../../_common/IIntervalName';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { LeaderboardResultComponent } from '../../../_subComponents/leaderboard-results-grid/leaderboard-result.component';
-
-// import { ComponentBaseWithRoutes } from 'src/app/_common/componentBaseWithRoutes';
-// import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from 'src/app/_orchestration/getLeaderboard/getRaceLeaderboard/raceLeaderboardDto';
-// import { EventSearchResultDto } from 'src/app/_orchestration/searchEvents/eventSearchResultDto';
-// import { ApiRequestService } from 'src/app/_services/api-request.service';
-// import { LocationInfoWithRank } from 'src/app/_orchestration/locationInfoWithRank';
+import { config } from '../../../config';
 
 @Component({
   standalone: true,
@@ -29,7 +23,7 @@ export class EventSearchResultComponent extends ComponentBaseWithRoutes implemen
 
   public getRaceLeaderboard(raceId: number): Observable<any> {
 
-    const getRaceLeaderboard$ = this.http.get<any>(`https://localhost:44308/raceLeaderboardApi/${raceId}`).pipe(
+    const getRaceLeaderboard$ = this.http.get<any>(`${config.apiUrl}/raceLeaderboardApi/${raceId}`).pipe(
       map((raceLeaderboardDto: any): any => ({
         ...mapRaceSeriesTypeToImageUrl(raceLeaderboardDto),
         leaderboards: this.mapIntervalTypeImages(raceLeaderboardDto.leaderboards)

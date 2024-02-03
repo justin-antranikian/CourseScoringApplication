@@ -7,6 +7,7 @@ import { mapRaceSeriesTypeToImageUrl } from '../../_common/IRaceSeriesType';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IrpQuickViewComponent } from './irp-quick-view.component';
+import { config } from '../../config';
 
 @Component({
   standalone: true,
@@ -19,7 +20,7 @@ export class LeaderboardResultComponent extends ComponentBaseWithRoutes implemen
 
   public getIrpDto(athleteCourseId: number): Observable<any> {
 
-    const getIrpDto$ = this.http.get<any>(`https://localhost:44308/irpApi/${athleteCourseId}`).pipe(
+    const getIrpDto$ = this.http.get<any>(`${config.apiUrl}/irpApi/${athleteCourseId}`).pipe(
       map(mapRaceSeriesTypeToImageUrl),
       map((irpDto: any): any => ({
         ...irpDto,

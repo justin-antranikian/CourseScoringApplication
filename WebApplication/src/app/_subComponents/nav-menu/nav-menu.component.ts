@@ -7,6 +7,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { getHttpParams } from '../../_common/httpParamsHelpers';
+import { config } from '../../config';
 
 @Component({
   selector: 'app-nav-menu',
@@ -36,7 +37,7 @@ export class NavMenuComponent extends ComponentBaseWithRoutes implements OnInit 
       tap(this.handleEmptySearchTerm),
       filter((searchTerm: string) => searchTerm !== ''),
       switchMap((searchTerm: string) => {
-        const url = `https://localhost:44308/SearchAllEntitiesSearchApi?searchTerm=${searchTerm}`
+        const url = `${config.apiUrl}/SearchAllEntitiesSearchApi?searchTerm=${searchTerm}`
         const httpParams = getHttpParams(searchTerm)
         return this.http.get<any>(url, httpParams)
       })

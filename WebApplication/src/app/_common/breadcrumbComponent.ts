@@ -4,6 +4,7 @@ import { Observable, map } from "rxjs";
 import { getHttpParams } from './httpParamsHelpers';
 import { HttpClient } from "@angular/common/http";
 import { mapRaceSeriesTypeToImageUrl } from "./IRaceSeriesType";
+import { config } from "../config";
 
 export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
 
@@ -17,7 +18,7 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
   ) { super() }
 
   public getArpDto(athleteId: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:44308/arpApi/${athleteId}`).pipe(
+    return this.http.get<any>(`${config.apiUrl}/arpApi/${athleteId}`).pipe(
       map((arpDto: any): any => ({
         ...arpDto,
         results: this.mapSeriesTypeImages(arpDto.results)
@@ -26,14 +27,14 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
   }
 
   public getCourseInfo(courseId: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:44308/getCourseInfoApi/${courseId}`).pipe(
+    return this.http.get<any>(`${config.apiUrl}/getCourseInfoApi/${courseId}`).pipe(
       map((irpCompareResult: any): any => mapRaceSeriesTypeToImageUrl(irpCompareResult)),
     )
   }
 
   public getRaceSeriesDashboardDto(raceSeriesId: number): Observable<any> {
 
-    const getRaceSeriesDashboard$ = this.http.get<any>(`https://localhost:44308/raceSeriesDashboardApi/${raceSeriesId}`).pipe(
+    const getRaceSeriesDashboard$ = this.http.get<any>(`${config.apiUrl}/raceSeriesDashboardApi/${raceSeriesId}`).pipe(
       map((raceSeriesDashboardDto: any): any => ({
         ...mapRaceSeriesTypeToImageUrl(raceSeriesDashboardDto),
       }))
@@ -43,7 +44,7 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
   }
 
   private getCourseLeaderboard$(courseId: number, courseLeaderboardFilter: any): Observable<any> {
-    const url = `https://localhost:44308/courseLeaderboardApi/${courseId}`
+    const url = `${config.apiUrl}/courseLeaderboardApi/${courseId}`
 
     if (courseLeaderboardFilter) {
       const httpParams = getHttpParams(courseLeaderboardFilter.getAsParams())
@@ -67,7 +68,7 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
 
   public getIrpDto(athleteCourseId: number): Observable<any> {
 
-    const getIrpDto$ = this.http.get<any>(`https://localhost:44308/irpApi/${athleteCourseId}`).pipe(
+    const getIrpDto$ = this.http.get<any>(`${config.apiUrl}/irpApi/${athleteCourseId}`).pipe(
       map(mapRaceSeriesTypeToImageUrl),
       map((irpDto: any): any => ({
         ...irpDto,
@@ -80,7 +81,7 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
 
   public getRaceLeaderboard(raceId: number): Observable<any> {
 
-    const getRaceLeaderboard$ = this.http.get<any>(`https://localhost:44308/raceLeaderboardApi/${raceId}`).pipe(
+    const getRaceLeaderboard$ = this.http.get<any>(`${config.apiUrl}/raceLeaderboardApi/${raceId}`).pipe(
       map((raceLeaderboardDto: any): any => ({
         ...mapRaceSeriesTypeToImageUrl(raceLeaderboardDto),
         leaderboards: this.mapIntervalTypeImages(raceLeaderboardDto.leaderboards)
@@ -96,7 +97,7 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
   */
   public getAthletesBreadCrumbsResult(breadcrumbRequestDto: any): Observable<any> {
     const httpParams = getHttpParams(breadcrumbRequestDto.getAsParamsObject())
-    return this.http.get<any>(`https://localhost:44308/athletesBreadCrumbsApi`, httpParams)
+    return this.http.get<any>(`${config.apiUrl}/athletesBreadCrumbsApi`, httpParams)
   }
 
   /**
@@ -105,7 +106,7 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
   */
   public getEventsBreadCrumbsResult(breadcrumbRequestDto: any): Observable<any> {
     const httpParams = getHttpParams(breadcrumbRequestDto.getAsParamsObject())
-    return this.http.get<any>(`https://localhost:44308/eventsBreadCrumbsApi`, httpParams)
+    return this.http.get<any>(`${config.apiUrl}/eventsBreadCrumbsApi`, httpParams)
   }
 
   protected getId = () => parseInt(this.route.snapshot.paramMap.get('id') as any)

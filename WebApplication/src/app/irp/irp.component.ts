@@ -16,6 +16,7 @@ import { LocationInfoRankingsComponent } from '../_subComponents/location-info-r
 import { IrpPizzaTrackerComponent } from './irp-pizza-tracker.component';
 import { mapRaceSeriesTypeToImageUrl } from '../_common/IRaceSeriesType';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { config } from '../config';
 
 @Component({
   standalone: true,
@@ -27,14 +28,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export class IrpComponent extends BreadcrumbComponent implements OnInit {
 
   public getCourseStatistics(courseId: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:44308/courseStatisticsApi/${courseId}`)
+    return this.http.get<any>(`${config.apiUrl}/courseStatisticsApi/${courseId}`)
   }
 
   public getIrpCompetetors(athleteCourseId: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:44308/irpCompetetorsApi/${athleteCourseId}`)
+    return this.http.get<any>(`${config.apiUrl}/irpCompetetorsApi/${athleteCourseId}`)
   }
-
-  // public chartOptions = new ChartOptionsForIrp();
 
   // extract as props to render in template.
   public athleteId!: number;
