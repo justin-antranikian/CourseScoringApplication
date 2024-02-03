@@ -1,5 +1,5 @@
 
-<div class="position: relative">
+<div style="position: relative">
 
   <div class="input-group">
     <div class="input-group-prepend">
@@ -13,7 +13,7 @@
   </div>
 
   <ng-container *ngIf="(mouseIsOver || searchIsFocused) && searchRequested">
-    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="searchResultsContainer">
+    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer">
       <ng-container *ngIf="searchResults.length === 0; then noResultsTemplate else resultsTemplate"></ng-container>
     </div>
   </ng-container>
