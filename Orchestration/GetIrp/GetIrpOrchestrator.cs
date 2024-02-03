@@ -1,5 +1,4 @@
 ﻿using DataModels;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Orchestration.GetIrp;
@@ -7,12 +6,10 @@ namespace Orchestration.GetIrp;
 public class GetIrpOrchestrator
 {
 	private readonly GetIrpRepository _getIrpRepository;
-	private readonly ScoringDbContext dbContext;
 
     public GetIrpOrchestrator(ScoringDbContext scoringDbContext)
 	{
 		_getIrpRepository = new GetIrpRepository(scoringDbContext);
-		dbContext = scoringDbContext;
 	}
 
 	public async Task<IrpDto> GetIrpDto(int athleteCourseId)
@@ -57,6 +54,7 @@ public class GetIrpOrchestrator
 			previousInterval = result;
 		}
 	}
+
 
 	private static List<Result> FilterResultsForIntervals(List<Result> results, int primaryDivisionId)
 	{

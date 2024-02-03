@@ -18,6 +18,8 @@ public class GetCourseInfoOrchestrator
 		var timeZoneAbbreviated = course.Race.TimeZoneId.ToAbbreviation();
 		var (courseDate, courseTime) = DateTimeHelper.GetFormattedFields(course.StartDate);
 
+		var x = "";
+
 		return new CourseInfoDto
 		(
 			timeZoneAbbreviated,
