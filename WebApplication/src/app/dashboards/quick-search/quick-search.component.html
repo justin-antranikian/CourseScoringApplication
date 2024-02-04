@@ -1,14 +1,20 @@
 
 <div style="position: relative">
 
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text">
-        <i class="fa fa-search"></i>
-      </span>
-    </div>
+  <div class="input-group input-group-sm">
+    <span class="input-group-text" id="inputGroup-sizing-sm"><span class="mx-1"><i class="fa fa-search"></i></span>Search</span>
 
-    <ng-container *ngTemplateOutlet="searchBoxInput"></ng-container>
+    <input
+      #searchBox
+      id="search-box"
+      (focus)="searchIsFocused=true"
+      (blur)="searchIsFocused=false"
+      (input)="search(searchBox.value)"
+      type="text"
+      class="form-control"
+      [placeholder]="quickSearchType === 0 ? 'Search Events' : 'Search Athletes'"
+      autocomplete="off"
+    />
 
   </div>
 
@@ -19,22 +25,6 @@
   </ng-container>
 
 </div>
-
-<ng-template #searchBoxInput>
-
-  <input
-    #searchBox
-    id="search-box"
-    (focus)="searchIsFocused=true"
-    (blur)="searchIsFocused=false"
-    (input)="search(searchBox.value)"
-    type="text"
-    class="form-control"
-    [placeholder]="quickSearchType === 0 ? 'Search Events' : 'Search Athletes'"
-    autocomplete="off"
-  />
-
-</ng-template>
 
 <ng-template #noResultsTemplate>
 

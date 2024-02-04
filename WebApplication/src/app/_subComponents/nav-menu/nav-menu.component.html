@@ -29,15 +29,14 @@
         <ul class="navbar-nav">
           <div class="form-inline">
             <div style="position: relative;">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-search font-12"></i>
-                  </span>
-                </div>
+
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" id="inputGroup-sizing-sm"><span class="mx-1"><i class="fa fa-search"></i></span>Search</span>
                 <ng-container *ngTemplateOutlet="searchBoxInput"></ng-container>
               </div>
+
               <ng-container *ngTemplateOutlet="searchResultsTemplate"></ng-container>
+
             </div>
           </div>
           <li>
@@ -71,7 +70,7 @@
 
   <ng-container *ngIf="(mouseIsOver || searchIsFocused) && searchRequested">
 
-    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="searchResultsContainer p-2">
+    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
 
       <ng-container *ngIf="searchResults">
 

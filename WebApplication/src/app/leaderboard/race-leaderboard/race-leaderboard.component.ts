@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-// import { ApiRequestService } from 'src/app/_services/api-request.service';
-// import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from '../../_orchestration/getLeaderboard/getRaceLeaderboard/raceLeaderboardDto';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -10,15 +8,13 @@ import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/get
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { LeaderboardResultComponent } from '../../_subComponents/leaderboard-results-grid/leaderboard-result.component';
-// import { LocationInfoWithRank } from '../../_orchestration/locationInfoWithRank';
-// import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from 'src/app/_orchestration/getBreadcrumb/breadcrumbRequestDto';
-// import { BreadcrumbsApiRequestService } from 'src/app/_services/breadcrumbs-api-request.service';
+import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search.component';
 
 @Component({
   standalone: true,
   selector: 'app-race-leaderboard',
   templateUrl: './race-leaderboard.component.html',
-  imports: [HttpClientModule, CommonModule, RouterModule, EventsBreadcrumbComponent, LocationInfoRankingsComponent, LeaderboardResultComponent],
+  imports: [HttpClientModule, CommonModule, RouterModule, EventsBreadcrumbComponent, LocationInfoRankingsComponent, LeaderboardResultComponent, IrpsSearchComponent],
   styleUrls: ['./race-leaderboard.component.css']
 })
 export class RaceLeaderboardComponent extends BreadcrumbComponent implements OnInit {

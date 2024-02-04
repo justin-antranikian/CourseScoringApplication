@@ -28,20 +28,19 @@
 
     <div class="row">
       <div class="col-6">
-        <div class="mt-1">shows results for <strong>overall bracket</strong> and <strong>all intervals</strong></div>
+        <div>shows results for <strong>overall bracket</strong> and <strong>all intervals</strong></div>
+        <div>
+          <a [routerLink]="[AwardsPodiumPage, resultFilters.courseId]">Awards Podium</a>
+        </div>
       </div>
       <div class="col-6">
-        <!-- <app-irps-search [courseId]="resultFilters.courseId"></app-irps-search> -->
+        <app-irps-search [courseId]="resultFilters.courseId"></app-irps-search>
       </div>
     </div>
 
-    <hr class="my-4 mt-5" />
+    <!-- <hr class="my-4 mt-5" /> -->
 
-    <div>
-      <a [routerLink]="[AwardsPodiumPage, resultFilters.courseId]">Awards Podium</a>
-    </div>
-
-    <div class="row mt-4">
+    <div class="row mt-1">
       <div class="col col-sm-4">
         <!-- <select (change)="onCourseChanged()" [(ngModel)]="resultFilters.courseId" class="form-control">
           <option [value]="course.id" *ngFor="let course of courseMetadata.courses">{{course.displayName}}</option>
@@ -111,7 +110,7 @@
           <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(irpModal, result)" ></i>
         </td>
         <td>
-          <span class="font-20 badge badge-dark" title="bib">{{result.bib}}</span>
+          <span class="font-20 badge text-bg-dark" title="bib">{{result.bib}}</span>
         </td>
         <td>
           <div>

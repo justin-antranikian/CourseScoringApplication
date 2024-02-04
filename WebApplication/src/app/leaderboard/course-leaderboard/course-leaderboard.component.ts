@@ -12,11 +12,12 @@ import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/even
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { IrpQuickViewComponent } from '../../_subComponents/leaderboard-results-grid/irp-quick-view.component';
 import { CommonModule } from '@angular/common';
+import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search.component';
 
 @Component({
   standalone: true,
   selector: 'app-course-leaderboard',
-  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, IrpQuickViewComponent, HttpClientModule, CommonModule],
+  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, IrpQuickViewComponent, HttpClientModule, CommonModule, IrpsSearchComponent],
   templateUrl: './course-leaderboard.component.html',
   styleUrls: ['./course-leaderboard.component.css']
 })
