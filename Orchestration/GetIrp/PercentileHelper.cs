@@ -6,7 +6,7 @@ public static class PercentileHelper
     {
         var percent = rank / (double)totalRacers;
         var percentDouble = Math.Round(percent * 100);
-        var topRanks = new[] { 1, 2, 3 };
+        int[] topRanks = [1, 2, 3];
 
         if (topRanks.Contains(rank))
         {

@@ -7,21 +7,6 @@
       </a>
 
       <ul class="navbar-nav">
-        <li>
-          <div ngbDropdown>
-            <a style="cursor: pointer;" class="nav-link dropdown-toggle" ngbDropdownToggle>
-              Directory
-            </a>
-            <div class="p-3" ngbDropdownMenu>
-              <div style="padding: 0;" ngbDropdownItem>
-                <i class="mr-2 fa fa-calendar"></i><a [routerLink]="EventsPage">Events</a>
-              </div>
-              <div style="padding: 0;" class="mt-2" ngbDropdownItem>
-                <i class="mr-2 fa fa-users"></i><a [routerLink]="AthletesPage">Athletes</a>
-              </div>
-            </div>
-          </div>
-        </li>
         <li><a class="nav-link" [routerLink]="AdvancedSearch">Advanced Search</a></li>
       </ul>
 
@@ -39,8 +24,6 @@
 
             </div>
           </div>
-          <li>
-          </li>
         </ul>
       </div>
 

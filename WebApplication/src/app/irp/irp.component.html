@@ -161,23 +161,6 @@
 
 </ng-template>
 
-<ng-template #popTitle let-bracket="bracket"><b>{{bracket.name}}</b></ng-template>
-<ng-template #popContent let-bracket="bracket">
-
-  <div class="font-24">{{bracket.percentile}}</div>
-
-  <!-- <div class="my-3 chart-wrapper px-4">
-    <canvas baseChart
-      [options]="chartOptions.config"
-      [chartType]="chartOptions.type"
-      [labels]="chartOptions.labels"
-      [colors]="chartOptions.colors"
-      [data]="[bracket.didBetterThenPercent, bracket.didWorseThenPercent]">
-    </canvas>
-  </div> -->
-
-</ng-template>
-
 <ng-template #brackets>
 
   <div class="font-20 font-weight-bold">Brackets</div>
@@ -195,21 +178,6 @@
       <div class="mt-2 font-12">Fastest: {{bracket.fastestPaceWithTime.timeFormatted}}</div>
       <div class="font-12">Average: {{bracket.averagePaceWithTime.timeFormatted}}</div>
       <div class="font-12">Slowest: {{bracket.slowestPaceWithTime.timeFormatted}}</div>
-      <div class="mt-2">
-        <button
-          type="button"
-          class="btn-plain"
-          [ngbPopover]="popContent"
-          [autoClose]="'outside'"
-          [popoverTitle]="popTitle"
-          triggers="manual"
-          #bracketPopover="ngbPopover"
-          (click)="toggleBracketPopover(bracketPopover, bracket)">
-
-          <i class="fa fa-ellipsis-h"></i>
-        </button>
-
-      </div>
     </div>
   </div>
 

@@ -38,24 +38,22 @@
       </div>
     </div>
 
-    <!-- <hr class="my-4 mt-5" /> -->
-
     <div class="row mt-1">
       <div class="col col-sm-4">
-        <!-- <select (change)="onCourseChanged()" [(ngModel)]="resultFilters.courseId" class="form-control">
+        <select (change)="onCourseChanged()" [(ngModel)]="resultFilters.courseId" class="form-control">
           <option [value]="course.id" *ngFor="let course of courseMetadata.courses">{{course.displayName}}</option>
-        </select> -->
+        </select>
       </div>
       <div class="col col-sm-4">
-        <!-- <select (change)="onFilterChanged()" [(ngModel)]="resultFilters.bracketId" class="form-control">
+        <select (change)="onFilterChanged()" [(ngModel)]="resultFilters.bracketId" class="form-control">
           <option [value]="bracket.id" *ngFor="let bracket of courseMetadata.brackets">{{bracket.displayName}}</option>
-        </select> -->
+        </select>
       </div>
       <div class="col col-sm-4">
-        <!-- <select (change)="onFilterChanged()" [(ngModel)]="resultFilters.intervalId" class="form-control">
+        <select (change)="onFilterChanged()" [(ngModel)]="resultFilters.intervalId" class="form-control">
           <option value="0">All Intervals</option>
           <option [value]="interval.id" *ngFor="let interval of courseMetadata.intervals">{{interval.displayName}}</option>
-        </select> -->
+        </select>
       </div>
     </div>
 

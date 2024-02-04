@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BracketType } from '../../_core/enums/bracketType';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
@@ -13,11 +13,12 @@ import { LocationInfoRankingsComponent } from '../../_subComponents/location-inf
 import { IrpQuickViewComponent } from '../../_subComponents/leaderboard-results-grid/irp-quick-view.component';
 import { CommonModule } from '@angular/common';
 import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-course-leaderboard',
-  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, IrpQuickViewComponent, HttpClientModule, CommonModule, IrpsSearchComponent],
+  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, IrpQuickViewComponent, HttpClientModule, CommonModule, IrpsSearchComponent, FormsModule],
   templateUrl: './course-leaderboard.component.html',
   styleUrls: ['./course-leaderboard.component.css']
 })

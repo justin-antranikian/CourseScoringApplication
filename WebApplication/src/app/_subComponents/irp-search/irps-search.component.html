@@ -1,23 +1,15 @@
 <div style="position: relative;">
+
   <div class="input-group">
-    <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-      <button
-        type="button"
-        class="btn btn-outline-primary me-2"
-        id="dropdownManual"
-        ngbDropdownAnchor
-        (focus)="myDrop.open()"
-      >
-        {{searchOn}}
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownManual">
+    <div ngbDropdown class="input-group-prepend">
+      <button class="btn btn-outline-primary" id="dropdownMenuButton" ngbDropdownToggle>{{searchOn}}</button>
+      <div ngbDropdownMenu placement="left" aria-labelledby="dropdownMenuButton">
         <button (click)="onSearchOnClicked('bib')" ngbDropdownItem>Bib</button>
         <button (click)="onSearchOnClicked('first name')" ngbDropdownItem>First name</button>
         <button (click)="onSearchOnClicked('last name')" ngbDropdownItem>Last name</button>
         <button (click)="onSearchOnClicked('full name')" ngbDropdownItem>Full name</button>
       </div>
     </div>
-
     <input
       #searchBox
       id="search-box"
@@ -30,28 +22,20 @@
       placeholder="Search Athletes"
       autocomplete="off"
     />
-
   </div>
 
   <ng-container *ngIf="(mouseIsOver || searchIsFocused) && hasResults">
     <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
-      <ng-container *ngIf="searchResults?.length === 0; then noResultsTemplate else resultsFoundTemplate"></ng-container>
+      <div *ngIf="searchResults?.length === 0" class="font-20">No results found.</div>
+
+      <ng-container *ngIf="searchResults?.length !== 0">
+        <div class="mb-3">({{searchResults?.length}}) athlete(s) found for <strong>{{searchOn}}: {{searchTerm}}</strong></div>
+        <div *ngFor="let athlete of searchResults" class="mb-2">
+          <app-irps-search-result [irpSearchResultDto]="athlete"></app-irps-search-result>
+        </div>
+      </ng-container>
+
     </div>
   </ng-container>
 
 </div>
-
-<ng-template #noResultsTemplate>
-
-  <div class="font-20">No results found.</div>
-
-</ng-template>
-
-<ng-template #resultsFoundTemplate>
-
-  <div class="mb-3">({{searchResults?.length}}) athlete(s) found for <strong>{{searchOn}}: {{searchTerm}}</strong></div>
-  <div *ngFor="let athlete of searchResults" class="mb-2">
-    <app-irps-search-result [irpSearchResultDto]="athlete"></app-irps-search-result>
-  </div>
-
-</ng-template>

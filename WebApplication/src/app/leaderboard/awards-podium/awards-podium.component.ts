@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { mergeMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
