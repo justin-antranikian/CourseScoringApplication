@@ -17,18 +17,18 @@
 
     <div>
       <img width="80" height="80" [src]="intervalTypeImageUrl" />
-      <span class="font-20 font-weight-bold ml-2">{{intervalName}}</span>
+      <span class="font-20 font-weight-bold ms-2">{{intervalName}}</span>
     </div>
 
     <div class="my-2">
       <ng-container *ngIf="percentile">
         <i class="fa fa-check-circle-o fa-lg text-success"></i>
-        <strong class="text-success ml-1">Completed</strong>
+        <strong class="text-success ms-1">Completed</strong>
       </ng-container>
     
       <ng-container *ngIf="!percentile">
         <i class="fa fa-circle-o fa-lg text-secondary"></i>
-        <strong class="ml-1 text-secondary">Not Completed</strong>
+        <strong class="ms-1 text-secondary">Not Completed</strong>
       </ng-container>
     </div>
 
@@ -63,9 +63,9 @@
 
 <ng-template #trendingIndicatior let-indicator="indicator">
 
-  <span class="ml-2">
-    <span *ngIf="indicator === 1"><i style="color: green;" class="fa fa-long-arrow-up"></i><span class="ml-1" style="font-size: 10px;">(Better)</span></span>
-    <span *ngIf="indicator === 2"><i style="color: red;" class="fa fa-long-arrow-down"></i><span class="ml-1" style="font-size: 10px;">(Worse)</span></span>
+  <span class="ms-2">
+    <span *ngIf="indicator === 1"><i style="color: green;" class="fa fa-long-arrow-up"></i><span class="ms-1" style="font-size: 10px;">(Better)</span></span>
+    <span *ngIf="indicator === 2"><i style="color: red;" class="fa fa-long-arrow-down"></i><span class="ms-1" style="font-size: 10px;">(Worse)</span></span>
   </span>
 
 </ng-template>

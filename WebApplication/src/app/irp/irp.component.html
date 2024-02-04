@@ -108,8 +108,8 @@
 <ng-template #competetors let-competetors="competetors" let-isFaster="isFaster">
   <tr *ngFor="let irp of competetors">
     <td>
-      <span *ngIf="isFaster"><i style="color: green;" class="fa fa-flag-checkered "></i><span class="ml-1" style="font-size: 10px;">(Faster)</span></span>
-      <span *ngIf="!isFaster"><i style="color: red;" class="fa fa-flag-checkered "></i><span class="ml-1" style="font-size: 10px;">(Slower)</span></span>
+      <span *ngIf="isFaster"><i style="color: green;" class="fa fa-flag-checkered "></i><span class="ms-1" style="font-size: 10px;">(Faster)</span></span>
+      <span *ngIf="!isFaster"><i style="color: red;" class="fa fa-flag-checkered "></i><span class="ms-1" style="font-size: 10px;">(Slower)</span></span>
     </td>
     <td>
       <a title="view result" [routerLink]="[IndividualResultPage, irp.athleteCourseId]">

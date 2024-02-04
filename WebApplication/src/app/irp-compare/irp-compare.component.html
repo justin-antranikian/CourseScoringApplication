@@ -39,7 +39,7 @@
 
       <div>
         <a [routerLink]="[IndividualResultPage, athleteInfo.athleteCourseId]" title="view result" class="badge badge-info">
-          <ng-container *ngIf="athleteInfo.compareIrpsRank === 0"><i class="fa fa-trophy mr-1" aria-hidden="true"></i>Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 0"><i class="fa fa-trophy me-1" aria-hidden="true"></i>Best Result</ng-container>
           <ng-container *ngIf="athleteInfo.compareIrpsRank === 1">2nd Best Result</ng-container>
           <ng-container *ngIf="athleteInfo.compareIrpsRank === 2">3rd Best Result</ng-container>
           <ng-container *ngIf="athleteInfo.compareIrpsRank === 3">4rth Best Result</ng-container>
