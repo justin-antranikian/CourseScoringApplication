@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BracketType } from '../../_core/enums/bracketType';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';

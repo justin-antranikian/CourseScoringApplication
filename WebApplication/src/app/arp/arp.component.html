@@ -51,8 +51,6 @@
   <div class="col-9">
     <ng-container *ngTemplateOutlet="stats"></ng-container>
     <hr />
-    <ng-container *ngTemplateOutlet="otherAthletes"></ng-container>
-    <hr />
     <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>
   </div>
 </div>
@@ -71,45 +69,6 @@
         </div>
       </div>
     </div>
-    <div class="col-8">
-      <!-- <div class="chart-wrapper">
-        <canvas baseChart 
-          [datasets]="chartOptions.data"
-          [labels]="chartOptions.labels"
-          [plugins]="chartOptions.plugins"
-          [legend]="chartOptions.legend"
-          [colors]="chartOptions.colors"
-          [chartType]="chartOptions.type">
-        </canvas>
-      </div> -->
-    </div>
-  </div>
-
-</ng-template>
-
-<ng-template #otherAthletes>
-
-  <div class="font-20 font-weight-bold">Other Athletes</div>
-
-  <div class="row my-5">
-    <div class="col-6">
-      <div class="mb-1" *ngFor="let athlete of rivals">
-        <div title="Rival" class="py-2 border-bottom">
-          <i class="fa fa fa-compress"></i>
-          <span class="ml-3"><a [routerLink]="[AthletePage, athlete.id]">View</a></span>
-          <span class="ml-5">{{athlete.displayName}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="mb-1" *ngFor="let athlete of followings">
-        <div title="Following" class="py-2 border-bottom">
-          <i class="fa fa-thumbs-o-up"></i>
-          <span class="ml-3"><a [routerLink]="[AthletePage, athlete.id]">View</a></span>
-          <span class="ml-5">{{athlete.displayName}}</span>
-        </div>
-      </div>
-    </div>
   </div>
 
 </ng-template>
@@ -118,7 +77,7 @@
 
   <div class="font-20 font-weight-bold">Results</div>
 
-  <table class="my-5 genericDataTable">
+  <table class="my-5 table">
     <thead>
       <tr>
         <th style="width: 5%" scope="col"></th>

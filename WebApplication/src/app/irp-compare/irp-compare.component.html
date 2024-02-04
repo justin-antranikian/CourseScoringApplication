@@ -14,28 +14,14 @@
 
 <ng-container *ngIf="dataLoaded">
 
-  <div>
-    <img width="120px" height="120px" [src]="courseInfo.raceSeriesImageUrl">
-  </div>
-
-  <div class="mt-4 font-24 font-weight-bold">{{courseInfo.raceName}}</div>
-  <div class="font-18 primary-color font-weight-bold">{{courseInfo.courseName}}</div>
-  <div class="font-14">
-    <div>{{courseInfo.raceSeriesCity}}, {{courseInfo.raceSeriesState}}</div>
-    <div>Distance: {{courseInfo.courseDistance}}</div>
-    <div>{{courseInfo.courseDate}} at <strong>{{courseInfo.courseTime}}</strong></div>
-  </div>
-  <div class="font-12 font-italic font-weight-bold">- "{{courseInfo.raceSeriesDescription}}"</div>
-
-  <hr />
-
-  <div class="row mb-4">
+  <div class="row">
     <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
 
       <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="font-24 font-weight-bold">{{athleteInfo.fullName}}</div>
       <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="font-18">{{athleteInfo.city}}, {{athleteInfo.state}}</div>
       <div class="font-12">{{athleteInfo.genderAbbreviated}} | {{athleteInfo.raceAge}}</div>
-      <div><span class="mt-2 font-20 badge text-bg-dark" title="bib">{{athleteInfo.bib}}</span></div>
+
+      <hr />
 
       <div *ngIf="athleteInfo.finishInfo">
         <div>{{athleteInfo.finishInfo.finishTime}}</div>
@@ -63,11 +49,9 @@
     </div>
   </div>
 
-  <hr />
-
   <div class="row mb-4">
     <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
-      <table class="my-5 genericDataTable">
+      <table class="table">
         <thead>
           <tr>
             <th style="width: 81%" class="text-left" scope="col"></th>

@@ -7,7 +7,7 @@
 
 <ng-container *ngIf="dataLoaded">
 
-  <div class="row mb-4">
+  <div class="row">
     <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
       <div class="font-24 font-weight-bold">{{athleteInfo.fullName}}</div>
       <div class="font-18">{{athleteInfo.locationInfoWithRank.city}}, {{athleteInfo.locationInfoWithRank.state}}</div>
@@ -15,12 +15,11 @@
 
       <hr />
       <app-location-info-rankings [locationInfoWithRank]="athleteInfo.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+      <hr />
     </div>
   </div>
 
-  <hr />
-
-  <div class="row mb-4">
+  <div class="row">
     <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
       <div class="mb-2" *ngFor="let stat of athleteInfo.stats">
         <div class="font-weight-bold">{{stat.raceSeriesTypeName}}</div>
@@ -29,11 +28,9 @@
     </div>
   </div>
 
-  <hr />
-
-  <div class="row mb-4">
+  <div class="row my-4">
     <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
-      <table class="my-5 genericDataTable">
+      <table class="table">
         <thead>
           <tr>
             <th style="width: 81%" class="text-left" scope="col"></th>
@@ -46,7 +43,6 @@
           <tr *ngFor="let result of athleteInfo.results">
             <td class="text-left">
               <div class="font-18 font-weight-bold">{{result.raceName}}</div>
-              <div class="primary-color font-weight-bold">{{result.courseName}}</div>
               <div>
                 <span class="font-12 font-weight-bold"><strong>{{result.paceWithTime.timeFormatted}}</strong></span>
                 <span style="font-size: 12px;" *ngIf="result.paceWithTime.hasPace">

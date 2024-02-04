@@ -13,26 +13,11 @@
 
 <ng-container *ngIf="dataLoaded">
 
-  <div>
-    <img width="120px" height="120px" [src]="courseInfo.raceSeriesImageUrl">
-  </div>
-
-  <div class="mt-4 font-24 font-weight-bold">{{courseInfo.raceName}}</div>
-  <div class="font-18 primary-color font-weight-bold">{{courseInfo.courseName}}</div>
-  <div class="font-14">
-    <div>{{courseInfo.raceSeriesCity}}, {{courseInfo.raceSeriesState}}</div>
-    <div>Distance: {{courseInfo.courseDistance}}</div>
-    <div>{{courseInfo.courseDate}} at <strong>{{courseInfo.courseTime}}</strong></div>
-  </div>
-  <div class="font-12 font-italic font-weight-bold">- "{{courseInfo.raceSeriesDescription}}"</div>
-
-  <hr />
-
-  <table class="my-5 genericDataTable">
+  <table class="table">
     <thead>
       <tr>
         <th class="text-left pb-2" style="width: 25%"></th>
-        <th class="font-24 text-left pb-2" style="width: 25%"><i class="fa fa-trophy mr-1" aria-hidden="true"></i>Winner</th>
+        <th class="font-24 text-left pb-2" style="width: 25%">First Place</th>
         <th class="font-24 text-left pb-2" style="width: 25%">Second Place</th>
         <th class="font-24 text-left pb-2" style="width: 25%">Third Place</th>
       </tr>
