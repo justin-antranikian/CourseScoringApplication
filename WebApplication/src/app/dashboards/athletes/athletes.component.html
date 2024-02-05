@@ -44,12 +44,14 @@
 
   <hr />
 
-  <div class="my-2 text-right">
-    <a [routerLink]="[AthleteComparePage]" [queryParams]="{athleteIds: athleteIdsToCompareString}" target="_blank">
-      <button [disabled]="athleteIdsToCompare.length <= 1" type="button" class="btn btn-outline-primary">
-        Compare Athletes ({{athleteIdsToCompare.length}})
-      </button>
-    </a>
-  </div>
+  @if (showToast) {
+    <div style="z-index: 1200;" class="position-fixed top-0 end-0 p-3 mt-4">
+      <ngb-toast header="Compare {{ athleteIdsToCompare.length }} athletes" [autohide]="false" (hidden)="showToast = false">
+        <a [routerLink]="[AthleteComparePage]" [queryParams]="{athleteIds: athleteIdsToCompareString}" target="_blank">
+          View
+        </a>
+      </ngb-toast>
+    </div>
+  }
 
 </ng-container>

@@ -33,6 +33,7 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
 
   public athleteIdsToCompare: number[] = []
   public athleteIdsToCompareString: any = null
+  public showToast = false;
 
   constructor(route: ActivatedRoute, http: HttpClient) {
     super(route, http)
@@ -66,5 +67,6 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
     }
 
     this.athleteIdsToCompareString = JSON.stringify(athleteIds)
+    this.showToast = true
   }
 }

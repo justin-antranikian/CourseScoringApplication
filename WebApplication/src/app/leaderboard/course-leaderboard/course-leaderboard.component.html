@@ -6,6 +6,7 @@
 <hr />
 
 <div *ngIf="dataLoaded" class="row">
+
   <div class="col-2">
     <div>
       <img width="120px" height="120px" [src]="raceSeriesImageUrl">
@@ -38,7 +39,7 @@
       </div>
     </div>
 
-    <div class="row mt-1">
+    <div class="row mt-4">
       <div class="col col-sm-4">
         <select (change)="onCourseChanged()" [(ngModel)]="resultFilters.courseId" class="form-control">
           <option [value]="course.id" *ngFor="let course of courseMetadata.courses">{{course.displayName}}</option>
@@ -73,16 +74,19 @@
       <ng-container *ngTemplateOutlet="resultsTableTemplate;context:{leaderboard:leaderboard}" ></ng-container>
     </div>
 
-    <div class="my-2 text-right">
-      <a [routerLink]="[IndividualResultComparePage, courseId]" [queryParams]="{athleteCourseIds: athleteCourseIdsToCompareString}" target="_blank">
-        <button [disabled]="athleteCourseIdsToCompare.length <= 1" type="button" class="btn btn-outline-primary">
-          Compare Results ({{athleteCourseIdsToCompare.length}})
-        </button>
-      </a>
-    </div>
-
   </div>
+
 </div>
+
+@if (showToast) {
+  <div style="z-index: 1200;" class="position-fixed top-0 end-0 p-3 mt-4">
+    <ngb-toast header="Compare {{ athleteCourseIdsToCompare.length }} results" [autohide]="false" (hidden)="showToast = false">
+      <a [routerLink]="[IndividualResultComparePage, courseId]" [queryParams]="{athleteCourseIds: athleteCourseIdsToCompareString}" target="_blank">
+        View
+      </a> 
+    </ngb-toast>
+  </div>
+}
 
 <ng-template #resultsTableTemplate let-leaderboard="leaderboard">
 
@@ -125,7 +129,7 @@
           {{result.paceWithTimeCumulative.paceLabel}}
         </td>
         <td>
-          <button type="button" (click)="compareIrpClicked(result)" title="Compare Result" class="btn btn-outline-primary btn-sm">
+          <button type="button" (click)="compareIrpClicked(result)" title="Compare Result" class="btn btn-outline-secondary btn-sm">
             <i class="fa fa-compress" aria-hidden="true"></i>
           </button>
         </td>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { ApiRequestService } from '../../_services/api-request.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AthletesComponentBase } from './athletesComponentBase';
 import { HttpClient } from '@angular/common/http';
@@ -15,12 +14,13 @@ import { LocationInfoRankingsComponent } from '../../_subComponents/location-inf
 import { BracketRankComponent } from '../../_subComponents/bracket-rank/bracket-rank.component';
 import { IntervalTimeComponent } from '../../_subComponents/interval-time/interval-time.component';
 import { AthleteBreadcrumbComponent } from '../../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
   selector: 'app-athletes-all',
   templateUrl: './athletes.component.html',
-  imports: [CommonModule, RouterModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, AthleteSearchResultComponent, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent, AthleteBreadcrumbComponent],
+  imports: [CommonModule, RouterModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, AthleteSearchResultComponent, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent, AthleteBreadcrumbComponent, NgbToastModule],
   styleUrls: []
 })
 export class AthletesAllComponent extends AthletesComponentBase implements OnInit {

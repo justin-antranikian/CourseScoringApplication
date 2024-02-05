@@ -12,10 +12,11 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.component';
 import { AthleteSearchResultComponent } from './athlete-search-result/athlete-search-result.component';
 import { AthleteBreadcrumbComponent } from '../../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, HttpClientModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, AthleteSearchResultComponent, RouterModule, AthleteBreadcrumbComponent],
+  imports: [CommonModule, HttpClientModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, AthleteSearchResultComponent, RouterModule, AthleteBreadcrumbComponent, NgbToastModule],
   selector: 'app-athletes-city',
   templateUrl: './athletes.component.html',
   styleUrls: []

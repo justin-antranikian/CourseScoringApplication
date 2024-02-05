@@ -5,7 +5,7 @@ import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { removeUndefinedKeyValues } from '../../_common/jsonHelpers';
 import { CourseLeaderboardFilter } from './courseLeaderboardFilter';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/getBreadcrumb/breadcrumbRequestDto';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
@@ -18,14 +18,14 @@ import { FormsModule } from '@angular/forms';
 @Component({
   standalone: true,
   selector: 'app-course-leaderboard',
-  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, IrpQuickViewComponent, HttpClientModule, CommonModule, IrpsSearchComponent, FormsModule],
+  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, NgbToastModule, IrpQuickViewComponent, HttpClientModule, CommonModule, IrpsSearchComponent, FormsModule],
   templateUrl: './course-leaderboard.component.html',
   styleUrls: ['./course-leaderboard.component.css']
 })
 export class CourseLeaderboardComponent extends BreadcrumbComponent implements OnInit {
 
   public resultFilters!: CourseLeaderboardFilter
-
+  
   // extract as props to render in template.
   public raceSeriesImageUrl!: string
   public raceName!: string
@@ -38,6 +38,8 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
   public courseMetadata: any
   public leaderboards!: any[]
   public selectedIrp: any
+
+  public showToast = false;
 
   public courseId!: number
   public athleteCourseIdsToCompare: number[] = []
@@ -167,5 +169,6 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
     }
 
     this.athleteCourseIdsToCompareString = JSON.stringify(athleteCourseIds)
+    this.showToast = true
   }
 }
