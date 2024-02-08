@@ -42,14 +42,13 @@
     </div>
   </div>
 
-  <hr />
-
   @if (showToast) {
     <div style="z-index: 1200;" class="position-fixed top-0 end-0 p-3 mt-4">
       <ngb-toast header="Compare {{ athleteIdsToCompare.length }} athletes" [autohide]="false" (hidden)="showToast = false">
         <a [routerLink]="[AthleteComparePage]" [queryParams]="{athleteIds: athleteIdsToCompareString}" target="_blank">
           View
         </a>
+        <a style="cursor: pointer;" class="ms-2" (click)="onCloseCompareClicked()">Clear</a>
       </ngb-toast>
     </div>
   }

@@ -83,7 +83,8 @@
     <ngb-toast header="Compare {{ athleteCourseIdsToCompare.length }} results" [autohide]="false" (hidden)="showToast = false">
       <a [routerLink]="[IndividualResultComparePage, courseId]" [queryParams]="{athleteCourseIds: athleteCourseIdsToCompareString}" target="_blank">
         View
-      </a> 
+      </a>
+      <a style="cursor: pointer;" class="ms-2" (click)="onCloseCompareCliecked()">Clear</a>
     </ngb-toast>
   </div>
 }

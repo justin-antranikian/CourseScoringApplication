@@ -161,6 +161,8 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
   public compareIrpClicked = ({ athleteCourseId }: any) => {
     const athleteCourseIds = this.athleteCourseIdsToCompare
 
+    debugger
+
     if (!athleteCourseIds.includes(athleteCourseId)) {
       athleteCourseIds.push(athleteCourseId)
     } else {
@@ -170,5 +172,10 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
 
     this.athleteCourseIdsToCompareString = JSON.stringify(athleteCourseIds)
     this.showToast = true
+  }
+
+  public onCloseCompareCliecked = () => {
+    this.athleteCourseIdsToCompare = []
+    this.showToast = false
   }
 }

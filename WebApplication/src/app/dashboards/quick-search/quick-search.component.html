@@ -20,38 +20,36 @@
 
   <ng-container *ngIf="(mouseIsOver || searchIsFocused) && searchRequested">
     <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer">
-      <ng-container *ngIf="searchResults.length === 0; then noResultsTemplate else resultsTemplate"></ng-container>
+      @if (searchResults.length === 0) {
+        <div class="font-20">No results found.</div>
+      } @else {
+        <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>
+      }
     </div>
   </ng-container>
 
 </div>
 
-<ng-template #noResultsTemplate>
-
-  <div class="font-20">No results found.</div>
-
-</ng-template>
-
 <ng-template #resultsTemplate>
 
   <div class="mb-3 font-20"><b>{{searchResults.length}}</b> result(s) found</div>
 
-  <ng-container *ngIf="quickSearchType === 0">
-    <div class="mb-2" *ngFor="let raceSeries of searchResults">
-      <div class="font-weight-bold"><a [routerLink]="[RaceSeriesDashboardPage, raceSeries.id]">{{raceSeries.name}}</a></div>
-      <div class="font-12 font-weight-bold">{{raceSeries.raceSeriesTypeName}}</div>
-      <div class="font-12">{{raceSeries.locationInfoWithRank.city}}, {{raceSeries.locationInfoWithRank.state}}</div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="quickSearchType === 1">
-    <div class="mb-2" *ngFor="let athlete of searchResults">
-      <div class="font-weight-bold">
-        <a [routerLink]="[AthletePage, athlete.id]">{{athlete.fullName}}</a>
+  @switch (quickSearchType) {
+    @case (0) {
+      <div class="mb-2" *ngFor="let raceSeries of searchResults">
+        <div class="font-weight-bold"><a [routerLink]="[RaceSeriesDashboardPage, raceSeries.id]">{{raceSeries.name}}</a></div>
+        <div class="font-12 font-weight-bold">{{raceSeries.raceSeriesTypeName}}</div>
+        <div class="font-12">{{raceSeries.locationInfoWithRank.city}}, {{raceSeries.locationInfoWithRank.state}}</div>
       </div>
-      <div class="font-12">{{athlete.genderAbbreviated}} | {{athlete.age}}</div>
-      <div class="font-12">{{athlete.locationInfoWithRank.city}}, {{athlete.locationInfoWithRank.state}}</div>
-    </div>
-  </ng-container>
+    } @case (1) {
+      <div class="mb-2" *ngFor="let athlete of searchResults">
+        <div class="font-weight-bold">
+          <a [routerLink]="[AthletePage, athlete.id]">{{athlete.fullName}}</a>
+        </div>
+        <div class="font-12">{{athlete.genderAbbreviated}} | {{athlete.age}}</div>
+        <div class="font-12">{{athlete.locationInfoWithRank.city}}, {{athlete.locationInfoWithRank.state}}</div>
+      </div>
+    }
+  }
 
 </ng-template>

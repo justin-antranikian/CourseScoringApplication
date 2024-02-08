@@ -69,4 +69,9 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
     this.athleteIdsToCompareString = JSON.stringify(athleteIds)
     this.showToast = true
   }
+
+  public onCloseCompareClicked = () => {
+    this.athleteIdsToCompare = []
+    this.showToast = false
+  }
 }
