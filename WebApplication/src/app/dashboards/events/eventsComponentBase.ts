@@ -8,7 +8,6 @@ import { getHttpParams } from '../../_common/httpParamsHelpers';
 import { mapRaceSeriesTypeToImageUrl } from '../../_common/IRaceSeriesType';
 import { config } from '../../config';
 
-
 export abstract class EventsComponentBase extends BreadcrumbComponent {
 
   protected static readonly EventsPerRow: number = 4

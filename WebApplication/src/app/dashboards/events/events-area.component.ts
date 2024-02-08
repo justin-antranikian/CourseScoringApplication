@@ -13,7 +13,6 @@ import { EventSearchResultComponent } from './event-search-result/event-search-r
 import { EventsComponentBase } from './eventsComponentBase';
 import { HttpClient } from '@angular/common/http';
 
-
 @Component({
   standalone: true,
   imports: [CommonModule, EventsBreadcrumbComponent, RouterModule, SmartNavigationComponent, SmartNavigationStatesComponent, QuickSearchComponent, EventSearchResultComponent],

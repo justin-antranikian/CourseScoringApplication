@@ -1,5 +1,3 @@
-// import { LocationInfoWithRank } from "../locationInfoWithRank";
-// import { DisplayNameWithIdDto } from "../displayNameWithIdDto";
 import { IRaceSeriesType } from "../../_common/IRaceSeriesType";
 
 export interface EventSearchResultDto extends IRaceSeriesType {

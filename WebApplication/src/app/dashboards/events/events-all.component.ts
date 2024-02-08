@@ -11,12 +11,6 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-// import { EventsComponentBase } from 'src/app/dashboards/events/eventsComponentBase';
-// import { BreadcrumbLocation } from 'src/app/_common/breadcrumbLocation';
-// import { DashboardInfoLocationType, DashboardInfoRequestDto, DashboardInfoType } from 'src/app/_orchestration/getDashboardInfo/dashboardInfoRequestDto';
-// import { SearchEventsRequestDto } from 'src/app/_orchestration/searchEvents/searchEventsRequestDto';
-// import { ApiRequestService } from 'src/app/_services/api-request.service';
-// import { BreadcrumbsApiRequestService } from 'src/app/_services/breadcrumbs-api-request.service';
 
 @Component({
   standalone: true,

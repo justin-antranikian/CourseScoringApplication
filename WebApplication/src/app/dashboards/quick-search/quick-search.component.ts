@@ -11,13 +11,6 @@ import { mapRaceSeriesTypeToImageUrl } from '../../_common/IRaceSeriesType';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { config } from '../../config';
-// import { BreadcrumbLocation } from 'src/app/_common/breadcrumbLocation';
-// import { ComponentBaseWithRoutes } from 'src/app/_common/componentBaseWithRoutes';
-// import { AthleteSearchResultDto } from 'src/app/_orchestration/searchAthletes/athleteSearchResultDto';
-// import { EventSearchResultDto } from 'src/app/_orchestration/searchEvents/eventSearchResultDto';
-// import { SearchAthletesRequestDto } from 'src/app/_orchestration/searchAthletes/searchAthletesRequestDto';
-// import { SearchEventsRequestDto } from 'src/app/_orchestration/searchEvents/searchEventsRequestDto';
-// import { ApiRequestService } from 'src/app/_services/api-request.service';
 
 /**
  * Events or Athletes are the possible navigation types.

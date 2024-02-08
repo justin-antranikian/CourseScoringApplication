@@ -3,8 +3,6 @@ import { ComponentBaseWithRoutes } from '../_common/componentBaseWithRoutes';
 import { CommonModule } from '@angular/common';
 import { RaceSeriesParticipantComponent } from './race-series-participant.component';
 import { RouterModule } from '@angular/router';
-// import { CourseInformationEntry } from '../_orchestration/getRaceSeriesDashboard/courseInformationEntry';
-// import { RaceSeriesDashboardCourseDto, RaceSeriesDashboardParticipantDto } from '../_orchestration/getRaceSeriesDashboard/raceSeriesDashboardDto';
 
 @Component({
   standalone: true,
