@@ -3,7 +3,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { map, tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoutes';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AthleteSearchResultDto } from '../../../_orchestration/searchAthletes/athleteSearchResultDto';
+import { AthleteSearchResultDto } from '../../../_core/athleteSearchResultDto';
 import { Observable } from 'rxjs';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { BracketRankComponent } from '../../../_subComponents/bracket-rank/bracket-rank.component';

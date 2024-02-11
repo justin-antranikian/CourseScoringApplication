@@ -1,4 +1,4 @@
-import { IntervalType, IntervalTypeToImageUrl } from "../_core/enums/intervalType";
+import { IntervalType, IntervalTypeToImageUrl } from "../_core/intervalType";
 
 /**
  * intervalName comes from the server, while intervalTypeImageUrl is set on the client.

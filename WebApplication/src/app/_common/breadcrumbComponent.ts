@@ -105,9 +105,6 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
   * @param breadcrumbRequestDto
   */
   public getEventsBreadCrumbsResult(breadcrumbRequestDto: any): Observable<any> {
-
-    debugger
-
     const httpParams = getHttpParams(breadcrumbRequestDto.getAsParamsObject())
     return this.http.get<any>(`${config.apiUrl}/eventsBreadCrumbsApi`, httpParams)
   }

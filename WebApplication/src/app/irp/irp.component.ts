@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { tap, mergeMap, map } from 'rxjs/operators'
-import { PaceWithTime } from '../_core/enums/paceWithTime';
+import { PaceWithTime } from '../_core/paceWithTime';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IrpIntervalResultComponent } from './irp-interval-result.component';
 import { BracketRankComponent } from '../_subComponents/bracket-rank/bracket-rank.component';
-import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../_core/getBreadcrumb/breadcrumbRequestDto';
+import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../_core/breadcrumbRequestDto';
 import { BreadcrumbComponent } from '../_common/breadcrumbComponent';
 import { BreadcrumbLocation } from '../_common/breadcrumbLocation';
 import { EventsBreadcrumbComponent } from '../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';

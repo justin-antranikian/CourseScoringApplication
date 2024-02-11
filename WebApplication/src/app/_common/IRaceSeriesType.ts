@@ -1,4 +1,4 @@
-import { RaceSeriesType, RaceSeriesTypeToImageUrl } from "../_core/enums/raceSeriesType"
+import { RaceSeriesType, RaceSeriesTypeToImageUrl } from "../_core/raceSeriesType"
 
 /**
  * raceSeriesType comes from the server, while raceSeriesImageUrl is set on the client.

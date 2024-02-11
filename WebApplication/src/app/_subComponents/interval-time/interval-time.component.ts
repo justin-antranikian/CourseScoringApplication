@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PaceWithTime } from '../../_core/enums/paceWithTime';
+import { PaceWithTime } from '../../_core/paceWithTime';
 import { CommonModule } from '@angular/common';
 
 @Component({

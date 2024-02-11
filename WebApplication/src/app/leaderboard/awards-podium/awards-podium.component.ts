@@ -4,7 +4,7 @@ import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { mergeMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/getBreadcrumb/breadcrumbRequestDto';
+import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { config } from '../../config';

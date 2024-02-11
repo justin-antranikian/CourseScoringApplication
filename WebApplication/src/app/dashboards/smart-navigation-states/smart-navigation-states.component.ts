@@ -2,8 +2,6 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-// import { ComponentBaseWithRoutes } from 'src/app/_common/componentBaseWithRoutes';
-// import { DashboardInfoResponseDto, NavigationItem } from 'src/app/_orchestration/getDashboardInfo/dashboardInfoResponseDto';
 
 @Component({
   standalone: true,

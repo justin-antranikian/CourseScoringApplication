@@ -4,7 +4,7 @@ import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/getBreadcrumb/breadcrumbRequestDto';
+import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { LeaderboardResultComponent } from '../../_subComponents/leaderboard-results-grid/leaderboard-result.component';

@@ -10,7 +10,7 @@
 <hr />
 
 <div *ngIf="arpLoaded" class="row">
-  <div class="col-3">
+  <div class="col-lg-3">
     <div><img width="120px" height="120px" src="/assets/img/Athlete.png"></div>
     <div class="mt-4 font-24 font-weight-bold">{{fullName}}</div>
     <div class="font-18">{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
@@ -48,7 +48,7 @@
       "{{wellnessEntry.description}}"
     </div>
   </div>
-  <div class="col-9">
+  <div class="col-lg-9">
     <ng-container *ngTemplateOutlet="stats"></ng-container>
     <hr />
     <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>

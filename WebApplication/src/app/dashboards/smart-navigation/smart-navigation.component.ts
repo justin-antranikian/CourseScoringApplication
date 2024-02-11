@@ -3,8 +3,6 @@ import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart-navigation-states.component';
-// import { ComponentBaseWithRoutes } from 'src/app/_common/componentBaseWithRoutes';
-// import { DashboardInfoResponseDto, NavigationItem } from 'src/app/_orchestration/getDashboardInfo/dashboardInfoResponseDto';
 
 @Component({
   standalone: true,

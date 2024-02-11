@@ -6,7 +6,7 @@
 <hr />
 
 <div *ngIf="dataLoaded" class="row">
-  <div class="col-2">
+  <div class="col-lg-2">
     <div><img width="120px" height="120px" [src]="raceSeriesImageUrl"></div>
     <div class="mt-4 font-24 font-weight-bold">{{raceName}}</div>
     <div class="font-18 primary-color font-weight-bold">All Courses</div>
@@ -23,9 +23,9 @@
     <div class="font-12 font-weight-bold font-italic">- "{{raceSeriesDescription}}"</div>
 
   </div>
-  <div class="col-10">
+  <div class="col-lg-10">
 
-    <div class="row">
+    <div class="row mb-5">
       <div class="col-6">
         <div class="mt-1">Shows results for <strong>top 3 athletes</strong> in each course</div>
       </div>
@@ -34,51 +34,34 @@
       </div>
     </div>
 
-    <hr class="my-5" />
-
     <div class="mb-5" *ngFor="let leaderboard of leaderboards">
-      <div class="font-20 primary-color font-weight-bold">{{leaderboard.courseName}}</div>
-      <div class="card p-1 primary-background">
-        <div>
-          <span class="me-2">
-            <img width="40" height="40" [src]="leaderboard.intervalTypeImageUrl">
-          </span>
-          <span class="font-weight-bold">{{leaderboard.highestIntervalName}}</span>
-        </div>
-      </div>
-      <div class="mb-5 font-12 text-secondary font-weight-bold font-italic">Top 3 athletes</div>
+      <div class="font-24 primary-color font-weight-bold">{{leaderboard.courseName}}</div>
 
-      <ng-container *ngTemplateOutlet="resultsTableTemplate;context:{leaderboard:leaderboard}" ></ng-container>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 5%"></th>
+            <th style="width: 5%"></th>
+            <th style="width: 15%">Bib</th>
+            <th style="width: 20%">Name</th>
+            <th style="width: 10%">Overall</th>
+            <th style="width: 10%">Gender</th>
+            <th style="width: 10%">Division</th>
+            <th style="width: 15%">Time</th>
+            <th style="width: 10%">Pace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let result of leaderboard.results">
+            <tr app-leaderboard-result [leaderboardResult]="result"></tr>
+          </ng-container>
+        </tbody>
+      </table>
 
-      <div class="my-5 text-center">
-        <a class="btn btn-outline-primary" [routerLink]="[CourseLeaderboardPage, leaderboard.courseId]">View All</a>
+      <div class="my-5" style="text-align: right;">
+        <a class="btn btn-outline-secondary" [routerLink]="[CourseLeaderboardPage, leaderboard.courseId]">View All</a>
       </div>
     </div>
 
   </div>
 </div>
-
-<ng-template #resultsTableTemplate let-leaderboard="leaderboard">
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th style="width: 5%"></th>
-        <th style="width: 5%"></th>
-        <th style="width: 15%">Bib</th>
-        <th style="width: 20%">Name</th>
-        <th style="width: 10%">Overall</th>
-        <th style="width: 10%">Gender</th>
-        <th style="width: 10%">Division</th>
-        <th style="width: 15%">Time</th>
-        <th style="width: 10%">Pace</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let result of leaderboard.results">
-        <tr app-leaderboard-result [leaderboardResult]="result"></tr>
-      </ng-container>
-    </tbody>
-  </table>
-
-</ng-template>

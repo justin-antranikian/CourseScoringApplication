@@ -7,7 +7,7 @@
 
 <div *ngIf="dataLoaded" class="row">
 
-  <div class="col-2">
+  <div class="col-lg-2">
     <div>
       <img width="120px" height="120px" [src]="raceSeriesImageUrl">
     </div>
@@ -25,11 +25,10 @@
     <hr />
     <div class="font-12 font-italic font-weight-bold">- "{{raceSeriesDescription}}"</div>
   </div>
-  <div class="col-10">
+  <div class="col-lg-10">
 
     <div class="row">
       <div class="col-6">
-        <div>shows results for <strong>overall bracket</strong> and <strong>all intervals</strong></div>
         <div>
           <a [routerLink]="[AwardsPodiumPage, resultFilters.courseId]">Awards Podium</a>
         </div>
@@ -59,18 +58,7 @@
     </div>
 
     <div class="my-5" *ngFor="let leaderboard of leaderboards">
-      <div class="card p-1 primary-background">
-        <div>
-          <span class="me-2">
-            <img width="40" height="40" src="{{leaderboard.intervalTypeImageUrl}}">
-          </span>
-          <span class="font-weight-bold">{{leaderboard.intervalName}}</span>
-        </div>
-      </div>
-      <div class="mb-5 font-12 font-weight-bold font-italic text-secondary">
-        ({{leaderboard.totalRacers}}) athlete(s) have finished this interval.
-      </div>
-
+      <div class="font-24 primary-color font-weight-bold">{{leaderboard.intervalName}}</div>
       <ng-container *ngTemplateOutlet="resultsTableTemplate;context:{leaderboard:leaderboard}" ></ng-container>
     </div>
 

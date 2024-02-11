@@ -1,5 +1,5 @@
-import { removeUndefinedKeyValues } from "../../_common/jsonHelpers"
-import { RaceSeriesType } from "../../_core/enums/raceSeriesType"
+import { removeUndefinedKeyValues } from "../_common/jsonHelpers"
+import { RaceSeriesType } from "./raceSeriesType"
 
 export class SearchEventsRequestDto {
   constructor(

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ComponentBaseWithRoutes } from '../_common/componentBaseWithRoutes';
 import { keys } from 'lodash'
-import { SearchEventsRequestDto } from '../_orchestration/searchEvents/searchEventsRequestDto';
-import { EventSearchResultDto } from '../_orchestration/searchEvents/eventSearchResultDto';
+import { SearchEventsRequestDto } from '../_core/searchEventsRequestDto';
+import { EventSearchResultDto } from '../_core/eventSearchResultDto';
 import { removeUndefinedKeyValues } from '../_common/jsonHelpers';
 import { RaceTypeFilterModel } from '../_common/raceTypeFilterModel';
 import { HttpClient } from '@angular/common/http';

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { map, tap } from 'rxjs/operators';
-import { EventSearchResultDto } from '../../../_orchestration/searchEvents/eventSearchResultDto';
+import { EventSearchResultDto } from '../../../_core/eventSearchResultDto';
 import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoutes';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

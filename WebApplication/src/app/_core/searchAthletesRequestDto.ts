@@ -1,4 +1,4 @@
-import { removeUndefinedKeyValues } from "../../_common/jsonHelpers"
+import { removeUndefinedKeyValues } from "../_common/jsonHelpers"
 
 export class SearchAthletesRequestDto {
   constructor(

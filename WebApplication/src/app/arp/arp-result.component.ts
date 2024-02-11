@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-// import { ArpResultDto } from '../_orchestration/getArp/arpDto';
-import { PaceWithTime } from '../_core/enums/paceWithTime';
+import { PaceWithTime } from '../_core/paceWithTime';
 import { ComponentBaseWithRoutes } from '../_common/componentBaseWithRoutes';
 import { CommonModule } from '@angular/common';
 import { BracketRankComponent } from '../_subComponents/bracket-rank/bracket-rank.component';

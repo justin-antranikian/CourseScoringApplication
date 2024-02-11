@@ -1,4 +1,4 @@
-import { IRaceSeriesType } from "../../_common/IRaceSeriesType";
+import { IRaceSeriesType } from "../_common/IRaceSeriesType";
 
 export interface EventSearchResultDto extends IRaceSeriesType {
   id: number

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { PaceWithTime } from "../_core/enums/paceWithTime";
+import { PaceWithTime } from "../_core/paceWithTime";
 import { BracketRankComponent } from "../_subComponents/bracket-rank/bracket-rank.component";
 import { IntervalTimeComponent } from "../_subComponents/interval-time/interval-time.component";
 

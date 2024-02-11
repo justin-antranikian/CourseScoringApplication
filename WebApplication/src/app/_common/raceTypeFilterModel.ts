@@ -1,4 +1,4 @@
-import { RaceSeriesType } from "../_core/enums/raceSeriesType"
+import { RaceSeriesType } from "../_core/raceSeriesType"
 import { removeUndefinedKeyValues } from "./jsonHelpers"
 
 export class RaceTypeFilterModel {

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BracketType } from '../../_core/enums/bracketType';
+import { BracketType } from '../../_core/bracketType';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { removeUndefinedKeyValues } from '../../_common/jsonHelpers';
 import { CourseLeaderboardFilter } from './courseLeaderboardFilter';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { NgbModal, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/getBreadcrumb/breadcrumbRequestDto';
+import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { IrpQuickViewComponent } from '../../_subComponents/leaderboard-results-grid/irp-quick-view.component';
@@ -160,8 +160,6 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
 
   public compareIrpClicked = ({ athleteCourseId }: any) => {
     const athleteCourseIds = this.athleteCourseIdsToCompare
-
-    debugger
 
     if (!athleteCourseIds.includes(athleteCourseId)) {
       athleteCourseIds.push(athleteCourseId)
