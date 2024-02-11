@@ -1,25 +1,24 @@
 
-<ng-container *ngIf="breadcrumbLocation === breadcrumbAll">
+@if (breadcrumbLocation === breadcrumbAll) {
   All Athletes
-</ng-container>
+}
 
-<ng-container *ngIf="breadcrumbLocation >= breadcrumbState">
+@if (breadcrumbLocation >= breadcrumbState) {
   <a [routerLink]="AthletesPage">All Athletes</a> >
-</ng-container>
+}
 
-<ng-container *ngIf="breadcrumbLocation >= breadcrumbArea">
+@if (breadcrumbLocation >= breadcrumbArea) {
   <a [routerLink]="[AthletesStatePage, stateUrl]">{{state}}</a> >
-</ng-container>
+}
 
-<ng-container *ngIf="breadcrumbLocation >= breadcrumbCity">
+@if (breadcrumbLocation >= breadcrumbCity) {
   <a [routerLink]="[AthletesAreaPage, areaUrl]">{{area}}</a> >
-</ng-container>
+}
 
-<ng-container *ngIf="breadcrumbLocation >= breadcrumbRaceSeriesOrArp">
+@if (breadcrumbLocation >= breadcrumbRaceSeriesOrArp) {
   <a [routerLink]="[AthletesCityPage, cityUrl]">{{city}}</a> >
-</ng-container>
+}
 
-<ng-container *ngIf="breadcrumbLocation >= breadcrumbState">
+@if (breadcrumbLocation >= breadcrumbState) {
   {{title}}
-</ng-container>
-
+}

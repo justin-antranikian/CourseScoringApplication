@@ -20,12 +20,7 @@ public partial class GetDashboardInfoOrchestrator
 
         lock (_athletesLock)
         {
-            if (_locationsByAthletes != null)
-            {
-                return _locationsByAthletes;
-            }
-
-            _locationsByAthletes = scoringDbContext.Athletes.Select(oo => new Location(oo.State, oo.Area, oo.City)).ToList();
+            _locationsByAthletes ??= scoringDbContext.Athletes.Select(oo => new Location(oo.State, oo.Area, oo.City)).ToList();
             return _locationsByAthletes;
         }
     }

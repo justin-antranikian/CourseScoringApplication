@@ -90,9 +90,11 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let result of results">
+
+      @for (result of results; track result) {
         <tr style="height: 85px;" app-arp-result [arpResultDto]="result"></tr>
-      </ng-container>
+      }
+
     </tbody>
   </table>
 

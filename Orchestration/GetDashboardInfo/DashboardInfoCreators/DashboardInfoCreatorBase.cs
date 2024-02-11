@@ -50,7 +50,7 @@ public abstract class DashboardInfoCreatorBase
 
     private List<NavigationItem> GetCities(IEnumerable<IGrouping<string, Location>> byCityGrouping)
     {
-        var navItems = byCityGrouping.Select(oo => GetCityNavItem(oo));
+        var navItems = byCityGrouping.Select(GetCityNavItem);
         return navItems.OrderBy(oo => oo.DisplayName).ToList();
     }
 }

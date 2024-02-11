@@ -57,10 +57,9 @@
 
     <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
 
-      <ng-container *ngIf="searchResults">
+      @if (searchResults) {
 
         <div class="row">
-
           <div class="col-6">
             <div class="mb-3 font-18 font-weight-bold"><b>{{searchResults.athletes.length}}</b> athlete(s) found</div>
 
@@ -74,7 +73,6 @@
           </div>
 
           <div class="col-6">
-
             <div class="mb-3 font-18 font-weight-bold"><b>{{searchResults.raceSeries.length}}</b> events(s) found</div>
 
             <div class="mb-2 border p-1" *ngFor="let raceSeries of searchResults.raceSeries">
@@ -85,8 +83,7 @@
           </div>
 
         </div>
-
-      </ng-container>
+      }
 
     </div>
 

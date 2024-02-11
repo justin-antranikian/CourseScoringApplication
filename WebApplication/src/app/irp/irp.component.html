@@ -214,9 +214,9 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let intervalResult of intervalResults">
+      @for (intervalResult of intervalResults; track intervalResult) {
         <tr app-irp-interval-result [irpResultByInterval]="intervalResult"></tr>
-      </ng-container>
+      }
     </tbody>
   </table>
 

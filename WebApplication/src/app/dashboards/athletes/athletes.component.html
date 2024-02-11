@@ -17,13 +17,11 @@
     <div class="col-lg-3">
       <div class="font-18 font-weight-bold mb-3">Directory</div>
 
-      <ng-container *ngIf="!isLanding">
-        <app-smart-navigation [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation>
-      </ng-container>
-
-      <ng-container *ngIf="isLanding">
-        <app-smart-navigation-states [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation-states>
-      </ng-container>
+        @if (!isLanding) {
+          <app-smart-navigation [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation>
+        } @else {
+          <app-smart-navigation-states [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation-states>
+        }
 
     </div>
     <div class="col-lg-9">

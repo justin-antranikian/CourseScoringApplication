@@ -2,15 +2,15 @@
 <div ngbDropdown class="d-inline-block">
 
   <button class="btn-plain pizzeTrackerCompleted" placement="top" [ngbTooltip]="intervalName" ngbDropdownToggle>
-    <ng-container *ngIf="!isFullCourse">
+
+    @if (!isFullCourse) {
       <i *ngIf="intervalFinished" class="fa fa-check-circle-o fa-lg text-success"></i>
       <i *ngIf="!intervalFinished" class="fa fa-circle-o fa-lg text-secondary"></i>
-    </ng-container>
-
-    <ng-container *ngIf="isFullCourse">
+    } @else {
       <i *ngIf="intervalFinished" class="fa fa-flag-checkered fa-lg text-success"></i>
       <i *ngIf="!intervalFinished" class="fa fa-flag-checkered fa-lg text-secondary"></i>
-    </ng-container>
+    }
+
   </button>
 
   <div style="width: 300px; max-height: 300px; overflow-y: scroll;" class="p-2" ngbDropdownMenu aria-labelledby="intervalDescriptionDrop">
