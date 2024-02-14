@@ -1,36 +1,40 @@
 <header>
-  <nav class="navbar navbar-expand-sm">
-    <div class="container">
 
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
       <a class="navbar-brand" [routerLink]="EventsPage">
         <img src="/assets/img/CourseScoring9.png" alt="">
       </a>
-
-      <ul class="navbar-nav">
-        <li><a class="nav-link" [routerLink]="EventsPage">Events</a></li>
-        <li><a class="nav-link" [routerLink]="AthletesPage">Athletes</a></li>
-        <li><a class="nav-link" [routerLink]="AdvancedSearch">Advanced Search</a></li>
-      </ul>
-
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-        <ul class="navbar-nav">
-          <div class="form-inline">
-            <div style="position: relative;">
-
-              <div class="input-group input-group-sm">
-                <span class="input-group-text" id="inputGroup-sizing-sm"><span class="mx-1"><i class="fa fa-search"></i></span>Search</span>
-                <ng-container *ngTemplateOutlet="searchBoxInput"></ng-container>
-              </div>
-
-              <ng-container *ngTemplateOutlet="searchResultsTemplate"></ng-container>
-
-            </div>
-          </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="EventsPage">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="AthletesPage">Athletes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="AdvancedSearch">Advanced Search</a>
+          </li>
         </ul>
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+          <ul class="navbar-nav">
+            <div class="form-inline">
+              <div style="position: relative;">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"><span class="mx-1"><i class="fa fa-search"></i></span>Search</span>
+                  <ng-container *ngTemplateOutlet="searchBoxInput"></ng-container>
+                </div>
+                <ng-container *ngTemplateOutlet="searchResultsTemplate"></ng-container>
+              </div>
+            </div>
+          </ul>
+        </div>
       </div>
-
     </div>
-    
   </nav>
 
 </header>

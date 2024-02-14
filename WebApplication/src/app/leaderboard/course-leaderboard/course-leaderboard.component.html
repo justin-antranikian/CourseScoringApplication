@@ -24,21 +24,21 @@
 
     <hr />
     <div class="font-12 font-italic font-weight-bold">- "{{raceSeriesDescription}}"</div>
+    <div class="mt-4">
+      <a class="btn btn-outline-secondary" [routerLink]="[AwardsPodiumPage, resultFilters.courseId]">Awards Podium</a>
+    </div>
   </div>
   <div class="col-lg-10">
 
     <div class="row">
-      <div class="col-6">
-        <div>
-          <a [routerLink]="[AwardsPodiumPage, resultFilters.courseId]">Awards Podium</a>
-        </div>
+      <div class="col-7">
       </div>
-      <div class="col-6">
+      <div class="col-5">
         <app-irps-search [courseId]="resultFilters.courseId"></app-irps-search>
       </div>
     </div>
 
-    <div class="row mt-4">
+    <!-- <div class="row mt-4">
       <div class="col col-sm-4">
         <select (change)="onCourseChanged()" [(ngModel)]="resultFilters.courseId" class="form-control">
           <option [value]="course.id" *ngFor="let course of courseMetadata.courses">{{course.displayName}}</option>
@@ -55,7 +55,7 @@
           <option [value]="interval.id" *ngFor="let interval of courseMetadata.intervals">{{interval.displayName}}</option>
         </select>
       </div>
-    </div>
+    </div> -->
 
     <div class="my-5" *ngFor="let leaderboard of leaderboards">
       <div class="font-24 primary-color font-weight-bold">{{leaderboard.intervalName}}</div>
