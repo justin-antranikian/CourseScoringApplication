@@ -4,11 +4,11 @@
   <button class="btn-plain pizzeTrackerCompleted" placement="top" [ngbTooltip]="intervalName" ngbDropdownToggle>
 
     @if (!isFullCourse) {
-      <i *ngIf="intervalFinished" class="fa fa-check-circle-o fa-lg text-success"></i>
-      <i *ngIf="!intervalFinished" class="fa fa-circle-o fa-lg text-secondary"></i>
+      <i *ngIf="intervalFinished" class="fa-regular fa-square-check fa-lg text-success"></i>
+      <i *ngIf="!intervalFinished" class="fa-regular fa-square-check fa-lg text-secondary"></i>
     } @else {
-      <i *ngIf="intervalFinished" class="fa fa-flag-checkered fa-lg text-success"></i>
-      <i *ngIf="!intervalFinished" class="fa fa-flag-checkered fa-lg text-secondary"></i>
+      <i *ngIf="intervalFinished" class="fa-solid fa-flag-checkered fa-lg text-success"></i>
+      <i *ngIf="!intervalFinished" class="fa-solid fa-flag-checkered fa-lg text-secondary"></i>
     }
 
   </button>
@@ -22,10 +22,10 @@
 
     <div class="my-2">
       @if (percentile) {
-        <i class="fa fa-check-circle-o fa-lg text-success"></i>
+        <i class="fa-regular fa-square-check text-success"></i>
         <strong class="text-success ms-1">Completed</strong>
       } @else {
-        <i class="fa fa-circle-o fa-lg text-secondary"></i>
+        <i class="fa-regular fa-square-check text-secondary"></i>
         <strong class="ms-1 text-secondary">Not Completed</strong>
       }
     </div>
