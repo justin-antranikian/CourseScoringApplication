@@ -62,8 +62,11 @@
 <ng-template #trendingIndicatior let-indicator="indicator">
 
   <span class="ms-2">
-    <span *ngIf="indicator === 1"><i style="color: green;" class="fa fa-long-arrow-up"></i><span class="ms-1" style="font-size: 10px;">(Better)</span></span>
-    <span *ngIf="indicator === 2"><i style="color: red;" class="fa fa-long-arrow-down"></i><span class="ms-1" style="font-size: 10px;">(Worse)</span></span>
+    @if (indicator === 1) {
+      <span><i style="color: green;" class="fa fa-long-arrow-up"></i><span class="ms-1" style="font-size: 10px;">(Better)</span></span>
+    } @else {
+      <span><i style="color: red;" class="fa fa-long-arrow-down"></i><span class="ms-1" style="font-size: 10px;">(Worse)</span></span>
+    }
   </span>
 
 </ng-template>

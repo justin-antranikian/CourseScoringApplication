@@ -4,7 +4,6 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumbLocation } from '../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../_common/breadcrumbComponent';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AthleteBreadcrumbComponent } from '../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
@@ -19,7 +18,6 @@ import { ArpResultComponent } from './arp-result.component';
 })
 export class ArpComponent extends BreadcrumbComponent implements OnInit {
 
-  // public chartOptions = new ChartOptionsForArp()
   public selectedGoal: any
   public arpLoaded: boolean = false
 
@@ -57,11 +55,8 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
   }
 
   private handleGetArpResponse = (arpDto: any) => {
-    const { goals, locationInfoWithRank } = arpDto
+    const { locationInfoWithRank } = arpDto
     this.athletesBreadcrumbResult = { locationInfoWithUrl: locationInfoWithRank }
-
-    // this.chartOptions.setLabels(goals.map((oo: any) => oo.raceSeriesTypeName))
-    // this.chartOptions.setData(goals.map((oo: any) => oo.totalDistance))
 
     this.setPropsToRender(arpDto)
     this.arpLoaded = true
