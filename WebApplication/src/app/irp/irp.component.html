@@ -5,96 +5,85 @@
 
 <hr />
 
-<div *ngIf="dataLoaded" class="row">
+<div *ngIf="$irp | async as irp" class="row">
   <div class="col-lg-3">
     <div>
-      <a [routerLink]="[AthletePage, athleteId]">
+      <a [routerLink]="[AthletePage, irp.athleteId]">
         <img width="120px" height="120px" src="/assets/img/Athlete.png">
       </a>
     </div>
 
-    <div class="mt-4 font-24 font-weight-bold">{{fullName}}</div>
-    <div class="font-18">{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
-    <div class="font-12">{{genderAbbreviated}} | {{raceAge}}</div>
+    <div class="mt-4 font-24 font-weight-bold">{{irp.fullName}}</div>
+    <div class="font-18">{{irp.locationInfoWithRank.city}}, {{irp.locationInfoWithRank.state}}</div>
+    <div class="font-12">{{irp.genderAbbreviated}} | {{irp.raceAge}}</div>
 
     <div class="mb-3">
-      <span class="font-24 badge text-bg-dark" title="bib">{{bib}}</span>
+      <span class="font-24 badge text-bg-dark" title="bib">{{irp.bib}}</span>
     </div>
 
-    <app-location-info-rankings [locationInfoWithRank]="locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+    <app-location-info-rankings [locationInfoWithRank]="irp.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
-    <div class="mt-3" *ngFor="let tag of tags">
+    <div class="mt-3" *ngFor="let tag of irp.tags">
       <span class="font-20 badge badge-primary primary-background">{{tag}}</span>
     </div>
 
-    <div class="mt-3">{{firstName}}'s training</div>
+    <div class="mt-3">{{irp.firstName}}'s training</div>
     <ul class="mt-3">
-      <li class="font-12" *ngFor="let training of trainingList">{{training}}</li>
+      <li class="font-12" *ngFor="let training of irp.trainingList">{{training}}</li>
     </ul>
 
-    <div class="mt-3">{{firstName}}'s personal goal</div>
-    <div class="mt-3 font-12 text-italic">"{{personalGoalDescription}}"</div>
+    <div class="mt-3">{{irp.firstName}}'s personal goal</div>
+    <div class="mt-3 font-12 text-italic">"{{irp.personalGoalDescription}}"</div>
 
-    <div class="mt-3">{{firstName}}'s course goal</div>
-    <div class="mt-3 font-12 primary-color text-italic"><strong>"{{courseGoalDescription}}"</strong></div>
+    <div class="mt-3">{{irp.firstName}}'s course goal</div>
+    <div class="mt-3 font-12 primary-color text-italic"><strong>"{{irp.courseGoalDescription}}"</strong></div>
   </div>
 
   <div class="col-lg-9">
 
-    <ng-container *ngTemplateOutlet="finish"></ng-container>
+    <ng-container *ngTemplateOutlet="finish;context:{irp:irp}"></ng-container>
     <hr />
-    <ng-container *ngTemplateOutlet="brackets"></ng-container>
+    <div class="my-5 row">
+      <div *ngFor="let bracket of irp.bracketResults" class="col-3">
+        <div class="text-truncate" [title]="bracket.name">{{bracket.name}}</div>
+        <div class="mt-1 font-24 font-weight-bold primary-color">
+          {{bracket.rank}} of {{bracket.totalRacers}}
+        </div>
+        <div class="font-weight-bold">{{bracket.percentile}}</div>
+      </div>
+    </div>
     <hr />
-    <ng-container *ngTemplateOutlet="intervals"></ng-container>
+    <ng-container *ngTemplateOutlet="intervals;context:{irp:irp}"></ng-container>
 
   </div>
 </div>
 
-<ng-template #finish>
+<ng-template #finish let-irp="irp">
 
   <div class="font-20 font-weight-bold">Finish Info</div>
 
   <div class="my-5 row">
     <div class="col col-4">
       <div>Time</div>
-      <div class="font-24 font-weight-bold">{{paceWithTimeCumulative.timeFormatted}}</div>
+      <div class="font-24 font-weight-bold">{{irp.paceWithTimeCumulative.timeFormatted}}</div>
     </div>
     <div class="col col-4">
-      <div>Pace ({{paceWithTimeCumulative.paceLabel}})</div>
+      <div>Pace ({{irp.paceWithTimeCumulative.paceLabel}})</div>
       <div class="font-24 font-weight-bold">
-        {{paceWithTimeCumulative.paceValue || '--'}}
+        {{irp.paceWithTimeCumulative.paceValue || '--'}}
       </div>
     </div>
     <div class="col col-4">
-      <div>Finish Time ({{timeZoneAbbreviated}})</div>
+      <div>Finish Time ({{irp.timeZoneAbbreviated}})</div>
       <div class="font-24 font-weight-bold">
-        {{finishTime ? finishTime : '--' }}
+        {{irp.finishTime ? irp.finishTime : '--' }}
       </div>
     </div>
   </div>
 
 </ng-template>
 
-<ng-template #brackets>
-
-  <div class="my-5 row">
-    <div *ngFor="let bracket of bracketResults" class="col-3">
-
-      <div class="text-truncate" [title]="bracket.name">{{bracket.name}}</div>
-      <div class="mt-1 font-24 font-weight-bold primary-color">
-        {{bracket.rank}} of {{bracket.totalRacers}}
-      </div>
-      <div class="font-weight-bold">{{bracket.percentile}}</div>
-
-      <div class="mt-2 font-12">Fastest: {{bracket.fastestPaceWithTime.timeFormatted}}</div>
-      <div class="font-12">Average: {{bracket.averagePaceWithTime.timeFormatted}}</div>
-      <div class="font-12">Slowest: {{bracket.slowestPaceWithTime.timeFormatted}}</div>
-    </div>
-  </div>
-
-</ng-template>
-
-<ng-template #intervals>
+<ng-template #intervals let-irp="irp">
 
   <div class="font-20 font-weight-bold">Intervals</div>
   <div class="font-12">* Shows all intervals even if they have not been completed</div>
@@ -102,7 +91,7 @@
   <div class="mt-5 font-12 font-weight-bold">Course Tracker</div>
   <div class="py-2">
     <div class="flex">
-      <div class="flex-item" *ngFor="let interval of intervalResults">
+      <div class="flex-item" *ngFor="let interval of irp.intervalResults">
         <div *ngIf="!interval.isFullCourse" class="pizzaTrackerDashedLine"></div>
         <app-irp-pizza-tracker [interval]="interval"></app-irp-pizza-tracker>
       </div>
@@ -113,7 +102,7 @@
     <thead>
       <tr>
         <th style="width: 15%" scope="col"></th> <!-- name -->
-        <th style="width: 20%" scope="col">Time <span class="font-12">({{timeZoneAbbreviated}})</span></th>
+        <th style="width: 20%" scope="col">Time <span class="font-12">({{irp.timeZoneAbbreviated}})</span></th>
         <th style="width: 10%" scope="col">Overall</th>
         <th style="width: 10%" scope="col">Gender</th>
         <th style="width: 10%" scope="col">Division</th>
@@ -122,7 +111,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (intervalResult of intervalResults; track intervalResult) {
+      @for (intervalResult of irp.intervalResults; track intervalResult) {
         <tr app-irp-interval-result [irpResultByInterval]="intervalResult"></tr>
       }
     </tbody>

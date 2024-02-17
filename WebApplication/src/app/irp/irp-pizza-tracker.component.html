@@ -1,14 +1,14 @@
 
 <div ngbDropdown class="d-inline-block">
 
-  <button class="btn-plain pizzeTrackerCompleted" placement="top" [ngbTooltip]="intervalName" ngbDropdownToggle>
+  <button class="btn-plain pizzeTrackerCompleted" placement="top" [ngbTooltip]="interval.intervalName" ngbDropdownToggle>
 
-    @if (!isFullCourse) {
-      <i *ngIf="intervalFinished" class="fa-regular fa-square-check fa-lg text-success"></i>
-      <i *ngIf="!intervalFinished" class="fa-regular fa-square-check fa-lg text-secondary"></i>
+    @if (!interval.isFullCourse) {
+      <i *ngIf="interval.intervalFinished" class="fa-regular fa-square-check fa-lg text-success"></i>
+      <i *ngIf="!interval.intervalFinished" class="fa-regular fa-square-check fa-lg text-secondary"></i>
     } @else {
-      <i *ngIf="intervalFinished" class="fa-solid fa-flag-checkered fa-lg text-success"></i>
-      <i *ngIf="!intervalFinished" class="fa-solid fa-flag-checkered fa-lg text-secondary"></i>
+      <i *ngIf="interval.intervalFinished" class="fa-solid fa-flag-checkered fa-lg text-success"></i>
+      <i *ngIf="!interval.intervalFinished" class="fa-solid fa-flag-checkered fa-lg text-secondary"></i>
     }
 
   </button>
@@ -16,12 +16,12 @@
   <div style="width: 300px; max-height: 300px; overflow-y: scroll;" class="p-2" ngbDropdownMenu aria-labelledby="intervalDescriptionDrop">
 
     <div>
-      <img width="80" height="80" [src]="intervalTypeImageUrl" />
-      <span class="font-20 font-weight-bold ms-2">{{intervalName}}</span>
+      <img width="80" height="80" [src]="interval.intervalTypeImageUrl" />
+      <span class="font-20 font-weight-bold ms-2">{{interval.intervalName}}</span>
     </div>
 
     <div class="my-2">
-      @if (percentile) {
+      @if (interval.percentile) {
         <i class="fa-regular fa-square-check text-success"></i>
         <strong class="text-success ms-1">Completed</strong>
       } @else {
@@ -32,30 +32,30 @@
 
     <hr />
 
-    <div *ngIf="overallRank" class="font-weight-bold font-12">
-      <div>percentile (overall): {{percentile}}</div>
+    <div *ngIf="interval.overallRank" class="font-weight-bold font-12">
+      <div>percentile (overall): {{interval.percentile}}</div>
       <div>
-        overall: {{overallRank}} of {{overallCount}}
-        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: overallIndicator}"></ng-container>
+        overall: {{interval.overallRank}} of {{interval.overallCount}}
+        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: interval.overallIndicator}"></ng-container>
       </div>
       <div>
-        gender: {{genderRank}} of {{genderCount}}
-        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: genderIndicator}"></ng-container>
+        gender: {{interval.genderRank}} of {{interval.genderCount}}
+        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: interval.genderIndicator}"></ng-container>
       </div>
       <div>
-        division: {{primaryDivisionRank}} of {{primaryDivisionCount}}
-        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: primaryDivisionIndicator}"></ng-container>
+        division: {{interval.primaryDivisionRank}} of {{interval.primaryDivisionCount}}
+        <ng-container *ngTemplateOutlet="trendingIndicatior;context:{indicator: interval.primaryDivisionIndicator}"></ng-container>
       </div>
 
       <hr />
     </div>
 
-    <div class="font-weight-bold font-12">distance (interval): {{intervalDistance}}</div>
-    <div class="font-weight-bold font-12">distance (cumulative): {{cumulativeDistance}}</div>
+    <div class="font-weight-bold font-12">distance (interval): {{interval.intervalDistance}}</div>
+    <div class="font-weight-bold font-12">distance (cumulative): {{interval.cumulativeDistance}}</div>
 
     <hr />
 
-    <div class="mb-3">- "{{intervalDescription}}"</div>
+    <div class="mb-3">- "{{interval.intervalDescription}}"</div>
   </div>
 </div>
 
