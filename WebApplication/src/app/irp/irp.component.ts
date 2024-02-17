@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { tap, mergeMap, map } from 'rxjs/operators'
+import { tap, mergeMap } from 'rxjs/operators'
 import { PaceWithTime } from '../_core/paceWithTime';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,7 +14,6 @@ import { EventsBreadcrumbComponent } from '../_subComponents/breadcrumbs/events-
 import { RouterModule } from '@angular/router';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
 import { IrpPizzaTrackerComponent } from './irp-pizza-tracker.component';
-import { mapRaceSeriesTypeToImageUrl } from '../_common/IRaceSeriesType';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { config } from '../config';
 
