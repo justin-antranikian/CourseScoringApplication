@@ -4,5 +4,5 @@ export interface IConfig {
 }
 
 export const config: IConfig = {
-  apiUrl: 'https://localhost:44308'
+  apiUrl: 'https://localhost:5001'
 }

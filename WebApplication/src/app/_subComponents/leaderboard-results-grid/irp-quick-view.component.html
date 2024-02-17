@@ -1,9 +1,6 @@
 
 <div class="modal-header">
   <h4 class="modal-title">Irp Quick View</h4>
-  <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-    <span aria-hidden="true">&times;</span>
-  </button> -->
 </div>
 <div style="max-height: 400px; overflow-y: scroll;" class="modal-body">
   <div class="row">
@@ -18,17 +15,12 @@
       <div class="font-18">{{irp.locationInfoWithRank.city}}, {{irp.locationInfoWithRank.state}}</div>
       <div class="font-12">{{irp.genderAbbreviated}} | {{irp.raceAge}}</div>
   
-      <div class="mt-1">
+      <div class="my-2">
         <span class="font-24 badge text-bg-dark" title="bib">{{irp.bib}}</span>
       </div>
-  
-      <hr />
+
       <app-location-info-rankings [locationInfoWithRank]="irp.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
-  
-      <hr />
-      <div class="mb-1" *ngFor="let tag of irp.tags">
-        <span class="font-20 badge badge-primary primary-background">{{tag}}</span>
-      </div>
+
     </div>
     <div class="col-9">
 
