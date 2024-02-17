@@ -32,11 +32,6 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
     this.$arp = this.getArpDto(athleteId).pipe(
       tap(arp => this.athletesBreadcrumbResult = { locationInfoWithUrl: arp.locationInfoWithRank })
     )
-
-    // this.route.params.subscribe(() => {
-    //   this.arpLoaded = false
-    //   this.initData()
-    // });
   }
 
   public onViewGoalsClicked = (content: any, selectedGoal: any) => {
