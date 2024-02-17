@@ -5,29 +5,7 @@ namespace Orchestration.GetIrp;
 
 public class GetIrpRepository
 {
-    public class QueryResult
-    {
-        public List<Result> Results;
-        public Course Course;
-        public List<BracketMetadata> MetadataEntries;
-        public AthleteCourse AthleteCourse;
-
-        public QueryResult(List<Result> results, Course course, List<BracketMetadata> metadataEntries, AthleteCourse athleteCourse)
-        {
-            Results = results;
-            Course = course;
-            MetadataEntries = metadataEntries;
-            AthleteCourse = athleteCourse;
-        }
-
-        public void Deconstruct(out List<Result> results, out Course course, out List<BracketMetadata> metadataEntries, out AthleteCourse athleteCourse)
-        {
-            results = Results;
-            course = Course;
-            metadataEntries = MetadataEntries;
-            athleteCourse = AthleteCourse;
-        }
-    }
+    public record QueryResult(List<Result> results, Course course, List<BracketMetadata> metadataEntries, AthleteCourse athleteCourse);
 
     private readonly ScoringDbContext _scoringDbContext;
 
