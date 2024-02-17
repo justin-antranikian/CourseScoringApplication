@@ -26,7 +26,7 @@ public class Startup(IConfiguration configuration)
                                       .AllowAnyHeader());
             });
 
-        var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true";
+        var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true;TrustServerCertificate=True";
         services.AddDbContextPool<ScoringDbContext>(options => options.UseSqlServer(dbConnection));
 
         services.AddSingleton<IMemoryCache, MemoryCache>();

@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataModels.Configurations;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataModels;
 
-public class ScoringDbContext : DbContext
+public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbContext(options)
 {
-    public ScoringDbContext(DbContextOptions<ScoringDbContext> options) : base(options) { }
-
     public DbSet<Athlete> Athletes { get; set; }
 
     public DbSet<AthleteCourse> AthleteCourses { get; set; }
@@ -31,4 +30,9 @@ public class ScoringDbContext : DbContext
     public DbSet<Result> Results { get; set; }
 
     public DbSet<TagRead> TagReads { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        AthleteConfiguration.ConfigureAthleteEntity(modelBuilder.Entity<Athlete>());
+    }
 }

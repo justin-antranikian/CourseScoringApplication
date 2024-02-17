@@ -5,34 +5,34 @@
 
 <hr />
 
-<div *ngIf="dataLoaded" class="row">
+<div *ngIf="$raceSeries | async as raceSeries" class="row">
   <div class="col-3">
 
-    <div><img width="120px" height="120px" [src]="raceSeriesImageUrl"></div>
-    <div class="mt-4 font-24 font-weight-bold">{{name}}</div>
+    <div><img width="120px" height="120px" [src]="raceSeries.raceSeriesImageUrl"></div>
+    <div class="mt-4 font-24 font-weight-bold">{{raceSeries.name}}</div>
     <div class="font-18 primary-color font-weight-bold">All Courses</div>
 
     <div class="font-14">
-      <div>{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
-      <div class="font-weight-bold">{{kickOffDate}}</div>
+      <div>{{raceSeries.city}}, {{raceSeries.locationInfoWithRank.state}}</div>
+      <div class="font-weight-bold">{{raceSeries.kickOffDate}}</div>
     </div>
 
     <hr />
-    <app-location-info-rankings [locationInfoWithRank]="locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+    <app-location-info-rankings [locationInfoWithRank]="raceSeries.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
     <hr />
-    <div class="font-12 font-weight-bold font-italic">- "{{description}}"</div>
+    <div class="font-12 font-weight-bold font-italic">- "{{raceSeries.description}}"</div>
 
     <hr />
     <div>
-      <div class="mb-1" *ngFor="let race of races">
+      <div class="mb-1" *ngFor="let race of raceSeries.races">
         <a [routerLink]="[RaceLeaderboardPage, race.id]" class="btn btn-outline-primary">{{race.kickOffDate}}</a>
       </div>
     </div>
   </div>
   <div class="col-9">
-    <ul ngbNav #nav="ngbNav" [(activeId)]="firstCourseId" class="nav-tabs">
-      <li ngbNavItem [ngbNavItem]="course.id" *ngFor="let course of courses">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="raceSeries.firstCourseId" class="nav-tabs">
+      <li ngbNavItem [ngbNavItem]="course.id" *ngFor="let course of raceSeries.courses">
         <a ngbNavLink>{{course.displayName}}</a>
         <ng-template ngbNavContent>
           <race-series-course-tab [course]="course"></race-series-course-tab>

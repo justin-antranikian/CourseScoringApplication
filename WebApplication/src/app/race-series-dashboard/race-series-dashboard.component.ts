@@ -9,6 +9,19 @@ import { EventsBreadcrumbComponent } from '../_subComponents/breadcrumbs/events-
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RaceSeriesCourseTabComponent } from './race-series-course-tab.component';
+import { Observable } from 'rxjs';
+
+interface RaceSeries {
+  name: string
+  raceSeriesImageUrl: string
+  city: string
+  locationInfoWithRank: any
+  kickOffDate: string
+  description: string
+  races: any
+  firstCourseId: number
+  courses: any
+}
 
 @Component({
   standalone: true,
@@ -19,18 +32,7 @@ import { RaceSeriesCourseTabComponent } from './race-series-course-tab.component
 })
 export class RaceSeriesDashboardComponent extends BreadcrumbComponent implements OnInit {
 
-  // extract as props to render in template.
-  public raceSeriesImageUrl!: string
-  public name!: string
-  public description!: string
-  public kickOffDate!: string
-  public locationInfoWithRank: any
-  public races!: any[]
-  public upcomingRaceId!: number
-  public firstCourseId!: number
-  public courses!: any[]
-
-  public dataLoaded = false
+  public $raceSeries!: Observable<RaceSeries>
 
   constructor(route: ActivatedRoute, http: HttpClient) {
     super(route, http)
@@ -39,38 +41,9 @@ export class RaceSeriesDashboardComponent extends BreadcrumbComponent implements
 
   ngOnInit() {
     const raceSeriesId = this.getId();
-    this.getRaceSeriesDashboardDto(raceSeriesId).subscribe(this.setPropsToRender)
+    this.$raceSeries = this.getRaceSeriesDashboardDto(raceSeriesId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.ArpOrRaceSeriesDashboard, raceSeriesId.toString())
     this.setEventsBreadcrumbResult(breadcrumbRequest)
-  }
-
-  /**
-  * this sets the properties needed on the front-end.
-  */
-  private setPropsToRender = (raceSeriesDashboardDto: any) => {
-    const {
-      raceSeriesImageUrl,
-      name,
-      description,
-      kickOffDate,
-      locationInfoWithRank,
-      races,
-      upcomingRaceId,
-      firstCourseId,
-      courses,
-    } = raceSeriesDashboardDto
-
-    this.raceSeriesImageUrl = raceSeriesImageUrl
-    this.name = name
-    this.description = description
-    this.kickOffDate = kickOffDate
-    this.locationInfoWithRank = locationInfoWithRank
-    this.races = races
-    this.upcomingRaceId = upcomingRaceId
-    this.firstCourseId = firstCourseId
-    this.courses = courses
-
-    this.dataLoaded = true
   }
 }

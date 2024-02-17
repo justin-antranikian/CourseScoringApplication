@@ -1,4 +1,7 @@
-﻿namespace Orchestration.GetIrp;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace Orchestration.GetIrp;
 
 public static class IrpResultByIntervalDtoMapper
 {
