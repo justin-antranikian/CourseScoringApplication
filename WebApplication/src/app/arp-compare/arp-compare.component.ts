@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { BreadcrumbComponent } from '../_common/breadcrumbComponent';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';

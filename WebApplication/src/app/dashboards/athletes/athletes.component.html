@@ -1,40 +1,35 @@
 
-<ng-container>
+<div class="mb-3" *ngIf="athletesBreadcrumbResult">
+  <app-athlete-bread-crumb [breadcrumbResult]="athletesBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-athlete-bread-crumb>
+</div>
 
-  <div class="mb-3" *ngIf="athletesBreadcrumbResult">
-    <app-athlete-bread-crumb [breadcrumbResult]="athletesBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-athlete-bread-crumb>
+<hr />
+
+<div class="row mt-3">
+  <div class="col-lg-4">
+    <app-quick-search [quickSearchType]="1" [breadcrumbLocation]="breadcrumbLocation" [title]="title"></app-quick-search>
+  </div>
+</div>
+
+<div class="mt-5 row">
+
+  <div class="col-lg-3" *ngIf="dashboardInfoResponseDto">
+    <div class="font-18 font-weight-bold mb-3">Directory</div>
+      @if (!isLanding) {
+        <app-smart-navigation [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation>
+      } @else {
+        <app-smart-navigation-states [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation-states>
+      }
   </div>
 
-  <hr />
-
-  <div class="row mt-3">
-    <div class="col-lg-4">
-      <app-quick-search [quickSearchType]="1" [breadcrumbLocation]="breadcrumbLocation" [title]="title"></app-quick-search>
-    </div>
-  </div>
-
-  <div class="mt-5 row">
-
-    <div class="col-lg-3" *ngIf="dashboardInfoResponseDto">
-      <div class="font-18 font-weight-bold mb-3">Directory</div>
-
-        @if (!isLanding) {
-          <app-smart-navigation [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation>
-        } @else {
-          <app-smart-navigation-states [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="false"></app-smart-navigation-states>
-        }
-
-    </div>
-
-    <div class="col-lg-9">
-      <div class="mb-4" *ngFor="let athleteSearchResultsChunk of athleteSearchResultsChunked">
-        <div class="row">
-          <div class="col-sm-3" *ngFor="let athleteSearchResult of athleteSearchResultsChunk">
-            <div class="card">
-              <athlete-search-result [athleteSearchResult]="athleteSearchResult"></athlete-search-result>
-              <div class="mb-2 px-2 text-right">
-                <i (click)="onCompareClicked(athleteSearchResult)" class="fa fa-compress" title="compare" style="cursor: pointer;"></i>
-              </div>
+  <div class="col-lg-9">
+    <div class="mb-4" *ngFor="let athleteSearchResultsChunk of athleteSearchResultsChunked">
+      <div class="row">
+        <div class="col-sm-3" *ngFor="let athleteSearchResult of athleteSearchResultsChunk">
+          <div class="card">
+            <athlete-search-result [athleteSearchResult]="athleteSearchResult"></athlete-search-result>
+            <div class="mb-2 px-2 text-right">
+              <i (click)="onCompareClicked(athleteSearchResult)" class="fa fa-compress" title="compare" style="cursor: pointer;"></i>
             </div>
           </div>
         </div>
@@ -42,15 +37,15 @@
     </div>
   </div>
 
-  @if (showToast) {
-    <div style="z-index: 1200;" class="position-fixed top-0 end-0 p-3 mt-4">
-      <ngb-toast header="Compare {{ athleteIdsToCompare.length }} athletes" [autohide]="false" (hidden)="showToast = false">
-        <a [routerLink]="[AthleteComparePage]" [queryParams]="{athleteIds: athleteIdsToCompareString}" target="_blank">
-          View
-        </a>
-        <a style="cursor: pointer;" class="ms-2" (click)="onCloseCompareClicked()">Clear</a>
-      </ngb-toast>
-    </div>
-  }
+</div>
 
-</ng-container>
+@if (showToast) {
+  <div style="z-index: 1200;" class="position-fixed top-0 end-0 p-3 mt-4">
+    <ngb-toast header="Compare {{ athleteIdsToCompare.length }} athletes" [autohide]="false" (hidden)="showToast = false">
+      <a [routerLink]="[AthleteComparePage]" [queryParams]="{athleteIds: athleteIdsToCompareString}" target="_blank">
+        View
+      </a>
+      <a style="cursor: pointer;" class="ms-2" (click)="onCloseCompareClicked()">Clear</a>
+    </ngb-toast>
+  </div>
+}

@@ -1,24 +1,28 @@
 
-<td class="text-left"><a [routerLink]="[IndividualResultPage, athleteCourseId]">View</a></td>
-<td *ngIf="!hideViewIrpButton">
-  <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(irpModal)" ></i>
-</td>
+<td class="text-left"><a [routerLink]="[IndividualResultPage, leaderboardResult.athleteCourseId]">View</a></td>
+
+@if (!hideViewIrpButton){
+  <td>
+    <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(irpModal)" ></i>
+  </td>
+}
+
 <td>
-  <span class="font-24 badge text-bg-dark" title="bib">{{bib}}</span>
+  <span class="font-24 badge text-bg-dark" title="bib">{{leaderboardResult.bib}}</span>
 </td>
 <td>
   <div>
-    <a class="font-weight-bold background-secondary" style="color: black;" [routerLink]="[AthletePage, athleteId]">{{fullName}}</a>
+    <a class="font-weight-bold background-secondary" style="color: black;" [routerLink]="[AthletePage, leaderboardResult.athleteId]">{{leaderboardResult.fullName}}</a>
   </div>
-  <div>{{genderAbbreviated}} | {{raceAge}}</div>
+  <div>{{leaderboardResult.genderAbbreviated}} | {{leaderboardResult.raceAge}}</div>
 </td>
-<td class="font-24 font-weight-bold text-secondary">{{overallRank}}</td>
-<td class="font-24 font-weight-bold text-secondary">{{genderRank}}</td>
-<td class="font-24 font-weight-bold text-secondary">{{divisionRank}}</td>
-<td class="font-24 font-weight-bold">{{paceWithTimeCumulative.timeFormatted}}</td>
+<td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.overallRank}}</td>
+<td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.genderRank}}</td>
+<td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.divisionRank}}</td>
+<td class="font-24 font-weight-bold">{{leaderboardResult.paceWithTimeCumulative.timeFormatted}}</td>
 <td>
-  <div class="font-24 font-weight-bold">{{paceWithTimeCumulative.paceValue || '--'}}</div>
-  {{paceWithTimeCumulative.paceLabel}}
+  <div class="font-24 font-weight-bold">{{leaderboardResult.paceWithTimeCumulative.paceValue || '--'}}</div>
+  {{leaderboardResult.paceWithTimeCumulative.paceLabel}}
 </td>
 
 <ng-template #irpModal let-modal>

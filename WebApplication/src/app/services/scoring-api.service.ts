@@ -7,6 +7,12 @@ import { IIntervalType, mapIntervalTypeToImageUrl } from '../_common/IIntervalNa
 import { getHttpParams } from '../_common/httpParamsHelpers';
 import { SearchIrpsRequestDto } from '../_subComponents/irp-search/SearchIrpsRequestDto';
 import { IrpSearchResultDto } from '../_subComponents/irp-search/IrpSearchResultDto';
+import { DashboardInfoRequestDto } from '../_core/dashboardInfoRequestDto';
+import { DashboardInfoResponseDto } from '../_core/dashboardInfoResponseDto';
+import { chunk } from 'lodash';
+import { AthleteSearchResultDto } from '../_core/athleteSearchResultDto';
+import { SearchAthletesRequestDto } from '../_core/searchAthletesRequestDto';
+import { AthletesComponentBase } from '../dashboards/athletes/athletesComponentBase';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +20,10 @@ import { IrpSearchResultDto } from '../_subComponents/irp-search/IrpSearchResult
 export class ScoringApiService {
 
   constructor(private readonly http: HttpClient) { }
+
+  private getBaseObservableForGetRequest (route: string) {
+    return this.http.get<any>(`${config.apiUrl}/${route}`)
+  }
 
   protected mapIntervalTypeImages = <T extends IIntervalType>(intervalTypes: T[]): T[] => {
     return intervalTypes.map(mapIntervalTypeToImageUrl)
@@ -28,8 +38,41 @@ export class ScoringApiService {
     return this.http.get<any>(`${config.apiUrl}/eventsBreadCrumbsApi`, httpParams)
   }
 
-  private getBaseObservableForGetRequest (route: string) {
-    return this.http.get<any>(`${config.apiUrl}/${route}`)
+  public getAthletesBreadCrumbsResult(breadcrumbRequestDto: any): Observable<any> {
+    const httpParams = getHttpParams(breadcrumbRequestDto.getAsParamsObject())
+    return this.http.get<any>(`${config.apiUrl}/athletesBreadCrumbsApi`, httpParams)
+  }
+
+  private getAthletes(searchAthletesRequest: SearchAthletesRequestDto): Observable<AthleteSearchResultDto[]> {
+    const httpParams = getHttpParams(searchAthletesRequest.getAsParamsObject())
+    return this.http.get<AthleteSearchResultDto[]>(`${config.apiUrl}/athleteSearchApi`, httpParams)
+  }
+
+  public getAthletesChunked = (searchFilter: SearchAthletesRequestDto) => {
+    return this.getAthletes(searchFilter).pipe(
+      map((athletes: AthleteSearchResultDto[]): AthleteSearchResultDto[][] => chunk(athletes, 4))
+    )
+  }
+
+  private getRaceSeriesResults(searchEventsRequest: any): Observable<any[]> {
+    const httpParams = getHttpParams(searchEventsRequest.getAsParamsObject())
+
+    const raceSeriesSearch$ = this.http.get<any[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
+      map((raceSeriesEntries: any[]): any[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
+    )
+
+    return raceSeriesSearch$
+  }
+
+  public getRaceSeriesResultsChunked = (searchEventsRequest: any) => {
+    return this.getRaceSeriesResults(searchEventsRequest).pipe(
+      map((eventSearchResultDtos: any[]): any[][] => chunk(eventSearchResultDtos, 4))
+    )
+  }
+
+  public getDashboardInfo(dashboardInfoRequest: DashboardInfoRequestDto): Observable<DashboardInfoResponseDto> {
+    const httpParams = getHttpParams(dashboardInfoRequest.getAsParamsObject())
+    return this.http.get<DashboardInfoResponseDto>(`${config.apiUrl}/dashboardInfoApi`, httpParams)
   }
 
   public getIrpsFromSearch(irpSearchRequest: SearchIrpsRequestDto): Observable<IrpSearchResultDto[]> {

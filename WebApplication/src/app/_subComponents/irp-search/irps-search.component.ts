@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { IrpSearchResultDto } from './IrpSearchResultDto';
 import { SearchIrpsRequestDto, SearchOnField } from './SearchIrpsRequestDto';
@@ -33,15 +33,14 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
   public searchTerm: string | null = ''
   public searchResults: IrpSearchResultDto[] = []
 
-  private onDestroy$ = new Subject<void>();
+  private subscription: Subscription | null = null
 
   constructor(private scoringApiService: ScoringApiService) {
     super()
   }
 
   ngOnInit() {
-    const searchResults$ = this.inputControl.valueChanges.pipe(
-      takeUntil(this.onDestroy$),
+    this.subscription = this.inputControl.valueChanges.pipe(
       debounceTime(600),
       distinctUntilChanged(),
       tap(this.updateSearchTerm),
@@ -50,14 +49,13 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
         const requestDto = this.getIrpSearchRequestDto(searchTerm)
         return this.scoringApiService.getIrpsFromSearch(requestDto)
       })
-    )
-
-    searchResults$.subscribe(results => this.searchResults = results)
+    ).subscribe(results => {
+      this.searchResults = results
+    })
   }
 
   ngOnDestroy() {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
+    this.subscription?.unsubscribe();
   }
 
   private updateSearchTerm = (searchOn: string) => {

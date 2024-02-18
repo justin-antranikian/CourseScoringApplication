@@ -1,15 +1,15 @@
 
 <div class="raceSeriesDashboardLinkContainer">
-  <a [routerLink]="[RaceSeriesDashboardPage, id]">
-    <img class="raceSeriesImage" [src]="raceSeriesImageUrl">
+  <a [routerLink]="[RaceSeriesDashboardPage, eventSearchResult.id]">
+    <img class="raceSeriesImage" [src]="eventSearchResult.raceSeriesImageUrl">
   </a>
   <div class="expandedViewDropDownContainer">
     <div ngbDropdown placement="bottom-center" class="d-inline-block">
       <button class="btn btn-outline-secondary btn-sm" ngbDropdownToggle></button>
       <div ngbDropdownMenu>
-        <a ngbDropdownItem [routerLink]="[RaceSeriesDashboardPage, id]">Landing Page</a>
+        <a ngbDropdownItem [routerLink]="[RaceSeriesDashboardPage, eventSearchResult.id]">Landing Page</a>
         <div class="dropdown-divider"></div>
-        <a ngbDropdownItem [routerLink]="[RaceLeaderboardPage, upcomingRaceId]">Leaderboard</a>
+        <a ngbDropdownItem [routerLink]="[RaceLeaderboardPage, eventSearchResult.upcomingRaceId]">Leaderboard</a>
         <div class="dropdown-divider"></div>
         <a *ngFor="let course of eventSearchResult.courses" ngbDropdownItem [routerLink]="[CourseLeaderboardPage, course.id]">
           {{course.displayName}}
@@ -20,7 +20,7 @@
 </div>
 
 <div class="py-2 text-center secondary-background">
-  <strong>{{name}}</strong>
+  <strong>{{eventSearchResult.name}}</strong>
 </div>
 
 <div class="mt-2 p-2">
@@ -42,7 +42,7 @@
   <div style="max-height: 400px; overflow-y: scroll;" class="modal-body">
     <div class="row">
       <div class="col-3">
-        <div><img width="120px" height="120px" [src]="raceSeriesImageUrl"></div>
+        <div><img width="120px" height="120px" [src]="eventSearchResult.raceSeriesImageUrl"></div>
         <div class="mt-4 font-24 font-weight-bold">{{raceName}}</div>
         <div class="font-18 primary-color font-weight-bold">All Courses</div>
     

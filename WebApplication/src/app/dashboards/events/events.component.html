@@ -1,40 +1,41 @@
 
-<ng-container *ngIf="eventSearchResultsChunked && eventsBreadcrumbResult && dashboardInfoResponseDto">
-
+@if (eventsBreadcrumbResult) {
   <div class="mb-3">
     <app-events-bread-crumb [breadcrumbResult]="eventsBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-events-bread-crumb>
   </div>
+}
 
-  <hr />
+<hr />
 
-  <div class="row mt-3">
-    <div class="col-lg-4">
-      <app-quick-search [quickSearchType]="0" [breadcrumbLocation]="breadcrumbLocation" [title]="title"></app-quick-search>
-    </div>
+<div class="row mt-3">
+  <div class="col-lg-4">
+    <app-quick-search [quickSearchType]="0" [breadcrumbLocation]="breadcrumbLocation" [title]="title"></app-quick-search>
   </div>
+</div>
 
-  <div class="mt-5 row">
+<div class="mt-5 row">
+
+  @if (dashboardInfoResponseDto) {
     <div class="col-lg-3">
       <div class="font-18 font-weight-bold mb-3">Directory</div>
-
         @if (!isLanding) {
           <app-smart-navigation [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="true"></app-smart-navigation>
         } @else {
           <app-smart-navigation-states [dashboardInfoResponseDto]="dashboardInfoResponseDto" [useEventsNavigation]="true"></app-smart-navigation-states>
         }
-
     </div>
-    <div class="col-lg-9">
-      <div class="mb-4" *ngFor="let eventSearchResultsChunk of eventSearchResultsChunked">
-        <div class="row">
-          <div class="col-sm-3" *ngFor="let eventSearchResult of eventSearchResultsChunk">
-            <div class="card">
-              <app-event-search-result [eventSearchResult]="eventSearchResult"></app-event-search-result>
-            </div>
+  }
+
+  <div class="col-lg-9">
+    <div class="mb-4" *ngFor="let eventSearchResultsChunk of eventSearchResultsChunked">
+      <div class="row">
+        <div class="col-sm-3" *ngFor="let eventSearchResult of eventSearchResultsChunk">
+          <div class="card">
+            <app-event-search-result [eventSearchResult]="eventSearchResult"></app-event-search-result>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-</ng-container>
+</div>

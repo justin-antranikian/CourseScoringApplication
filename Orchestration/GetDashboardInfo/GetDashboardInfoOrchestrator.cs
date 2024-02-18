@@ -1,4 +1,6 @@
-﻿namespace Orchestration.GetDashboardInfo;
+﻿using System.Threading;
+
+namespace Orchestration.GetDashboardInfo;
 
 public partial class GetDashboardInfoOrchestrator
 {

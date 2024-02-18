@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
 import { DashboardInfoRequestDto, DashboardInfoType, DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
@@ -12,6 +12,8 @@ import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.c
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
 import { EventsComponentBase } from './eventsComponentBase';
 import { HttpClient } from '@angular/common/http';
+import { ScoringApiService } from '../../services/scoring-api.service';
+import { Subscription, forkJoin, of, switchMap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -20,37 +22,39 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './events.component.html',
   styleUrls: []
 })
-export class EventsStateComponent extends EventsComponentBase implements OnInit {
+export class EventsStateComponent extends EventsComponentBase implements OnInit, OnDestroy {
 
-  public isLanding = false
+  private subscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, httpClient: HttpClient) {
+  constructor(route: ActivatedRoute, httpClient: HttpClient, private scoringApiService: ScoringApiService) {
     super(route, httpClient)
     this.breadcrumbLocation = BreadcrumbLocation.State
-    this.eventsUrl = this.AthletesStatePage
   }
 
   ngOnInit() {
-    this.route.params.subscribe(() => {
-      this.initData()
-    });
+    this.subscription = this.route.paramMap.pipe(
+      switchMap((paramMap: ParamMap) => {
+        const state = paramMap.get('state') as string
+        const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.State, state)
+        const searchEventsRequest = new SearchEventsRequestDto(null, state)
+        const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, state)
+        const observables$ = [
+          this.scoringApiService.getDashboardInfo(dashboardRequest),
+          this.scoringApiService.getRaceSeriesResultsChunked(searchEventsRequest),
+          this.scoringApiService.getAthletesBreadCrumbsResult(breadcrumbRequest),
+          of(state)
+        ]
+        return forkJoin(observables$)
+      })
+    ).subscribe(data => {
+      this.dashboardInfoResponseDto = data[0]
+      this.eventSearchResultsChunked = data[1]
+      this.eventsBreadcrumbResult = data[2]
+      this.title = data[3]
+    })
   }
 
-  private initData = () => {
-    this.title = this.getState()
-
-    const searchEventsRequest = new SearchEventsRequestDto(null, this.title)
-    this.getRaceSeriesResults(searchEventsRequest)
-
-    const searchUpcomingEventsRequest = new SearchEventsRequestDto(null, this.title, null, null, [], true)
-    this.setUpcomingRaces(searchUpcomingEventsRequest)
-
-    const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, this.title)
-    this.setEventsBreadcrumbResult(breadcrumbRequest)
-
-    const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.State, this.title)
-    this.setDashboardInfo(dashboardRequest)
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
-
-  private getState = () => this.route.snapshot.paramMap.get('state')
 }

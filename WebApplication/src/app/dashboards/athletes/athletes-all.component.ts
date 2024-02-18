@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AthletesComponentBase } from './athletesComponentBase';
 import { HttpClient } from '@angular/common/http';
@@ -15,6 +15,8 @@ import { BracketRankComponent } from '../../_subComponents/bracket-rank/bracket-
 import { IntervalTimeComponent } from '../../_subComponents/interval-time/interval-time.component';
 import { AthleteBreadcrumbComponent } from '../../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScoringApiService } from '../../services/scoring-api.service';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -23,27 +25,34 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [CommonModule, RouterModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, AthleteSearchResultComponent, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent, AthleteBreadcrumbComponent, NgbToastModule],
   styleUrls: []
 })
-export class AthletesAllComponent extends AthletesComponentBase implements OnInit {
+export class AthletesAllComponent extends AthletesComponentBase implements OnInit, OnDestroy {
 
-  public isLanding = true
+  private subscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, http: HttpClient) {
+  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
     super(route, http)
     this.breadcrumbLocation = BreadcrumbLocation.All
-    this.athletesUrl = this.EventsPage
+    this.isLanding = true
   }
 
   ngOnInit() {
-    const searchAthletesRequest = new SearchAthletesRequestDto(null, null, null, null)
-    this.getAthletes(searchAthletesRequest)
-
     this.athletesBreadcrumbResult = {
       locationInfoWithUrl: null,
     }
 
-    const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.All)
-    this.dashboardInfoResponseDto$ = this.getDashboardInfo(dashboardRequest)
+    const searchAthletesRequest = new SearchAthletesRequestDto(null, null, null, null)
+    const athletes$ = this.scoringApiService.getAthletesChunked(searchAthletesRequest)
 
-    // this.setDashboardInfo(dashboardRequest)
+    const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.All)
+    const dashboard$ = this.scoringApiService.getDashboardInfo(dashboardRequest)
+
+    this.subscription = combineLatest([athletes$, dashboard$]).subscribe(data => {
+      this.athleteSearchResultsChunked = data[0]
+      this.dashboardInfoResponseDto = data[1]
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventsComponentBase } from './eventsComponentBase';
 import { SearchEventsRequestDto } from '../../_core/searchEventsRequestDto';
@@ -11,6 +11,8 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
+import { Subscription, combineLatest } from 'rxjs';
+import { ScoringApiService } from '../../services/scoring-api.service';
 
 @Component({
   standalone: true,
@@ -19,28 +21,34 @@ import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
   imports: [CommonModule, EventsBreadcrumbComponent, RouterModule, SmartNavigationComponent, SmartNavigationStatesComponent, QuickSearchComponent, EventSearchResultComponent],
   styleUrls: []
 })
-export class EventsAllComponent extends EventsComponentBase implements OnInit {
+export class EventsAllComponent extends EventsComponentBase implements OnInit, OnDestroy {
 
-  public isLanding = true
+  private subscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, httpClient: HttpClient) {
+  constructor(route: ActivatedRoute, httpClient: HttpClient, private scoringApiService: ScoringApiService) {
     super(route, httpClient)
     this.breadcrumbLocation = BreadcrumbLocation.All
-    this.eventsUrl = this.AthletesPage
+    this.isLanding = true
   }
 
   ngOnInit() {
-    const searchEventsRequest = new SearchEventsRequestDto(null)
-    this.getRaceSeriesResults(searchEventsRequest)
-
-    const searchUpcomingEventsRequest = new SearchEventsRequestDto(null, null, null, null, [], true)
-    this.setUpcomingRaces(searchUpcomingEventsRequest)
-
     this.eventsBreadcrumbResult = {
       locationInfoWithUrl: null,
     }
 
+    const searchEventsRequest = new SearchEventsRequestDto(null)
+    const events$ = this.scoringApiService.getRaceSeriesResultsChunked(searchEventsRequest)
+
     const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.All)
-    this.setDashboardInfo(dashboardRequest)
+    const dashboard$ = this.scoringApiService.getDashboardInfo(dashboardRequest)
+
+    this.subscription = combineLatest([events$, dashboard$]).subscribe(data => {
+      this.eventSearchResultsChunked = data[0]
+      this.dashboardInfoResponseDto = data[1]
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

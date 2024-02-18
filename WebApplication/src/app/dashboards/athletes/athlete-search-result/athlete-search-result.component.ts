@@ -1,16 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoutes';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AthleteSearchResultDto } from '../../../_core/athleteSearchResultDto';
-import { Observable } from 'rxjs';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { BracketRankComponent } from '../../../_subComponents/bracket-rank/bracket-rank.component';
 import { IntervalTimeComponent } from '../../../_subComponents/interval-time/interval-time.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { config } from '../../../config';
+import { ScoringApiService } from '../../../services/scoring-api.service';
 
 @Component({
   standalone: true,
@@ -19,29 +18,16 @@ import { config } from '../../../config';
   imports: [HttpClientModule, RouterModule, CommonModule, NgbModule, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent],
   styleUrls: []
 })
-export class AthleteSearchResultComponent extends ComponentBaseWithRoutes implements OnInit {
-
-  public getArpDto(athleteId: number): Observable<any> {
-    return this.http.get<any>(`${config.apiUrl}/arpApi/${athleteId}`).pipe(
-      map((arpDto: any): any => ({
-        ...arpDto,
-        results: this.mapSeriesTypeImages(arpDto.results)
-      }))
-    )
-  }
+export class AthleteSearchResultComponent extends ComponentBaseWithRoutes {
 
   constructor(
     private http: HttpClient,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private scoringApiService: ScoringApiService
   ) { super() }
 
   @Input('athleteSearchResult')
   public athleteSearchResult!: AthleteSearchResultDto;
-
-  // extract as props to render in template.
-  public id!: number
-  public fullName!: string
-  public locationInfoWithRank: any
 
   // props for when view arp is clicked.
   public age!: number
@@ -50,25 +36,14 @@ export class AthleteSearchResultComponent extends ComponentBaseWithRoutes implem
   public tags!: string[]
   public allEventsGoal: any
 
-  ngOnInit() {
-    const {
-      id,
-      fullName,
-      locationInfoWithRank,
-    } = this.athleteSearchResult
-
-    this.id = id
-    this.fullName = fullName
-    this.locationInfoWithRank = locationInfoWithRank
-  }
-
   public onViewArpClicked = (athleteInfoModal: any) => {
     const athleteId = this.athleteSearchResult.id
 
-    const getArpDto$ = this.getArpDto(athleteId).pipe(
+    const getArpDto$ = this.scoringApiService.getArpDto(athleteId).pipe(
       tap(this.setPropsToRender)
     )
 
+    // TODO this there should be only one subsciption.
     getArpDto$.subscribe((_arpDto: any) => {
       this.modalService.open(athleteInfoModal, { size: 'xl' });
     })
