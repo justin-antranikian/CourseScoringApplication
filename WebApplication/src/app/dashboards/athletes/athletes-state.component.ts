@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { AthletesComponentBase } from './athletesComponentBase';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
@@ -13,6 +13,7 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { AthleteSearchResultComponent } from './athlete-search-result/athlete-search-result.component';
 import { AthleteBreadcrumbComponent } from '../../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { Subject, combineLatest, forkJoin, switchMap, takeUntil, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -24,6 +25,7 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 export class AthletesStateComponent extends AthletesComponentBase implements OnInit {
 
   public isLanding = false
+  private onDestroy$ = new Subject<void>();
 
   constructor(route: ActivatedRoute, http: HttpClient) {
     super(route, http)
@@ -32,23 +34,29 @@ export class AthletesStateComponent extends AthletesComponentBase implements OnI
   }
 
   ngOnInit() {
-    this.route.params.subscribe(() => {
-      this.initData()
-    });
+
+    this.route.paramMap.pipe(
+      takeUntil(this.onDestroy$),
+      tap((paramMap: ParamMap) => this.title = paramMap.get('state')),
+      switchMap((paramMap: ParamMap) => {
+        const state = paramMap.get('state') as string
+        const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.State, state)
+        const searchAthletesRequest = new SearchAthletesRequestDto(this.title, null, null, null)
+        const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, state)
+        const observables$ = [this.getDashboardInfo(dashboardRequest), this.getAthletes2(searchAthletesRequest), this.getAthletesBreadCrumbsResult(breadcrumbRequest)]
+        return forkJoin(observables$)
+      })
+    ).subscribe(data =>
+    {
+      this.dashboardInfoResponseDto = data[0]
+      this.athleteSearchResultsChunked = data[1]
+      this.athletesBreadcrumbResult = data[2]
+    }
+    )
   }
 
-  private initData = () => {
-    this.title = this.getState()
-
-    const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, this.title)
-    this.setAthletesBreadcrumbResult(breadcrumbRequest)
-
-    const searchAthletesRequest = new SearchAthletesRequestDto(this.title, null, null, null)
-    this.getAthletes(searchAthletesRequest)
-
-    const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.State, this.title)
-    this.setDashboardInfo(dashboardRequest)
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
-
-  private getState = () => this.route.snapshot.paramMap.get('state')
 }

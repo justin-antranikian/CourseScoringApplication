@@ -5,10 +5,10 @@
 
 <hr />
 
-<ng-container *ngIf="dataLoaded">
+<ng-container *ngIf="athletes$ | async as athletes">
 
   <div class="row">
-    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+    <div class="col-sm" *ngFor="let athleteInfo of athletes">
       <div class="font-24 font-weight-bold">{{athleteInfo.fullName}}</div>
       <div class="font-18">{{athleteInfo.locationInfoWithRank.city}}, {{athleteInfo.locationInfoWithRank.state}}</div>
       <div class="font-12">{{athleteInfo.genderAbbreviated}} | {{athleteInfo.age}}</div>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="row">
-    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+    <div class="col-sm" *ngFor="let athleteInfo of athletes">
       <div class="mb-2" *ngFor="let stat of athleteInfo.stats">
         <div class="font-weight-bold">{{stat.raceSeriesTypeName}}</div>
         <div style="line-height: 10px;" class="font-12">total disance : <i>{{stat.totalDistance}}</i></div>
@@ -29,7 +29,7 @@
   </div>
 
   <div class="row my-4">
-    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+    <div class="col-sm" *ngFor="let athleteInfo of athletes">
       <table class="table">
         <thead>
           <tr>

@@ -47,7 +47,9 @@ export class AthletesAreaComponent extends AthletesComponentBase implements OnIn
     this.getAthletes(searchAthletesRequest)
 
     const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.Area, this.title)
-    this.setDashboardInfo(dashboardRequest)
+    this.dashboardInfoResponseDto$ = this.getDashboardInfo(dashboardRequest)
+
+    // this.setDashboardInfo(dashboardRequest)
   }
 
   private getArea = () => this.route.snapshot.paramMap.get('area')

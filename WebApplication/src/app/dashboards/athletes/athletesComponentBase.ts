@@ -26,9 +26,11 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
   protected static readonly EventsPerRow: number = 4
 
   public athleteSearchResultsChunked!: any[][]
-  public upcomingEvents!: any[]
   public athletesUrl!: string
-  public dashboardInfoResponseDto: any
+  public dashboardInfoResponseDto$!: Observable<any>
+
+  public dashboardInfoResponseDto!: any
+
   public title: any
 
   public athleteIdsToCompare: number[] = []
@@ -39,11 +41,11 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
     super(route, http)
   }
 
-  protected setDashboardInfo = (requestDto: DashboardInfoRequestDto) => {
-    this.getDashboardInfo(requestDto).subscribe((dashboardInfoResponse: DashboardInfoResponseDto) => {
-      this.dashboardInfoResponseDto = dashboardInfoResponse
-    })
-  }
+  // protected setDashboardInfo = (requestDto: DashboardInfoRequestDto) => {
+  //   this.getDashboardInfo(requestDto).subscribe((dashboardInfoResponse: DashboardInfoResponseDto) => {
+  //     this.dashboardInfoResponseDto = dashboardInfoResponse
+  //   })
+  // }
 
   protected getAthletes = (searchFilter: SearchAthletesRequestDto) => {
 
@@ -54,6 +56,12 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
     getAthletes$.subscribe((athleteSearchDtos: AthleteSearchResultDto[][]) => { 
       this.athleteSearchResultsChunked = athleteSearchDtos
     })
+  }
+
+  protected getAthletes2 = (searchFilter: SearchAthletesRequestDto) => {
+    return this.getAthletesHttp(searchFilter).pipe(
+      map((athletes: AthleteSearchResultDto[]): AthleteSearchResultDto[][] => chunk(athletes, AthletesComponentBase.EventsPerRow))
+    )
   }
 
   public onCompareClicked = ({ id }: AthleteSearchResultDto) => {

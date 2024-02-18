@@ -5,44 +5,27 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
-import { config } from '../config';
+import { ScoringApiService } from '../services/scoring-api.service';
+import { BreadcrumbComponentBase } from '../_subComponents/breadcrumbs/breadcrumbComponentBase';
 
 @Component({
-  standalone: true, 
+  standalone: true,
   imports: [CommonModule, RouterModule, HttpClientModule, LocationInfoRankingsComponent], 
   selector: 'app-arp-compare',
   templateUrl: './arp-compare.component.html',
   styleUrls: []
 })
-export class ArpCompareComponent extends BreadcrumbComponent implements OnInit {
+export class ArpCompareComponent extends BreadcrumbComponentBase implements OnInit {
 
-  public getAthletesToCompare(athleteIds: number[]): Observable<any> {
-    const body: any = {
-      AthleteIds: athleteIds
-    };
+  public athletes$!: Observable<any[]>
 
-    const url = `${config.apiUrl}/compareAthletesApi`
-    return this.http.post<any>(url, body)
-  }
-
-  public athleteInfoDtos!: any[]
-  public dataLoaded = false
-  public athleteIds: string[]
-
-  constructor(route: ActivatedRoute, http: HttpClient) {
-    super(route, http)
-
-    const athleteIdsAsString = (this.route.snapshot.queryParamMap as any).params["athleteIds"] as string
-    this.athleteIds = JSON.parse(athleteIdsAsString)
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
+    super()
   }
 
   ngOnInit() {
-
-    const athleteIds = this.athleteIds.map(oo => parseInt(oo))
-
-    this.getAthletesToCompare(athleteIds).subscribe((result: any) => {
-      this.athleteInfoDtos = result
-      this.dataLoaded = true
-    })
+    const athleteIdsAsString = (this.route.snapshot.queryParamMap as any).params["athleteIds"] as string
+    const athleteIds = JSON.parse(athleteIdsAsString).map((oo: string) => parseInt(oo))
+    this.athletes$ = this.scoringApiService.getAthletesToCompare(athleteIds)
   }
 }

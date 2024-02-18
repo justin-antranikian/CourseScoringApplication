@@ -42,6 +42,8 @@ export class AthletesAllComponent extends AthletesComponentBase implements OnIni
     }
 
     const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.All)
-    this.setDashboardInfo(dashboardRequest)
+    this.dashboardInfoResponseDto$ = this.getDashboardInfo(dashboardRequest)
+
+    // this.setDashboardInfo(dashboardRequest)
   }
 }
