@@ -70,6 +70,17 @@ export class ScoringApiService {
     )
   }
 
+  public getRaceSeriesDashboardDto(raceSeriesId: number): Observable<any> {
+
+    const getRaceSeriesDashboard$ = this.http.get<any>(`${config.apiUrl}/raceSeriesDashboardApi/${raceSeriesId}`).pipe(
+      map((raceSeriesDashboardDto: any): any => ({
+        ...mapRaceSeriesTypeToImageUrl(raceSeriesDashboardDto),
+      }))
+    )
+
+    return getRaceSeriesDashboard$
+  }
+
   public getDashboardInfo(dashboardInfoRequest: DashboardInfoRequestDto): Observable<DashboardInfoResponseDto> {
     const httpParams = getHttpParams(dashboardInfoRequest.getAsParamsObject())
     return this.http.get<DashboardInfoResponseDto>(`${config.apiUrl}/dashboardInfoApi`, httpParams)

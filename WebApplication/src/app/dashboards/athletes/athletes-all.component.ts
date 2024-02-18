@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AthletesComponentBase } from './athletesComponentBase';
-import { HttpClient } from '@angular/common/http';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { DashboardInfoRequestDto, DashboardInfoType, DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
 import { SearchAthletesRequestDto } from '../../_core/searchAthletesRequestDto';
@@ -29,8 +28,8 @@ export class AthletesAllComponent extends AthletesComponentBase implements OnIni
 
   private subscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
-    super(route, http)
+  constructor(private scoringApiService: ScoringApiService) {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.All
     this.isLanding = true
   }

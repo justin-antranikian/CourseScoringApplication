@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
@@ -24,13 +24,13 @@ export class RaceLeaderboardComponent extends BreadcrumbComponent implements OnI
   public raceId!: number
   public race$!: Observable<any>
 
-  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
-    super(route, http)
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.RaceLeaderboard
   }
 
   ngOnInit() {
-    this.raceId = this.getId()
+    this.raceId = parseInt(this.route.snapshot.paramMap.get('id') as any)
     this.race$ = this.scoringApiService.getRaceLeaderboard(this.raceId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.RaceLeaderboard, this.raceId.toString())

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BreadcrumbLocation } from '../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../_common/breadcrumbComponent';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../_core/breadcrumbRequestDto';
 import { EventsBreadcrumbComponent } from '../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
@@ -10,6 +10,7 @@ import { LocationInfoRankingsComponent } from '../_subComponents/location-info-r
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RaceSeriesCourseTabComponent } from './race-series-course-tab.component';
 import { Observable } from 'rxjs';
+import { ScoringApiService } from '../services/scoring-api.service';
 
 interface RaceSeries {
   name: string
@@ -34,16 +35,18 @@ export class RaceSeriesDashboardComponent extends BreadcrumbComponent implements
 
   public $raceSeries!: Observable<RaceSeries>
 
-  constructor(route: ActivatedRoute, http: HttpClient) {
-    super(route, http)
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.RaceSeriesOrArp
   }
 
   ngOnInit() {
-    const raceSeriesId = this.getId();
-    this.$raceSeries = this.getRaceSeriesDashboardDto(raceSeriesId)
+    const raceSeriesId = parseInt(this.route.snapshot.paramMap.get('id') as any)
+    this.$raceSeries = this.scoringApiService.getRaceSeriesDashboardDto(raceSeriesId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.ArpOrRaceSeriesDashboard, raceSeriesId.toString())
-    this.setEventsBreadcrumbResult(breadcrumbRequest)
+    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
+      this.eventsBreadcrumbResult = result
+    })
   }
 }

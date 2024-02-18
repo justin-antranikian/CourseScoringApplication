@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumbLocation } from '../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../_common/breadcrumbComponent';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AthleteBreadcrumbComponent } from '../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
@@ -23,13 +23,13 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
   public selectedGoal: any
   public $arp!: Observable<any>
 
-  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService, private modalService: NgbModal) {
-    super(route, http)
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService, private modalService: NgbModal) {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.RaceSeriesOrArp
   }
 
   ngOnInit() {
-    const athleteId = this.getId()
+    const athleteId = parseInt(this.route.snapshot.paramMap.get('id') as any)
     this.$arp = this.scoringApiService.getArpDto(athleteId).pipe(
       tap(arp => this.athletesBreadcrumbResult = { locationInfoWithUrl: arp.locationInfoWithRank })
     )
@@ -37,6 +37,6 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
 
   public onViewGoalsClicked = (content: any, selectedGoal: any) => {
     this.selectedGoal = selectedGoal
-    this.modalService.open(content, {size: 'lg'});
+    this.modalService.open(content, { size: 'lg' });
   }
 }

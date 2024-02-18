@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
@@ -11,7 +10,6 @@ import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart-navigation-states.component';
 import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
-import { ScoringApiService } from '../../services/scoring-api.service';
 import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponentBase';
 
 @Component({
@@ -23,8 +21,8 @@ import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponent
 })
 export class EventsCityComponent extends EventsLocationBasedComponentBase {
 
-  constructor(route: ActivatedRoute, httpClient: HttpClient, scoringApiService: ScoringApiService) {
-    super(route, httpClient, scoringApiService)
+  constructor() {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.City
   }
 

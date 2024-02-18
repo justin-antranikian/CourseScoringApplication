@@ -1,8 +1,6 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable, OnDestroy, OnInit } from "@angular/core";
+import { Injectable, OnDestroy, OnInit, inject } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { switchMap, of, forkJoin, Subscription } from "rxjs";
-import { ScoringApiService } from "../../services/scoring-api.service";
 import { EventsComponentBase } from "./eventsComponentBase";
 import { BreadcrumbRequestDto } from "../../_core/breadcrumbRequestDto";
 import { DashboardInfoRequestDto } from "../../_core/dashboardInfoRequestDto";
@@ -13,9 +11,7 @@ export abstract class EventsLocationBasedComponentBase extends EventsComponentBa
 
   private onRouteChangedSubscription: Subscription | null = null
 
-  protected constructor(route: ActivatedRoute, httpClient: HttpClient, scoringApiService: ScoringApiService) {
-    super(route, httpClient, scoringApiService)
-  }
+  private route = inject(ActivatedRoute)
 
   abstract getParamKey(): any
   abstract getDashboardInfoRequestDto(location: string): DashboardInfoRequestDto

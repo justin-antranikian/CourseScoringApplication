@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoutes';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AthleteSearchResultDto } from '../../../_core/athleteSearchResultDto';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { BracketRankComponent } from '../../../_subComponents/bracket-rank/bracket-rank.component';
@@ -21,7 +21,6 @@ import { ScoringApiService } from '../../../services/scoring-api.service';
 export class AthleteSearchResultComponent extends ComponentBaseWithRoutes {
 
   constructor(
-    private http: HttpClient,
     private modalService: NgbModal,
     private scoringApiService: ScoringApiService
   ) { super() }

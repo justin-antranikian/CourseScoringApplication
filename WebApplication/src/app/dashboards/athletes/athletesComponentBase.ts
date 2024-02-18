@@ -1,6 +1,4 @@
-import { ActivatedRoute } from "@angular/router";
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { HttpClient } from '@angular/common/http';
 import { AthleteSearchResultDto } from '../../_core/athleteSearchResultDto';
 
 export abstract class AthletesComponentBase extends BreadcrumbComponent {
@@ -14,10 +12,6 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent {
   public athleteIdsToCompare: number[] = []
   public athleteIdsToCompareString: any = null
   public showToast = false;
-
-  constructor(route: ActivatedRoute, http: HttpClient) {
-    super(route, http)
-  }
 
   public onCompareClicked = ({ id }: AthleteSearchResultDto) => {
     const athleteIds = this.athleteIdsToCompare

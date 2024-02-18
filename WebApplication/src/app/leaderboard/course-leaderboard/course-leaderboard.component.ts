@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { NgbModal, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { IrpQuickViewComponent } from '../../_subComponents/leaderboard-results-grid/irp-quick-view.component';
@@ -33,17 +33,16 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
   public athleteCourseIdsToCompareString: any = null
 
   constructor(
-    route: ActivatedRoute,
-    http: HttpClient,
+    private route: ActivatedRoute,
     private modalService: NgbModal,
     private scoringApiService: ScoringApiService,
   ) {
-    super(route, http)
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.CourseLeaderboard
   }
 
   ngOnInit() {
-    const courseId = this.getId()
+    const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
     this.courseId = courseId
     this.course$ = this.scoringApiService.getCourseLeaderboard(courseId)
 

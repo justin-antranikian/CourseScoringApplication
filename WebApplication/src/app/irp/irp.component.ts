@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IrpIntervalResultComponent } from './irp-interval-result.component';
 import { BracketRankComponent } from '../_subComponents/bracket-rank/bracket-rank.component';
@@ -19,20 +18,19 @@ import { ScoringApiService } from '../services/scoring-api.service';
   standalone: true,
   templateUrl: './irp.component.html',
   imports: [IrpIntervalResultComponent, BracketRankComponent, EventsBreadcrumbComponent, LocationInfoRankingsComponent, IrpPizzaTrackerComponent, NgbModule, CommonModule, RouterModule],
-  providers: [HttpClient],
   styleUrls: ['./irp.component.css']
 })
 export class IrpComponent extends BreadcrumbComponent implements OnInit {
 
   public $irp!: Observable<any>
 
-  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
-    super(route, http)
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.Irp
   }
 
   ngOnInit() {
-    const athleteCourseId = this.getId()
+    const athleteCourseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
     this.$irp = this.scoringApiService.getIrpDto(athleteCourseId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.Irp, athleteCourseId.toString())

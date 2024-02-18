@@ -1,17 +1,6 @@
-import { IIntervalType, mapIntervalTypeToImageUrl } from "./IIntervalName"
-import { IRaceSeriesType, mapRaceSeriesTypeToImageUrl } from "./IRaceSeriesType"
 import { RouteConstants } from "./routeConstants"
 
 export abstract class ComponentBaseWithRoutes {
-
-  protected mapIntervalTypeImages = <T extends IIntervalType>(intervalTypes: T[]): T[] => {
-    return intervalTypes.map(mapIntervalTypeToImageUrl)
-  }
-
-  protected mapSeriesTypeImages = <T extends IRaceSeriesType>(raceSeriesTypes: T[]): T[] => {
-    return raceSeriesTypes.map(mapRaceSeriesTypeToImageUrl)
-  }
-
   public readonly AthletesPage = `/${RouteConstants.AthletesPage}`
   public readonly AthletesStatePage = `/${RouteConstants.AthletesStatePage}`
   public readonly AthletesAreaPage = `/${RouteConstants.AthletesAreaPage}`

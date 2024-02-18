@@ -1,5 +1,7 @@
 
-<div *ngIf="$arp | async as arp" class="mb-3">
+<ng-container *ngIf="$arp | async as arp">
+
+<div class="mb-3">
   <app-athlete-bread-crumb
     [breadcrumbResult]="athletesBreadcrumbResult"
     [breadcrumbLocation]="breadcrumbLocation"
@@ -9,7 +11,7 @@
 
 <hr />
 
-<div *ngIf="$arp | async as arp" class="row">
+<div class="row">
   <div class="col-lg-3">
     <div><img width="120px" height="120px" src="/assets/img/Athlete.png"></div>
     <div class="mt-4 font-24 font-weight-bold">{{arp.fullName}}</div>
@@ -86,6 +88,8 @@
 
   </div>
 </div>
+
+</ng-container>
 
 <ng-template #goalsModal let-modal let-arp="arp">
 

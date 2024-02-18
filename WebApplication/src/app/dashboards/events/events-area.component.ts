@@ -10,7 +10,6 @@ import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart-navigation-states.component';
 import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
-import { HttpClient } from '@angular/common/http';
 import { ScoringApiService } from '../../services/scoring-api.service';
 import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponentBase';
 
@@ -23,8 +22,8 @@ import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponent
 })
 export class EventsAreaComponent extends EventsLocationBasedComponentBase {
 
-  constructor(route: ActivatedRoute, http: HttpClient, scoringApiService: ScoringApiService) {
-    super(route, http, scoringApiService)
+  constructor() {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.Area
   }
 

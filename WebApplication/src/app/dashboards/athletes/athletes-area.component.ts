@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { AthletesComponentBase } from './athletesComponentBase';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
 import { DashboardInfoRequestDto, DashboardInfoType, DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
@@ -27,8 +27,8 @@ export class AthletesAreaComponent extends AthletesComponentBase implements OnIn
 
   private subscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
-    super(route, http)
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.Area
   }
 

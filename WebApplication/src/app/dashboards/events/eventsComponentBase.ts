@@ -1,11 +1,9 @@
-import { ActivatedRoute } from "@angular/router";
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit, inject } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ScoringApiService } from "../../services/scoring-api.service";
 import { Subject, Subscription, switchMap } from "rxjs";
-import { LeaderboardQuickViewModalContent } from "./leaderboardQuickViewModal/leaderboard-quick-view.component";
+import { LeaderboardQuickViewModalContent } from "./leaderboard-quick-view/leaderboard-quick-view.component";
 
 @Injectable()
 export abstract class EventsComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
@@ -16,22 +14,19 @@ export abstract class EventsComponentBase extends BreadcrumbComponent implements
   public isLanding = false
 
   private modalService = inject(NgbModal)
+  protected scoringApiService = inject(ScoringApiService)
 
-  private viewLeaderboardSubject = new Subject<string>();
+  private viewLeaderboardSubject = new Subject<number>();
   private viewLeaderboardSubscription: Subscription | null = null
 
-  protected constructor(route: ActivatedRoute, httpClient: HttpClient, protected scoringApiService: ScoringApiService) {
-    super(route, httpClient)
-  }
-
   ngOnInit(): void {
-    const viewLeaderboardPiped$ = this.viewLeaderboardSubject.pipe(
-      switchMap(data => {
-        return this.scoringApiService.getRaceLeaderboard(data as any)
+    const viewLeaderboard$ = this.viewLeaderboardSubject.pipe(
+      switchMap(raceId => {
+        return this.scoringApiService.getRaceLeaderboard(raceId)
       })
     )
 
-    this.viewLeaderboardSubscription = viewLeaderboardPiped$.subscribe(data => {
+    this.viewLeaderboardSubscription = viewLeaderboard$.subscribe(data => {
       const modalRef = this.modalService.open(LeaderboardQuickViewModalContent, { size: 'xl' });
       modalRef.componentInstance.raceLeaderboard = data
     });
@@ -40,9 +35,8 @@ export abstract class EventsComponentBase extends BreadcrumbComponent implements
   ngOnDestroy() {
     this.viewLeaderboardSubject?.unsubscribe();
     this.viewLeaderboardSubscription?.unsubscribe();
+    this.modalService.dismissAll()
   }
 
-  receiveData(data: string) {
-    this.viewLeaderboardSubject.next(data)
-  }
+  public receiveData = (data: number) => this.viewLeaderboardSubject.next(data)
 }

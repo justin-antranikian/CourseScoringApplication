@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { EventsComponentBase } from './eventsComponentBase';
 import { SearchEventsRequestDto } from '../../_core/searchEventsRequestDto';
 import { DashboardInfoLocationType, DashboardInfoRequestDto, DashboardInfoType } from '../../_core/dashboardInfoRequestDto';
@@ -12,7 +11,6 @@ import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { Subscription, combineLatest } from 'rxjs';
-import { ScoringApiService } from '../../services/scoring-api.service';
 
 @Component({
   standalone: true,
@@ -25,8 +23,8 @@ export class EventsAllComponent extends EventsComponentBase implements OnInit, O
 
   private getDataSubscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, httpClient: HttpClient, scoringApiService: ScoringApiService) {
-    super(route, httpClient, scoringApiService)
+  constructor() {
+    super()
     this.breadcrumbLocation = BreadcrumbLocation.All
     this.isLanding = true
   }
