@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
-import { EventsComponentBase } from './eventsComponentBase';
+import { Component } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
@@ -12,8 +11,8 @@ import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart-navigation-states.component';
 import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
-import { Subscription, forkJoin, of, switchMap } from 'rxjs';
 import { ScoringApiService } from '../../services/scoring-api.service';
+import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponentBase';
 
 @Component({
   standalone: true,
@@ -22,39 +21,26 @@ import { ScoringApiService } from '../../services/scoring-api.service';
   templateUrl: './events.component.html',
   styleUrls: []
 })
-export class EventsCityComponent extends EventsComponentBase implements OnInit, OnDestroy {
+export class EventsCityComponent extends EventsLocationBasedComponentBase {
 
-  private subscription: Subscription | null = null
-
-  constructor(route: ActivatedRoute, httpClient: HttpClient, private scoringApiService: ScoringApiService) {
-    super(route, httpClient)
+  constructor(route: ActivatedRoute, httpClient: HttpClient, scoringApiService: ScoringApiService) {
+    super(route, httpClient, scoringApiService)
     this.breadcrumbLocation = BreadcrumbLocation.City
   }
 
-  ngOnInit() {
-    this.subscription = this.route.paramMap.pipe(
-      switchMap((paramMap: ParamMap) => {
-        const city = paramMap.get('city') as string
-        const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.City, city)
-        const searchEventsRequest = new SearchEventsRequestDto(null, null, null, city)
-        const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.City, city)
-        const observables$ = [
-          this.scoringApiService.getDashboardInfo(dashboardRequest),
-          this.scoringApiService.getRaceSeriesResultsChunked(searchEventsRequest),
-          this.scoringApiService.getAthletesBreadCrumbsResult(breadcrumbRequest),
-          of(city)
-        ]
-        return forkJoin(observables$)
-      })
-    ).subscribe(data => {
-      this.dashboardInfoResponseDto = data[0]
-      this.eventSearchResultsChunked = data[1]
-      this.eventsBreadcrumbResult = data[2]
-      this.title = data[3]
-    })
+  override getParamKey(): any {
+    return 'city'
   }
 
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
+  override getDashboardInfoRequestDto(location: string): DashboardInfoRequestDto {
+    return new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.City, location)
+  }
+
+  override getSearchEventsRequestDto(location: string): SearchEventsRequestDto {
+    return new SearchEventsRequestDto(null, null, null, location)
+  }
+
+  override getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto {
+    return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.City, location)
   }
 }

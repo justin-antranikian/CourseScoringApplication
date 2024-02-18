@@ -23,15 +23,17 @@ import { ScoringApiService } from '../../services/scoring-api.service';
 })
 export class EventsAllComponent extends EventsComponentBase implements OnInit, OnDestroy {
 
-  private subscription: Subscription | null = null
+  private getDataSubscription: Subscription | null = null
 
-  constructor(route: ActivatedRoute, httpClient: HttpClient, private scoringApiService: ScoringApiService) {
-    super(route, httpClient)
+  constructor(route: ActivatedRoute, httpClient: HttpClient, scoringApiService: ScoringApiService) {
+    super(route, httpClient, scoringApiService)
     this.breadcrumbLocation = BreadcrumbLocation.All
     this.isLanding = true
   }
 
-  ngOnInit() {
+  override ngOnInit() {
+    super.ngOnInit()
+
     this.eventsBreadcrumbResult = {
       locationInfoWithUrl: null,
     }
@@ -42,13 +44,14 @@ export class EventsAllComponent extends EventsComponentBase implements OnInit, O
     const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.All)
     const dashboard$ = this.scoringApiService.getDashboardInfo(dashboardRequest)
 
-    this.subscription = combineLatest([events$, dashboard$]).subscribe(data => {
+    this.getDataSubscription = combineLatest([events$, dashboard$]).subscribe(data => {
       this.eventSearchResultsChunked = data[0]
       this.dashboardInfoResponseDto = data[1]
     })
   }
 
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
+  override ngOnDestroy() {
+    super.ngOnDestroy()
+    this.getDataSubscription?.unsubscribe();
   }
 }
