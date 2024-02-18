@@ -5,27 +5,27 @@
 
 <hr />
 
-<div *ngIf="dataLoaded" class="row">
+<div class="row" *ngIf="course$ | async as course" >
 
   <div class="col-lg-2">
     <div>
-      <img width="120px" height="120px" [src]="raceSeriesImageUrl">
+      <img width="120px" height="120px" [src]="course.raceSeriesImageUrl">
     </div>
-    <div class="mt-4 font-24 font-weight-bold">{{raceName}}</div>
-    <div class="font-18 primary-color font-weight-bold">{{courseName}}</div>
+    <div class="mt-4 font-24 font-weight-bold">{{course.raceName}}</div>
+    <div class="font-18 primary-color font-weight-bold">{{course.courseName}}</div>
     <div class="font-14">
-      <div>{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
-      <div>Distance: {{courseDistance}}</div>
-      <div>{{courseDate}} at <strong>{{courseTime}}</strong></div>
+      <div>{{course.locationInfoWithRank.city}}, {{course.locationInfoWithRank.state}}</div>
+      <div>Distance: {{course.courseDistance}}</div>
+      <div>{{course.courseDate}} at <strong>{{course.courseTime}}</strong></div>
     </div>
 
     <hr />
-    <app-location-info-rankings [locationInfoWithRank]="locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+    <app-location-info-rankings [locationInfoWithRank]="course.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
     <hr />
-    <div class="font-12 font-italic font-weight-bold">- "{{raceSeriesDescription}}"</div>
+    <div class="font-12 font-italic font-weight-bold">- "{{course.raceSeriesDescription}}"</div>
     <div class="mt-4">
-      <a class="btn btn-outline-secondary" [routerLink]="[AwardsPodiumPage, resultFilters.courseId]">Awards Podium</a>
+      <a class="btn btn-outline-secondary" [routerLink]="[AwardsPodiumPage, courseId]">Awards Podium</a>
     </div>
   </div>
   <div class="col-lg-10">
@@ -34,30 +34,11 @@
       <div class="col-7">
       </div>
       <div class="col-5">
-        <app-irps-search [courseId]="resultFilters.courseId"></app-irps-search>
+        <app-irps-search [courseId]="courseId"></app-irps-search>
       </div>
     </div>
 
-    <!-- <div class="row mt-4">
-      <div class="col col-sm-4">
-        <select (change)="onCourseChanged()" [(ngModel)]="resultFilters.courseId" class="form-control">
-          <option [value]="course.id" *ngFor="let course of courseMetadata.courses">{{course.displayName}}</option>
-        </select>
-      </div>
-      <div class="col col-sm-4">
-        <select (change)="onFilterChanged()" [(ngModel)]="resultFilters.bracketId" class="form-control">
-          <option [value]="bracket.id" *ngFor="let bracket of courseMetadata.brackets">{{bracket.displayName}}</option>
-        </select>
-      </div>
-      <div class="col col-sm-4">
-        <select (change)="onFilterChanged()" [(ngModel)]="resultFilters.intervalId" class="form-control">
-          <option value="0">All Intervals</option>
-          <option [value]="interval.id" *ngFor="let interval of courseMetadata.intervals">{{interval.displayName}}</option>
-        </select>
-      </div>
-    </div> -->
-
-    <div class="my-5" *ngFor="let leaderboard of leaderboards">
+    <div class="my-5" *ngFor="let leaderboard of course.leaderboards">
       <div class="font-24 primary-color font-weight-bold">{{leaderboard.intervalName}}</div>
       <ng-container *ngTemplateOutlet="resultsTableTemplate;context:{leaderboard:leaderboard}" ></ng-container>
     </div>

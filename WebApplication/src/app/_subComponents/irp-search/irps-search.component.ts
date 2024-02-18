@@ -1,17 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { IrpSearchResultDto } from './IrpSearchResultDto';
 import { SearchIrpsRequestDto, SearchOnField } from './SearchIrpsRequestDto';
-import { HttpClient } from '@angular/common/http';
-import { getHttpParams } from '../../_common/httpParamsHelpers';
-import { config } from '../../config';
 import { CommonModule } from '@angular/common';
 import { IrpsSearchResultComponent } from './irps-search-result.component';
 import { FormControl, FormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ScoringApiService } from '../../services/scoring-api.service';
 
 @Component({
   standalone: true,
@@ -20,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, IrpsSearchResultComponent, FormsModule, NgbDropdownModule, ReactiveFormsModule],
   styleUrls: ['./irps-search.component.css']
 })
-export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnInit {
+export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnInit, OnDestroy {
 
   @Input('courseId')
   public courseId!: number | null
@@ -29,35 +27,54 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
   public raceId!: number | null
 
   public inputControl = new FormControl();
-
   public mouseIsOver: boolean = false
   public searchIsFocused: boolean = false
   public searchOn: string = 'bib'
-  public searchTerm: string = ''
-  public $searchResults!: Observable<any>
+  public searchTerm: string | null = ''
+  public searchResults: IrpSearchResultDto[] = []
 
-  constructor(private readonly http: HttpClient) {
+  private onDestroy$ = new Subject<void>();
+
+  constructor(private scoringApiService: ScoringApiService) {
     super()
-    this.mouseIsOver = false
   }
 
   ngOnInit() {
-    this.$searchResults = this.inputControl.valueChanges.pipe(
+    const searchResults$ = this.inputControl.valueChanges.pipe(
+      takeUntil(this.onDestroy$),
       debounceTime(600),
       distinctUntilChanged(),
+      tap(this.updateSearchTerm),
       filter((searchTerm: string) => searchTerm !== ''),
-      switchMap((searchTerm: string) => this.$searchIrps(searchTerm)),
+      switchMap((searchTerm: string) => {
+        const requestDto = this.getIrpSearchRequestDto(searchTerm)
+        return this.scoringApiService.getIrpsFromSearch(requestDto)
+      })
     )
+
+    searchResults$.subscribe(results => this.searchResults = results)
   }
 
-  private $searchIrps = (searchTerm: string): Observable<IrpSearchResultDto[]> => {
-    const requestDto = this.getIrpSearchRequestDto(searchTerm)
-    return this.searchIrps(requestDto)
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
-  public searchIrps(irpSearchRequest: SearchIrpsRequestDto): Observable<IrpSearchResultDto[]> {
-    const httpParams = getHttpParams(irpSearchRequest.getAsParamsObject())
-    return this.http.get<IrpSearchResultDto[]>(`${config.apiUrl}/searchIrpsApi`, httpParams)
+  private updateSearchTerm = (searchOn: string) => {
+    if (searchOn !== '') {
+      this.searchTerm = searchOn
+      return
+    }
+
+    this.searchTerm = ''
+    this.searchResults = []
+  }
+
+  public onSearchOnClicked = (searchOn: string) => {
+    this.searchOn = searchOn
+    this.inputControl.setValue('')
+    this.searchTerm = ''
+    this.searchResults = []
   }
 
   private getIrpSearchRequestDto = (searchTerm: string): SearchIrpsRequestDto => {
@@ -84,10 +101,5 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
     }
 
     throw new Error('Cannot resolve search on field')
-  }
-
-  public onSearchOnClicked = (searchOn: string) => {
-    this.searchOn = searchOn
-    this.searchTerm = ''
   }
 }

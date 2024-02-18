@@ -9,6 +9,8 @@ import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/even
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { LeaderboardResultComponent } from '../../_subComponents/leaderboard-results-grid/leaderboard-result.component';
 import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search.component';
+import { ScoringApiService } from '../../services/scoring-api.service';
+import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -20,49 +22,20 @@ import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search
 export class RaceLeaderboardComponent extends BreadcrumbComponent implements OnInit {
 
   public raceId!: number
-  public dataLoaded = false
+  public race$!: Observable<any>
 
-  // extract as props to render in template.
-  public raceSeriesImageUrl!: string
-  public raceName!: string
-  public raceSeriesDescription!: string
-  public raceKickOffDate!: string
-  public locationInfoWithRank: any
-  public leaderboards!: any[]
-
-  constructor(route: ActivatedRoute, http: HttpClient) {
+  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
     super(route, http)
     this.breadcrumbLocation = BreadcrumbLocation.RaceLeaderboard
   }
 
   ngOnInit() {
     this.raceId = this.getId()
-    this.getRaceLeaderboard(this.raceId).subscribe(this.setPropsToRender)
+    this.race$ = this.scoringApiService.getRaceLeaderboard(this.raceId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.RaceLeaderboard, this.raceId.toString())
-    this.setEventsBreadcrumbResult(breadcrumbRequest)
-  }
-
-  /**
-  * this sets the properties needed on the front-end.
-  */
-  private setPropsToRender = (raceLeaderboardDto: any) => {
-    const {
-      raceSeriesImageUrl,
-      raceName,
-      raceSeriesDescription,
-      raceKickOffDate,
-      locationInfoWithRank,
-      leaderboards,
-    } = raceLeaderboardDto
-
-    this.raceSeriesImageUrl = raceSeriesImageUrl
-    this.raceName = raceName
-    this.raceSeriesDescription = raceSeriesDescription
-    this.raceKickOffDate = raceKickOffDate
-    this.locationInfoWithRank = locationInfoWithRank
-    this.leaderboards = leaderboards
-
-    this.dataLoaded = true
+    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
+      this.eventsBreadcrumbResult = result
+    })
   }
 }

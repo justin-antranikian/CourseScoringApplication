@@ -34,42 +34,6 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
     return getRaceSeriesDashboard$
   }
 
-  private getCourseLeaderboard$(courseId: number, courseLeaderboardFilter: any): Observable<any> {
-    const url = `${config.apiUrl}/courseLeaderboardApi/${courseId}`
-
-    if (courseLeaderboardFilter) {
-      const httpParams = getHttpParams(courseLeaderboardFilter.getAsParams())
-      return this.http.get<any>(url, httpParams)
-    }
-
-    return this.http.get<any>(url)
-  }
-
-  public getCourseLeaderboard(courseId: number, courseLeaderboardFilter: any = null): Observable<any> {
-
-    const courseLeaderboard$ = this.getCourseLeaderboard$(courseId, courseLeaderboardFilter).pipe(
-      map((courseLeaderboardDto: any): any => ({
-        ...mapRaceSeriesTypeToImageUrl(courseLeaderboardDto),
-        leaderboards: this.mapIntervalTypeImages(courseLeaderboardDto.leaderboards)
-      }))
-    )
-
-    return courseLeaderboard$
-  }
-
-  public getIrpDto(athleteCourseId: number): Observable<any> {
-
-    const getIrpDto$ = this.http.get<any>(`${config.apiUrl}/irpApi/${athleteCourseId}`).pipe(
-      map(mapRaceSeriesTypeToImageUrl),
-      map((irpDto: any): any => ({
-        ...irpDto,
-        intervalResults: this.mapIntervalTypeImages(irpDto.intervalResults)
-      }))
-    )
-
-    return getIrpDto$
-  }
-
   public getRaceLeaderboard(raceId: number): Observable<any> {
 
     const getRaceLeaderboard$ = this.http.get<any>(`${config.apiUrl}/raceLeaderboardApi/${raceId}`).pipe(

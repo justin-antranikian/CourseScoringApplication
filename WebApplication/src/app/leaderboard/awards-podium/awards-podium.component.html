@@ -11,7 +11,7 @@
 
 <hr />
 
-<ng-container *ngIf="dataLoaded">
+<ng-container *ngIf="awards$ | async as awards">
 
   <table class="table">
     <thead>

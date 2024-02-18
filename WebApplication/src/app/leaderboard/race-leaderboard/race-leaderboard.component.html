@@ -5,22 +5,22 @@
 
 <hr />
 
-<div *ngIf="dataLoaded" class="row">
+<div class="row" *ngIf="race$ | async as race">
   <div class="col-lg-2">
-    <div><img width="120px" height="120px" [src]="raceSeriesImageUrl"></div>
-    <div class="mt-4 font-24 font-weight-bold">{{raceName}}</div>
+    <div><img width="120px" height="120px" [src]="race.raceSeriesImageUrl"></div>
+    <div class="mt-4 font-24 font-weight-bold">{{race.raceName}}</div>
     <div class="font-18 primary-color font-weight-bold">All Courses</div>
 
     <div class="font-14">
-      <div>{{locationInfoWithRank.city}}, {{locationInfoWithRank.state}}</div>
-      <div class="font-weight-bold">{{raceKickOffDate}}</div>
+      <div>{{race.locationInfoWithRank.city}}, {{race.locationInfoWithRank.state}}</div>
+      <div class="font-weight-bold">{{race.raceKickOffDate}}</div>
     </div>
 
     <hr />
-    <app-location-info-rankings [locationInfoWithRank]="locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+    <app-location-info-rankings [locationInfoWithRank]="race.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
     <hr />
-    <div class="font-12 font-weight-bold font-italic">- "{{raceSeriesDescription}}"</div>
+    <div class="font-12 font-weight-bold font-italic">- "{{race.raceSeriesDescription}}"</div>
 
   </div>
   <div class="col-lg-10">
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div class="mb-5" *ngFor="let leaderboard of leaderboards">
+    <div class="mb-5" *ngFor="let leaderboard of race.leaderboards">
       <div class="font-24 primary-color font-weight-bold">{{leaderboard.courseName}}</div>
 
       <table class="table">

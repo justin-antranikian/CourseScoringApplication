@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { mergeMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { config } from '../../config';
+import { ScoringApiService } from '../../services/scoring-api.service';
+import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -18,15 +17,9 @@ import { config } from '../../config';
 })
 export class AwardsPodiumComponent extends BreadcrumbComponent implements OnInit {
 
-  public getAwardsPodium(courseId: number): Observable<any> {
-    return this.http.get<any>(`${config.apiUrl}/awardsPodiumApi/${courseId}`)
-  }
+  public awards$!: Observable<any[]>
 
-  public awards: any[] = []
-  public courseInfo: any
-  public dataLoaded: any
-
-  constructor(route: ActivatedRoute, http: HttpClient) {
+  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService) {
     super(route, http)
     this.breadcrumbLocation = BreadcrumbLocation.CourseLeaderboard
   }
@@ -34,19 +27,11 @@ export class AwardsPodiumComponent extends BreadcrumbComponent implements OnInit
   ngOnInit() {
     const courseId = this.getId()
 
+    this.awards$ = this.scoringApiService.getAwardsPodium(courseId)
+
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.CourseLeaderboard, courseId.toString())
-    this.setEventsBreadcrumbResult(breadcrumbRequest)
-
-    this.getCourseInfo(courseId)
-
-    const $getCourseInfo = this.getAwardsPodium(courseId).pipe(
-      tap((result: any) => this.awards = result),
-      mergeMap(() => this.getCourseInfo(courseId))
-    )
-
-    $getCourseInfo.subscribe((result: any) => {
-      this.courseInfo = result
-      this.dataLoaded = true
+    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
+      this.eventsBreadcrumbResult = result
     })
   }
 }
