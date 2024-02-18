@@ -9,6 +9,7 @@ import { AthleteBreadcrumbComponent } from '../_subComponents/breadcrumbs/athlet
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
 import { ArpResultComponent } from './arp-result.component';
 import { Observable, tap } from 'rxjs';
+import { ScoringApiService } from '../services/scoring-api.service';
 
 @Component({
   standalone: true,
@@ -22,14 +23,14 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
   public selectedGoal: any
   public $arp!: Observable<any>
 
-  constructor(route: ActivatedRoute, http: HttpClient, private modalService: NgbModal) {
+  constructor(route: ActivatedRoute, http: HttpClient, private scoringApiService: ScoringApiService, private modalService: NgbModal) {
     super(route, http)
     this.breadcrumbLocation = BreadcrumbLocation.RaceSeriesOrArp
   }
 
   ngOnInit() {
     const athleteId = this.getId()
-    this.$arp = this.getArpDto(athleteId).pipe(
+    this.$arp = this.scoringApiService.getArpDto(athleteId).pipe(
       tap(arp => this.athletesBreadcrumbResult = { locationInfoWithUrl: arp.locationInfoWithRank })
     )
   }

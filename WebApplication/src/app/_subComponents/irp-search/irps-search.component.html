@@ -10,7 +10,7 @@
         <button (click)="onSearchOnClicked('full name')" ngbDropdownItem>Full name</button>
       </div>
     </div>
-    <input
+    <!-- <input
       #searchBox
       id="search-box"
       [(ngModel)]="searchTerm"
@@ -21,22 +21,35 @@
       class="form-control"
       placeholder="Search Athletes"
       autocomplete="off"
+    /> -->
+
+    <input 
+      [formControl]="inputControl"
+      (focus)="searchIsFocused=true"
+      (blur)="searchIsFocused=false"
+      type="text"
+      class="form-control"
+      placeholder="Search Athletes"
+      autocomplete="off"
     />
+
   </div>
 
-  <ng-container *ngIf="(mouseIsOver || searchIsFocused) && hasResults">
-    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
+  <ng-container *ngIf="$searchResults | async as searchResults">
+
+    <div *ngIf="(mouseIsOver || searchIsFocused)" (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
 
       @if (searchResults?.length === 0) {
         <div class="font-20">No results found.</div>
       } @else {
-        <div class="mb-3">({{searchResults?.length}}) athlete(s) found for <strong>{{searchOn}}: {{searchTerm}}</strong></div>
+        <div class="mb-3">({{searchResults?.length}}) athlete(s) found for <strong>{{searchOn}}: {{inputControl.value}}</strong></div>
         <div *ngFor="let athlete of searchResults" class="mb-2">
           <app-irps-search-result [irpSearchResultDto]="athlete"></app-irps-search-result>
         </div>
       }
 
     </div>
+
   </ng-container>
 
 </div>

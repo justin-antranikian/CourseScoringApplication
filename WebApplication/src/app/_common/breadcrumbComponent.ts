@@ -17,15 +17,6 @@ export abstract class BreadcrumbComponent extends ComponentBaseWithRoutes {
     protected readonly http: HttpClient
   ) { super() }
 
-  public getArpDto(athleteId: number): Observable<any> {
-    return this.http.get<any>(`${config.apiUrl}/arpApi/${athleteId}`).pipe(
-      map((arpDto: any): any => ({
-        ...arpDto,
-        results: this.mapSeriesTypeImages(arpDto.results)
-      }))
-    )
-  }
-
   public getCourseInfo(courseId: number): Observable<any> {
     return this.http.get<any>(`${config.apiUrl}/getCourseInfoApi/${courseId}`).pipe(
       map((irpCompareResult: any): any => mapRaceSeriesTypeToImageUrl(irpCompareResult)),

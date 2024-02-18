@@ -26,11 +26,24 @@ export class ScoringApiService {
     return this.http.get<any>(`${config.apiUrl}/eventsBreadCrumbsApi`, httpParams)
   }
 
+  private getBaseObservableForGetRequest (route: string) {
+    return this.http.get<any>(`${config.apiUrl}/${route}`)
+  }
+
   public getIrpDto(athleteCourseId: number): Observable<any> {
-    return this.http.get<any>(`${config.apiUrl}/irpApi/${athleteCourseId}`).pipe(
+    return this.getBaseObservableForGetRequest(`irpApi/${athleteCourseId}`).pipe(
       map((irpDto: any): any => ({
         ...irpDto,
         intervalResults: this.mapIntervalTypeImages(irpDto.intervalResults)
+      }))
+    )
+  }
+
+  public getArpDto(athleteId: number): Observable<any> {
+    return this.getBaseObservableForGetRequest(`arpApi/${athleteId}`).pipe(
+      map((arpDto: any): any => ({
+        ...arpDto,
+        results: this.mapSeriesTypeImages(arpDto.results)
       }))
     )
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { IrpSearchResultDto } from './IrpSearchResultDto';
@@ -9,14 +9,15 @@ import { getHttpParams } from '../../_common/httpParamsHelpers';
 import { config } from '../../config';
 import { CommonModule } from '@angular/common';
 import { IrpsSearchResultComponent } from './irps-search-result.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-irps-search',
   templateUrl: './irps-search.component.html',
-  imports: [CommonModule, IrpsSearchResultComponent, FormsModule, NgbDropdownModule],
+  imports: [CommonModule, IrpsSearchResultComponent, FormsModule, NgbDropdownModule, ReactiveFormsModule],
   styleUrls: ['./irps-search.component.css']
 })
 export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnInit {
@@ -27,14 +28,13 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
   @Input('raceId')
   public raceId!: number | null
 
+  public inputControl = new FormControl();
+
   public mouseIsOver: boolean = false
   public searchIsFocused: boolean = false
-  public hasResults: boolean = false
   public searchOn: string = 'bib'
   public searchTerm: string = ''
-  private searchTerms = new Subject<string>();
-
-  public searchResults: any[] | null = [];
+  public $searchResults!: Observable<any>
 
   constructor(private readonly http: HttpClient) {
     super()
@@ -42,27 +42,12 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
   }
 
   ngOnInit() {
-    const searchTerms$ = this.searchTerms.pipe(
+    this.$searchResults = this.inputControl.valueChanges.pipe(
       debounceTime(600),
       distinctUntilChanged(),
-      tap(this.handleEmptySearchTerm),
       filter((searchTerm: string) => searchTerm !== ''),
-      switchMap((searchTerm: string) => this.$searchIrps(searchTerm))
+      switchMap((searchTerm: string) => this.$searchIrps(searchTerm)),
     )
-
-    searchTerms$.subscribe((searchResults: any[]) => {
-      this.searchResults = searchResults
-      this.hasResults = true
-    })
-  }
-
-  private handleEmptySearchTerm(searchTerm: string) {
-    if (searchTerm !== '') {
-      return
-    }
-
-    this.searchResults = null
-    this.hasResults = false
   }
 
   private $searchIrps = (searchTerm: string): Observable<IrpSearchResultDto[]> => {
@@ -101,13 +86,8 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
     throw new Error('Cannot resolve search on field')
   }
 
-  public search = (term: string) => {
-    this.searchTerms.next(term);
-  }
-
   public onSearchOnClicked = (searchOn: string) => {
     this.searchOn = searchOn
     this.searchTerm = ''
-    this.hasResults = false
   }
 }
