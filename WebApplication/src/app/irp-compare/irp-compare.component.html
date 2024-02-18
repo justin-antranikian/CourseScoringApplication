@@ -12,10 +12,10 @@
 
 <hr />
 
-<ng-container *ngIf="dataLoaded">
+<ng-container *ngIf="irpsToCompare$ | async as irpsToCompare">
 
   <div class="row">
-    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+    <div class="col-sm" *ngFor="let athleteInfo of irpsToCompare">
 
       <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="font-24 font-weight-bold">{{athleteInfo.fullName}}</div>
       <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class="font-18">{{athleteInfo.city}}, {{athleteInfo.state}}</div>
@@ -50,7 +50,7 @@
   </div>
 
   <div class="row mb-4">
-    <div class="col-sm" *ngFor="let athleteInfo of athleteInfoDtos">
+    <div class="col-sm" *ngFor="let athleteInfo of irpsToCompare">
       <table class="table">
         <thead>
           <tr>

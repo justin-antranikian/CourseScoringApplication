@@ -85,6 +85,14 @@ export class ScoringApiService {
     )
   }
 
+  public getIrpToCompare(athleteCourseIds: number[]): Observable<any> {
+    const body: any = {
+      AthleteCourseIds: athleteCourseIds
+    };
+
+    return this.http.post<any>(`${config.apiUrl}/compareIrpApi`, body)
+  }
+
   public getArpDto(athleteId: number): Observable<any> {
     return this.getBaseObservableForGetRequest(`arpApi/${athleteId}`).pipe(
       map((arpDto: any): any => ({
