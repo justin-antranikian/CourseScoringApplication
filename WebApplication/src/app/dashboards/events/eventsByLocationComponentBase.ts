@@ -17,7 +17,7 @@ export abstract class EventsByLocationComponentBase extends EventsComponentBase 
   abstract getSearchEventsRequestDto(location: string): SearchEventsRequestDto
   abstract getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto
 
-  override ngOnInit(): void {
+  override ngOnInit() {
     super.ngOnInit()
 
     this.onRouteChangedSubscription = this.route.paramMap.pipe(

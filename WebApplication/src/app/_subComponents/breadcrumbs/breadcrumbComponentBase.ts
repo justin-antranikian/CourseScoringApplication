@@ -1,6 +1,7 @@
 import { BreadcrumbLocation } from "../../_common/breadcrumbLocation"
 import { ComponentBaseWithRoutes } from "../../_common/componentBaseWithRoutes"
 
+// Todo maybe a better name.
 export abstract class BreadcrumbComponentBase extends ComponentBaseWithRoutes {
   public breadcrumbAll = BreadcrumbLocation.All
   public breadcrumbState = BreadcrumbLocation.State

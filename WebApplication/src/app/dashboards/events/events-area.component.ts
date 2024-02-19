@@ -26,19 +26,17 @@ export class EventsAreaComponent extends EventsByLocationComponentBase {
     this.breadcrumbLocation = BreadcrumbLocation.Area
   }
 
-  override getParamKey(): any {
-    return 'area'
-  }
+  override getParamKey = () => 'area'
 
-  override getDashboardInfoRequestDto(location: string): DashboardInfoRequestDto {
+  override getDashboardInfoRequestDto = (location: string): DashboardInfoRequestDto => {
     return new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.Area, location)
   }
 
-  override getSearchEventsRequestDto(location: string): SearchEventsRequestDto {
+  override getSearchEventsRequestDto = (location: string): SearchEventsRequestDto => {
     return new SearchEventsRequestDto(null, null, location)
   }
 
-  override getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto {
+  override getBreadcrumbRequestDto = (location: string): BreadcrumbRequestDto => {
     return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.Area, location)
   }
 }

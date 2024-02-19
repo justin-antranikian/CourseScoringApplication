@@ -26,19 +26,17 @@ export class EventsStateComponent extends EventsByLocationComponentBase {
     this.breadcrumbLocation = BreadcrumbLocation.State
   }
 
-  override getParamKey(): any {
-    return 'state'
-  }
+  override getParamKey = () => 'state'
 
-  override getDashboardInfoRequestDto(location: string): DashboardInfoRequestDto {
+  override getDashboardInfoRequestDto = (location: string): DashboardInfoRequestDto => {
     return new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.State, location)
   }
 
-  override getSearchEventsRequestDto(location: string): SearchEventsRequestDto {
+  override getSearchEventsRequestDto = (location: string): SearchEventsRequestDto => {
     return new SearchEventsRequestDto(null, location)
   }
 
-  override getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto {
+  override getBreadcrumbRequestDto = (location: string): BreadcrumbRequestDto => {
     return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, location)
   }
 }

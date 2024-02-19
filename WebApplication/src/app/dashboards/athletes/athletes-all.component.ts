@@ -19,8 +19,8 @@ import { Subscription, combineLatest } from 'rxjs';
   standalone: true,
   selector: 'app-athletes-all',
   templateUrl: './athletes.component.html',
+  styleUrl: './athletes.component.css',
   imports: [CommonModule, RouterModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent, AthleteBreadcrumbComponent, NgbToastModule, LocationInfoRankingsComponent],
-  styleUrls: []
 })
 export class AthletesAllComponent extends AthletesComponentBase implements OnInit, OnDestroy {
 
@@ -46,6 +46,7 @@ export class AthletesAllComponent extends AthletesComponentBase implements OnIni
     this.getDataSubscription = combineLatest([athletes$, dashboard$]).subscribe(data => {
       this.athleteSearchResultsChunked = data[0]
       this.dashboardInfoResponseDto = data[1]
+      this.showSpinner = false
     })
   }
 

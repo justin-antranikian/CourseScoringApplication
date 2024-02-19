@@ -19,7 +19,7 @@ import { AthletesByLocationComponentBase } from './athletesByLocationComponentBa
   imports: [CommonModule, HttpClientModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, RouterModule, AthleteBreadcrumbComponent, NgbToastModule, LocationInfoRankingsComponent],
   selector: 'app-athletes-city',
   templateUrl: './athletes.component.html',
-  styleUrls: []
+  styleUrl: './athletes.component.css',
 })
 export class AthletesCityComponent extends AthletesByLocationComponentBase {
 
@@ -28,19 +28,17 @@ export class AthletesCityComponent extends AthletesByLocationComponentBase {
     this.breadcrumbLocation = BreadcrumbLocation.City
   }
 
-  override getParamKey(): string {
-    return 'city'
-  }
+  override getParamKey = () => 'city'
 
-  override getDashboardInfoRequestDto(location: string): DashboardInfoRequestDto {
+  override getDashboardInfoRequestDto = (location: string): DashboardInfoRequestDto => {
     return new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.City, location)
   }
 
-  override getSearchAthletesRequestDto(location: string): SearchAthletesRequestDto {
+  override getSearchAthletesRequestDto = (location: string): SearchAthletesRequestDto => {
     return new SearchAthletesRequestDto(null, null, location, null)
   }
 
-  override getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto {
+  override getBreadcrumbRequestDto = (location: string): BreadcrumbRequestDto => {
     return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.City, location)
   }
 }

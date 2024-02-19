@@ -41,6 +41,7 @@ export abstract class AthletesByLocationComponentBase extends AthletesComponentB
       this.athleteSearchResultsChunked = data[1]
       this.athletesBreadcrumbResult = data[2]
       this.title = data[3]
+      this.showSpinner = false
     })
   }
 

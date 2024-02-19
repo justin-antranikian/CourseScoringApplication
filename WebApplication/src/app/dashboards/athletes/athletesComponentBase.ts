@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
 import { AthleteSearchResultDto } from '../../_core/athleteSearchResultDto';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, Subscription, switchMap } from 'rxjs';
+import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { ScoringApiService } from '../../services/scoring-api.service';
 import { AthleteQuickViewComponent } from './athlete-quick-view/athlete-quick-view.component';
 
@@ -25,9 +25,11 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent implemen
   public athleteIdsToCompare: number[] = []
   public athleteIdsToCompareString: any = null
   public showToast = false;
+  public showSpinner = true
 
   ngOnInit() {
     const viewLeaderboard$ = this.quickViewSubject.pipe(
+      tap(() => this.showSpinner = true),
       switchMap(athleteId => {
         return this.scoringApiService.getArpDto(athleteId)
       })
@@ -36,6 +38,7 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent implemen
     this.quickViewSubscription = viewLeaderboard$.subscribe(data => {
       const modalRef = this.modalService.open(AthleteQuickViewComponent, { size: 'xl' });
       modalRef.componentInstance.arp = data
+      this.showSpinner = false
     });
   }
 

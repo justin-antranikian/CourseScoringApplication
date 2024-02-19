@@ -12,14 +12,13 @@ import { DashboardInfoResponseDto } from '../_core/dashboardInfoResponseDto';
 import { chunk } from 'lodash';
 import { AthleteSearchResultDto } from '../_core/athleteSearchResultDto';
 import { SearchAthletesRequestDto } from '../_core/searchAthletesRequestDto';
-import { AthletesComponentBase } from '../dashboards/athletes/athletesComponentBase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScoringApiService {
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   private getBaseObservableForGetRequest (route: string) {
     return this.http.get<any>(`${config.apiUrl}/${route}`)

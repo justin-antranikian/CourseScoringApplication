@@ -3,6 +3,10 @@
   <app-athlete-bread-crumb [breadcrumbResult]="athletesBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-athlete-bread-crumb>
 </div>
 
+<div *ngIf="showSpinner" class="spinner-overlay">
+  <div class="spinner"></div>
+</div>
+
 <hr />
 
 <div class="row mt-3">

@@ -39,13 +39,9 @@
 
                 </div>
 
-                @if (mouseIsOver || searchIsFocused) {
+                @if ((mouseIsOver || searchIsFocused) && searchTerm !== '') {
                   <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
-                    @if (searchTerm !== '') {
-                      <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>
-                    } @else {
-                      <div>Enter a search value</div>
-                    }
+                    <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>
                   </div>
                 }
 
@@ -62,6 +58,8 @@
 <ng-template #resultsTemplate>
 
   <div class="row">
+
+    <div class="mb-2">Searched on: <strong>{{searchTerm}}</strong></div>
 
     <div class="col-6">
       <div class="mb-3 font-18 font-weight-bold"><b>{{searchResults.athletes.length}}</b> athlete(s) found</div>
