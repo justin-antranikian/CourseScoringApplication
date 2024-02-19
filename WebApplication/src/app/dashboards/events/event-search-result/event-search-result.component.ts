@@ -5,21 +5,18 @@ import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoute
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
-import { LeaderboardResultComponent } from '../../../_subComponents/leaderboard-results-grid/leaderboard-result.component';
 
 @Component({
   standalone: true,
   selector: 'app-event-search-result',
   templateUrl: './event-search-result.component.html',
   styleUrls: ['./event-search-result.component.css'],
-  imports: [CommonModule, RouterModule, LocationInfoRankingsComponent, NgbModule, LeaderboardResultComponent]
+  imports: [CommonModule, RouterModule, LocationInfoRankingsComponent, NgbModule]
 })
 export class EventSearchResultComponent extends ComponentBaseWithRoutes {
 
   @Input('eventSearchResult')
   public eventSearchResult!: EventSearchResultDto
-
-  public raceLeaderboard: any | null
 
   @Output()
   public dataEvent: EventEmitter<string> = new EventEmitter<string>();

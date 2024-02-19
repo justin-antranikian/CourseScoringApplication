@@ -4,13 +4,12 @@ import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoute
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
-import { LeaderboardResultComponent } from '../../../_subComponents/leaderboard-results-grid/leaderboard-result.component';
 
 @Component({
   standalone: true,
   selector: 'ngbd-modal-content',
   templateUrl: './leaderboard-quick-view.component.html',
-  imports: [CommonModule, RouterModule, LocationInfoRankingsComponent, NgbModule, LeaderboardResultComponent],
+  imports: [CommonModule, RouterModule, LocationInfoRankingsComponent, NgbModule],
 })
 export class LeaderboardQuickViewModalContent extends ComponentBaseWithRoutes {
   modal = inject(NgbActiveModal)

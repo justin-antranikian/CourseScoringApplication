@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { NgbModal, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
-import { IrpQuickViewComponent } from '../../_subComponents/leaderboard-results-grid/irp-quick-view.component';
 import { CommonModule } from '@angular/common';
-import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search.component';
+import { IrpsSearchComponent } from '../irp-search/irps-search.component';
 import { FormsModule } from '@angular/forms';
-import { ScoringApiService } from '../../services/scoring-api.service';
 import { Observable } from 'rxjs';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
+import { LeaderboardBaseComponent } from '../leaderboardBaseComponent';
 
 @Component({
   standalone: true,
   selector: 'app-course-leaderboard',
-  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, NgbToastModule, IrpQuickViewComponent, HttpClientModule, CommonModule, IrpsSearchComponent, FormsModule],
+  imports: [EventsBreadcrumbComponent, LocationInfoRankingsComponent, RouterLink, NgbToastModule, HttpClientModule, CommonModule, IrpsSearchComponent, FormsModule],
   templateUrl: './course-leaderboard.component.html',
   styleUrls: ['./course-leaderboard.component.css']
 })
-export class CourseLeaderboardComponent extends BreadcrumbComponent implements OnInit {
+export class CourseLeaderboardComponent extends LeaderboardBaseComponent implements OnInit {
 
   public courseId!: number
   public course$!: Observable<any>
@@ -32,16 +30,14 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
   public athleteCourseIdsToCompare: number[] = []
   public athleteCourseIdsToCompareString: any = null
 
-  constructor(
-    private route: ActivatedRoute,
-    private modalService: NgbModal,
-    private scoringApiService: ScoringApiService,
-  ) {
+  constructor(private route: ActivatedRoute) {
     super()
     this.breadcrumbLocation = BreadcrumbLocation.CourseLeaderboard
   }
 
-  ngOnInit() {
+  override ngOnInit() {
+    super.ngOnInit()
+
     const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
     this.courseId = courseId
     this.course$ = this.scoringApiService.getCourseLeaderboard(courseId)
@@ -49,13 +45,6 @@ export class CourseLeaderboardComponent extends BreadcrumbComponent implements O
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.CourseLeaderboard, courseId.toString())
     this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
       this.eventsBreadcrumbResult = result
-    })
-  }
-
-  public onViewIrpClicked = (modal: any, result: any) => {
-    this.scoringApiService.getIrpDto(result.athleteCourseId).subscribe((irpDto: any) => {
-      this.selectedIrp = irpDto
-      this.modalService.open(modal, { size: 'xl' });
     })
   }
 

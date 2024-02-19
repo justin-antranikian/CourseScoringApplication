@@ -51,29 +51,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let leaderboardResult of leaderboard.results">
-            <td class="text-left"><a [routerLink]="[IndividualResultPage, leaderboardResult.athleteCourseId]">View</a></td>
+          <tr *ngFor="let irp of leaderboard.results">
+            <td class="text-left"><a [routerLink]="[IndividualResultPage, irp.athleteCourseId]">View</a></td>
 
             <td>
-              <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(leaderboardResult)" ></i>
+              <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(irp.athleteCourseId)" ></i>
             </td>
 
             <td>
-              <span class="font-24 badge text-bg-dark" title="bib">{{leaderboardResult.bib}}</span>
+              <span class="font-24 badge text-bg-dark" title="bib">{{irp.bib}}</span>
             </td>
             <td>
               <div>
-                <a class="font-weight-bold background-secondary" style="color: black;" [routerLink]="[AthletePage, leaderboardResult.athleteId]">{{leaderboardResult.fullName}}</a>
+                <a class="font-weight-bold background-secondary" style="color: black;" [routerLink]="[AthletePage, irp.athleteId]">{{irp.fullName}}</a>
               </div>
-              <div>{{leaderboardResult.genderAbbreviated}} | {{leaderboardResult.raceAge}}</div>
+              <div>{{irp.genderAbbreviated}} | {{irp.raceAge}}</div>
             </td>
-            <td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.overallRank}}</td>
-            <td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.genderRank}}</td>
-            <td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.divisionRank}}</td>
-            <td class="font-24 font-weight-bold">{{leaderboardResult.paceWithTimeCumulative.timeFormatted}}</td>
+            <td class="font-24 font-weight-bold text-secondary">{{irp.overallRank}}</td>
+            <td class="font-24 font-weight-bold text-secondary">{{irp.genderRank}}</td>
+            <td class="font-24 font-weight-bold text-secondary">{{irp.divisionRank}}</td>
+            <td class="font-24 font-weight-bold">{{irp.paceWithTimeCumulative.timeFormatted}}</td>
             <td>
-              <div class="font-24 font-weight-bold">{{leaderboardResult.paceWithTimeCumulative.paceValue || '--'}}</div>
-              {{leaderboardResult.paceWithTimeCumulative.paceLabel}}
+              <div class="font-24 font-weight-bold">{{irp.paceWithTimeCumulative.paceValue || '--'}}</div>
+              {{irp.paceWithTimeCumulative.paceLabel}}
             </td>
           </tr>
         </tbody>
