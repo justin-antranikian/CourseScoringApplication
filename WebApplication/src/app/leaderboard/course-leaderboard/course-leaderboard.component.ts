@@ -10,7 +10,7 @@ import { IrpsSearchComponent } from '../irp-search/irps-search.component';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
-import { LeaderboardBaseComponent } from '../leaderboardBaseComponent';
+import { LeaderboardComponentBase } from '../leaderboardComponentBase';
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ import { LeaderboardBaseComponent } from '../leaderboardBaseComponent';
   templateUrl: './course-leaderboard.component.html',
   styleUrls: ['./course-leaderboard.component.css']
 })
-export class CourseLeaderboardComponent extends LeaderboardBaseComponent implements OnInit {
+export class CourseLeaderboardComponent extends LeaderboardComponentBase implements OnInit {
 
   public courseId!: number
   public course$!: Observable<any>

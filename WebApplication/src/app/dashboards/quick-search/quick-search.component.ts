@@ -1,20 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { SearchEventsRequestDto } from '../../_core/searchEventsRequestDto';
 import { SearchAthletesRequestDto } from '../../_core/searchAthletesRequestDto';
-import { getHttpParams } from '../../_common/httpParamsHelpers';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { mapRaceSeriesTypeToImageUrl } from '../../_common/IRaceSeriesType';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { config } from '../../config';
+import { ScoringApiService } from '../../services/scoring-api.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-/**
- * Events or Athletes are the possible navigation types.
- */
 export enum QuickSearchType {
   Events,
   Athletes
@@ -24,7 +20,7 @@ export enum QuickSearchType {
   standalone: true,
   selector: 'app-quick-search',
   templateUrl: './quick-search.component.html',
-  imports: [HttpClientModule, CommonModule, RouterModule],
+  imports: [HttpClientModule, CommonModule, RouterModule, ReactiveFormsModule],
   styleUrls: ['./quick-search.component.css']
 })
 export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnInit {
@@ -38,60 +34,50 @@ export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnI
   @Input('title')
   public title: string | undefined;
 
-  private searchTerms = new Subject<string>();
+  public inputControl = new FormControl();
   public mouseIsOver: boolean = false
   public searchIsFocused: boolean = false
-  public searchRequested: boolean = false
+  public searchTerm: string | null = ''
 
-  public searchResults!: any[] | any[]
+  public searchResults: any[] = []
+  private subscription: Subscription | null = null
 
-  public getRaceSeriesSearchResults(searchEventsRequest: SearchEventsRequestDto): Observable<any[]> {
-    const httpParams = getHttpParams(searchEventsRequest.getAsParamsObject())
-
-    const raceSeriesSearch$ = this.http.get<any[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
-      map((raceSeriesEntries: any[]): any[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
-    )
-
-    return raceSeriesSearch$
+  constructor(private scoringApiService: ScoringApiService) {
+     super()
   }
-
-  public getAthletes(searchAthletesRequest: SearchAthletesRequestDto): Observable<any[]> {
-    const httpParams = getHttpParams(searchAthletesRequest.getAsParamsObject())
-    return this.http.get<any[]>(`${config.apiUrl}/athleteSearchApi`, httpParams)
-  }
-
-  constructor(
-     private readonly http: HttpClient
-  ) { super() }
 
   ngOnInit() {
-
-    const searchTerms$ = this.searchTerms.pipe(
+    this.subscription = this.inputControl.valueChanges.pipe(
       debounceTime(600),
       distinctUntilChanged(),
-      tap((searchTerm: string) => {
-        if (searchTerm === '') {
-          this.searchResults = []
-          this.searchRequested = false
-        }
-      }),
+      tap(this.updateSearchTerm),
       filter((searchTerm: string) => searchTerm !== ''),
       switchMap((searchTerm: string) => {
-
         if (this.quickSearchType === QuickSearchType.Events) {
           const searchFilter = this.getRaceSeriesFilterDto(searchTerm)
-          return this.getRaceSeriesSearchResults(searchFilter)
+          return this.scoringApiService.getRaceSeriesResults(searchFilter)
         }
 
         const searchFilter = this.getSearchAthletesFilterDto(searchTerm)
-        return this.getAthletes(searchFilter)
+        return this.scoringApiService.getAthletes(searchFilter)
       })
-    )
-
-    searchTerms$.subscribe((results) => {
+    ).subscribe(results => {
       this.searchResults = results
-      this.searchRequested = true
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
+  private updateSearchTerm = (searchOn: string) => {
+    if (searchOn !== '') {
+      this.searchTerm = searchOn
+      return
+    }
+
+    this.searchTerm = ''
+    this.searchResults = []
   }
 
   public getRaceSeriesFilterDto = (searchTerm: string): any => {
@@ -128,7 +114,7 @@ export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnI
     }
   }
 
-  public search(term: string): void {
-    this.searchTerms.next(term);
-  }
+  // public search(term: string): void {
+  //   this.searchTerms.next(term);
+  // }
 }

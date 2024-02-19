@@ -6,7 +6,7 @@ import { IrpQuickViewComponent } from "./irp-quick-view/irp-quick-view.component
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable()
-export abstract class LeaderboardBaseComponent extends BreadcrumbComponent implements OnInit, OnDestroy {
+export abstract class LeaderboardComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
 
   protected scoringApiService = inject(ScoringApiService)
   private modalService = inject(NgbModal)

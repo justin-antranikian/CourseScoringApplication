@@ -27,8 +27,14 @@
     <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
       @if (searchTerm !== '') {
         <div class="mb-3">({{searchResults.length}}) athlete(s) found for <strong>{{searchOn}}: {{searchTerm}}</strong></div>
-        <div *ngFor="let athlete of searchResults" class="mb-2">
-          <app-irps-search-result [irpSearchResultDto]="athlete"></app-irps-search-result>
+        <div *ngFor="let irp of searchResults" class="mb-2">
+          <div class="font-weight-bold"><a [routerLink]="[IndividualResultPage, irp.athleteCourseId]">{{irp.fullName}}</a></div>
+          <div class="font-12 font-weight-bold">{{irp.genderAbbreviated}} | {{irp.raceAge}}</div>
+          <div class="font-12">{{irp.city}} | {{irp.state}}</div>
+          <div>
+            <span class="badge text-bg-dark">{{irp.bib}}</span> |
+            <b><span class="font-12 text-success">{{irp.courseName}}</span></b>
+          </div>
         </div>
       } @else {
         <div>Enter a search value</div>

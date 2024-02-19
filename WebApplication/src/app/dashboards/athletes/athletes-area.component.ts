@@ -12,7 +12,7 @@ import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.c
 import { AthleteBreadcrumbComponent } from '../../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
-import { EventsLocationBasedComponentBase } from './athletesLocationBasedComponentBase';
+import { AthletesByLocationComponentBase } from './athletesByLocationComponentBase';
 
 @Component({
   standalone: true,
@@ -21,7 +21,7 @@ import { EventsLocationBasedComponentBase } from './athletesLocationBasedCompone
   templateUrl: './athletes.component.html',
   styleUrls: []
 })
-export class AthletesAreaComponent extends EventsLocationBasedComponentBase {
+export class AthletesAreaComponent extends AthletesByLocationComponentBase {
 
   constructor() {
     super()

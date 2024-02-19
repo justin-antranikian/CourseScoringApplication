@@ -10,7 +10,7 @@ import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart-navigation-states.component';
 import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
-import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponentBase';
+import { EventsByLocationComponentBase } from './eventsByLocationComponentBase';
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponent
   templateUrl: './events.component.html',
   styleUrls: []
 })
-export class EventsCityComponent extends EventsLocationBasedComponentBase {
+export class EventsCityComponent extends EventsByLocationComponentBase {
 
   constructor() {
     super()

@@ -8,7 +8,7 @@ import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/even
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
 import { IrpsSearchComponent } from '../irp-search/irps-search.component';
 import { Observable } from 'rxjs';
-import { LeaderboardBaseComponent } from '../leaderboardBaseComponent';
+import { LeaderboardComponentBase } from '../leaderboardComponentBase';
 
 @Component({
   standalone: true,
@@ -17,7 +17,7 @@ import { LeaderboardBaseComponent } from '../leaderboardBaseComponent';
   imports: [HttpClientModule, CommonModule, RouterModule, EventsBreadcrumbComponent, LocationInfoRankingsComponent, IrpsSearchComponent],
   styleUrls: ['./race-leaderboard.component.css']
 })
-export class RaceLeaderboardComponent extends LeaderboardBaseComponent implements OnInit {
+export class RaceLeaderboardComponent extends LeaderboardComponentBase implements OnInit {
 
   public raceId!: number
   public race$!: Observable<any>

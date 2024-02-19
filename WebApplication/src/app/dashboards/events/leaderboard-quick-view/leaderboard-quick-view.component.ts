@@ -12,7 +12,6 @@ import { LocationInfoRankingsComponent } from '../../../_subComponents/location-
   imports: [CommonModule, RouterModule, LocationInfoRankingsComponent, NgbModule],
 })
 export class LeaderboardQuickViewModalContent extends ComponentBaseWithRoutes {
-  modal = inject(NgbActiveModal)
-
+  public modal = inject(NgbActiveModal)
   public raceLeaderboard: any | null
 }

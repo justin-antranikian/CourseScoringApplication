@@ -5,17 +5,17 @@ import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { IrpSearchResultDto } from './IrpSearchResultDto';
 import { SearchIrpsRequestDto, SearchOnField } from './SearchIrpsRequestDto';
 import { CommonModule } from '@angular/common';
-import { IrpsSearchResultComponent } from './irps-search-result.component';
 import { FormControl, FormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScoringApiService } from '../../services/scoring-api.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-irps-search',
   templateUrl: './irps-search.component.html',
-  imports: [CommonModule, IrpsSearchResultComponent, FormsModule, NgbDropdownModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, NgbDropdownModule, ReactiveFormsModule],
   styleUrls: ['./irps-search.component.css']
 })
 export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnInit, OnDestroy {

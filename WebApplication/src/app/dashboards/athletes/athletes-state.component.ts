@@ -12,7 +12,7 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { AthleteBreadcrumbComponent } from '../../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocationInfoRankingsComponent } from '../../_subComponents/location-info-rankings/location-info-rankings.component';
-import { EventsLocationBasedComponentBase } from './athletesLocationBasedComponentBase';
+import { AthletesByLocationComponentBase } from './athletesByLocationComponentBase';
 
 @Component({
   standalone: true,
@@ -21,7 +21,7 @@ import { EventsLocationBasedComponentBase } from './athletesLocationBasedCompone
   templateUrl: './athletes.component.html',
   styleUrls: []
 })
-export class AthletesStateComponent extends EventsLocationBasedComponentBase {
+export class AthletesStateComponent extends AthletesByLocationComponentBase {
 
   constructor() {
     super()
@@ -43,33 +43,4 @@ export class AthletesStateComponent extends EventsLocationBasedComponentBase {
   override getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto {
     return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, location)
   }
-
-  // override ngOnInit() {
-  //   super.ngOnInit()
-
-  //   this.subscription = this.route.paramMap.pipe(
-  //     switchMap((paramMap: ParamMap) => {
-  //       const state = paramMap.get('state') as string
-  //       const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.State, state)
-  //       const searchAthletesRequest = new SearchAthletesRequestDto(this.title, null, null, null)
-  //       const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, state)
-  //       const observables$ = [
-  //         this.scoringApiService.getDashboardInfo(dashboardRequest),
-  //         this.scoringApiService.getAthletesChunked(searchAthletesRequest),
-  //         this.scoringApiService.getAthletesBreadCrumbsResult(breadcrumbRequest),
-  //         of(state)
-  //       ]
-  //       return forkJoin(observables$)
-  //     })
-  //   ).subscribe(data => {
-  //     this.dashboardInfoResponseDto = data[0]
-  //     this.athleteSearchResultsChunked = data[1]
-  //     this.athletesBreadcrumbResult = data[2]
-  //     this.title = data[3]
-  //   })
-  // }
-
-  // ngOnDestroy() {
-  //   this.subscription?.unsubscribe();
-  // }
 }

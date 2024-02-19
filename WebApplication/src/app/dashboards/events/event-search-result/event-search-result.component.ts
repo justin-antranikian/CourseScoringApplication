@@ -21,7 +21,7 @@ export class EventSearchResultComponent extends ComponentBaseWithRoutes {
   @Output()
   public dataEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  public onViewLeaderboardClicked = () => {
+  public onQuickViewClicked = () => {
     this.dataEvent.emit(this.eventSearchResult.upcomingRaceId.toString());
   }
 }

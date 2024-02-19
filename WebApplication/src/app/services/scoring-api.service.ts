@@ -43,7 +43,7 @@ export class ScoringApiService {
     return this.http.get<any>(`${config.apiUrl}/athletesBreadCrumbsApi`, httpParams)
   }
 
-  private getAthletes(searchAthletesRequest: SearchAthletesRequestDto): Observable<AthleteSearchResultDto[]> {
+  public getAthletes(searchAthletesRequest: SearchAthletesRequestDto): Observable<AthleteSearchResultDto[]> {
     const httpParams = getHttpParams(searchAthletesRequest.getAsParamsObject())
     return this.http.get<AthleteSearchResultDto[]>(`${config.apiUrl}/athleteSearchApi`, httpParams)
   }
@@ -54,7 +54,7 @@ export class ScoringApiService {
     )
   }
 
-  private getRaceSeriesResults(searchEventsRequest: any): Observable<any[]> {
+  public getRaceSeriesResults(searchEventsRequest: any): Observable<any[]> {
     const httpParams = getHttpParams(searchEventsRequest.getAsParamsObject())
 
     const raceSeriesSearch$ = this.http.get<any[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(

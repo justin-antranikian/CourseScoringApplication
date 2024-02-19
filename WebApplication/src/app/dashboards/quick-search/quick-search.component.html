@@ -5,11 +5,9 @@
     <span class="input-group-text" id="inputGroup-sizing-sm"><span class="mx-1"><i class="fa fa-search"></i></span>Search</span>
 
     <input
-      #searchBox
-      id="search-box"
+      [formControl]="inputControl"
       (focus)="searchIsFocused=true"
       (blur)="searchIsFocused=false"
-      (input)="search(searchBox.value)"
       type="text"
       class="form-control"
       [placeholder]="quickSearchType === 0 ? 'Search Events' : 'Search Athletes'"
@@ -18,21 +16,21 @@
 
   </div>
 
-  <ng-container *ngIf="(mouseIsOver || searchIsFocused) && searchRequested">
-    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer">
-      @if (searchResults.length === 0) {
-        <div class="font-20">No results found.</div>
-      } @else {
+  @if (mouseIsOver || searchIsFocused) {
+    <div (mouseenter)="mouseIsOver=true" (mouseleave)="mouseIsOver=false" class="shadow searchResultsContainer p-2">
+      @if (searchTerm !== '') {
         <ng-container *ngTemplateOutlet="resultsTemplate"></ng-container>
+      } @else {
+        <div>Enter a search value</div>
       }
     </div>
-  </ng-container>
+  }
 
 </div>
 
 <ng-template #resultsTemplate>
 
-  <div class="mb-3 font-20"><b>{{searchResults.length}}</b> result(s) found</div>
+  <div class="mb-3 font-20"><b>{{searchResults.length}}</b> result(s) found for <strong>{{searchTerm}}</strong></div>
 
   @switch (quickSearchType) {
     @case (0) {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
 import { DashboardInfoRequestDto, DashboardInfoType, DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
@@ -10,8 +10,7 @@ import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart-navigation-states.component';
 import { SmartNavigationComponent } from '../smart-navigation/smart-navigation.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
-import { ScoringApiService } from '../../services/scoring-api.service';
-import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponentBase';
+import { EventsByLocationComponentBase } from './eventsByLocationComponentBase';
 
 @Component({
   standalone: true,
@@ -20,7 +19,7 @@ import { EventsLocationBasedComponentBase } from './eventsLocationBasedComponent
   templateUrl: './events.component.html',
   styleUrls: []
 })
-export class EventsAreaComponent extends EventsLocationBasedComponentBase {
+export class EventsAreaComponent extends EventsByLocationComponentBase {
 
   constructor() {
     super()
