@@ -3,7 +3,7 @@ import { Injectable, OnDestroy, OnInit, inject } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ScoringApiService } from "../../services/scoring-api.service";
 import { Subject, Subscription, switchMap } from "rxjs";
-import { LeaderboardQuickViewModalContent } from "./leaderboard-quick-view-modal/leaderboard-quick-view-modal.component";
+import { LeaderboardQuickViewModalComponent } from "./leaderboard-quick-view-modal/leaderboard-quick-view-modal.component";
 
 @Injectable()
 export abstract class EventsComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
@@ -28,7 +28,7 @@ export abstract class EventsComponentBase extends BreadcrumbComponent implements
     )
 
     this.quickViewSubscription = viewLeaderboard$.subscribe(data => {
-      const modalRef = this.modalService.open(LeaderboardQuickViewModalContent, { size: 'xl' });
+      const modalRef = this.modalService.open(LeaderboardQuickViewModalComponent, { size: 'xl' });
       modalRef.componentInstance.raceLeaderboard = data
     });
   }
