@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   styleUrls: ['./smart-navigation-states.component.css']
 })
-export class SmartNavigationStatesComponent extends ComponentBaseWithRoutes implements OnInit, OnChanges {
+export class SmartNavigationStatesComponent extends ComponentBaseWithRoutes implements OnInit {
 
   @Input('dashboardInfoResponseDto')
   public dashboardInfoResponseDto: any
@@ -20,18 +20,7 @@ export class SmartNavigationStatesComponent extends ComponentBaseWithRoutes impl
 
   public stateRoute!: string
 
-  // extract as props to render in template.
-  public states!: any[]
-
   ngOnInit() {
     this.stateRoute = this.useEventsNavigation ? this.EventsStatePage : this.AthletesStatePage
-  }
-
-  ngOnChanges(_changes: SimpleChanges) {
-    const {
-      states,
-    } = this.dashboardInfoResponseDto
-
-    this.states = states
   }
 }

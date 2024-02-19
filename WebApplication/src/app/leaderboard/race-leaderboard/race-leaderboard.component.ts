@@ -21,6 +21,7 @@ export class RaceLeaderboardComponent extends LeaderboardComponentBase implement
 
   public raceId!: number
   public race$!: Observable<any>
+  public eventsBreadcrumbResult$!: Observable<any>
 
   constructor(private route: ActivatedRoute) {
     super()
@@ -34,8 +35,6 @@ export class RaceLeaderboardComponent extends LeaderboardComponentBase implement
     this.race$ = this.scoringApiService.getRaceLeaderboard(this.raceId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.RaceLeaderboard, this.raceId.toString())
-    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
-      this.eventsBreadcrumbResult = result
-    })
+    this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)
   }
 }

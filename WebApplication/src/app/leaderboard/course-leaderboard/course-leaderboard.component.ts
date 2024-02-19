@@ -23,6 +23,7 @@ export class CourseLeaderboardComponent extends LeaderboardComponentBase impleme
 
   public courseId!: number
   public course$!: Observable<any>
+  public eventsBreadcrumbResult$!: Observable<any>
 
   public selectedIrp: any
   public showToast = false;
@@ -43,9 +44,7 @@ export class CourseLeaderboardComponent extends LeaderboardComponentBase impleme
     this.course$ = this.scoringApiService.getCourseLeaderboard(courseId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.CourseLeaderboard, courseId.toString())
-    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
-      this.eventsBreadcrumbResult = result
-    })
+    this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)
   }
 
   public compareIrpClicked = ({ athleteCourseId }: any) => {

@@ -10,7 +10,6 @@ import { SearchEventsRequestDto } from "../../_core/searchEventsRequestDto";
 export abstract class EventsByLocationComponentBase extends EventsComponentBase implements OnInit, OnDestroy {
 
   private onRouteChangedSubscription: Subscription | null = null
-
   private route = inject(ActivatedRoute)
 
   abstract getParamKey(): any

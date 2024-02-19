@@ -163,4 +163,10 @@ export class ScoringApiService {
 
     return this.http.post<any>(`${config.apiUrl}/compareAthletesApi`, body)
   }
+
+  public searchAllEntities = (searchTerm: string) => {
+    const url = `${config.apiUrl}/SearchAllEntitiesSearchApi?searchTerm=${searchTerm}`
+    const httpParams = getHttpParams(searchTerm)
+    return this.http.get<any>(url, httpParams)
+  }
 }

@@ -35,9 +35,7 @@ export class AthletesAllComponent extends AthletesComponentBase implements OnIni
   override ngOnInit() {
     super.ngOnInit()
 
-    this.athletesBreadcrumbResult = {
-      locationInfoWithUrl: null,
-    }
+    this.athletesBreadcrumbResult = { locationInfoWithUrl: null }
 
     const searchAthletesRequest = new SearchAthletesRequestDto(null, null, null, null)
     const athletes$ = this.scoringApiService.getAthletesChunked(searchAthletesRequest)

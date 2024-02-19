@@ -16,7 +16,7 @@ import { ScoringApiService } from '../services/scoring-api.service';
 export class IrpCompareComponent extends BreadcrumbComponent implements OnInit {
 
   public irpsToCompare$!: Observable<any[]>
-  public dataLoaded = false
+  public eventsBreadcrumbResult$!: Observable<any>
 
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
     super()
@@ -24,17 +24,12 @@ export class IrpCompareComponent extends BreadcrumbComponent implements OnInit {
   }
 
   ngOnInit() {
-    const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
-
-    const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.Irp, courseId.toString())
-
-    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
-      this.eventsBreadcrumbResult = result
-    })
-
     const athleteCourseIdsAsString = (this.route.snapshot.queryParamMap as any).params["athleteCourseIds"] as string
     const athleteCourseIds = JSON.parse(athleteCourseIdsAsString).map((oo: string) => parseInt(oo))
-
     this.irpsToCompare$ = this.scoringApiService.getIrpToCompare(athleteCourseIds)
+
+    const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
+    const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.Irp, courseId.toString())
+    this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)
   }
 }

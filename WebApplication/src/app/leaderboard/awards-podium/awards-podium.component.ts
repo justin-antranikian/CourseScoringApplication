@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 export class AwardsPodiumComponent extends BreadcrumbComponent implements OnInit {
 
   public awards$!: Observable<any[]>
+  public eventsBreadcrumbResult$!: Observable<any>
 
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
     super()
@@ -26,12 +27,9 @@ export class AwardsPodiumComponent extends BreadcrumbComponent implements OnInit
 
   ngOnInit() {
     const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
-
     this.awards$ = this.scoringApiService.getAwardsPodium(courseId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.CourseLeaderboard, courseId.toString())
-    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
-      this.eventsBreadcrumbResult = result
-    })
+    this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)
   }
 }

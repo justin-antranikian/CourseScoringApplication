@@ -9,6 +9,7 @@ import { AthleteQuickViewComponent } from './athlete-quick-view/athlete-quick-vi
 @Injectable()
 export abstract class AthletesComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
 
+  public athletesBreadcrumbResult: any
   public athleteSearchResultsChunked!: any[][]
   public dashboardInfoResponseDto!: any
 

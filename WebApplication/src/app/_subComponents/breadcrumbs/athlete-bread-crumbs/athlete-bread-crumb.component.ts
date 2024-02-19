@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BreadcrumbComponentBase } from '../breadcrumbComponentBase';
 import { BreadcrumbLocation } from '../../../_common/breadcrumbLocation';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { LocationInfoRankingsComponent } from '../../location-info-rankings/loca
   imports: [CommonModule, RouterModule, LocationInfoRankingsComponent],
   styleUrls: []
 })
-export class AthleteBreadcrumbComponent extends BreadcrumbComponentBase implements OnChanges {
+export class AthleteBreadcrumbComponent extends BreadcrumbComponentBase implements OnInit {
 
   @Input('breadcrumbResult')
   public breadcrumbResult: any
@@ -24,7 +24,7 @@ export class AthleteBreadcrumbComponent extends BreadcrumbComponentBase implemen
   @Input('titleOverride')
   public titleOverride: string | undefined
 
-  ngOnChanges(_changes: SimpleChanges): void {
+  ngOnInit() {
     this.title = this.getTitle() as any
     this.setLocationInfoWithUrl(this.breadcrumbResult)
   }

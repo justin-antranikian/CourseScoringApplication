@@ -10,7 +10,7 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-import { Subscription, combineLatest } from 'rxjs';
+import { Subscription, combineLatest, of } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -32,9 +32,7 @@ export class EventsAllComponent extends EventsComponentBase implements OnInit, O
   override ngOnInit() {
     super.ngOnInit()
 
-    this.eventsBreadcrumbResult = {
-      locationInfoWithUrl: null,
-    }
+    this.eventsBreadcrumbResult = { locationInfoWithUrl: null }
 
     const searchEventsRequest = new SearchEventsRequestDto(null)
     const events$ = this.scoringApiService.getRaceSeriesResultsChunked(searchEventsRequest)

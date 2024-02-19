@@ -1,5 +1,5 @@
 
-<div *ngIf="eventsBreadcrumbResult" class="mb-3">
+<div *ngIf="eventsBreadcrumbResult$ | async as eventsBreadcrumbResult" class="mb-3">
   <app-events-bread-crumb [breadcrumbResult]="eventsBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-events-bread-crumb>
 </div>
 
@@ -23,7 +23,9 @@
 
     <app-location-info-rankings [locationInfoWithRank]="irp.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
-    <div class="mt-3" *ngFor="let tag of irp.tags">
+    <hr />
+
+    <div *ngFor="let tag of irp.tags">
       <span class="font-20 badge badge-primary primary-background">{{tag}}</span>
     </div>
 

@@ -34,6 +34,7 @@ interface RaceSeries {
 export class RaceSeriesDashboardComponent extends BreadcrumbComponent implements OnInit {
 
   public $raceSeries!: Observable<RaceSeries>
+  public eventsBreadcrumbResult$!: Observable<any>
 
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
     super()
@@ -45,8 +46,6 @@ export class RaceSeriesDashboardComponent extends BreadcrumbComponent implements
     this.$raceSeries = this.scoringApiService.getRaceSeriesDashboardDto(raceSeriesId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.ArpOrRaceSeriesDashboard, raceSeriesId.toString())
-    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
-      this.eventsBreadcrumbResult = result
-    })
+    this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)
   }
 }

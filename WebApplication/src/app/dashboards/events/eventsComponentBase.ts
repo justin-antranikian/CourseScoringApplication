@@ -8,6 +8,7 @@ import { LeaderboardQuickViewModalContent } from "./leaderboard-quick-view/leade
 @Injectable()
 export abstract class EventsComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
 
+  public eventsBreadcrumbResult: any
   public eventSearchResultsChunked!: any[][]
   public dashboardInfoResponseDto: any
   public title: any
@@ -38,5 +39,5 @@ export abstract class EventsComponentBase extends BreadcrumbComponent implements
     this.modalService.dismissAll()
   }
 
-  public receiveData = (data: string) => this.quickViewSubject.next(parseInt(data))
+  public onQuickViewClicked = (raceId: number) => this.quickViewSubject.next(raceId)
 }

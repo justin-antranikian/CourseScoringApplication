@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 import { ComponentBaseWithRoutes } from '../../_common/componentBaseWithRoutes';
@@ -23,7 +23,7 @@ export enum QuickSearchType {
   imports: [HttpClientModule, CommonModule, RouterModule, ReactiveFormsModule],
   styleUrls: ['./quick-search.component.css']
 })
-export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnInit {
+export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnInit, OnDestroy {
 
   @Input('quickSearchType')
   public quickSearchType!: QuickSearchType

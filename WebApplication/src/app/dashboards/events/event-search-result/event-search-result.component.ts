@@ -19,9 +19,9 @@ export class EventSearchResultComponent extends ComponentBaseWithRoutes {
   public eventSearchResult!: EventSearchResultDto
 
   @Output()
-  public dataEvent: EventEmitter<string> = new EventEmitter<string>();
+  public dataEvent: EventEmitter<number> = new EventEmitter<number>();
 
   public onQuickViewClicked = () => {
-    this.dataEvent.emit(this.eventSearchResult.upcomingRaceId.toString());
+    this.dataEvent.emit(this.eventSearchResult.upcomingRaceId);
   }
 }

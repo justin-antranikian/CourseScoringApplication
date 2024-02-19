@@ -23,7 +23,8 @@ import { ScoringApiService } from '../services/scoring-api.service';
 export class IrpComponent extends BreadcrumbComponent implements OnInit {
 
   public $irp!: Observable<any>
-
+  public eventsBreadcrumbResult$!: Observable<any>
+  
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
     super()
     this.breadcrumbLocation = BreadcrumbLocation.Irp
@@ -34,9 +35,6 @@ export class IrpComponent extends BreadcrumbComponent implements OnInit {
     this.$irp = this.scoringApiService.getIrpDto(athleteCourseId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.Irp, athleteCourseId.toString())
-
-    this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
-      this.eventsBreadcrumbResult = result
-    })
+    this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)
   }
 }

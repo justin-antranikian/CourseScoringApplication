@@ -1,11 +1,11 @@
 
-<div *ngIf="eventsBreadcrumbResult" class="mb-3">
+<div *ngIf="eventsBreadcrumbResult$ | async as eventsBreadcrumbResult" class="mb-3">
   <app-events-bread-crumb [breadcrumbResult]="eventsBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-events-bread-crumb>
 </div>
 
 <hr />
 
-<div class="row" *ngIf="course$ | async as course" >
+<div class="row" *ngIf="course$ | async as course">
 
   <div class="col-lg-2">
     <div>
@@ -25,7 +25,7 @@
     <hr />
     <div class="font-12 font-italic font-weight-bold">- "{{course.raceSeriesDescription}}"</div>
     <div class="mt-4">
-      <a class="btn btn-outline-secondary" [routerLink]="[AwardsPodiumPage, courseId]">Awards Podium</a>
+      <a class="btn btn-outline-secondary" target="_blank" [routerLink]="[AwardsPodiumPage, courseId]">Awards Podium</a>
     </div>
   </div>
   <div class="col-lg-10">

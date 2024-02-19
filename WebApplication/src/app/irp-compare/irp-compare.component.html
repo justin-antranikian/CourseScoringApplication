@@ -1,5 +1,5 @@
 
-<div *ngIf="eventsBreadcrumbResult" class="mb-3">
+<div *ngIf="eventsBreadcrumbResult$ | async as eventsBreadcrumbResult" class="mb-3">
   <a [routerLink]="EventsPage">All Events</a> >
   <a [routerLink]="[EventsStatePage, eventsBreadcrumbResult.locationInfoWithUrl.stateUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.state}}</a> >
   <a [routerLink]="[EventsAreaPage, eventsBreadcrumbResult.locationInfoWithUrl.areaUrl]">{{eventsBreadcrumbResult.locationInfoWithUrl.area}}</a> >

@@ -1,5 +1,5 @@
 
-<div *ngIf="eventsBreadcrumbResult" class="mb-3">
+<div *ngIf="eventsBreadcrumbResult$ | async as eventsBreadcrumbResult" class="mb-3">
   <app-events-bread-crumb [breadcrumbResult]="eventsBreadcrumbResult" [breadcrumbLocation]="breadcrumbLocation"></app-events-bread-crumb>
 </div>
 
