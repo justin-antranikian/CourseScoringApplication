@@ -51,9 +51,31 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngFor="let result of leaderboard.results">
-            <tr app-leaderboard-result [leaderboardResult]="result"></tr>
-          </ng-container>
+          <tr *ngFor="let leaderboardResult of leaderboard.results">
+            <td class="text-left"><a [routerLink]="[IndividualResultPage, leaderboardResult.athleteCourseId]">View</a></td>
+
+            <td>
+              <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(leaderboardResult)" ></i>
+            </td>
+
+            <td>
+              <span class="font-24 badge text-bg-dark" title="bib">{{leaderboardResult.bib}}</span>
+            </td>
+            <td>
+              <div>
+                <a class="font-weight-bold background-secondary" style="color: black;" [routerLink]="[AthletePage, leaderboardResult.athleteId]">{{leaderboardResult.fullName}}</a>
+              </div>
+              <div>{{leaderboardResult.genderAbbreviated}} | {{leaderboardResult.raceAge}}</div>
+            </td>
+            <td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.overallRank}}</td>
+            <td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.genderRank}}</td>
+            <td class="font-24 font-weight-bold text-secondary">{{leaderboardResult.divisionRank}}</td>
+            <td class="font-24 font-weight-bold">{{leaderboardResult.paceWithTimeCumulative.timeFormatted}}</td>
+            <td>
+              <div class="font-24 font-weight-bold">{{leaderboardResult.paceWithTimeCumulative.paceValue || '--'}}</div>
+              {{leaderboardResult.paceWithTimeCumulative.paceLabel}}
+            </td>
+          </tr>
         </tbody>
       </table>
 

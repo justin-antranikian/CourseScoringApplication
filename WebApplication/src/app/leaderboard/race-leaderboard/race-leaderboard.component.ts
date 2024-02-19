@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
@@ -10,7 +10,9 @@ import { LocationInfoRankingsComponent } from '../../_subComponents/location-inf
 import { LeaderboardResultComponent } from '../../_subComponents/leaderboard-results-grid/leaderboard-result.component';
 import { IrpsSearchComponent } from '../../_subComponents/irp-search/irps-search.component';
 import { ScoringApiService } from '../../services/scoring-api.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription, switchMap } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IrpQuickViewComponent } from '../irp-quick-view/irp-quick-view.component';
 
 @Component({
   standalone: true,
@@ -19,12 +21,15 @@ import { Observable } from 'rxjs';
   imports: [HttpClientModule, CommonModule, RouterModule, EventsBreadcrumbComponent, LocationInfoRankingsComponent, LeaderboardResultComponent, IrpsSearchComponent],
   styleUrls: ['./race-leaderboard.component.css']
 })
-export class RaceLeaderboardComponent extends BreadcrumbComponent implements OnInit {
+export class RaceLeaderboardComponent extends BreadcrumbComponent implements OnInit, OnDestroy {
 
   public raceId!: number
   public race$!: Observable<any>
 
-  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
+  private quickViewSubject = new Subject<number>();
+  private quickViewSubscription: Subscription | null = null
+
+  constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService, private modalService: NgbModal) {
     super()
     this.breadcrumbLocation = BreadcrumbLocation.RaceLeaderboard
   }
@@ -37,5 +42,26 @@ export class RaceLeaderboardComponent extends BreadcrumbComponent implements OnI
     this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest).subscribe(result => {
       this.eventsBreadcrumbResult = result
     })
+
+    const quickView$ = this.quickViewSubject.pipe(
+      switchMap(athleteCourseId => {
+        return this.scoringApiService.getIrpDto(athleteCourseId)
+      })
+    )
+
+    this.quickViewSubscription = quickView$.subscribe(data => {
+      const modalRef = this.modalService.open(IrpQuickViewComponent, { size: 'xl' });
+      modalRef.componentInstance.irp = data
+    });
+  }
+
+  ngOnDestroy() {
+    this.quickViewSubject?.unsubscribe();
+    this.quickViewSubscription?.unsubscribe();
+    this.modalService.dismissAll()
+  }
+
+  public onViewIrpClicked = ({ athleteCourseId }: any) => {
+    this.quickViewSubject.next(athleteCourseId as number)
   }
 }

@@ -10,7 +10,6 @@ import { IntervalTimeComponent } from "../_subComponents/interval-time/interval-
   styleUrls: ['./irp.component.css']
 })
 export class IrpIntervalResultComponent {
-  
   @Input('irpResultByInterval')
   public irpResultByInterval: any
 }
