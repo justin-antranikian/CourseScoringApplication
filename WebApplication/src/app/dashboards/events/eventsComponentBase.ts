@@ -16,27 +16,27 @@ export abstract class EventsComponentBase extends BreadcrumbComponent implements
   private modalService = inject(NgbModal)
   protected scoringApiService = inject(ScoringApiService)
 
-  private viewLeaderboardSubject = new Subject<number>();
-  private viewLeaderboardSubscription: Subscription | null = null
+  private quickViewSubject = new Subject<number>();
+  private quickViewSubscription: Subscription | null = null
 
-  ngOnInit(): void {
-    const viewLeaderboard$ = this.viewLeaderboardSubject.pipe(
+  ngOnInit() {
+    const viewLeaderboard$ = this.quickViewSubject.pipe(
       switchMap(raceId => {
         return this.scoringApiService.getRaceLeaderboard(raceId)
       })
     )
 
-    this.viewLeaderboardSubscription = viewLeaderboard$.subscribe(data => {
+    this.quickViewSubscription = viewLeaderboard$.subscribe(data => {
       const modalRef = this.modalService.open(LeaderboardQuickViewModalContent, { size: 'xl' });
       modalRef.componentInstance.raceLeaderboard = data
     });
   }
 
   ngOnDestroy() {
-    this.viewLeaderboardSubject?.unsubscribe();
-    this.viewLeaderboardSubscription?.unsubscribe();
+    this.quickViewSubject?.unsubscribe();
+    this.quickViewSubscription?.unsubscribe();
     this.modalService.dismissAll()
   }
 
-  public receiveData = (data: number) => this.viewLeaderboardSubject.next(data)
+  public receiveData = (data: string) => this.quickViewSubject.next(parseInt(data))
 }

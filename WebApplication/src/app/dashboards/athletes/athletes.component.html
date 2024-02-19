@@ -23,13 +23,30 @@
   </div>
 
   <div class="col-lg-9">
-    <div class="mb-4" *ngFor="let athleteSearchResultsChunk of athleteSearchResultsChunked">
+    <div class="mb-4" *ngFor="let athletesChunk of athleteSearchResultsChunked">
       <div class="row">
-        <div class="col-sm-3" *ngFor="let athleteSearchResult of athleteSearchResultsChunk">
+        <div class="col-sm-3" *ngFor="let athlete of athletesChunk">
           <div class="card">
-            <athlete-search-result [athleteSearchResult]="athleteSearchResult"></athlete-search-result>
+
+            <div class="px-4 py-2">
+              <a [routerLink]="[AthletePage, athlete.id]">
+                <img style="width: 100%; height: 90px;" src="/assets/img/Athlete.png">
+              </a>
+            </div>
+            
+            <div class="py-2 text-center secondary-background">
+              <strong>{{athlete.fullName}}</strong>
+            </div>
+            
+            <div class="mt-2 px-2">
+              <app-location-info-rankings [locationInfoWithRank]="athlete.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+              <div class="text-right">
+                <i (click)="onViewArpClicked(athlete)" class="fa fa-plus-circle" title="view more" style="cursor: pointer;"></i>
+              </div>
+            </div>
+
             <div class="mb-2 px-2 text-right">
-              <i (click)="onCompareClicked(athleteSearchResult)" class="fa fa-compress" title="compare" style="cursor: pointer;"></i>
+              <i (click)="onCompareClicked(athlete)" class="fa fa-compress" title="compare" style="cursor: pointer;"></i>
             </div>
           </div>
         </div>
