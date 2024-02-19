@@ -44,8 +44,8 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.quickViewSubject?.unsubscribe();
-    this.quickViewSubscription?.unsubscribe();
+    this.quickViewSubject.unsubscribe();
+    this.quickViewSubscription!.unsubscribe();
     this.modalService.dismissAll()
   }
 

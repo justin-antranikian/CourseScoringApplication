@@ -34,8 +34,8 @@ export abstract class EventsComponentBase extends BreadcrumbComponent implements
   }
 
   ngOnDestroy() {
-    this.quickViewSubject?.unsubscribe();
-    this.quickViewSubscription?.unsubscribe();
+    this.quickViewSubject.unsubscribe();
+    this.quickViewSubscription!.unsubscribe();
     this.modalService.dismissAll()
   }
 

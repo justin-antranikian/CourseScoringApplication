@@ -48,6 +48,6 @@ export class EventsAllComponent extends EventsComponentBase implements OnInit, O
 
   override ngOnDestroy() {
     super.ngOnDestroy()
-    this.getDataSubscription?.unsubscribe();
+    this.getDataSubscription!.unsubscribe();
   }
 }

@@ -43,8 +43,8 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent implemen
   }
 
   ngOnDestroy() {
-    this.quickViewSubject?.unsubscribe();
-    this.quickViewSubscription?.unsubscribe();
+    this.quickViewSubject.unsubscribe();
+    this.quickViewSubscription!.unsubscribe();
     this.modalService.dismissAll()
   }
 

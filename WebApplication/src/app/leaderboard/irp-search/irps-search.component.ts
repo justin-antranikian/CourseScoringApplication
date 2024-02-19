@@ -55,7 +55,7 @@ export class IrpsSearchComponent extends ComponentBaseWithRoutes implements OnIn
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.subscription!.unsubscribe();
   }
 
   private updateSearchTerm = (searchOn: string) => {

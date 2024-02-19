@@ -52,6 +52,6 @@ export class AthletesAllComponent extends AthletesComponentBase implements OnIni
 
   override ngOnDestroy() {
     super.ngOnDestroy()
-    this.getDataSubscription?.unsubscribe();
+    this.getDataSubscription!.unsubscribe();
   }
 }

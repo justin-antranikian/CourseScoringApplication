@@ -44,7 +44,7 @@ export class NavMenuComponent extends ComponentBaseWithRoutes implements OnInit,
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.subscription!.unsubscribe();
   }
 
   private updateSearchTerm = (searchOn: string) => {

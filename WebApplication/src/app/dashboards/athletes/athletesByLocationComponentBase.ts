@@ -47,6 +47,6 @@ export abstract class AthletesByLocationComponentBase extends AthletesComponentB
 
   override ngOnDestroy() {
     super.ngOnDestroy()
-    this.onRouteChangedSubscription?.unsubscribe();
+    this.onRouteChangedSubscription!.unsubscribe();
   }
 }

@@ -67,7 +67,7 @@ export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnI
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.subscription!.unsubscribe();
   }
 
   private updateSearchTerm = (searchOn: string) => {

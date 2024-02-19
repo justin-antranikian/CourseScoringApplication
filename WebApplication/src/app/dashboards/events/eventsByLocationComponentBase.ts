@@ -46,6 +46,6 @@ export abstract class EventsByLocationComponentBase extends EventsComponentBase 
 
   override ngOnDestroy() {
     super.ngOnDestroy()
-    this.onRouteChangedSubscription?.unsubscribe();
+    this.onRouteChangedSubscription!.unsubscribe();
   }
 }
