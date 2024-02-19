@@ -3,7 +3,7 @@ import { Injectable, OnDestroy, OnInit, inject } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ScoringApiService } from "../../services/scoring-api.service";
 import { Subject, Subscription, switchMap } from "rxjs";
-import { LeaderboardQuickViewModalContent } from "./leaderboard-quick-view/leaderboard-quick-view.component";
+import { LeaderboardQuickViewModalContent } from "./leaderboard-quick-view-modal/leaderboard-quick-view-modal.component";
 
 @Injectable()
 export abstract class EventsComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {

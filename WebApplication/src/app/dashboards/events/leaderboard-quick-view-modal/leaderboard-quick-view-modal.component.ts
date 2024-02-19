@@ -8,7 +8,7 @@ import { LocationInfoRankingsComponent } from '../../../_subComponents/location-
 @Component({
   standalone: true,
   selector: 'ngbd-modal-content',
-  templateUrl: './leaderboard-quick-view.component.html',
+  templateUrl: './leaderboard-quick-view-modal.component.html',
   imports: [CommonModule, RouterModule, LocationInfoRankingsComponent, NgbModule],
 })
 export class LeaderboardQuickViewModalContent extends ComponentBaseWithRoutes {

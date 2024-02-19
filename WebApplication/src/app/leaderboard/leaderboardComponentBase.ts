@@ -2,7 +2,7 @@ import { OnInit, OnDestroy, Injectable, inject } from "@angular/core";
 import { BreadcrumbComponent } from "../_common/breadcrumbComponent";
 import { Subject, Subscription, switchMap } from "rxjs";
 import { ScoringApiService } from "../services/scoring-api.service";
-import { IrpQuickViewComponent } from "./irp-quick-view/irp-quick-view.component";
+import { IrpQuickViewModalComponent } from "./irp-quick-view-modal/irp-quick-view-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable()
@@ -22,7 +22,7 @@ export abstract class LeaderboardComponentBase extends BreadcrumbComponent imple
     )
 
     this.quickViewSubscription = quickView$.subscribe(data => {
-      const modalRef = this.modalService.open(IrpQuickViewComponent, { size: 'xl' });
+      const modalRef = this.modalService.open(IrpQuickViewModalComponent, { size: 'xl' });
       modalRef.componentInstance.irp = data
     });
   }

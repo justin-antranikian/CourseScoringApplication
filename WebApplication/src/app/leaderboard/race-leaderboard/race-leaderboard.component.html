@@ -53,11 +53,9 @@
         <tbody>
           <tr *ngFor="let irp of leaderboard.results">
             <td class="text-left"><a [routerLink]="[IndividualResultPage, irp.athleteCourseId]">View</a></td>
-
             <td>
               <i class="fa fa-plus-circle" title="view more" style="cursor: pointer;" (click)="onViewIrpClicked(irp.athleteCourseId)" ></i>
             </td>
-
             <td>
               <span class="font-24 badge text-bg-dark" title="bib">{{irp.bib}}</span>
             </td>

@@ -9,11 +9,11 @@ import { CommonModule } from '@angular/common';
 @Component({
   standalone: true,
   selector: 'athlete-search-result',
-  templateUrl: './athlete-quick-view.component.html',
+  templateUrl: './athlete-quick-view-modal.component.html',
   imports: [CommonModule, NgbModule, RouterModule, BracketRankComponent, IntervalTimeComponent],
   styleUrls: []
 })
-export class AthleteQuickViewComponent extends ComponentBaseWithRoutes {
+export class AthleteQuickViewModalComponent extends ComponentBaseWithRoutes {
   public modal = inject(NgbActiveModal)
   public arp: any
 }

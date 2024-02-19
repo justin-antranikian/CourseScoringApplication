@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AthleteBreadcrumbComponent } from '../_subComponents/breadcrumbs/athlete-bread-crumbs/athlete-bread-crumb.component';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
-import { Observable, Subject, Subscription, tap } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { ScoringApiService } from '../services/scoring-api.service';
 import { ArpGoalsModalComponent } from './arp-goals-modal.component';
 import { BracketRankComponent } from '../_subComponents/bracket-rank/bracket-rank.component';

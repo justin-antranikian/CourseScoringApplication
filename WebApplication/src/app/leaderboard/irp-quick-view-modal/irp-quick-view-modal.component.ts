@@ -9,11 +9,11 @@ import { IrpIntervalResultComponent } from '../../irp/irp-interval-result.compon
 @Component({
   standalone: true,
   selector: 'athlete-search-result',
-  templateUrl: './irp-quick-view.component.html',
+  templateUrl: './irp-quick-view-modal.component.html',
   imports: [CommonModule, NgbModule, RouterModule, LocationInfoRankingsComponent, IrpIntervalResultComponent],
   styleUrls: []
 })
-export class IrpQuickViewComponent extends ComponentBaseWithRoutes {
+export class IrpQuickViewModalComponent extends ComponentBaseWithRoutes {
   public modal = inject(NgbActiveModal)
   public irp: any
 }

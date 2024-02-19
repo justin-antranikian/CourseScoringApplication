@@ -4,7 +4,7 @@ import { AthleteSearchResultDto } from '../../_core/athleteSearchResultDto';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { ScoringApiService } from '../../services/scoring-api.service';
-import { AthleteQuickViewComponent } from './athlete-quick-view/athlete-quick-view.component';
+import { AthleteQuickViewModalComponent } from './athlete-quick-view-modal/athlete-quick-view-modal.component';
 
 @Injectable()
 export abstract class AthletesComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
@@ -36,7 +36,7 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent implemen
     )
 
     this.quickViewSubscription = viewLeaderboard$.subscribe(data => {
-      const modalRef = this.modalService.open(AthleteQuickViewComponent, { size: 'xl' });
+      const modalRef = this.modalService.open(AthleteQuickViewModalComponent, { size: 'xl' });
       modalRef.componentInstance.arp = data
       this.showSpinner = false
     });
