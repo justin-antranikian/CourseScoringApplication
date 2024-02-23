@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BreadcrumbComponentBase } from '../breadcrumbComponentBase';
-import { BreadcrumbLocation } from '../../../_common/breadcrumbLocation';
+import { Component, Input, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocationInfoRankingsComponent } from '../../location-info-rankings/location-info-rankings.component';
+import { BreadcrumbLocation } from '../../../_common/breadcrumbLocation';
+import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoutes';
 
 @Component({
   standalone: true,
@@ -12,7 +12,13 @@ import { LocationInfoRankingsComponent } from '../../location-info-rankings/loca
   imports: [CommonModule, RouterModule, LocationInfoRankingsComponent],
   styleUrls: []
 })
-export class AthleteBreadcrumbComponent extends BreadcrumbComponentBase implements OnInit {
+export class AthleteBreadcrumbComponent extends ComponentBaseWithRoutes {
+
+  public breadcrumbAll = BreadcrumbLocation.All
+  public breadcrumbState = BreadcrumbLocation.State
+  public breadcrumbArea = BreadcrumbLocation.Area
+  public breadcrumbCity = BreadcrumbLocation.City
+  public breadcrumbArp = BreadcrumbLocation.Arp
 
   @Input('breadcrumbResult')
   public breadcrumbResult: any
@@ -24,10 +30,7 @@ export class AthleteBreadcrumbComponent extends BreadcrumbComponentBase implemen
   @Input('titleOverride')
   public titleOverride: string | undefined
 
-  ngOnInit() {
-    this.title = this.getTitle() as any
-    this.setLocationInfoWithUrl(this.breadcrumbResult)
-  }
+  public title = computed(() => this.getTitle())
 
   private getTitle = (): string | null => {
 
@@ -41,7 +44,7 @@ export class AthleteBreadcrumbComponent extends BreadcrumbComponentBase implemen
       case BreadcrumbLocation.City: {
         return this.breadcrumbResult.locationInfoWithUrl.city
       }
-      case BreadcrumbLocation.RaceSeriesOrArp: {
+      case BreadcrumbLocation.Arp: {
         return this.titleOverride as any // Arp passes the title in directly.
       }
       default: {

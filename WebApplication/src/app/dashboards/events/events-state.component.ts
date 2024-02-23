@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
-import { DashboardInfoRequestDto, DashboardInfoType, DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
+import { BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
+import { DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
 import { SearchEventsRequestDto } from '../../_core/searchEventsRequestDto';
 import { EventsBreadcrumbComponent } from '../../_subComponents/breadcrumbs/events-bread-crumb/events-bread-crumb.component';
 import { QuickSearchComponent } from '../quick-search/quick-search.component';
@@ -26,17 +26,13 @@ export class EventsStateComponent extends EventsByLocationComponentBase {
     this.breadcrumbLocation = BreadcrumbLocation.State
   }
 
-  override getParamKey = () => 'state'
+  protected override getParamKey = () => 'state'
 
-  override getDashboardInfoRequestDto = (location: string): DashboardInfoRequestDto => {
-    return new DashboardInfoRequestDto(DashboardInfoType.Events, DashboardInfoLocationType.State, location)
-  }
-
-  override getSearchEventsRequestDto = (location: string): SearchEventsRequestDto => {
+  protected override getSearchEventsRequestDto = (location: string): SearchEventsRequestDto => {
     return new SearchEventsRequestDto(null, location)
   }
 
-  override getBreadcrumbRequestDto = (location: string): BreadcrumbRequestDto => {
-    return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.State, location)
-  }
+  protected override getDashboardInfoLocationType = (): DashboardInfoLocationType => DashboardInfoLocationType.State
+
+  protected override getBreadcrumbNavigationLevel = (): BreadcrumbNavigationLevel => BreadcrumbNavigationLevel.State
 }

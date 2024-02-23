@@ -23,7 +23,16 @@
 
       <hr />
 
-      <div *ngIf="athleteInfo.finishInfo">
+      <div class="mb-3">
+        <a [routerLink]="[IndividualResultPage, athleteInfo.athleteCourseId]" class="btn btn-outline-success" title="view result">
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 0">Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 1">2nd Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 2">3rd Best Result</ng-container>
+          <ng-container *ngIf="athleteInfo.compareIrpsRank === 3">4rth Best Result</ng-container>
+        </a>
+      </div>
+
+      @if (athleteInfo.finishInfo) {
         <div>{{athleteInfo.finishInfo.finishTime}}</div>
         <div>
         <span class="font-20 font-weight-bold">{{athleteInfo.finishInfo.paceWithTimeCumulative.timeFormatted}}</span>
@@ -31,20 +40,9 @@
             ({{athleteInfo.finishInfo.paceWithTimeCumulative.paceValue}} {{athleteInfo.finishInfo.paceWithTimeCumulative.paceLabel}})
           </ng-container>
         </div>
-      </div>
-
-      <div *ngIf="!athleteInfo.finishInfo">
-        --
-      </div>
-
-      <div class="mt-4">
-        <a [routerLink]="[IndividualResultPage, athleteInfo.athleteCourseId]" title="view result">
-          <ng-container *ngIf="athleteInfo.compareIrpsRank === 0">Best Result</ng-container>
-          <ng-container *ngIf="athleteInfo.compareIrpsRank === 1">2nd Best Result</ng-container>
-          <ng-container *ngIf="athleteInfo.compareIrpsRank === 2">3rd Best Result</ng-container>
-          <ng-container *ngIf="athleteInfo.compareIrpsRank === 3">4rth Best Result</ng-container>
-        </a>
-      </div>
+      } @else {
+        <div>--</div>
+      }
 
     </div>
   </div>

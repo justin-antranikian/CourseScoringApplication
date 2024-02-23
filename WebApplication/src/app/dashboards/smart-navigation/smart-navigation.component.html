@@ -25,7 +25,7 @@
   <span title="{{navItem.displayName}} ({{navItem.count}} total)">
     <a *ngIf="!navItem.isHighlighted" class="text-success" [routerLink]="[url, navItem.displayNameUrl]">{{navItem.displayName}}</a>
     <span class="highlighted" *ngIf="navItem.isHighlighted">{{navItem.displayName}}</span>
-    <span class="float-right badge badge-success">{{navItem.count}}</span>
+    <span class="mx-1 p-1 float-right badge text-bg-success">{{navItem.count}}</span>
   </span>
 
 </ng-template>

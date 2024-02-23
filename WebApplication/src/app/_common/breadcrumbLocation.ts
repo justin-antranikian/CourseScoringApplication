@@ -8,7 +8,8 @@ export enum BreadcrumbLocation {
   State,
   Area,
   City,
-  RaceSeriesOrArp,
+  Arp,
+  RaceSeries,
   RaceLeaderboard,
   CourseLeaderboard,
   Irp

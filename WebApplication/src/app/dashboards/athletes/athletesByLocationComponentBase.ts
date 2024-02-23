@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy, OnInit, inject } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap, of, forkJoin, Subscription } from "rxjs";
-import { BreadcrumbRequestDto } from "../../_core/breadcrumbRequestDto";
-import { DashboardInfoRequestDto } from "../../_core/dashboardInfoRequestDto";
+import { switchMap, of, forkJoin, Subscription, tap } from "rxjs";
+import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from "../../_core/breadcrumbRequestDto";
+import { DashboardInfoLocationType, DashboardInfoRequestDto, DashboardInfoType } from "../../_core/dashboardInfoRequestDto";
 import { AthletesComponentBase } from "./athletesComponentBase";
 import { SearchAthletesRequestDto } from "../../_core/searchAthletesRequestDto";
 
@@ -12,21 +12,23 @@ export abstract class AthletesByLocationComponentBase extends AthletesComponentB
   private onRouteChangedSubscription: Subscription | null = null
   private route = inject(ActivatedRoute)
 
-  abstract getParamKey(): any
-  abstract getDashboardInfoRequestDto(location: string): DashboardInfoRequestDto
-  abstract getSearchAthletesRequestDto(location: string): SearchAthletesRequestDto
-  abstract getBreadcrumbRequestDto(location: string): BreadcrumbRequestDto
+  protected abstract getParamKey(): any
+  protected abstract getSearchAthletesRequestDto(location: string): SearchAthletesRequestDto
+  protected abstract getDashboardInfoLocationType(): DashboardInfoLocationType
+  protected abstract getBreadcrumbNavigationLevel(): BreadcrumbNavigationLevel
 
   override ngOnInit(): void {
     super.ngOnInit()
 
     this.onRouteChangedSubscription = this.route.paramMap.pipe(
+      tap(() => this.showSpinner = true),
       switchMap((paramMap: ParamMap) => {
         const location = paramMap.get(this.getParamKey()) as string
-        const dashboardRequest = this.getDashboardInfoRequestDto(location)
         const searchAthletesRequest = this.getSearchAthletesRequestDto(location)
-        const breadcrumbRequest = this.getBreadcrumbRequestDto(location)
-        
+
+        const dashboardRequest = new DashboardInfoRequestDto(DashboardInfoType.Athletes, this.getDashboardInfoLocationType(), location)
+        const breadcrumbRequest = new BreadcrumbRequestDto(this.getBreadcrumbNavigationLevel(), location)
+
         const observables$ = [
           this.scoringApiService.getDashboardInfo(dashboardRequest),
           this.scoringApiService.getAthletesChunked(searchAthletesRequest),

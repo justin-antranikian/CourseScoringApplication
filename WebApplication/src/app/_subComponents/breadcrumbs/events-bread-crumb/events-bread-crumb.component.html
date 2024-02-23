@@ -8,15 +8,15 @@
 }
 
 @if (breadcrumbLocation >= breadcrumbArea) {
-  <a [routerLink]="[EventsStatePage, stateUrl]">{{state}}</a> >
+  <a [routerLink]="[EventsStatePage, breadcrumbResult.locationInfoWithUrl.stateUrl]">{{breadcrumbResult.locationInfoWithUrl.state}}</a> >
 }
 
 @if (breadcrumbLocation >= breadcrumbCity) {
-  <a [routerLink]="[EventsAreaPage, areaUrl]">{{area}}</a> >
+  <a [routerLink]="[EventsAreaPage, breadcrumbResult.locationInfoWithUrl.areaUrl]">{{breadcrumbResult.locationInfoWithUrl.area}}</a> >
 }
 
-@if (breadcrumbLocation >= breadcrumbRaceSeriesOrArp) {
-  <a [routerLink]="[EventsCityPage, cityUrl]">{{city}}</a> >
+@if (breadcrumbLocation >= breadcrumbRaceSeries) {
+  <a [routerLink]="[EventsCityPage, breadcrumbResult.locationInfoWithUrl.cityUrl]">{{breadcrumbResult.locationInfoWithUrl.city}}</a> >
 }
 
 @if (breadcrumbLocation >= breadcrumbRaceLeaderboard) {
@@ -31,6 +31,6 @@
   <a [routerLink]="[CourseLeaderboardPage, breadcrumbResult.courseDisplayWithId.id]">{{breadcrumbResult.courseDisplayWithId.displayName}}</a> >
 }
 
-@if (breadcrumbLocation >= breadcrumbState) {
+<!-- @if (breadcrumbLocation >= breadcrumbState) {
   {{title}}
-}
+} -->

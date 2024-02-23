@@ -8,17 +8,17 @@
 }
 
 @if (breadcrumbLocation >= breadcrumbArea) {
-  <a [routerLink]="[AthletesStatePage, stateUrl]">{{state}}</a> >
+  <a [routerLink]="[AthletesStatePage, breadcrumbResult.locationInfoWithUrl.stateUrl]">{{breadcrumbResult.locationInfoWithUrl.state}}</a> >
 }
 
 @if (breadcrumbLocation >= breadcrumbCity) {
-  <a [routerLink]="[AthletesAreaPage, areaUrl]">{{area}}</a> >
+  <a [routerLink]="[AthletesAreaPage, breadcrumbResult.locationInfoWithUrl.areaUrl]">{{breadcrumbResult.locationInfoWithUrl.area}}</a> >
 }
 
-@if (breadcrumbLocation >= breadcrumbRaceSeriesOrArp) {
-  <a [routerLink]="[AthletesCityPage, cityUrl]">{{city}}</a> >
+@if (breadcrumbLocation >= breadcrumbArp) {
+  <a [routerLink]="[AthletesCityPage, breadcrumbResult.locationInfoWithUrl.cityUrl]">{{breadcrumbResult.locationInfoWithUrl.city}}</a> >
 }
 
 @if (breadcrumbLocation >= breadcrumbState) {
-  {{title}}
+  {{title()}}
 }

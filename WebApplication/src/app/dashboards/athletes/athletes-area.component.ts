@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-import { BreadcrumbRequestDto, BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
-import { DashboardInfoRequestDto, DashboardInfoType, DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
+import { BreadcrumbNavigationLevel } from '../../_core/breadcrumbRequestDto';
+import { DashboardInfoLocationType } from '../../_core/dashboardInfoRequestDto';
 import { SearchAthletesRequestDto } from '../../_core/searchAthletesRequestDto';
 import { CommonModule } from '@angular/common';
 import { QuickSearchComponent } from '../quick-search/quick-search.component';
@@ -28,17 +28,13 @@ export class AthletesAreaComponent extends AthletesByLocationComponentBase {
     this.breadcrumbLocation = BreadcrumbLocation.Area
   }
 
-  override getParamKey = () => 'area'
+  protected override getParamKey = () => 'area'
 
-  override getDashboardInfoRequestDto = (location: string): DashboardInfoRequestDto => {
-    return new DashboardInfoRequestDto(DashboardInfoType.Athletes, DashboardInfoLocationType.Area, location)
-  }
-
-  override getSearchAthletesRequestDto = (location: string): SearchAthletesRequestDto => {
+  protected override getSearchAthletesRequestDto = (location: string): SearchAthletesRequestDto => {
     return new SearchAthletesRequestDto(null, location, null, null)
   }
 
-  override getBreadcrumbRequestDto = (location: string): BreadcrumbRequestDto => {
-    return new BreadcrumbRequestDto(BreadcrumbNavigationLevel.Area, location)
-  }
+  protected override getDashboardInfoLocationType = (): DashboardInfoLocationType => DashboardInfoLocationType.Area
+
+  protected override getBreadcrumbNavigationLevel = (): BreadcrumbNavigationLevel => BreadcrumbNavigationLevel.Area
 }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LocationInfoRankingsComponent } from '../_subComponents/location-info-rankings/location-info-rankings.component';
 import { ScoringApiService } from '../services/scoring-api.service';
-import { BreadcrumbComponentBase } from '../_subComponents/breadcrumbs/breadcrumbComponentBase';
+import { ComponentBaseWithRoutes } from '../_common/componentBaseWithRoutes';
 
 @Component({
   standalone: true,
@@ -14,7 +14,7 @@ import { BreadcrumbComponentBase } from '../_subComponents/breadcrumbs/breadcrum
   templateUrl: './arp-compare.component.html',
   styleUrls: []
 })
-export class ArpCompareComponent extends BreadcrumbComponentBase implements OnInit {
+export class ArpCompareComponent extends ComponentBaseWithRoutes implements OnInit {
 
   public athletes$!: Observable<any[]>
 

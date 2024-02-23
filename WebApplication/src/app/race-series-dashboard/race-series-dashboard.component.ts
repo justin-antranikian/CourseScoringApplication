@@ -38,7 +38,7 @@ export class RaceSeriesDashboardComponent extends BreadcrumbComponent implements
 
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
     super()
-    this.breadcrumbLocation = BreadcrumbLocation.RaceSeriesOrArp
+    this.breadcrumbLocation = BreadcrumbLocation.RaceSeries
   }
 
   ngOnInit() {
