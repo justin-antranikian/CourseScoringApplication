@@ -31,6 +31,6 @@
   <a [routerLink]="[CourseLeaderboardPage, breadcrumbResult.courseDisplayWithId.id]">{{breadcrumbResult.courseDisplayWithId.displayName}}</a> >
 }
 
-<!-- @if (breadcrumbLocation >= breadcrumbState) {
-  {{title}}
-} -->
+@if (breadcrumbLocation >= breadcrumbState) {
+  {{title()}}
+}
