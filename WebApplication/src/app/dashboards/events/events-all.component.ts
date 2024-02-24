@@ -10,7 +10,7 @@ import { SmartNavigationStatesComponent } from '../smart-navigation-states/smart
 import { QuickSearchComponent } from '../quick-search/quick-search.component';
 import { EventSearchResultComponent } from './event-search-result/event-search-result.component';
 import { BreadcrumbLocation } from '../../_common/breadcrumbLocation';
-import { Subscription, combineLatest, of } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
   standalone: true,

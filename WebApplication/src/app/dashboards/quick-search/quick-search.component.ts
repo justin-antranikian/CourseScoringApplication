@@ -113,8 +113,4 @@ export class QuickSearchComponent extends ComponentBaseWithRoutes implements OnI
       }
     }
   }
-
-  // public search(term: string): void {
-  //   this.searchTerms.next(term);
-  // }
 }

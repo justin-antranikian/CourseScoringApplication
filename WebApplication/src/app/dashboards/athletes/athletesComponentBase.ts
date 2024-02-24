@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { BreadcrumbComponent } from '../../_common/breadcrumbComponent';
-import { AthleteSearchResultDto } from '../../_core/athleteSearchResultDto';
+import { AthleteSearchResultDto } from './athleteSearchResultDto';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { ScoringApiService } from '../../services/scoring-api.service';

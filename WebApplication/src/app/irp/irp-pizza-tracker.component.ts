@@ -11,7 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./irp.component.css']
 })
 export class IrpPizzaTrackerComponent extends ComponentBaseWithRoutes {
-  
+
   @Input('interval')
   public interval: any
 }

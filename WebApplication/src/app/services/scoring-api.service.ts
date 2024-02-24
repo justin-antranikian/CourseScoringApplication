@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { IRaceSeriesType, mapRaceSeriesTypeToImageUrl } from '../_common/IRaceSeriesType';
 import { config } from '../config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { IIntervalType, mapIntervalTypeToImageUrl } from '../_common/IIntervalName';
-import { getHttpParams } from '../_common/httpParamsHelpers';
 import { SearchIrpsRequestDto } from '../leaderboard/irp-search/SearchIrpsRequestDto';
 import { IrpSearchResultDto } from '../leaderboard/irp-search/IrpSearchResultDto';
 import { DashboardInfoRequestDto } from '../_core/dashboardInfoRequestDto';
 import { DashboardInfoResponseDto } from '../_core/dashboardInfoResponseDto';
 import { chunk } from 'lodash';
-import { AthleteSearchResultDto } from '../_core/athleteSearchResultDto';
+import { AthleteSearchResultDto } from '../dashboards/athletes/athleteSearchResultDto';
 import { SearchAthletesRequestDto } from '../_core/searchAthletesRequestDto';
 
 @Injectable({
@@ -19,6 +18,11 @@ import { SearchAthletesRequestDto } from '../_core/searchAthletesRequestDto';
 export class ScoringApiService {
 
   constructor(private http: HttpClient) { }
+
+  private getHttpParams = (fromObject: any) => {
+    const httpParams = new HttpParams({ fromObject })
+    return { params: httpParams }
+  }
 
   private getBaseObservableForGetRequest (route: string) {
     return this.http.get<any>(`${config.apiUrl}/${route}`)
@@ -33,17 +37,17 @@ export class ScoringApiService {
   }
 
   public getEventsBreadCrumbsResult(breadcrumbRequestDto: any): Observable<any> {
-    const httpParams = getHttpParams(breadcrumbRequestDto.getAsParamsObject())
+    const httpParams = this.getHttpParams(breadcrumbRequestDto.getAsParamsObject())
     return this.http.get<any>(`${config.apiUrl}/eventsBreadCrumbsApi`, httpParams)
   }
 
   public getAthletesBreadCrumbsResult(breadcrumbRequestDto: any): Observable<any> {
-    const httpParams = getHttpParams(breadcrumbRequestDto.getAsParamsObject())
+    const httpParams = this.getHttpParams(breadcrumbRequestDto.getAsParamsObject())
     return this.http.get<any>(`${config.apiUrl}/athletesBreadCrumbsApi`, httpParams)
   }
 
   public getAthletes(searchAthletesRequest: SearchAthletesRequestDto): Observable<AthleteSearchResultDto[]> {
-    const httpParams = getHttpParams(searchAthletesRequest.getAsParamsObject())
+    const httpParams = this.getHttpParams(searchAthletesRequest.getAsParamsObject())
     return this.http.get<AthleteSearchResultDto[]>(`${config.apiUrl}/athleteSearchApi`, httpParams)
   }
 
@@ -54,7 +58,7 @@ export class ScoringApiService {
   }
 
   public getRaceSeriesResults(searchEventsRequest: any): Observable<any[]> {
-    const httpParams = getHttpParams(searchEventsRequest.getAsParamsObject())
+    const httpParams = this.getHttpParams(searchEventsRequest.getAsParamsObject())
 
     const raceSeriesSearch$ = this.http.get<any[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
       map((raceSeriesEntries: any[]): any[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
@@ -81,12 +85,12 @@ export class ScoringApiService {
   }
 
   public getDashboardInfo(dashboardInfoRequest: DashboardInfoRequestDto): Observable<DashboardInfoResponseDto> {
-    const httpParams = getHttpParams(dashboardInfoRequest.getAsParamsObject())
+    const httpParams = this.getHttpParams(dashboardInfoRequest.getAsParamsObject())
     return this.http.get<DashboardInfoResponseDto>(`${config.apiUrl}/dashboardInfoApi`, httpParams)
   }
 
   public getIrpsFromSearch(irpSearchRequest: SearchIrpsRequestDto): Observable<IrpSearchResultDto[]> {
-    const httpParams = getHttpParams(irpSearchRequest.getAsParamsObject())
+    const httpParams = this.getHttpParams(irpSearchRequest.getAsParamsObject())
     return this.http.get<IrpSearchResultDto[]>(`${config.apiUrl}/searchIrpsApi`, httpParams)
   }
 
@@ -109,7 +113,7 @@ export class ScoringApiService {
     const url = `${config.apiUrl}/courseLeaderboardApi/${courseId}`
 
     if (courseLeaderboardFilter) {
-      const httpParams = getHttpParams(courseLeaderboardFilter.getAsParams())
+      const httpParams = this.getHttpParams(courseLeaderboardFilter.getAsParams())
       return this.http.get<any>(url, httpParams)
     }
 
@@ -165,7 +169,7 @@ export class ScoringApiService {
 
   public searchAllEntities = (searchTerm: string) => {
     const url = `${config.apiUrl}/SearchAllEntitiesSearchApi?searchTerm=${searchTerm}`
-    const httpParams = getHttpParams(searchTerm)
+    const httpParams = this.getHttpParams(searchTerm)
     return this.http.get<any>(url, httpParams)
   }
 }

@@ -43,7 +43,7 @@
         <tbody>
           <tr *ngFor="let result of arp.results">
             <td class="text-left font-weight-bold">
-              <a class="viewIrpLink" (click)="modal.close('Close click')" [routerLink]="[IndividualResultPage, result.athleteCourseId]">{{result.raceName}}</a>
+              <a class="viewIrpLink" (click)="modal.close()" [routerLink]="[IndividualResultPage, result.athleteCourseId]">{{result.raceName}}</a>
             </td>
             <td>
               <app-bracket-rank [rank]="result.overallRank" [total]="result.overallCount"></app-bracket-rank>
@@ -63,5 +63,5 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-success" (click)="modal.close()">Close</button>
 </div>

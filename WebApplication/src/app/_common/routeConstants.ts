@@ -15,7 +15,6 @@ export class RouteConstants {
   public static IndividualResultComparePage = 'individualResultCompare'
   public static AthletePage = 'athlete'
   public static AthleteComparePage = 'athleteCompare'
-  public static AdvancedSearch = 'advancedSearch'
   public static AwardsPodiumPage = 'awardsPodium'
   public static RacesByMonthReport = 'racesByMonthReport'
   public static AthleteResultsReport = 'athleteResultsReport'

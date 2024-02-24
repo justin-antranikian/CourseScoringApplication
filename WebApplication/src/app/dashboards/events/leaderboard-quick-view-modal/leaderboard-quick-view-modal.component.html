@@ -63,7 +63,7 @@
         </table>
 
         <div class="my-5" style="text-align: right;">
-          <a class="btn btn-outline-secondary" (click)="modal.dismiss()" [routerLink]="[CourseLeaderboardPage, leaderboard.courseId]">View All</a>
+          <a class="btn btn-outline-secondary" [routerLink]="[CourseLeaderboardPage, leaderboard.courseId]">View All</a>
         </div>
       </div>
 
@@ -72,5 +72,5 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="modal.close()">Close</button>
+  <button type="button" class="btn btn-success" (click)="modal.close()">Close</button>
 </div>

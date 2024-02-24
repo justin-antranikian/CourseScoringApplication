@@ -1,10 +1,23 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EventSearchResultDto } from '../../../_core/eventSearchResultDto';
 import { ComponentBaseWithRoutes } from '../../../_common/componentBaseWithRoutes';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocationInfoRankingsComponent } from '../../../_subComponents/location-info-rankings/location-info-rankings.component';
+import { IRaceSeriesType } from '../../../_common/IRaceSeriesType';
+
+export interface EventSearchResultDto extends IRaceSeriesType {
+  id: number
+  name: string
+  raceSeriesTypeName: string
+  upcomingRaceId: number
+  kickOffDate: string
+  kickOffTime: string
+  description: string
+  courses: any[]
+  locationInfoWithRank: any
+  rating: number
+}
 
 @Component({
   standalone: true,

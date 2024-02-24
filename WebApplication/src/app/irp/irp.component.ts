@@ -13,6 +13,26 @@ import { LocationInfoRankingsComponent } from '../_subComponents/location-info-r
 import { IrpPizzaTrackerComponent } from './irp-pizza-tracker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScoringApiService } from '../services/scoring-api.service';
+import { PaceWithTime } from '../_core/paceWithTime';
+
+export interface Irp {
+  athleteId: number
+  bib: string
+  bracketResults: any[]
+  courseGoalDescription: string
+  finishTime: string | null
+  firstName: string
+  fullName: string
+  genderAbbreviated: string
+  intervalResults: any[]
+  locationInfoWithRank: any
+  paceWithTimeCumulative: PaceWithTime
+  personalGoalDescription: string
+  raceAge: number
+  tags: string[]
+  timeZoneAbbreviated: string
+  trainingList: string[]
+}
 
 @Component({
   standalone: true,
@@ -22,9 +42,9 @@ import { ScoringApiService } from '../services/scoring-api.service';
 })
 export class IrpComponent extends BreadcrumbComponent implements OnInit {
 
-  public $irp!: Observable<any>
+  public $irp!: Observable<Irp>
   public eventsBreadcrumbResult$!: Observable<any>
-  
+
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService) {
     super()
     this.breadcrumbLocation = BreadcrumbLocation.Irp

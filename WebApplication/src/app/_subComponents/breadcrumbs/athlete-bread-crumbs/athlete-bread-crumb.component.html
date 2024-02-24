@@ -20,5 +20,18 @@
 }
 
 @if (breadcrumbLocation >= breadcrumbState) {
-  {{title()}}
+  @switch (breadcrumbLocation) {
+    @case (breadcrumbState) {
+      {{breadcrumbResult.locationInfoWithUrl.state}}
+    }
+    @case (breadcrumbArea) {
+      {{breadcrumbResult.locationInfoWithUrl.area}}
+    }
+    @case (breadcrumbCity) {
+      {{breadcrumbResult.locationInfoWithUrl.city}}
+    }
+    @case (breadcrumbArp) {
+      {{titleOverride}}
+    }
+  }
 }

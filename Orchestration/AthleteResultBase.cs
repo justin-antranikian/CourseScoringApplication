@@ -3,15 +3,10 @@
 public abstract class AthleteResultBase
 {
     public int AthleteId { get; }
-
     public string FullName { get; }
-
     public int RaceAge { get; }
-
     public string GenderAbbreviated { get; }
-
     public string Bib { get; }
-
     public PaceWithTime PaceWithTimeCumulative { get; }
 
     protected AthleteResultBase

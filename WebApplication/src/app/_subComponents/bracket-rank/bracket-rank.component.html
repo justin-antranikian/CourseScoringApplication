@@ -5,7 +5,7 @@
   <div *ngIf="indicator">
     @if (indicator === 1) {
       <i style="color: green;" class="fa fa-long-arrow-up"></i><span class="ms-1" style="font-size: 10px;">(Better)</span>
-    } @else {
+    } @else if (indicator === 2) {
       <i style="color: red;" class="fa fa-long-arrow-down"></i><span class="ms-1" style="font-size: 10px;">(Worse)</span>
     }
   </div>

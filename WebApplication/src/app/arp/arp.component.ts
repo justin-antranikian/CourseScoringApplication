@@ -30,7 +30,7 @@ export class ArpComponent extends BreadcrumbComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private scoringApiService: ScoringApiService, private modalService: NgbModal) {
     super()
-    this.breadcrumbLocation = BreadcrumbLocation.RaceSeries
+    this.breadcrumbLocation = BreadcrumbLocation.Arp
   }
 
   ngOnInit() {

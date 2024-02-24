@@ -54,7 +54,6 @@ public class GetIrpOrchestrator
         }
     }
 
-
     private static List<Result> FilterResultsForIntervals(List<Result> results, int primaryDivisionId)
     {
         return results.Where(oo => !oo.IsHighestIntervalCompleted && oo.BracketId == primaryDivisionId).ToList();

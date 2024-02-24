@@ -16,7 +16,6 @@ import { AthletesAreaComponent } from './dashboards/athletes/athletes-area.compo
 import { AthletesCityComponent } from './dashboards/athletes/athletes-city.component';
 import { AwardsPodiumComponent } from './leaderboard/awards-podium/awards-podium.component';
 import { ArpCompareComponent } from './arp-compare/arp-compare.component';
-import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 
 const rootRoute: Route = { 
   path: '',
@@ -112,12 +111,6 @@ const athleteComparePage: Route = {
   component: ArpCompareComponent
 }
 
-const advancedSearchPage: Route = {
-  path: `${RouteConstants.AdvancedSearch}`,
-  component: AdvancedSearchComponent,
-  pathMatch: 'full'
-}
-
 export const routes: Routes = [
   rootRoute,
   eventsPage,
@@ -136,5 +129,4 @@ export const routes: Routes = [
   irpComparePage,
   awardsPodium,
   athleteComparePage,
-  advancedSearchPage,
 ];

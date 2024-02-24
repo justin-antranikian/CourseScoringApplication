@@ -16,7 +16,6 @@ export abstract class ComponentBaseWithRoutes {
   public readonly IndividualResultComparePage = `/${RouteConstants.IndividualResultComparePage}`
   public readonly AthletePage = `/${RouteConstants.AthletePage}`
   public readonly AthleteComparePage = `/${RouteConstants.AthleteComparePage}`
-  public readonly AdvancedSearch = `/${RouteConstants.AdvancedSearch}`
   public readonly AwardsPodiumPage = `/${RouteConstants.AwardsPodiumPage}`
   public readonly RacesByMonthReportPage = `/${RouteConstants.RacesByMonthReport}`
   public readonly AthleteResultsReportPage = `/${RouteConstants.AthleteResultsReport}`

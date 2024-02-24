@@ -32,5 +32,27 @@
 }
 
 @if (breadcrumbLocation >= breadcrumbState) {
-  {{title()}}
+  @switch (breadcrumbLocation) {
+    @case (breadcrumbState) {
+      {{breadcrumbResult.locationInfoWithUrl.state}}
+    }
+    @case (breadcrumbArea) {
+      {{breadcrumbResult.locationInfoWithUrl.area}}
+    }
+    @case (breadcrumbCity) {
+      {{breadcrumbResult.locationInfoWithUrl.city}}
+    }
+    @case (breadcrumbRaceSeries) {
+      {{breadcrumbResult.raceSeriesDisplayWithId.displayName}}
+    }
+    @case (breadcrumbRaceLeaderboard) {
+      {{breadcrumbResult.raceDisplayWithId.displayName}}
+    }
+    @case (breadcrumbCourseLeaderboard) {
+      {{breadcrumbResult.courseDisplayWithId.displayName}}
+    }
+    @case (breadcrumbIrp) {
+      {{breadcrumbResult.irpDisplayWithId.displayName}}
+    }
+  }
 }
