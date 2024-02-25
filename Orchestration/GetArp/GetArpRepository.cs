@@ -18,8 +18,8 @@ public class GetArpRepository
     {
         var athlete = await _scoringDbContext.Athletes
                                 .Include(oo => oo.AthleteWellnessEntries)
-                                .Include(oo => oo.AthleteRelationshipEntries)
                                 .Include(oo => oo.AthleteRaceSeriesGoals)
+                                .AsSplitQuery()
                                 .SingleAsync(oo => oo.Id == athleteId);
 
         var results = await GetResults(athleteId);
@@ -61,6 +61,7 @@ public class GetArpRepository
                         .Include(oo => oo.Intervals)
                         .Include(oo => oo.Race)
                         .ThenInclude(oo => oo.RaceSeries)
+                        .AsSplitQuery()
                         .Where(oo => courseIds.Contains(oo.Id));
 
         return await query.ToListAsync();

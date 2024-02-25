@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Orchestration.GetArp;
 
@@ -19,7 +18,6 @@ public class GetArpOrchestrator
     {
         var getArpRepository = new GetArpRepository(_scoringDbContext);
         var (results, courses, metadataEntries, athlete) = await getArpRepository.GetQueryResults(athleteId);
-        var rivalsAndFollowings = await GetRivalsAndFollowings(athlete);
         var arpResults = GetResults(results, courses, metadataEntries).ToList();
         var raceSeriesTypes = EnumExtensions.GetValues<RaceSeriesType>();
 
@@ -34,7 +32,7 @@ public class GetArpOrchestrator
 
         var goals = raceSeriesTypes.Select(MapToGoal).ToList();
         var allEventsGoal = GetAllEventsGoal(goals, arpResults, courses);
-        var arpDto = ArpDtoMapper.GetArpDto(athlete, arpResults, rivalsAndFollowings, goals, allEventsGoal);
+        var arpDto = ArpDtoMapper.GetArpDto(athlete, arpResults, goals, allEventsGoal);
         return arpDto;
     }
 
@@ -44,12 +42,6 @@ public class GetArpOrchestrator
         var actualTotal = arpResults.Count();
         var distance = courses.Sum(oo => oo.Distance);
         return ArpGoalDtoMapper.GetArpGoalDto(null, goalTotal, actualTotal, distance, courses);
-    }
-
-    private async Task<List<Athlete>> GetRivalsAndFollowings(Athlete athlete)
-    {
-        var athleteFromIds = athlete.AthleteRelationshipEntries.Select(oo => oo.AthleteToId).ToList();
-        return await _scoringDbContext.Athletes.Where(oo => athleteFromIds.Contains(oo.Id)).ToListAsync();
     }
 
     /// <summary>

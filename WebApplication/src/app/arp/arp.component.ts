@@ -13,6 +13,22 @@ import { ArpGoalsModalComponent } from './arp-goals-modal.component';
 import { BracketRankComponent } from '../_subComponents/bracket-rank/bracket-rank.component';
 import { IntervalTimeComponent } from '../_subComponents/interval-time/interval-time.component';
 
+interface ArpDto {
+  age: number;
+  allEventsGoal: any;
+  firstName: string;
+  fullName: string;
+  genderAbbreviated: string;
+  goals: any[];
+  locationInfoWithRank: any;
+  results: any[];
+  tags: string[];
+  wellnessTrainingAndDiet: any[];
+  wellnessGoals: any[];
+  wellnessGearList: any[];
+  wellnessMotivationalList: any[];
+}
+
 @Component({
   standalone: true,
   selector: 'app-arp',
@@ -23,7 +39,7 @@ import { IntervalTimeComponent } from '../_subComponents/interval-time/interval-
 export class ArpComponent extends BreadcrumbComponent implements OnInit {
 
   public selectedGoal: any
-  public $arp!: Observable<any>
+  public $arp!: Observable<ArpDto>
 
   private quickViewSubject = new Subject<number>();
   private quickViewSubscription: Subscription | null = null
