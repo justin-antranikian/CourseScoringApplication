@@ -14,18 +14,16 @@ public class GetCourseLeaderboardOrchestrator
 
     public async Task<CourseLeaderboardDto> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
-        var course = await _scoringDbContext.Courses.Include(oo => oo.Brackets).Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
-        var allCourses = await _scoringDbContext.Courses.Where(oo => oo.RaceId == course.RaceId).ToListAsync();
+        var course = await _scoringDbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
 
         var race = await _scoringDbContext.Races.Include(oo => oo.RaceSeries).Include(oo => oo.Courses).SingleAsync(oo => oo.Id == course.RaceId);
         var bracketToUse = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);
 
         var results = await GetResults(bracketToUse.Id, intervalId, startingRank, take);
         var metadataEntries = await GetMetadataEntries(bracketToUse.Id, intervalId);
-        var courseMetadata = GetCourseMetadata(allCourses, course);
         var courseResultDtos = GetCourseResultByIntervalDtos(results, metadataEntries, course, bracketToUse.Id).ToList();
 
-        return CourseLeaderboardDtoMapper.GetCourseLeaderboardDto(course, race, courseMetadata, courseResultDtos);
+        return CourseLeaderboardDtoMapper.GetCourseLeaderboardDto(course, race, courseResultDtos);
     }
 
     private async Task<List<Result>> GetResults(int bracketId, int? intervalId, int startingRank, int take)
@@ -66,19 +64,6 @@ public class GetCourseLeaderboardOrchestrator
         }
 
         return await query.ToListAsync();
-    }
-
-    private static CourseMetadata GetCourseMetadata(List<Course> courses, Course course)
-    {
-        var courseDtos = courses.Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
-        var intervalDtos = course.Intervals.OrderBy(oo => oo.Order).Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
-        var bracketDtos = course.Brackets
-                            .Select(oo => new BracketMetaData(oo.Id, oo.Name, oo.BracketType))
-                            .OrderBy(oo => oo.BracketType)
-                            .ThenBy(oo => oo.DisplayName)
-                            .ToList();
-
-        return new CourseMetadata(courseDtos, bracketDtos, intervalDtos);
     }
 
     private IEnumerable<CourseLeaderboardByIntervalDto> GetCourseResultByIntervalDtos(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)

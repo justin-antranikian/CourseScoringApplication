@@ -11,6 +11,20 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
 import { LeaderboardComponentBase } from '../leaderboardComponentBase';
+import { IRaceSeriesType } from '../../_common/IRaceSeriesType';
+
+interface CourseLeaderboardDto extends IRaceSeriesType {
+  courseDate: string
+  courseDistance: number
+  courseName: string
+  courseTime: string
+  leaderboards: any[]
+  locationInfoWithRank: any
+  raceId: number
+  raceName: string
+  raceSeriesId: number
+  raceSeriesDescription: string
+}
 
 @Component({
   standalone: true,
@@ -22,7 +36,7 @@ import { LeaderboardComponentBase } from '../leaderboardComponentBase';
 export class CourseLeaderboardComponent extends LeaderboardComponentBase implements OnInit {
 
   public courseId!: number
-  public course$!: Observable<any>
+  public courseLeaderboard$!: Observable<CourseLeaderboardDto>
   public eventsBreadcrumbResult$!: Observable<any>
 
   public selectedIrp: any
@@ -41,7 +55,7 @@ export class CourseLeaderboardComponent extends LeaderboardComponentBase impleme
 
     const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
     this.courseId = courseId
-    this.course$ = this.scoringApiService.getCourseLeaderboard(courseId)
+    this.courseLeaderboard$ = this.scoringApiService.getCourseLeaderboard(courseId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.CourseLeaderboard, courseId.toString())
     this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)

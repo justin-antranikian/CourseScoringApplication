@@ -9,6 +9,15 @@ import { LocationInfoRankingsComponent } from '../../_subComponents/location-inf
 import { IrpsSearchComponent } from '../irp-search/irps-search.component';
 import { Observable } from 'rxjs';
 import { LeaderboardComponentBase } from '../leaderboardComponentBase';
+import { IRaceSeriesType } from '../../_common/IRaceSeriesType';
+
+interface RaceLeaderboardDto extends IRaceSeriesType {
+  leaderboards: any[]
+  locationInfoWithRank: any
+  raceKickOffDate: string
+  raceName: string
+  raceSeriesDescription: string
+}
 
 @Component({
   standalone: true,
@@ -20,7 +29,7 @@ import { LeaderboardComponentBase } from '../leaderboardComponentBase';
 export class RaceLeaderboardComponent extends LeaderboardComponentBase implements OnInit {
 
   public raceId!: number
-  public race$!: Observable<any>
+  public raceLeaderboard$!: Observable<RaceLeaderboardDto>
   public eventsBreadcrumbResult$!: Observable<any>
 
   constructor(private route: ActivatedRoute) {
@@ -32,7 +41,7 @@ export class RaceLeaderboardComponent extends LeaderboardComponentBase implement
     super.ngOnInit()
 
     this.raceId = parseInt(this.route.snapshot.paramMap.get('id') as any)
-    this.race$ = this.scoringApiService.getRaceLeaderboard(this.raceId)
+    this.raceLeaderboard$ = this.scoringApiService.getRaceLeaderboard(this.raceId)
 
     const breadcrumbRequest = new BreadcrumbRequestDto(BreadcrumbNavigationLevel.RaceLeaderboard, this.raceId.toString())
     this.eventsBreadcrumbResult$ = this.scoringApiService.getEventsBreadCrumbsResult(breadcrumbRequest)

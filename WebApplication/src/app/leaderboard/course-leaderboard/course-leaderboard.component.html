@@ -5,25 +5,25 @@
 
 <hr />
 
-<div class="row" *ngIf="course$ | async as course">
+<div class="row" *ngIf="courseLeaderboard$ | async as courseLeaderboard">
 
   <div class="col-lg-2">
     <div>
-      <img width="120px" height="120px" [src]="course.raceSeriesImageUrl">
+      <img width="120px" height="120px" [src]="courseLeaderboard.raceSeriesImageUrl">
     </div>
-    <div class="mt-4 font-24 font-weight-bold">{{course.raceName}}</div>
-    <div class="font-18 primary-color font-weight-bold">{{course.courseName}}</div>
+    <div class="mt-4 font-24 font-weight-bold">{{courseLeaderboard.raceName}}</div>
+    <div class="font-18 primary-color font-weight-bold">{{courseLeaderboard.courseName}}</div>
     <div class="font-14">
-      <div>{{course.locationInfoWithRank.city}}, {{course.locationInfoWithRank.state}}</div>
-      <div>Distance: {{course.courseDistance}}</div>
-      <div>{{course.courseDate}} at <strong>{{course.courseTime}}</strong></div>
+      <div>{{courseLeaderboard.locationInfoWithRank.city}}, {{courseLeaderboard.locationInfoWithRank.state}}</div>
+      <div>Distance: {{courseLeaderboard.courseDistance}}</div>
+      <div>{{courseLeaderboard.courseDate}} at <strong>{{courseLeaderboard.courseTime}}</strong></div>
     </div>
 
     <hr />
-    <app-location-info-rankings [locationInfoWithRank]="course.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
+    <app-location-info-rankings [locationInfoWithRank]="courseLeaderboard.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
     <hr />
-    <div class="font-12 font-italic font-weight-bold">- "{{course.raceSeriesDescription}}"</div>
+    <div class="font-12 font-italic font-weight-bold">- "{{courseLeaderboard.raceSeriesDescription}}"</div>
     <div class="mt-4">
       <a class="btn btn-outline-secondary" target="_blank" [routerLink]="[AwardsPodiumPage, courseId]">Awards Podium</a>
     </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="my-5" *ngFor="let leaderboard of course.leaderboards">
+    <div class="my-5" *ngFor="let leaderboard of courseLeaderboard.leaderboards">
       <div class="font-24 primary-color font-weight-bold">{{leaderboard.intervalName}}</div>
       <ng-container *ngTemplateOutlet="resultsTableTemplate;context:{leaderboard:leaderboard}" ></ng-container>
     </div>

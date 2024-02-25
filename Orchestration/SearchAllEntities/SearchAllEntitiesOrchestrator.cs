@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Orchestration.AthletesSearch;
 using Orchestration.GetRaceSeriesSearch;
+using Orchestration.SearchEvents;
 using System.Threading.Tasks;
 
 namespace Orchestration.GetSearchAllEntitiesSearch;

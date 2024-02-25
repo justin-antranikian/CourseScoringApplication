@@ -24,11 +24,8 @@ public static class LeaderboardResultDtoMapper
 public class LeaderboardResultDto : AthleteResultBase
 {
     public int AthleteCourseId { get; }
-
     public int OverallRank { get; }
-
     public int GenderRank { get; }
-
     public int DivisionRank { get; }
 
     public LeaderboardResultDto

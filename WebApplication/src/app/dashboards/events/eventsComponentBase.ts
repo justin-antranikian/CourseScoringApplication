@@ -4,12 +4,13 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ScoringApiService } from "../../services/scoring-api.service";
 import { Subject, Subscription, switchMap } from "rxjs";
 import { LeaderboardQuickViewModalComponent } from "./leaderboard-quick-view-modal/leaderboard-quick-view-modal.component";
+import { EventSearchResultDto } from './eventSearchResultDto';
 
 @Injectable()
 export abstract class EventsComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
 
   public eventsBreadcrumbResult: any
-  public eventSearchResultsChunked!: any[][]
+  public eventSearchResultsChunked!: EventSearchResultDto[][]
   public dashboardInfoResponseDto: any
   public title: any
   public isLanding = false

@@ -11,6 +11,7 @@ import { DashboardInfoResponseDto } from '../_core/dashboardInfoResponseDto';
 import { chunk } from 'lodash';
 import { AthleteSearchResultDto } from '../dashboards/athletes/athleteSearchResultDto';
 import { SearchAthletesRequestDto } from '../_core/searchAthletesRequestDto';
+import { EventSearchResultDto } from '../dashboards/events/eventSearchResultDto';
 
 @Injectable({
   providedIn: 'root'
@@ -57,11 +58,11 @@ export class ScoringApiService {
     )
   }
 
-  public getRaceSeriesResults(searchEventsRequest: any): Observable<any[]> {
+  public getRaceSeriesResults(searchEventsRequest: any): Observable<EventSearchResultDto[]> {
     const httpParams = this.getHttpParams(searchEventsRequest.getAsParamsObject())
 
-    const raceSeriesSearch$ = this.http.get<any[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
-      map((raceSeriesEntries: any[]): any[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
+    const raceSeriesSearch$ = this.http.get<EventSearchResultDto[]>(`${config.apiUrl}/raceSeriesSearchApi`, httpParams).pipe(
+      map((raceSeriesEntries: EventSearchResultDto[]): EventSearchResultDto[] => raceSeriesEntries.map(mapRaceSeriesTypeToImageUrl)),
     )
 
     return raceSeriesSearch$
@@ -69,7 +70,7 @@ export class ScoringApiService {
 
   public getRaceSeriesResultsChunked = (searchEventsRequest: any) => {
     return this.getRaceSeriesResults(searchEventsRequest).pipe(
-      map((eventSearchResultDtos: any[]): any[][] => chunk(eventSearchResultDtos, 4))
+      map((eventSearchResultDtos: EventSearchResultDto[]): EventSearchResultDto[][] => chunk(eventSearchResultDtos, 4))
     )
   }
 

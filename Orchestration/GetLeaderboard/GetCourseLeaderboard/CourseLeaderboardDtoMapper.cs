@@ -2,7 +2,7 @@
 
 public static class CourseLeaderboardDtoMapper
 {
-    public static CourseLeaderboardDto GetCourseLeaderboardDto(Course course, Race race, CourseMetadata courseMetadata, List<CourseLeaderboardByIntervalDto> leaderboards)
+    public static CourseLeaderboardDto GetCourseLeaderboardDto(Course course, Race race, List<CourseLeaderboardByIntervalDto> leaderboards)
     {
         var (dateFormatted, timeFormatted) = DateTimeHelper.GetFormattedFields(course.StartDate);
         var raceSeries = race.RaceSeries;
@@ -11,7 +11,6 @@ public static class CourseLeaderboardDtoMapper
         {
             CourseDate = dateFormatted,
             CourseDistance = course.Distance,
-            CourseMetadata = courseMetadata,
             CourseName = course.Name,
             CourseTime = timeFormatted,
             Leaderboards = leaderboards,

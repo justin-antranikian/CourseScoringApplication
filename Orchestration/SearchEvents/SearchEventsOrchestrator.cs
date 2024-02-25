@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Orchestration.SearchEvents;
 using System.Threading.Tasks;
 
 namespace Orchestration.GetRaceSeriesSearch;
