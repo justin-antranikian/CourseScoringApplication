@@ -7,7 +7,7 @@ public class GetEventsBreadcrumbOrchestrator : GetBreadcrumbOrchestratorBase
 {
     static GetEventsBreadcrumbOrchestrator()
     {
-        _stateAreaOrCityNavigationLevels = new[] { BreadcrumbNavigationLevel.State, BreadcrumbNavigationLevel.Area, BreadcrumbNavigationLevel.City };
+        _stateAreaOrCityNavigationLevels = [BreadcrumbNavigationLevel.State, BreadcrumbNavigationLevel.Area, BreadcrumbNavigationLevel.City];
     }
 
     /// <summary>

@@ -14,12 +14,10 @@ public class CompareIrpApiRequest
 [Route("[controller]")]
 public class CompareIrpApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     [HttpPost]
     public async Task<List<CompareIrpsAthleteInfoDto>> Post([FromBody]CompareIrpApiRequest compareIrpApiRequest)
     {
-            var orchestrator = new CompareIrpsOrchestrator(_scoringDbContext);
+        var orchestrator = new CompareIrpsOrchestrator(scoringDbContext);
         return await orchestrator.GetCompareIrpsDto(compareIrpApiRequest.AthleteCourseIds);
     }
 }

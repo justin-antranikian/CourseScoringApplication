@@ -8,13 +8,11 @@ namespace WebApplicationSandbox.Controllers;
 [Route("[controller]")]
 public class CourseLeaderboardApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     [HttpGet]
     [Route("{courseId:int}")]
     public async Task<CourseLeaderboardDto> Get(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
-        var orchestrator = new GetCourseLeaderboardOrchestrator(_scoringDbContext);
+        var orchestrator = new GetCourseLeaderboardOrchestrator(scoringDbContext);
         return await orchestrator.GetCourseLeaderboardDto(courseId, bracketId, intervalId, startingRank, take);
     }
 }

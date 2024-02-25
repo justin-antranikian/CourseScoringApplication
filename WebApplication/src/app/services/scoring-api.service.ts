@@ -73,7 +73,7 @@ export class ScoringApiService {
     )
   }
 
-  public getRaceSeriesDashboardDto(raceSeriesId: number): Observable<any> {
+  public getRaceSeriesDashboardDto = (raceSeriesId: number): Observable<any> => {
 
     const getRaceSeriesDashboard$ = this.http.get<any>(`${config.apiUrl}/raceSeriesDashboardApi/${raceSeriesId}`).pipe(
       map((raceSeriesDashboardDto: any): any => ({
@@ -92,12 +92,6 @@ export class ScoringApiService {
   public getIrpsFromSearch(irpSearchRequest: SearchIrpsRequestDto): Observable<IrpSearchResultDto[]> {
     const httpParams = this.getHttpParams(irpSearchRequest.getAsParamsObject())
     return this.http.get<IrpSearchResultDto[]>(`${config.apiUrl}/searchIrpsApi`, httpParams)
-  }
-
-  public getCourseInfo(courseId: number): Observable<any> {
-    return this.getBaseObservableForGetRequest(`getCourseInfoApi/${courseId}`).pipe(
-      map((irpCompareResult: any): any => mapRaceSeriesTypeToImageUrl(irpCompareResult)),
-    )
   }
 
   public getRaceLeaderboard(raceId: number): Observable<any> {

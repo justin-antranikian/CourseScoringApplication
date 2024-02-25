@@ -12,8 +12,6 @@ public class SearchEventsRequestDto
 
     public string? City { get; set; }
 
-    public bool? IsUpcoming { get; set; }
-
     public SearchEventsRequestDto()
     {
         RaceSeriesTypes = new List<RaceSeriesType>();

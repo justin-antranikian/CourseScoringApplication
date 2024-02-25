@@ -9,13 +9,11 @@ namespace WebApplicationSandbox.Controllers;
 [Route("[controller]")]
 public class AwardsPodiumApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     [HttpGet]
     [Route("{courseId:int}")]
     public async Task<List<PodiumEntryDto>> Get(int courseId)
     {
-        var orchestrator = new GetAwardsPodiumOrchestrator(_scoringDbContext);
+        var orchestrator = new GetAwardsPodiumOrchestrator(scoringDbContext);
         return await orchestrator.GetPodiumEntries(courseId);
     }
 }

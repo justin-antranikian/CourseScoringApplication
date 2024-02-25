@@ -8,13 +8,11 @@ namespace WebApplication.Controllers;
 [Route("[controller]")]
 public class IrpCompetetorsApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     [HttpGet]
     [Route("{athleteCourseId:int}")]
     public async Task<GetCompetetorsForIrpDto> Get(int athleteCourseId)
     {
-        var orchestrator = new GetCompetetorsForIrpOrchestrator(_scoringDbContext);
+        var orchestrator = new GetCompetetorsForIrpOrchestrator(scoringDbContext);
         return await orchestrator.GetCompetetorsForIrpResult(athleteCourseId);
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Orchestration.GetDashboardInfo;
+﻿namespace Orchestration.GetDashboardInfo;
 
 /// <summary>
 /// Events or Athletes

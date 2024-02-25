@@ -21,11 +21,6 @@ public class SearchEventsOrchestrator
             baseQuery = baseQuery.Where(oo => oo.Name.StartsWith(searchTerm));
         }
 
-        if (raceSeriesRequest.IsUpcoming is bool isUpcoming)
-        {
-            baseQuery = baseQuery.Where(oo => oo.IsUpcoming == isUpcoming);
-        }
-
         if (raceSeriesRequest.RaceSeriesTypes.Any())
         {
             baseQuery = baseQuery.Where(oo => raceSeriesRequest.RaceSeriesTypes.Contains(oo.RaceSeriesType));

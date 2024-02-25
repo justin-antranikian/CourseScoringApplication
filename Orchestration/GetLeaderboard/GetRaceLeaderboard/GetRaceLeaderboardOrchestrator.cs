@@ -43,7 +43,7 @@ public class GetRaceLeaderboardOrchestrator
         return await query.ToListAsync();
     }
 
-    private Interval GetHighestCompletedInterval(List<Interval> allIntervals, IGrouping<int, BracketMetadata> grouping)
+    private static Interval GetHighestCompletedInterval(List<Interval> allIntervals, IGrouping<int, BracketMetadata> grouping)
     {
         return allIntervals
                 .Where(oo => oo.CourseId == grouping.Key)
