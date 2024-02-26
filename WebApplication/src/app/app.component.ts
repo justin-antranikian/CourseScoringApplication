@@ -8,7 +8,7 @@ import { NavMenuComponent } from './_subComponents/nav-menu/nav-menu.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, NavMenuComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css' 
 })
 export class AppComponent {
   title = 'my-app-angular';

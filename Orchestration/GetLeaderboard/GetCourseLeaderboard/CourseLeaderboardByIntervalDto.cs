@@ -1,20 +1,9 @@
 ﻿namespace Orchestration.GetLeaderboard.GetCourseLeaderboard;
 
-public class CourseLeaderboardByIntervalDto
+public record CourseLeaderboardByIntervalDto
 {
-    public string IntervalName { get; }
-
-    public IntervalType IntervalType { get; }
-
-    public int TotalRacers { get; }
-
-    public List<LeaderboardResultDto> Results { get; }
-
-    public CourseLeaderboardByIntervalDto(string intervalName, IntervalType intervalType, int totalRacers, List<LeaderboardResultDto> results)
-    {
-        IntervalName = intervalName;
-        IntervalType = intervalType;
-        TotalRacers = totalRacers;
-        Results = results;
-    }
+    public required string IntervalName { get; init; }
+    public required IntervalType IntervalType { get; init; }
+    public required List<LeaderboardResultDto> Results { get; init; }
+    public required int TotalRacers { get; init; }
 }

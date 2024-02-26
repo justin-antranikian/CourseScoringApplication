@@ -12,18 +12,27 @@ import { Observable } from 'rxjs';
 import { BreadcrumbNavigationLevel, BreadcrumbRequestDto } from '../../_core/breadcrumbRequestDto';
 import { LeaderboardComponentBase } from '../leaderboardComponentBase';
 import { IRaceSeriesType } from '../../_common/IRaceSeriesType';
+import { IntervalType } from '../../_core/intervalType';
+import { LeaderboardResultDto } from '../leaderboardResultDto';
 
-interface CourseLeaderboardDto extends IRaceSeriesType {
+export interface CourseLeaderboardDto extends IRaceSeriesType {
   courseDate: string
   courseDistance: number
   courseName: string
   courseTime: string
-  leaderboards: any[]
+  leaderboards: CourseLeaderboardByIntervalDto[]
   locationInfoWithRank: any
   raceId: number
   raceName: string
   raceSeriesId: number
   raceSeriesDescription: string
+}
+
+interface CourseLeaderboardByIntervalDto {
+  intervalName: string
+  intervalType: IntervalType
+  results: LeaderboardResultDto[]
+  totalRacers: number
 }
 
 @Component({

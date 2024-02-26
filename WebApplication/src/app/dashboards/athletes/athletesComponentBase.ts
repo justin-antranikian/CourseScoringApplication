@@ -30,9 +30,7 @@ export abstract class AthletesComponentBase extends BreadcrumbComponent implemen
   ngOnInit() {
     const viewLeaderboard$ = this.quickViewSubject.pipe(
       tap(() => this.showSpinner = true),
-      switchMap(athleteId => {
-        return this.scoringApiService.getArpDto(athleteId)
-      })
+      switchMap((athleteId) => this.scoringApiService.getArpDto(athleteId))
     )
 
     this.quickViewSubscription = viewLeaderboard$.subscribe(data => {

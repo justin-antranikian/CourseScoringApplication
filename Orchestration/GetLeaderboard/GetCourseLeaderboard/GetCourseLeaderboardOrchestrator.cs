@@ -66,14 +66,23 @@ public class GetCourseLeaderboardOrchestrator
         return await query.ToListAsync();
     }
 
-    private IEnumerable<CourseLeaderboardByIntervalDto> GetCourseResultByIntervalDtos(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)
+    private static IEnumerable<CourseLeaderboardByIntervalDto> GetCourseResultByIntervalDtos(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)
     {
         foreach (var resultsByInterval in results.GroupBy(oo => oo.IntervalId))
         {
             var interval = course.Intervals.Single(oo => oo.Id == resultsByInterval.Key);
             var bracketMeta = metadata.Single(oo => oo.BracketId == bracketId && oo.IntervalId == resultsByInterval.Key);
             var resultDtos = resultsByInterval.Select(oo => GetResultByCourseDto(oo, course, interval)).ToList();
-            yield return new CourseLeaderboardByIntervalDto(interval.Name, interval.IntervalType, bracketMeta.TotalRacers, resultDtos);
+
+            var dto = new CourseLeaderboardByIntervalDto
+            {
+                IntervalName = interval.Name,
+                IntervalType = interval.IntervalType,
+                Results = resultDtos,
+                TotalRacers = bracketMeta.TotalRacers
+            };
+
+            yield return dto;
         }
     }
 

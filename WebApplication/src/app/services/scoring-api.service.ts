@@ -12,6 +12,8 @@ import { chunk } from 'lodash';
 import { AthleteSearchResultDto } from '../dashboards/athletes/athleteSearchResultDto';
 import { SearchAthletesRequestDto } from '../_core/searchAthletesRequestDto';
 import { EventSearchResultDto } from '../dashboards/events/eventSearchResultDto';
+import { CourseLeaderboardDto } from '../leaderboard/course-leaderboard/course-leaderboard.component';
+import { RaceLeaderboardDto } from '../leaderboard/race-leaderboard/race-leaderboard.component';
 
 @Injectable({
   providedIn: 'root'
@@ -95,31 +97,29 @@ export class ScoringApiService {
     return this.http.get<IrpSearchResultDto[]>(`${config.apiUrl}/searchIrpsApi`, httpParams)
   }
 
-  public getRaceLeaderboard(raceId: number): Observable<any> {
+  public getRaceLeaderboard(raceId: number): Observable<RaceLeaderboardDto> {
     return this.getBaseObservableForGetRequest(`raceLeaderboardApi/${raceId}`).pipe(
-      map((raceLeaderboardDto: any): any => ({
+      map((raceLeaderboardDto: RaceLeaderboardDto): RaceLeaderboardDto => ({
         ...mapRaceSeriesTypeToImageUrl(raceLeaderboardDto),
-        leaderboards: this.mapIntervalTypeImages(raceLeaderboardDto.leaderboards)
       }))
     )
   }
 
-  private getCourseLeaderboard$(courseId: number, courseLeaderboardFilter: any): Observable<any> {
+  private getCourseLeaderboard$(courseId: number, courseLeaderboardFilter: any): Observable<CourseLeaderboardDto> {
     const url = `${config.apiUrl}/courseLeaderboardApi/${courseId}`
 
     if (courseLeaderboardFilter) {
       const httpParams = this.getHttpParams(courseLeaderboardFilter.getAsParams())
-      return this.http.get<any>(url, httpParams)
+      return this.http.get<CourseLeaderboardDto>(url, httpParams)
     }
 
-    return this.http.get<any>(url)
+    return this.http.get<CourseLeaderboardDto>(url)
   }
 
-  public getCourseLeaderboard(courseId: number, courseLeaderboardFilter: any = null): Observable<any> {
+  public getCourseLeaderboard(courseId: number, courseLeaderboardFilter: any = null): Observable<CourseLeaderboardDto> {
     return this.getCourseLeaderboard$(courseId, courseLeaderboardFilter).pipe(
-      map((courseLeaderboardDto: any): any => ({
+      map((courseLeaderboardDto: CourseLeaderboardDto): any => ({
         ...mapRaceSeriesTypeToImageUrl(courseLeaderboardDto),
-        leaderboards: this.mapIntervalTypeImages(courseLeaderboardDto.leaderboards)
       }))
     )
   }

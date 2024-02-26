@@ -1,17 +1,7 @@
 ﻿namespace Orchestration.GetLeaderboard.GetRaceLeaderboard;
 
-internal class RaceLeaderboardByCourseHelper
+internal class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedIntervalsForAllCourses, List<Result> resultsForAllCourses)
 {
-    private readonly List<Interval> _highestCompletedIntervalsForAllCourses;
-
-    private readonly List<Result> _resultsForAllCourses;
-
-    public RaceLeaderboardByCourseHelper(List<Interval> highestCompletedIntervalsForAllCourses, List<Result> resultsForAllCourses)
-    {
-        _highestCompletedIntervalsForAllCourses = highestCompletedIntervalsForAllCourses;
-        _resultsForAllCourses = resultsForAllCourses;
-    }
-
     /// <summary>
     /// Takes a list a list of courses and returns a list of TopThreeAthletesForCourseDtos.
     /// </summary>
@@ -21,7 +11,7 @@ internal class RaceLeaderboardByCourseHelper
     {
         foreach (var course in courses)
         {
-            var interval = _highestCompletedIntervalsForAllCourses.Single(oo => oo.CourseId == course.Id);
+            var interval = highestCompletedIntervalsForAllCourses.Single(oo => oo.CourseId == course.Id);
             var leaderboardResultDtos = GetLeaderboardResultDtos(course, interval).ToList();
             yield return new RaceLeaderboardByCourseDto(course.Id, course.Name, course.SortOrder, interval.Name, interval.IntervalType, leaderboardResultDtos);
         }
@@ -29,7 +19,7 @@ internal class RaceLeaderboardByCourseHelper
 
     private IEnumerable<LeaderboardResultDto> GetLeaderboardResultDtos(Course course, Interval intervalForCourse)
     {
-        var resultsForCourse = _resultsForAllCourses.Where(oo => oo.IntervalId == intervalForCourse.Id);
+        var resultsForCourse = resultsForAllCourses.Where(oo => oo.IntervalId == intervalForCourse.Id);
 
         foreach (var result in resultsForCourse)
         {

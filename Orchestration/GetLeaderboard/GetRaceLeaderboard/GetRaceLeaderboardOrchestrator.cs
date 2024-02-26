@@ -28,7 +28,7 @@ public class GetRaceLeaderboardOrchestrator
         var highestCompletedIntervals = metadataEntries.GroupBy(oo => oo.CourseId).Select(grouping => GetHighestCompletedInterval(allIntervals, grouping)).ToList();
         var resultsForAllCourses = await GetResults(highestCompletedIntervals, overallBracketIds);
 
-        var mapper = new RaceLeaderboardByCourseHelper(highestCompletedIntervals, resultsForAllCourses);
+        var mapper = new RaceLeaderboardByCourseMapper(highestCompletedIntervals, resultsForAllCourses);
         var leaderboardDtos = mapper.GetResults(allCourses).OrderBy(oo => oo.SortOrder).ToList();
         return RaceLeaderboardDtoMapper.GetRaceLeaderboardDto(race, leaderboardDtos);
     }

@@ -1,8 +1,5 @@
 ﻿namespace Orchestration.GetLeaderboard.GetCourseLeaderboard;
 
-/// <summary>
-/// For a course leaderboard we split the results up by interval.
-/// </summary>
 public record CourseLeaderboardDto
 {
     public required string CourseDate { get; init; }

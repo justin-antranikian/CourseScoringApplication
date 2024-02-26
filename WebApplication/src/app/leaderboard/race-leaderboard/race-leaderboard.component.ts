@@ -10,13 +10,24 @@ import { IrpsSearchComponent } from '../irp-search/irps-search.component';
 import { Observable } from 'rxjs';
 import { LeaderboardComponentBase } from '../leaderboardComponentBase';
 import { IRaceSeriesType } from '../../_common/IRaceSeriesType';
+import { IntervalType } from '../../_core/intervalType';
+import { LeaderboardResultDto } from '../leaderboardResultDto';
 
-interface RaceLeaderboardDto extends IRaceSeriesType {
-  leaderboards: any[]
+export interface RaceLeaderboardDto extends IRaceSeriesType {
+  leaderboards: RaceLeaderboardByCourseDto[]
   locationInfoWithRank: any
   raceKickOffDate: string
   raceName: string
   raceSeriesDescription: string
+}
+
+interface RaceLeaderboardByCourseDto {
+  courseId: number,
+  courseName: string,
+  sortOrder: number,
+  highestIntervalName: string,
+  intervalType: IntervalType
+  results: LeaderboardResultDto[]
 }
 
 @Component({
