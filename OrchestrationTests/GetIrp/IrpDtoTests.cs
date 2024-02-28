@@ -27,19 +27,9 @@ public class IrpDtoTests
         Assert.Null(irpDto.PaceWithTimeCumulative.PaceLabel);
 
         Assert.Equal("FA", irpDto.FirstName);
-        Assert.Equal("RA", irpDto.RaceName);
-        Assert.Equal(1, irpDto.CourseId);
-        Assert.Equal("CA", irpDto.CourseName);
-        Assert.Equal(1000, irpDto.CourseDistance);
-        Assert.Equal(RaceSeriesType.Triathalon, irpDto.RaceSeriesType);
         Assert.Equal("PST", irpDto.TimeZoneAbbreviated);
         Assert.Null(irpDto.FinishTime);
-        Assert.Equal("1/1/2010", irpDto.CourseDate);
-        Assert.Equal("12:00:00 AM", irpDto.CourseTime);
         Assert.Empty(irpDto.Tags);
-        Assert.Equal("CA", irpDto.RaceSeriesCity);
-        Assert.Equal("SA", irpDto.RaceSeriesState);
-        Assert.Equal("DA", irpDto.RaceSeriesDescription);
         Assert.Empty(irpDto.TrainingList);
         Assert.Null(irpDto.CourseGoalDescription);
         Assert.Null(irpDto.PersonalGoalDescription);

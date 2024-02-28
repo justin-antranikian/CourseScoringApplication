@@ -25,19 +25,9 @@ public class GetIrpOrchestratorTests
         Assert.Null(irpDto.PaceWithTimeCumulative.PaceLabel);
 
         Assert.Equal("FA", irpDto.FirstName);
-        Assert.Equal("2010 Houston Triathalon", irpDto.RaceName);
-        Assert.Equal(1, irpDto.CourseId);
-        Assert.Equal("Course 1", irpDto.CourseName);
-        Assert.Equal(3000, irpDto.CourseDistance);
-        Assert.Equal(RaceSeriesType.Triathalon, irpDto.RaceSeriesType);
         Assert.Equal("PST", irpDto.TimeZoneAbbreviated);
         Assert.Null(irpDto.FinishTime);
-        Assert.Equal("1/1/2010", irpDto.CourseDate);
-        Assert.Equal("12:00:00 AM", irpDto.CourseTime);
         Assert.Equal(new[] { "Triathlete", "Runner" }, irpDto.Tags);
-        Assert.Equal("City 1", irpDto.RaceSeriesCity);
-        Assert.Equal("Colorado", irpDto.RaceSeriesState);
-        Assert.Equal("All Houston Triathalons", irpDto.RaceSeriesDescription);
         Assert.Empty(irpDto.TrainingList);
         Assert.Null(irpDto.CourseGoalDescription);
         Assert.Null(irpDto.PersonalGoalDescription);
@@ -58,33 +48,21 @@ public class GetIrpOrchestratorTests
             Assert.Equal("Overall", result.Name);
             Assert.Equal(2, result.Rank);
             Assert.Equal(4, result.TotalRacers);
-            Assert.Equal("2nd place", result.Percentile);
-            Assert.Equal(50, result.DidBetterThenPercent);
-            Assert.Equal(50, result.DidWorseThenPercent);
         }, result =>
         {
             Assert.Equal("Female", result.Name);
             Assert.Equal(1, result.Rank);
             Assert.Equal(2, result.TotalRacers);
-            Assert.Equal("1rst place", result.Percentile);
-            Assert.Equal(100, result.DidBetterThenPercent);
-            Assert.Equal(0, result.DidWorseThenPercent);
         }, result =>
         {
             Assert.Equal("M20-30", result.Name);
             Assert.Equal(1, result.Rank);
             Assert.Equal(2, result.TotalRacers);
-            Assert.Equal("1rst place", result.Percentile);
-            Assert.Equal(100, result.DidBetterThenPercent);
-            Assert.Equal(0, result.DidWorseThenPercent);
         }, result =>
         {
             Assert.Equal("Florida 20-30", result.Name);
             Assert.Equal(1, result.Rank);
             Assert.Equal(2, result.TotalRacers);
-            Assert.Equal("1rst place", result.Percentile);
-            Assert.Equal(100, result.DidBetterThenPercent);
-            Assert.Equal(0, result.DidWorseThenPercent);
         });
 
         Assert.Collection(irpDto.IntervalResults, result =>
@@ -236,8 +214,6 @@ public class GetIrpOrchestratorTests
         var orchestrator = new GetIrpOrchestrator(dbContext);
         var irpDto = await orchestrator.GetIrpDto(6);
 
-        Assert.Equal(3, irpDto.CourseId);
-        Assert.Equal(2000, irpDto.CourseDistance);
         Assert.Equal("46:44", irpDto.PaceWithTimeCumulative.TimeFormatted);
         Assert.True(irpDto.PaceWithTimeCumulative.HasPace);
         Assert.Equal("1.6", irpDto.PaceWithTimeCumulative.PaceValue);

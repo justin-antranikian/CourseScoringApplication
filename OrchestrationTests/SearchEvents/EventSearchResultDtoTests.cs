@@ -1,8 +1,7 @@
 ﻿using Core;
 using DataModels;
-using Orchestration.GetRaceSeriesSearch;
+using Orchestration.SearchEvents;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace OrchestrationTests.SearchEvents;

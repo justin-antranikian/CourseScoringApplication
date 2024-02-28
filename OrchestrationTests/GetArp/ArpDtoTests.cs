@@ -14,11 +14,10 @@ public class ArpDtoTests
     public void MapsAllFields()
     {
         var athlete = GetAthlete();
-        var athelets = GetAthletes();
         var (results, goals) = GetResultsAndGoals();
         var alleventsGoal = new ArpGoalDto("All Events", 16, 3, 5000, 50, new List<CourseGoalArpDto>());
 
-        var arpDto = ArpDtoMapper.GetArpDto(athlete, results, athelets, goals, alleventsGoal);
+        var arpDto = ArpDtoMapper.GetArpDto(athlete, results, goals, alleventsGoal);
 
         Assert.Equal("FA", arpDto.FirstName);
         Assert.Equal("FA LA", arpDto.FullName);
@@ -41,22 +40,6 @@ public class ArpDtoTests
         Assert.Collection(arpDto.Results, result =>
         {
             Assert.Equal(40, result.OverallCount);
-        });
-
-        Assert.Collection(arpDto.Rivals, result =>
-        {
-            Assert.Equal(3, result.Id);
-            Assert.Equal("FA LA 3", result.DisplayName);
-        });
-
-        Assert.Collection(arpDto.Followings, result =>
-        {
-            Assert.Equal(2, result.Id);
-            Assert.Equal("FA LA 2", result.DisplayName);
-        }, result =>
-        {
-            Assert.Equal(4, result.Id);
-            Assert.Equal("FA LA 4", result.DisplayName);
         });
 
         Assert.Collection(arpDto.Goals, result =>

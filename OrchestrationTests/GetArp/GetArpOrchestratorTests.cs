@@ -105,9 +105,6 @@ public class GetArpOrchestratorTests
             Assert.Equal("3.2", result.PaceWithTimeCumulative.PaceValue);
         });
 
-        Assert.Empty(arpDto.Rivals);
-        Assert.Empty(arpDto.Followings);
-
         Assert.Collection(arpDto.Goals, result =>
         {
             Assert.Equal("All Events", result.RaceSeriesTypeName);

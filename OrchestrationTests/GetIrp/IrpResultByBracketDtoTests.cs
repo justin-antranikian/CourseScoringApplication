@@ -27,8 +27,5 @@ public class IrpResultByBracketDtoTests
         Assert.Equal("NA", bracketDto.Name);
         Assert.Equal(2, bracketDto.Rank);
         Assert.Equal(10, bracketDto.TotalRacers);
-        Assert.Equal("2nd place", bracketDto.Percentile);
-        Assert.Equal(80, bracketDto.DidBetterThenPercent);
-        Assert.Equal(20, bracketDto.DidWorseThenPercent);
     }
 }

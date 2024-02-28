@@ -22,6 +22,7 @@ public class CourseLeaderboardDtoTests
 
         var race = new Race
         {
+            Id = 1,
             Name = "RA",
             RaceSeriesId = 1,
             RaceSeries = new()
@@ -34,8 +35,7 @@ public class CourseLeaderboardDtoTests
             }
         };
 
-        var metadata = new CourseMetadata(null, null, null);
-        var courseLeaderboardDto = CourseLeaderboardDtoMapper.GetCourseLeaderboardDto(course, race, metadata, new());
+        var courseLeaderboardDto = CourseLeaderboardDtoMapper.GetCourseLeaderboardDto(course, race, new());
 
         Assert.Equal(1, courseLeaderboardDto.RaceId);
         Assert.Equal("RA", courseLeaderboardDto.RaceName);
@@ -48,7 +48,6 @@ public class CourseLeaderboardDtoTests
         Assert.Equal("1/1/2010", courseLeaderboardDto.CourseDate);
         Assert.Equal("06:30:00 AM", courseLeaderboardDto.CourseTime);
         Assert.Equal(1000, courseLeaderboardDto.CourseDistance);
-        Assert.NotNull(courseLeaderboardDto.CourseMetadata);
         Assert.Empty(courseLeaderboardDto.Leaderboards);
     }
 }

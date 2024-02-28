@@ -70,16 +70,6 @@ public class SearchEventsOrchestratorTests
         Assert.Equal(new[] { 2, 4, 1 }, searchResults.Select(oo => oo.Id).ToArray());
     }
 
-    [Fact]
-    public async Task FilterOnIsUpcoming()
-    {
-        var orchestrator = GetOrchestrator();
-        var request = new SearchEventsRequestDto { IsUpcoming = true };
-        var searchResults = await orchestrator.GetSearchResults(request);
-
-        Assert.Equal(new[] { 1 }, searchResults.Select(oo => oo.Id).ToArray());
-    }
-
     #region test preperation methods
 
     public static SearchEventsOrchestrator GetOrchestrator()
