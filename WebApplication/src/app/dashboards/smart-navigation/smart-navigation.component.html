@@ -32,9 +32,9 @@
 
 <ng-template #expandCollapse let-navItem="navItem">
 
-  <button class="btn-plain text-dark me-1" (click)="navItem.isOpen = !navItem.isOpen">
+  <span class="me-1" (click)="navItem.isOpen = !navItem.isOpen">
     <i *ngIf="!navItem.isOpen" class="fa fa-plus"></i>
     <i *ngIf="navItem.isOpen" class="fa fa-minus"></i>
-  </button>
+  </span>
 
 </ng-template>

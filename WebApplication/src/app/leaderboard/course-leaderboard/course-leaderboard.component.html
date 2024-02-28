@@ -13,13 +13,12 @@
     </div>
     <div class="mt-4 font-24 font-weight-bold">{{courseLeaderboard.raceName}}</div>
     <div class="font-18 primary-color font-weight-bold">{{courseLeaderboard.courseName}}</div>
-    <div class="font-14">
+    <div class="font-14 mb-2">
       <div>{{courseLeaderboard.locationInfoWithRank.city}}, {{courseLeaderboard.locationInfoWithRank.state}}</div>
       <div>Distance: {{courseLeaderboard.courseDistance}}</div>
       <div>{{courseLeaderboard.courseDate}} at <strong>{{courseLeaderboard.courseTime}}</strong></div>
     </div>
 
-    <hr />
     <app-location-info-rankings [locationInfoWithRank]="courseLeaderboard.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
     <hr />

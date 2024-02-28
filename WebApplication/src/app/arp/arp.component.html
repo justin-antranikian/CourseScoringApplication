@@ -45,11 +45,22 @@
     <div class="primary-color font-12 font-weight-bold font-italic" *ngFor="let wellnessEntry of arp.wellnessMotivationalList">
       "{{wellnessEntry.description}}"
     </div>
+
+    <hr />
+
+    <div (click)="onViewGoalsClicked(goal)" style="cursor: pointer;" class="mb-4" *ngFor="let goal of arp.goals">
+      <div class="font-weight-bold">{{goal.raceSeriesTypeName}}</div>
+      <div class="font-12">Completed: <strong>{{goal.actualTotal}}</strong> of <strong>{{goal.goalTotal}}</strong> events</div>
+      <div class="pr-3" placement="top" ngbTooltip="distance completed: {{goal.totalDistance}} ">
+        <ngb-progressbar type="success" [value]="goal.percentComplete" [striped]="true"></ngb-progressbar>
+      </div>
+    </div>
+
   </div>
   <div class="col-lg-9">
-    <div class="font-20 font-weight-bold">Stats</div>
+    <!-- <div class="font-20 font-weight-bold">Stats</div> -->
 
-    <div class="my-5 row">
+    <!-- <div class="my-5 row">
       <div class="col-4">
         <div class="mb-4" *ngFor="let goal of arp.goals">
           <div (click)="onViewGoalsClicked(goal)" class="font-weight-bold" style="cursor: pointer;">{{goal.raceSeriesTypeName}}</div>
@@ -60,7 +71,7 @@
         </div>
       </div>
     </div>
-    <hr />
+    <hr /> -->
     <div class="font-20 font-weight-bold">Results</div>
 
     <table class="my-5 table">

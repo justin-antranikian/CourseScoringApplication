@@ -10,7 +10,7 @@ import { AthleteQuickViewModalComponent } from './athlete-quick-view-modal/athle
 export abstract class AthletesComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
 
   public athletesBreadcrumbResult: any
-  public athleteSearchResultsChunked!: any[][]
+  public athleteSearchResultsChunked!: AthleteSearchResultDto[][]
   public dashboardInfoResponseDto!: any
 
   public title: any

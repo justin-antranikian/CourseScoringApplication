@@ -11,12 +11,11 @@
     <div class="mt-4 font-24 font-weight-bold">{{raceLeaderboard.raceName}}</div>
     <div class="font-18 primary-color font-weight-bold">All Courses</div>
 
-    <div class="font-14">
+    <div class="font-14 mb-2">
       <div>{{raceLeaderboard.locationInfoWithRank.city}}, {{raceLeaderboard.locationInfoWithRank.state}}</div>
       <div class="font-weight-bold">{{raceLeaderboard.raceKickOffDate}}</div>
     </div>
 
-    <hr />
     <app-location-info-rankings [locationInfoWithRank]="raceLeaderboard.locationInfoWithRank" [useEventsNavigation]="false"></app-location-info-rankings>
 
     <hr />
