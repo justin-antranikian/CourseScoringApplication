@@ -24,7 +24,7 @@ export class ArpCompareComponent extends ComponentBaseWithRoutes implements OnIn
 
   ngOnInit() {
     const athleteIdsAsString = (this.route.snapshot.queryParamMap as any).params["athleteIds"] as string
-    const athleteIds = JSON.parse(athleteIdsAsString).map((oo: string) => parseInt(oo))
+    const athleteIds = JSON.parse(athleteIdsAsString).map(parseInt)
     this.athletes$ = this.scoringApiService.getAthletesToCompare(athleteIds)
   }
 }

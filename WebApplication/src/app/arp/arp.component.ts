@@ -14,19 +14,19 @@ import { BracketRankComponent } from '../_subComponents/bracket-rank/bracket-ran
 import { IntervalTimeComponent } from '../_subComponents/interval-time/interval-time.component';
 
 interface ArpDto {
-  age: number;
-  allEventsGoal: any;
-  firstName: string;
-  fullName: string;
-  genderAbbreviated: string;
-  goals: any[];
-  locationInfoWithRank: any;
-  results: any[];
-  tags: string[];
-  wellnessTrainingAndDiet: any[];
-  wellnessGoals: any[];
-  wellnessGearList: any[];
-  wellnessMotivationalList: any[];
+  age: number
+  allEventsGoal: any
+  firstName: string
+  fullName: string
+  genderAbbreviated: string
+  goals: any[]
+  locationInfoWithRank: any
+  results: any[]
+  tags: string[]
+  wellnessTrainingAndDiet: any[]
+  wellnessGoals: any[]
+  wellnessGearList: any[]
+  wellnessMotivationalList: any[]
 }
 
 @Component({
