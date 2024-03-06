@@ -20,8 +20,6 @@ public class ScoreCoursesOrchestrator
         var allReads = await _scoringDbContext.TagReads.AsNoTracking().ToListAsync();
         var allAthleteCourseBrackets = await _scoringDbContext.AtheleteCourseBrackets.AsNoTracking().ToListAsync();
 
-        var statistics = new List<CourseStatistic>();
-
         var allScoringResults = allCourses.Select(course =>
         {
             var courseId = course.Id;
@@ -47,30 +45,9 @@ public class ScoreCoursesOrchestrator
                 }
 
                 var maxIntervalReadsForBracket = GetReadsForMaxInterval(readsForBracket, intervals);
-
-                var bracketStatistic = new CourseStatistic
-                {
-                    CourseId = courseId,
-                    BracketId = bracket.Id,
-                    AverageTotalTimeInMilleseconds = (int)maxIntervalReadsForBracket.Average(oo => oo.TimeOnCourse),
-                    FastestTimeInMilleseconds = maxIntervalReadsForBracket.Min(oo => oo.TimeOnCourse),
-                    SlowestTimeInMilleseconds = maxIntervalReadsForBracket.Max(oo => oo.TimeOnCourse),
-                };
-
-                statistics.Add(bracketStatistic);
             }
 
             var maxIntervalReads = GetReadsForMaxInterval(courseReads, intervals);
-
-            var allBracketsStatistic = new CourseStatistic
-            {
-                CourseId = courseId,
-                AverageTotalTimeInMilleseconds = (int)maxIntervalReads.Average(oo => oo.TimeOnCourse),
-                FastestTimeInMilleseconds = maxIntervalReads.Min(oo => oo.TimeOnCourse),
-                SlowestTimeInMilleseconds = maxIntervalReads.Max(oo => oo.TimeOnCourse),
-            };
-
-            statistics.Add(allBracketsStatistic);
 
             var scorer = new CourseScorer(course, brackets, courseReads, athleteBracketsForCourse, intervals);
             var scoringResult = scorer.GetScoringResult();
@@ -82,46 +59,7 @@ public class ScoreCoursesOrchestrator
 
         await _scoringDbContext.BracketMetadataEntries.AddRangeAsync(metaResults);
         await _scoringDbContext.Results.AddRangeAsync(results);
-        await _scoringDbContext.CourseStatistics.AddRangeAsync(statistics);
         await _scoringDbContext.SaveChangesAsync();
-
-        var courseTypeStats = await GetCourseTypeStatistics();
-        await _scoringDbContext.CourseTypeStatistics.AddRangeAsync(courseTypeStats);
-        await _scoringDbContext.SaveChangesAsync();
-    }
-
-    private async Task<List<CourseTypeStatistic>> GetCourseTypeStatistics()
-    {
-        var courses = await _scoringDbContext.Courses.ToListAsync();
-        var results = await _scoringDbContext.Results.Include(oo => oo.AthleteCourse).Where(oo => oo.IsHighestIntervalCompleted).ToListAsync();
-        var resultsGroupedByAthletes = results.GroupBy(oo => oo.AthleteCourse.AthleteId).ToList();
-        var stats = new List<CourseTypeStatistic>();
-
-        foreach (var result in resultsGroupedByAthletes)
-        {
-            var uniqueCourseResults = result.GroupBy(oo => oo.AthleteCourseId).Select(oo => oo.First()).ToList();
-
-            var query = from course in courses
-                        join courseResults in uniqueCourseResults on course.Id equals courseResults.CourseId
-                        group courseResults by course.CourseType into newGroup
-                        select newGroup;
-
-            foreach (var courseTypeGrouping in query.ToList())
-            {
-                var stat = new CourseTypeStatistic
-                {
-                    CourseType = courseTypeGrouping.Key,
-                    AthleteId = result.Key,
-                    AverageTotalTimeInMilleseconds = (int)courseTypeGrouping.Average(oo => oo.TimeOnCourse),
-                    FastestTimeInMilleseconds = courseTypeGrouping.Min(oo => oo.TimeOnCourse),
-                    SlowestTimeInMilleseconds = courseTypeGrouping.Max(oo => oo.TimeOnCourse),
-                };
-
-                stats.Add(stat);
-            }
-        }
-
-        return stats;
     }
 
     private static List<TagRead> GetReadsForMaxInterval(List<TagRead> reads, List<Interval> intervals)

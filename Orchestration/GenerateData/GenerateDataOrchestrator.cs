@@ -44,8 +44,6 @@ public class GenerateDataOrchestrator
         await _scoringDbContext.Athletes.AddRangeAsync(athletes);
         await _scoringDbContext.SaveChangesAsync();
 
-        var persistedAthletes = await _scoringDbContext.Athletes.AsNoTracking().ToListAsync();
-        AthletesUpdator.SetRelationships(persistedAthletes);
         await _scoringDbContext.SaveChangesAsync();
     }
 

@@ -102,13 +102,6 @@ public class ArpDtoTests
 
     private static Athlete GetAthlete()
     {
-        var relationships = new List<AthleteRelationshipEntry>
-        {
-            new (2, AthleteRelationshipType.Following),
-            new (3, AthleteRelationshipType.Rival),
-            new (4, AthleteRelationshipType.Following),
-        };
-
         return new Athlete
         {
             Id = 1,
@@ -121,7 +114,6 @@ public class ArpDtoTests
             StateRank = 3,
             AreaRank = 2,
             CityRank = 1,
-            AthleteRelationshipEntries = relationships.ToList(),
             Gender = Gender.Male,
             AthleteRaceSeriesGoals = new()
             {

@@ -17,10 +17,6 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
 
     public DbSet<Course> Courses { get; set; }
 
-    public DbSet<CourseStatistic> CourseStatistics { get; set; }
-
-    public DbSet<CourseTypeStatistic> CourseTypeStatistics { get; set; }
-
     public DbSet<Interval> Intervals { get; set; }
 
     public DbSet<Race> Races { get; set; }

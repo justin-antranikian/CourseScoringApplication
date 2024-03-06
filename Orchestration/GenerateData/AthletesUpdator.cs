@@ -4,20 +4,6 @@ namespace Orchestration.GenerateData;
 
 public static class AthletesUpdator
 {
-    public static void SetRelationships(List<Athlete> athletes)
-    {
-        static AthleteRelationshipEntry MapToRival(Athlete athlete) => new (athlete.Id, AthleteRelationshipType.Rival);
-        static AthleteRelationshipEntry MapToFollowing(Athlete athlete) => new (athlete.Id, AthleteRelationshipType.Following);
-
-        foreach (var athlete in athletes)
-        {
-            var athletePool = athletes.Where(oo => oo.Id != athlete.Id).ToList();
-            var rivals = athletePool.GetRandomValues(10).Select(MapToRival);
-            var followings = athletePool.GetRandomValues(10).Select(MapToFollowing);
-            athlete.AthleteRelationshipEntries = rivals.Concat(followings).ToList();
-        }
-    }
-
     public static void RankAthletes(List<Athlete> athletes)
     {
         var sortedAthletes = athletes.OrderByDescending(oo => oo.AthleteCourses.Count).ToList();

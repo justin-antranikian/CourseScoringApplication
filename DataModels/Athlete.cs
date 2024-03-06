@@ -45,9 +45,6 @@ public record Athlete
     [ForeignKey("AthleteId")]
     public List<AthleteWellnessEntry> AthleteWellnessEntries { get; init; }
 
-    [ForeignKey("AthleteFromId")]
-    public List<AthleteRelationshipEntry> AthleteRelationshipEntries { get; set; }
-
     public int GetRaceAge(DateTime courseStartTime) => DateTimeHelper.GetRaceAge(DateOfBirth, courseStartTime);
 }
 
