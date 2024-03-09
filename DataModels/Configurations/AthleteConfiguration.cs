@@ -7,7 +7,7 @@ namespace DataModels.Configurations;
 
 public static class AthleteConfiguration
 {
-    public static void ConfigureAthleteEntity(EntityTypeBuilder<Athlete> builder)
+    public static void Configure(EntityTypeBuilder<Athlete> builder)
     {
         builder.ToTable("Athletes");
 

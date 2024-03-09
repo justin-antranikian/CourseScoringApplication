@@ -10,12 +10,10 @@ public record CourseInformationEntry
 {
     [Key]
     public int Id { get; init; }
-
     public int CourseId { get; init; }
 
-    public CourseInformationType CourseInformationType { get; init; }
-
-    public string Description { get; init; }
+    public CourseInformationType CourseInformationType { get; set; }
+    public string Description { get; set; }
 
     public CourseInformationEntry() { }
 
@@ -24,4 +22,5 @@ public record CourseInformationEntry
         CourseInformationType = courseInformationType;
         Description = description;
     }
+    public Course Course { get; set; }
 }

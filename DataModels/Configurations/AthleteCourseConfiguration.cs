@@ -1,13 +1,11 @@
-﻿using Core;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataModels.Configurations;
 
 public static class AthleteCourseConfiguration
 {
-    public static void ConfigureAthleteCourseEntity(EntityTypeBuilder<AthleteCourse> builder)
+    public static void Configure(EntityTypeBuilder<AthleteCourse> builder)
     {
         builder.ToTable("AthleteCourses");
 
@@ -19,6 +17,16 @@ public static class AthleteCourseConfiguration
         builder.Property(oo => oo.Bib).HasColumnType("VARCHAR(50)").IsRequired();
         builder.Property(oo => oo.CourseGoalDescription).HasColumnType("VARCHAR(500)").IsRequired(false);
         builder.Property(oo => oo.PersonalGoalDescription).HasColumnType("VARCHAR(500)").IsRequired(false);
+
+        builder.HasOne(oo => oo.Athlete)
+            .WithMany(oo => oo.AthleteCourses)
+            .HasForeignKey(oo => oo.AthleteId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(oo => oo.Course)
+            .WithMany(oo => oo.AthleteCourses)
+            .HasForeignKey(oo => oo.AthleteId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
 

@@ -29,6 +29,6 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        AthleteConfiguration.ConfigureAthleteEntity(modelBuilder.Entity<Athlete>());
+        AthleteConfiguration.Configure(modelBuilder.Entity<Athlete>());
     }
 }
