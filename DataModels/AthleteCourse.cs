@@ -17,4 +17,5 @@ public record AthleteCourse
     public List<Result> Results { get; init; } = [];
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];
     public List<AthleteCourseTraining> AthleteCourseTrainings { get; init; } = [];
+    public List<TagRead> TagReads { get; set; } = [];
 }

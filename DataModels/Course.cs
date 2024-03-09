@@ -22,4 +22,6 @@ public record Course
     public List<Bracket> Brackets { get; init; }
     public List<CourseInformationEntry> CourseInformationEntries { get; init; } = [];
     public List<AthleteCourse> AthleteCourses { get; set; } = [];
+    public List<Result> Results { get; set; } = [];
+    public List<TagRead> TagReads { get; set; } = [];
 }

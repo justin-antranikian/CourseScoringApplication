@@ -4,7 +4,6 @@ namespace DataModels;
 
 public abstract record ResultBase
 {
-    [Key]
     public int Id { get; init; }
 
     public int AthleteCourseId { get; set; }
@@ -26,8 +25,4 @@ public abstract record ResultBase
     public int TimeOnCourse { get; init; }
 
     public int Rank { get; init; }
-
-    public AthleteCourse AthleteCourse { get; set; }
-
-    public Bracket Bracket { get; init; }
 }

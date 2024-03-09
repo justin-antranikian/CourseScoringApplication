@@ -105,7 +105,11 @@ public static class AthletesGenerator
     private static AthleteWellnessEntry MapToWellnessEntry((AthleteWellnessType, string) wellNessTypeDescriptionTuple)
     {
         var (wellNessType, description) = wellNessTypeDescriptionTuple;
-        return new AthleteWellnessEntry(wellNessType, description);
+        return new AthleteWellnessEntry
+        {
+            AthleteWellnessType = wellNessType,
+            Description = description
+        };
     }
 
     private static IEnumerable<AthleteWellnessEntry> GetWellnessEntries(IGrouping<AthleteWellnessType, AthleteWellnessEntry> grouping)
