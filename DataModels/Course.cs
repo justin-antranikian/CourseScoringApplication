@@ -20,6 +20,7 @@ public record Course
     public List<AthleteCourse> AthleteCourses { get; set; } = [];
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];
     public List<Bracket> Brackets { get; init; }
+    public List<BracketMetadata> BracketMetadatas { get; init; } = [];
     public List<CourseInformationEntry> CourseInformationEntries { get; init; } = [];
     public List<Interval> Intervals { get; init; }
     public Race Race { get; init; }

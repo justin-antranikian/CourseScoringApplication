@@ -12,6 +12,7 @@ public record Bracket
     public string Name { get; init; }
 
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; set; } = [];
+    public List<BracketMetadata> BracketMetadatas { get; init; } = [];
     public Course Course { get; set; }
     public List<Result> Results { get; set; } = [];
 

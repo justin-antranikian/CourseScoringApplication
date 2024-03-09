@@ -1,21 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿namespace DataModels;
 
-namespace DataModels;
-
-[Table("BracketMetaDatas")]
 public class BracketMetadata
 {
-    [Key]
     public int Id { get; set; }
-
-    public int CourseId { get; set; }
-
     public int BracketId { get; set; }
+    public int CourseId { get; set; }
+    public int? IntervalId { get; set; }
 
     public int TotalRacers { get; set; }
 
-    public int? IntervalId { get; set; }
+    public Bracket Bracket { get; set; }
+    public Course Course { get; set; }
+    public Interval Interval { get; set; }
 
     public BracketMetadata() { }
 

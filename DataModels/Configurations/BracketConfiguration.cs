@@ -18,7 +18,10 @@ public static class BracketConfiguration
 
         builder.Property(oo => oo.BracketType)
             .HasConversion<EnumToStringConverter<BracketType>>()
-            .HasColumnType("VARCHAR(50)").IsRequired();
+            .HasColumnType("VARCHAR(50)")
+            .IsRequired();
+
+        builder.Property(oo => oo.Name).HasColumnType("VARCHAR(100)").IsRequired();
 
         builder.HasOne(oo => oo.Course)
             .WithMany(oo => oo.Brackets)

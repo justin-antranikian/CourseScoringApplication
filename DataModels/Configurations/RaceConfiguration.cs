@@ -16,7 +16,7 @@ public static class RaceConfiguration
 
         builder.Property(oo => oo.KickOffDate).IsRequired();
         builder.Property(oo => oo.Name).HasColumnType("VARCHAR(100)").IsRequired();
-        builder.Property(oo => oo.TimeZoneId).IsRequired();
+        builder.Property(oo => oo.TimeZoneId).HasColumnType("VARCHAR(50)").IsRequired();
 
         builder.HasOne(oo => oo.RaceSeries)
             .WithMany(oo => oo.Races)

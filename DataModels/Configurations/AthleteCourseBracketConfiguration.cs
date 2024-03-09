@@ -13,8 +13,8 @@ public static class AthleteCourseBracketConfiguration
 
         builder.Property(oo => oo.Id).IsRequired();
         builder.Property(oo => oo.AthleteCourseId).IsRequired();
-        builder.Property(oo => oo.CourseId).IsRequired();
         builder.Property(oo => oo.BracketId).IsRequired();
+        builder.Property(oo => oo.CourseId).IsRequired();
 
         builder.HasOne(oo => oo.AthleteCourse)
             .WithMany(oo => oo.AthleteCourseBrackets)
