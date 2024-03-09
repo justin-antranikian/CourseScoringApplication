@@ -28,4 +28,3 @@ public static class AthleteRaceSeriesGoalConfiguration
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
-

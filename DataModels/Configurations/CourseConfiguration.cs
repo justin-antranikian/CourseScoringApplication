@@ -14,8 +14,15 @@ public static class CourseConfiguration
         builder.HasKey(oo => oo.Id);
 
         builder.Property(oo => oo.Id).IsRequired();
+        builder.Property(oo => oo.RaceId).IsRequired();
+
+        builder.Property(oo => oo.CourseType)
+            .HasConversion<EnumToStringConverter<CourseType>>()
+            .HasColumnType("VARCHAR(50)")
+            .IsRequired();
+
+        builder.Property(oo => oo.Distance).IsRequired();
         builder.Property(oo => oo.Name).HasColumnType("VARCHAR(100)").IsRequired();
-        builder.Property(oo => oo.SortOrder).IsRequired();
 
         builder.Property(oo => oo.PaceType)
             .HasConversion<EnumToStringConverter<PaceType>>()
@@ -27,13 +34,8 @@ public static class CourseConfiguration
             .HasColumnType("VARCHAR(25)")
             .IsRequired();
 
-        builder.Property(oo => oo.Distance).IsRequired();
+        builder.Property(oo => oo.SortOrder).IsRequired();
         builder.Property(oo => oo.StartDate).IsRequired();
-
-        builder.Property(oo => oo.CourseType)
-            .HasConversion<EnumToStringConverter<CourseType>>()
-            .HasColumnType("VARCHAR(100)")
-            .IsRequired();
 
         builder.HasOne(oo => oo.Race)
             .WithMany(oo => oo.Courses)

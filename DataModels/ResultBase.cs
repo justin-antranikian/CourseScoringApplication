@@ -1,18 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DataModels;
+﻿namespace DataModels;
 
 public abstract record ResultBase
 {
     public int Id { get; init; }
 
     public int AthleteCourseId { get; set; }
-
+    public int BracketId { get; init; }
     public int CourseId { get; set; }
-
     public int IntervalId { get; set; }
 
-    public int BracketId { get; init; }
+    public int Rank { get; init; }
 
     /// <summary>
     /// (In seconds)
@@ -23,6 +20,4 @@ public abstract record ResultBase
     /// (In seconds)
     /// </summary>
     public int TimeOnCourse { get; init; }
-
-    public int Rank { get; init; }
 }

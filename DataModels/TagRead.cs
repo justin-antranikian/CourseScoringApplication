@@ -7,8 +7,12 @@ public record TagRead
     public int AthleteCourseId { get; init; }
     public int IntervalId { get; init; }
 
-    public int TimeOnInterval { get; init; }
     public int TimeOnCourse { get; init; }
+    public int TimeOnInterval { get; init; }
+
+    public Course Course { get; set; }
+    public AthleteCourse AthleteCourse { get; set; }
+    public Interval Interval { get; set; }
 
     public TagRead(int courseId, int athleteCourseId, int intervalId, int timeOnInterval, int timeOnCourse)
     {
@@ -18,8 +22,4 @@ public record TagRead
         TimeOnInterval = timeOnInterval;
         TimeOnCourse = timeOnCourse;
     }
-
-    public Course Course { get; set; }
-    public AthleteCourse AthleteCourse { get; set; }
-    public Interval Interval { get; set; }
 }

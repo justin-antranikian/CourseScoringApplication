@@ -17,6 +17,10 @@ public static class ResultConfiguration
         builder.Property(oo => oo.IntervalId).IsRequired();
         builder.Property(oo => oo.BracketId).IsRequired();
 
+        builder.Property(oo => oo.DivisionRank).IsRequired();
+        builder.Property(oo => oo.GenderRank).IsRequired();
+        builder.Property(oo => oo.IsHighestIntervalCompleted).IsRequired();
+        builder.Property(oo => oo.OverallRank).IsRequired();
         builder.Property(oo => oo.TimeOnInterval).IsRequired();
         builder.Property(oo => oo.TimeOnCourse).IsRequired();
         builder.Property(oo => oo.Rank).IsRequired();

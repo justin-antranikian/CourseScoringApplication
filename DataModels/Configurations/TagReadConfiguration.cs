@@ -16,8 +16,8 @@ public static class TagReadConfiguration
         builder.Property(oo => oo.CourseId).IsRequired();
         builder.Property(oo => oo.IntervalId).IsRequired();
 
-        builder.Property(oo => oo.TimeOnInterval).IsRequired();
         builder.Property(oo => oo.TimeOnCourse).IsRequired();
+        builder.Property(oo => oo.TimeOnInterval).IsRequired();
 
         builder.HasOne(oo => oo.AthleteCourse)
             .WithMany(oo => oo.TagReads)

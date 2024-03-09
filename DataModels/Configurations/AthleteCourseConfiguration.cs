@@ -13,6 +13,7 @@ public static class AthleteCourseConfiguration
 
         builder.Property(oo => oo.Id).IsRequired();
         builder.Property(oo => oo.AthleteId).IsRequired();
+
         builder.Property(oo => oo.CourseId).IsRequired();
         builder.Property(oo => oo.Bib).HasColumnType("VARCHAR(50)").IsRequired();
         builder.Property(oo => oo.CourseGoalDescription).HasColumnType("VARCHAR(500)").IsRequired(false);
