@@ -1,6 +1,4 @@
-﻿using Core.Enums;
-
-namespace Orchestration.GenerateData;
+﻿namespace Orchestration.GenerateData;
 
 public static class AthletesUpdator
 {

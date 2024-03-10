@@ -40,11 +40,10 @@ public static class RaceSeriesGenerator
 
         var possibleDescriptions = new[]
         {
-            "The intense ride through the desert. Sponsered by Black Diamond and REI",
-            "The best event that money can buy. Sponsered by Red Bull.",
-            "A great time through a wonderful location. Sponsered by REI.",
-            "Help save a life by raising money for sick people. Sponsered Spectrum Health.",
-            "Get your year started off right with this event. Sponsered Lifetime Fitness.",
+            "The intense ride through the desert.",
+            "The best event that money can buy.",
+            "A great time through a wonderful location.",
+            "Get your year started off right with this event.",
             "A great event through the city. Brought to you by our sponsers.",
         };
 
