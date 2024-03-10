@@ -29,7 +29,7 @@ public class RaceSeriesDashboardCourseDtoTests
         Assert.Empty(courseDto.Participants);
     }
 
-    private static void AssertInformationEntries(List<CourseInformationEntry> courseInfos, CourseInformationType type, params string[] descriptions)
+    private static void AssertInformationEntries(List<CourseInformationEntryDto> courseInfos, CourseInformationType type, params string[] descriptions)
     {
         var count = 0;
         foreach (var courseInfo in courseInfos)

@@ -87,7 +87,7 @@ public class ArpDtoTests
         AssertWellnessEntries(arpDto.WellnessMotivationalList, AthleteWellnessType.Motivational, "M1", "M2");
     }
 
-    private static void AssertWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, AthleteWellnessType type, params string[] descriptions)
+    private static void AssertWellnessEntries(List<AthleteWellnessEntryDto> wellnessEntries, AthleteWellnessType type, params string[] descriptions)
     {
         var count = 0;
         foreach (var entry in wellnessEntries)
