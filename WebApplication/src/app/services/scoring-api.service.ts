@@ -156,8 +156,10 @@ export class ScoringApiService {
 
   public getAthletesToCompare(athleteIds: number[]): Observable<any> {
     const body: any = {
-      AthleteIds: athleteIds
+      athleteIds: athleteIds
     };
+
+    debugger
 
     return this.http.post<any>(`${config.apiUrl}/compareAthletesApi`, body)
   }

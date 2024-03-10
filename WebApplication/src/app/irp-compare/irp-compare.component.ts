@@ -25,7 +25,7 @@ export class IrpCompareComponent extends BreadcrumbComponent implements OnInit {
 
   ngOnInit() {
     const athleteCourseIdsAsString = (this.route.snapshot.queryParamMap as any).params["athleteCourseIds"] as string
-    const athleteCourseIds = JSON.parse(athleteCourseIdsAsString).map((oo: string) => parseInt(oo))
+    const athleteCourseIds = JSON.parse(athleteCourseIdsAsString)
     this.irpsToCompare$ = this.scoringApiService.getIrpToCompare(athleteCourseIds)
 
     const courseId = parseInt(this.route.snapshot.paramMap.get('id') as any)
