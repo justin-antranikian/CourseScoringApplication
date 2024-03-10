@@ -14,8 +14,8 @@ public class ArpDto
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required List<ArpResultDto> Results { get; init; }
     public required List<string> Tags { get; init; }
-    public required List<AthleteWellnessEntry> WellnessTrainingAndDiet { get; init; }
-    public required List<AthleteWellnessEntry> WellnessGoals { get; init; }
-    public required List<AthleteWellnessEntry> WellnessGearList { get; init; }
-    public required List<AthleteWellnessEntry> WellnessMotivationalList { get; init; }
+    public required List<AthleteWellnessEntryDto> WellnessTrainingAndDiet { get; init; }
+    public required List<AthleteWellnessEntryDto> WellnessGoals { get; init; }
+    public required List<AthleteWellnessEntryDto> WellnessGearList { get; init; }
+    public required List<AthleteWellnessEntryDto> WellnessMotivationalList { get; init; }
 }

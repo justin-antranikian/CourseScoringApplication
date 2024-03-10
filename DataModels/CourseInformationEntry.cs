@@ -1,14 +1,9 @@
 ﻿using Core.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataModels;
 
-
-[Table("CourseInformationEntries")]
 public record CourseInformationEntry
 {
-    [Key]
     public int Id { get; init; }
     public int CourseId { get; init; }
 

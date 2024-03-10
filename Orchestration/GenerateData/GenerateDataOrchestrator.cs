@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataModels;
+using Microsoft.EntityFrameworkCore;
 using Orchestration.CreateIntervals;
 using Orchestration.ScoreCourses;
 using System.Threading.Tasks;
@@ -57,7 +58,7 @@ public class GenerateDataOrchestrator
         await _scoringDbContext.AthleteCourses.AddRangeAsync(athleteCourses);
         await _scoringDbContext.SaveChangesAsync();
 
-        var athleteCourseBrackets = AthleteCourseBracketGenerator.GetAthleteCourseBrackets(athleteCourses, athletes, brackets);
+        var athleteCourseBrackets = AthleteCourseBracketGenerator.GetAthleteCourseBrackets(athleteCourses, athletes, brackets).ToList();
         await _scoringDbContext.AtheleteCourseBrackets.AddRangeAsync(athleteCourseBrackets);
         await _scoringDbContext.SaveChangesAsync();
     }

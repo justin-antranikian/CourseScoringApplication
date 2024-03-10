@@ -4,11 +4,11 @@ namespace Orchestration.GetRaceSeriesDashboard;
 
 public record RaceSeriesDashboardCourseDto : DisplayNameWithIdDto
 {
-    public List<CourseInformationEntry> DescriptionEntries { get; }
+    public List<CourseInformationEntryDto> DescriptionEntries { get; }
 
-    public List<CourseInformationEntry> PromotionalEntries { get; }
+    public List<CourseInformationEntryDto> PromotionalEntries { get; }
 
-    public List<CourseInformationEntry> HowToPrepareEntries { get; }
+    public List<CourseInformationEntryDto> HowToPrepareEntries { get; }
 
     public List<RaceSeriesDashboardParticipantDto> Participants { get; }
 
@@ -20,8 +20,9 @@ public record RaceSeriesDashboardCourseDto : DisplayNameWithIdDto
         Participants = participants;
     }
 
-    private static List<CourseInformationEntry> GetFilteredParticipants(List<CourseInformationEntry> courseInformationEntries, CourseInformationType courseInformationType)
+    private static List<CourseInformationEntryDto> GetFilteredParticipants(List<CourseInformationEntry> courseInformationEntries, CourseInformationType courseInformationType)
     {
-        return courseInformationEntries.Where(oo => oo.CourseInformationType == courseInformationType).ToList();
+        var filteredList = courseInformationEntries.Where(oo => oo.CourseInformationType == courseInformationType);
+        return filteredList.Select(oo => new CourseInformationEntryDto { CourseInformationType = oo.CourseInformationType, Description = oo.Description }).ToList();
     }
 }

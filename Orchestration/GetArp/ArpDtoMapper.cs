@@ -29,8 +29,9 @@ public static class ArpDtoMapper
         return arpDto;
     }
 
-    private static List<AthleteWellnessEntry> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
+    private static List<AthleteWellnessEntryDto> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
     {
-        return wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType)).ToList();
+        var filteredList = wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType));
+        return filteredList.Select(oo => new AthleteWellnessEntryDto { AthleteWellnessType = oo.AthleteWellnessType, Description = oo.Description }).ToList();
     }
 }

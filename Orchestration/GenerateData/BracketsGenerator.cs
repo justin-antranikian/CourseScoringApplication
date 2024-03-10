@@ -14,10 +14,10 @@ public static class BracketsGenerator
         foreach (var course in courses)
         {
             var courseId = course.Id;
-            var overallBracket = new Bracket(courseId, "Overall", BracketType.Overall);
-            yield return overallBracket;
-            yield return overallBracket with { Name = "Male", BracketType = BracketType.Gender };
-            yield return overallBracket with { Name = "Female", BracketType = BracketType.Gender };
+
+            yield return new Bracket(courseId, "Overall", BracketType.Overall);
+            yield return new Bracket(courseId, "Male", BracketType.Gender);
+            yield return new Bracket(courseId, "Female", BracketType.Gender);
 
             var primaryBracketNames = new[] { "M20-25", "F20-25", "M25-30", "F25-30", "M30-35", "F30-35" };
             foreach (var primaryBracketName in primaryBracketNames)

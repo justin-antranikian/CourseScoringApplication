@@ -14,7 +14,7 @@ public class AthleteCourseBracket
     public AthleteCourseBracket(int athleteCourseId, int courseId, int bracketId)
     {
         AthleteCourseId = athleteCourseId;
-        CourseId = courseId;
         BracketId = bracketId;
+        CourseId = courseId;
     }
 }

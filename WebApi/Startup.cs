@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace WebApi;
 
@@ -26,7 +27,13 @@ public class Startup(IConfiguration configuration)
                                       .AllowAnyHeader());
             });
 
-        var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true;TrustServerCertificate=True";
+        services.AddLogging(builder => builder
+            .SetMinimumLevel(LogLevel.Debug)
+            .AddConsole()
+            .AddDebug()
+        );
+
+        var dbConnection = "server=localhost;database=ScoringDB2;Trusted_Connection=true;TrustServerCertificate=True";
         services.AddDbContextPool<ScoringDbContext>(options => options.UseSqlServer(dbConnection));
 
         services.AddSingleton<IMemoryCache, MemoryCache>();

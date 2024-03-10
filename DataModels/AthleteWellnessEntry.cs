@@ -2,7 +2,7 @@
 
 namespace DataModels;
 
-public class AthleteWellnessEntry
+public record AthleteWellnessEntry
 {
     public int Id { get; set; }
     public int AthleteId { get; set; }

@@ -26,7 +26,7 @@ public static class AthleteCourseConfiguration
 
         builder.HasOne(oo => oo.Course)
             .WithMany(oo => oo.AthleteCourses)
-            .HasForeignKey(oo => oo.AthleteId)
+            .HasForeignKey(oo => oo.CourseId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
