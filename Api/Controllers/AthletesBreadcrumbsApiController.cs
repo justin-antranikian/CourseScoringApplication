@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetBreadcrumb;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class AthletesBreadCrumbsApiController : ControllerBase

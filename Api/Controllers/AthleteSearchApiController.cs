@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using DataModels;
-using System.Collections.Generic;
 using Orchestration.AthletesSearch;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class AthleteSearchApiController(ScoringDbContext scoringDbContext) : ControllerBase

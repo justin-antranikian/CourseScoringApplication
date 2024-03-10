@@ -1,9 +1,8 @@
 ﻿using DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetLeaderboard.GetCourseLeaderboard;
-using System.Threading.Tasks;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class CourseLeaderboardApiController(ScoringDbContext scoringDbContext) : ControllerBase

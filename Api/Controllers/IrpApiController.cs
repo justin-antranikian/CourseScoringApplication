@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using DataModels;
 using Orchestration.GetIrp;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class IrpApiController(ScoringDbContext scoringDbContext) : ControllerBase

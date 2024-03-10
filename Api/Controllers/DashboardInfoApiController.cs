@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetDashboardInfo;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class DashboardInfoApiController(ScoringDbContext scoringDbContext) : ControllerBase

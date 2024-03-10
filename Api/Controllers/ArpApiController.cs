@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using DataModels;
 using Orchestration.GetArp;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class ArpApiController(ScoringDbContext scoringDbContext) : ControllerBase

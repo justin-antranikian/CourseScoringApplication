@@ -1,10 +1,8 @@
 ﻿using DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.CompareAthletes;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace WebApplication.Controllers;
+namespace Api.Controllers;
 
 public class CompareAthletesApiRequest
 {

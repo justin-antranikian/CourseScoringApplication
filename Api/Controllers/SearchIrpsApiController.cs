@@ -1,10 +1,8 @@
 ﻿using DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.SearchIrps;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace WebApplication.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class SearchIrpsApiController(ScoringDbContext scoringDbContext) : ControllerBase

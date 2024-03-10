@@ -1,10 +1,8 @@
 ﻿using DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Orchestration.GetRaceSeriesSearch;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace WebApplicationSandbox.Controllers;
+namespace Api.Controllers;
 
 [Route("[controller]")]
 public class RaceSeriesSearchApiController(ScoringDbContext scoringDbContext) : ControllerBase
