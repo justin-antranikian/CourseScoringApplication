@@ -5,14 +5,14 @@ namespace DataModels;
 
 public record Bracket
 {
-    public int Id { get; init; }
-    public int CourseId { get; init; }
+    public int Id { get; set; }
+    public int CourseId { get; set; }
 
-    public BracketType BracketType { get; init; }
-    public string Name { get; init; }
+    public BracketType BracketType { get; set; }
+    public string Name { get; set; }
 
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; set; } = [];
-    public List<BracketMetadata> BracketMetadatas { get; init; } = [];
+    public List<BracketMetadata> BracketMetadatas { get; set; } = [];
     public Course Course { get; set; }
     public List<Result> Results { get; set; } = [];
 

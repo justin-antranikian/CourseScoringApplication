@@ -17,6 +17,4 @@ public class AthleteRaceSeriesGoal
         RaceSeriesType = raceSeriesType;
         TotalEvents = totalEvents;
     }
-
-    public AthleteRaceSeriesGoal() { }
 }
