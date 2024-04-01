@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-var dbConnection = "server=localhost;database=ScoringDB;Trusted_Connection=true;TrustServerCertificate=True";
+var dbConnection = "server=localhost\\MSSQLSERVER01;database=ScoringDB;Trusted_Connection=true;TrustServerCertificate=True";
 builder.Services.AddDbContextPool<ScoringDbContext>(options => options.UseSqlServer(dbConnection));
 
 var app = builder.Build();
