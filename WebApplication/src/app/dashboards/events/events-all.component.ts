@@ -41,7 +41,7 @@ export class EventsAllComponent extends EventsComponentBase implements OnInit, O
     const dashboard$ = this.scoringApiService.getDashboardInfo(dashboardRequest)
 
     this.getDataSubscription = combineLatest([events$, dashboard$]).subscribe(data => {
-      this.eventSearchResultsChunked = data[0]
+      this.eventSearchResults = data[0]
       this.dashboardInfoResponseDto = data[1]
     })
   }

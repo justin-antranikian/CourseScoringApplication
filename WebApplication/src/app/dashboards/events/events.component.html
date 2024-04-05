@@ -27,15 +27,14 @@
   }
 
   <div class="col-lg-9">
-    <div class="mb-4" *ngFor="let eventSearchResultsChunk of eventSearchResultsChunked">
-      <div class="row">
-        <div class="col-sm-3" *ngFor="let eventSearchResult of eventSearchResultsChunk">
-          <div class="card">
-            <app-event-search-result (dataEvent)="onQuickViewClicked($event)" [eventSearchResult]="eventSearchResult"></app-event-search-result>
-          </div>
+
+    <div class="container">
+      <div class="row row-cols-4">
+        <div class="card" *ngFor="let eventSearchResult of eventSearchResults">
+          <app-event-search-result (dataEvent)="onQuickViewClicked($event)" [eventSearchResult]="eventSearchResult"></app-event-search-result>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

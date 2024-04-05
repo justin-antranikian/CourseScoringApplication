@@ -39,7 +39,7 @@ export abstract class EventsByLocationComponentBase extends EventsComponentBase 
       })
     ).subscribe(data => {
       this.dashboardInfoResponseDto = data[0]
-      this.eventSearchResultsChunked = data[1]
+      this.eventSearchResults = data[1]
       this.eventsBreadcrumbResult = data[2]
       this.title = data[3]
     })

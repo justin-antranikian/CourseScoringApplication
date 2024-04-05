@@ -10,7 +10,7 @@ import { EventSearchResultDto } from './eventSearchResultDto';
 export abstract class EventsComponentBase extends BreadcrumbComponent implements OnInit, OnDestroy {
 
   public eventsBreadcrumbResult: any
-  public eventSearchResultsChunked!: EventSearchResultDto[][]
+  public eventSearchResults!: EventSearchResultDto[]
   public dashboardInfoResponseDto: any
   public title: any
   public isLanding = false

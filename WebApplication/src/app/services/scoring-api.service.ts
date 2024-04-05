@@ -71,9 +71,7 @@ export class ScoringApiService {
   }
 
   public getRaceSeriesResultsChunked = (searchEventsRequest: any) => {
-    return this.getRaceSeriesResults(searchEventsRequest).pipe(
-      map((eventSearchResultDtos: EventSearchResultDto[]): EventSearchResultDto[][] => chunk(eventSearchResultDtos, 4))
-    )
+    return this.getRaceSeriesResults(searchEventsRequest)
   }
 
   public getRaceSeriesDashboardDto = (raceSeriesId: number): Observable<any> => {

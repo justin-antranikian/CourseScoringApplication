@@ -31,3 +31,4 @@ if (!anyAthletes)
 }
 
 app.Run();
+return;
