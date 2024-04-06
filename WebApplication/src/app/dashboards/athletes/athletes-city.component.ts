@@ -16,7 +16,7 @@ import { AthletesByLocationComponentBase } from './athletesByLocationComponentBa
 
 @Component({
   standalone: true,
-  imports: [CommonModule, HttpClientModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, RouterModule, AthleteBreadcrumbComponent, NgbToastModule, LocationInfoRankingsComponent],
+  imports: [CommonModule, HttpClientModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, RouterModule, AthleteBreadcrumbComponent, LocationInfoRankingsComponent],
   selector: 'app-athletes-city',
   templateUrl: './athletes.component.html',
   styleUrl: './athletes.component.css',

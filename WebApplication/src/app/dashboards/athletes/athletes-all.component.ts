@@ -20,7 +20,7 @@ import { Subscription, combineLatest } from 'rxjs';
   selector: 'app-athletes-all',
   templateUrl: './athletes.component.html',
   styleUrl: './athletes.component.css',
-  imports: [CommonModule, RouterModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent, AthleteBreadcrumbComponent, NgbToastModule, LocationInfoRankingsComponent],
+  imports: [CommonModule, RouterModule, QuickSearchComponent, SmartNavigationComponent, SmartNavigationStatesComponent, LocationInfoRankingsComponent, BracketRankComponent, IntervalTimeComponent, AthleteBreadcrumbComponent, LocationInfoRankingsComponent],
 })
 export class AthletesAllComponent extends AthletesComponentBase implements OnInit, OnDestroy {
 

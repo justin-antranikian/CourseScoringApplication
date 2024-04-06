@@ -61,12 +61,12 @@
 </div>
 
 @if (showToast) {
-  <div style="z-index: 1200;" class="position-fixed top-0 end-0 p-3 mt-4">
-    <ngb-toast header="Compare {{ athleteIdsToCompare.length }} athletes" [autohide]="false" (hidden)="showToast = false">
+  <div style="z-index: 40; background-color: white; border-top: 1px solid rgba(0, 0, 0, 0.125); box-shadow: 0 -4px 10px -5px rgba(0, 0, 0, 0.5);" class="fixed-bottom">
+    <div style="display: flex; justify-content: center; align-items: center; height: 60px;">
       <a [routerLink]="[AthleteComparePage]" [queryParams]="{athleteIds: athleteIdsToCompareString}" target="_blank">
-        View
+        View ({{athleteIdsToCompare.length}})
       </a>
       <a style="cursor: pointer;" class="ms-2" (click)="onCloseCompareClicked()">Clear</a>
-    </ngb-toast>
+    </div>
   </div>
 }
