@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -30,7 +31,7 @@ public static class CourseConfiguration
             .IsRequired();
 
         builder.Property(oo => oo.PreferedMetric)
-            .HasConversion<EnumToStringConverter<PreferedMetric>>()
+            .HasConversion<EnumToStringConverter<PreferredMetric>>()
             .HasColumnType("VARCHAR(25)")
             .IsRequired();
 

@@ -27,8 +27,6 @@ public static class LocationHelper
 
     public static Location GetRandomLocation() => _locations.GetRandomValue();
 
-    public static List<Location> GetAllLocations() => _locations;
-
     private static readonly (string state, string area, string city)[] _stateAreaCities = new[]
     {
         ("Alabama", "Greater Montgomery Area", "Montgomery"),

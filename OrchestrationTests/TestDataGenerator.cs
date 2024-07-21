@@ -48,7 +48,7 @@ internal static class TestDataGenerator
             new()
             {
                 PaceType = PaceType.None,
-                PreferedMetric = PreferedMetric.Imperial,
+                PreferedMetric = PreferredMetric.Imperial,
                 Distance = 3000,
                 RaceId = 1,
                 Name = "Course 1",
@@ -78,7 +78,7 @@ internal static class TestDataGenerator
             new Course
             {
                 PaceType = PaceType.MilesOrKilometersPerHour,
-                PreferedMetric = PreferedMetric.Imperial,
+                PreferedMetric = PreferredMetric.Imperial,
                 Distance = 3000,
                 RaceId = 1,
                 Name = "Course 2",
@@ -106,7 +106,7 @@ internal static class TestDataGenerator
             new Course
             {
                 PaceType = PaceType.MilesOrKilometersPerHour,
-                PreferedMetric = PreferedMetric.Imperial,
+                PreferedMetric = PreferredMetric.Imperial,
                 Distance = 2000,
                 RaceId = 2,
                 Name = "Course 3",

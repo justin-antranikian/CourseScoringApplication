@@ -35,7 +35,7 @@ public static class CourseGenerator
             var possibleCourseTypes = _raceAndCourseTypeDictionary[raceSeriesType];
 
             var courseFaker = new Faker<Course>()
-                .RuleFor(oo => oo.PreferedMetric, f => typeof(PreferedMetric).GetRandomEnumValue())
+                .RuleFor(oo => oo.PreferedMetric, f => typeof(PreferredMetric).GetRandomEnumValue())
                 .RuleFor(oo => oo.CourseType, f => possibleCourseTypes.GetRandomEnumValue()
             );
 

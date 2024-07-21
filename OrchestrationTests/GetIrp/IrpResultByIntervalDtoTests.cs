@@ -4,6 +4,7 @@ using Orchestration;
 using Orchestration.GetIrp;
 using System;
 using System.Collections.Generic;
+using Core.Enums;
 using Xunit;
 
 namespace OrchestrationTests.GetIrp;
@@ -186,7 +187,7 @@ public class IrpResultByIntervalDtoTests
             StartDate = new DateTime(2010, 1, 1),
             CourseType = CourseType.Running25K,
             PaceType = PaceType.MinuteMileOrKilometer,
-            PreferedMetric = PreferedMetric.Imperial
+            PreferedMetric = PreferredMetric.Imperial
         };
     }
 

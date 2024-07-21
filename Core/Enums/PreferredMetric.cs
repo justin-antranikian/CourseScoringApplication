@@ -1,6 +1,6 @@
-﻿namespace Core;
+﻿namespace Core.Enums;
 
-public enum PreferedMetric
+public enum PreferredMetric
 {
     /// <summary>
     /// meters, kilometers, etc. Used by most of the world.

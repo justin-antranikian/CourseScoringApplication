@@ -1,6 +1,7 @@
 ﻿using Core;
 using System;
 using System.Collections.Generic;
+using Core.Enums;
 
 namespace DataModels;
 
@@ -13,7 +14,7 @@ public record Course
     public double Distance { get; set; }
     public string Name { get; init; }
     public PaceType PaceType { get; init; }
-    public PreferedMetric PreferedMetric { get; init; }
+    public PreferredMetric PreferedMetric { get; init; }
     public int SortOrder { get; init; }
     public DateTime StartDate { get; init; }
 
