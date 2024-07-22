@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Enums;
+using NetTopologySuite.Geometries;
 
 namespace DataModels;
 
@@ -17,6 +18,7 @@ public record Course
     public PreferredMetric PreferedMetric { get; init; }
     public int SortOrder { get; init; }
     public DateTime StartDate { get; init; }
+    public Geometry? Location { get; init; }
 
     public List<AthleteCourse> AthleteCourses { get; set; } = [];
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];

@@ -35,6 +35,8 @@ public static class CourseConfiguration
             .HasColumnType("VARCHAR(25)")
             .IsRequired();
 
+        builder.Property(oo => oo.Location).HasColumnType("geometry").IsRequired(false);
+
         builder.Property(oo => oo.SortOrder).IsRequired();
         builder.Property(oo => oo.StartDate).IsRequired();
 
