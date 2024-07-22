@@ -18,7 +18,7 @@ public record Course
     public PreferredMetric PreferedMetric { get; init; }
     public int SortOrder { get; init; }
     public DateTime StartDate { get; init; }
-    public Geometry? Location { get; init; }
+    public Geometry? Location { get; set; }
 
     public List<AthleteCourse> AthleteCourses { get; set; } = [];
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];
