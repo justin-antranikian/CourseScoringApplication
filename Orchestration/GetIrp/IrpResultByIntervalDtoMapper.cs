@@ -1,4 +1,6 @@
-﻿namespace Orchestration.GetIrp;
+﻿using DataModels.Extensions;
+
+namespace Orchestration.GetIrp;
 
 public static class IrpResultByIntervalDtoMapper
 {

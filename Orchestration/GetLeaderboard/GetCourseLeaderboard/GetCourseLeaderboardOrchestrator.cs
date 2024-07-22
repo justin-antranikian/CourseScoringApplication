@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using DataModels.Extensions;
 
 namespace Orchestration.GetLeaderboard.GetCourseLeaderboard;
 

@@ -1,4 +1,6 @@
-﻿namespace Orchestration.CompareAthletes;
+﻿using DataModels.Extensions;
+
+namespace Orchestration.CompareAthletes;
 
 public class CompareAthletesHelper
 {

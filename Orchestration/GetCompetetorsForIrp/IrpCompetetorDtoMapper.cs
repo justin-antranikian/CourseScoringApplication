@@ -1,4 +1,6 @@
-﻿namespace Orchestration.GetCompetetorsForIrp;
+﻿using DataModels.Extensions;
+
+namespace Orchestration.GetCompetetorsForIrp;
 
 public static class IrpCompetetorDtoMapper
 {

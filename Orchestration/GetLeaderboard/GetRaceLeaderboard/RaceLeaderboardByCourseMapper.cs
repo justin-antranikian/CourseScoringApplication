@@ -1,4 +1,6 @@
-﻿namespace Orchestration.GetLeaderboard.GetRaceLeaderboard;
+﻿using DataModels.Extensions;
+
+namespace Orchestration.GetLeaderboard.GetRaceLeaderboard;
 
 internal class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedIntervalsForAllCourses, List<Result> resultsForAllCourses)
 {

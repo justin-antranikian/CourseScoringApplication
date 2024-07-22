@@ -1,6 +1,6 @@
 ﻿using Core;
 
-namespace DataModels;
+namespace DataModels.Extensions;
 
 public static class CourseExtensions
 {
