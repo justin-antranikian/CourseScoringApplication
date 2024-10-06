@@ -14,7 +14,7 @@ public static class TimeFormatter
             return $"00:{formattedSeconds}";
         }
 
-        if (timeInSeconds >= 60 && timeInSeconds < 3600)
+        if (timeInSeconds < 3600)
         {
             return $"{timeSpan.Minutes}:{formattedSeconds}";
         }

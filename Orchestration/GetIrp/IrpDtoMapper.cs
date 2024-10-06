@@ -6,9 +6,7 @@ public static class IrpDtoMapper
     {
         var athlete = athleteCourse.Athlete;
         var race = course.Race;
-        var raceSeries = race.RaceSeries;
 
-        var (courseDate, courseTime) = DateTimeHelper.GetFormattedFields(course.StartDate);
         var trainingList = athleteCourse.GetTrainingList();
         var finishTime = intervalResults.Single(oo => oo.IsFullCourse).CrossingTime;
 

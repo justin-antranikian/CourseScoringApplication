@@ -7,13 +7,11 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class RaceLeaderboardApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     [HttpGet]
     [Route("{raceId:int}")]
     public async Task<RaceLeaderboardDto> Get(int raceId)
     {
-        var orchestrator = new GetRaceLeaderboardOrchestrator(_scoringDbContext);
+        var orchestrator = new GetRaceLeaderboardOrchestrator(scoringDbContext);
         return await orchestrator.GetRaceLeaderboardDto(raceId);
     }
 }

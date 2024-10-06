@@ -9,7 +9,7 @@ public class AwardsPodiumApiController(ScoringDbContext scoringDbContext) : Cont
 {
     [HttpGet]
     [Route("{courseId:int}")]
-    public async Task<List<PodiumEntryDto>> Get(int courseId)
+    public async Task<List<PodiumEntryDto>> Get([FromRoute] int courseId)
     {
         var orchestrator = new GetAwardsPodiumOrchestrator(scoringDbContext);
         return await orchestrator.GetPodiumEntries(courseId);
