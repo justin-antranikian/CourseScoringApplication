@@ -2,19 +2,18 @@ export enum BetweenIntervalTimeIndicator {
   StartingOrSame,
   Improving,
   GettingWorse,
-  NotStarted
+  NotStarted,
 }
 
 export const BracketRank = ({
   rank,
   total,
-  indicator
+  indicator,
 }: {
   rank: number | null
-  total: number,
-  indicator?: BetweenIntervalTimeIndicator;
+  total: number
+  indicator?: BetweenIntervalTimeIndicator
 }) => {
-
   if (!rank) {
     return <div>--</div>
   }
@@ -29,7 +28,7 @@ export const BracketRank = ({
     }
 
     if (indicator == BetweenIntervalTimeIndicator.GettingWorse) {
-return <span className="ml-1 text-xs text-red-500">(Worse)</span>
+      return <span className="ml-1 text-xs text-red-500">(Worse)</span>
     }
   }
 

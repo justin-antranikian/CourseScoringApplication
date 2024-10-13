@@ -101,11 +101,15 @@ const Result = ({ result }: { result: ArpResultDto }) => {
   return (
     <tr>
       <td></td>
-      <td><Link href={`/results/${result.athleteCourseId}`}>View</Link></td>
+      <td>
+        <Link href={`/results/${result.athleteCourseId}`}>View</Link>
+      </td>
       <td>
         <div>{result.raceName}</div>
         <div>{result.courseName}</div>
-        <div>{result.state}, {result.city}</div>
+        <div>
+          {result.state}, {result.city}
+        </div>
       </td>
       <td>
         <BracketRank rank={result.overallRank} total={result.overallCount} />

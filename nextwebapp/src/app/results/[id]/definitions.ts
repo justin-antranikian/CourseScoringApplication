@@ -20,24 +20,24 @@ export interface Irp {
 }
 
 export interface IrpResultByIntervalDto {
-  intervalName: string;
-  intervalType: any;
-  intervalFinished: boolean;
-  paceWithTimeCumulative: PaceWithTime;
-  paceWithTimeIntervalOnly: PaceWithTime;
-  overallRank: number | null;
-  genderRank: number | null;
-  primaryDivisionRank: number | null;
-  overallCount: number;
-  genderCount: number;
-  primaryDivisionCount: number;
-  overallIndicator: any;
-  genderIndicator: any;
-  primaryDivisionIndicator: any;
-  crossingTime: string | null;
-  isFullCourse: boolean;
-  intervalDescription: string;
-  percentile: string | null;
-  intervalDistance: number;
-  cumulativeDistance: number;
+  intervalName: string
+  intervalType: any
+  intervalFinished: boolean
+  paceWithTimeCumulative: PaceWithTime
+  paceWithTimeIntervalOnly: PaceWithTime
+  overallRank: number | null
+  genderRank: number | null
+  primaryDivisionRank: number | null
+  overallCount: number
+  genderCount: number
+  primaryDivisionCount: number
+  overallIndicator: any
+  genderIndicator: any
+  primaryDivisionIndicator: any
+  crossingTime: string | null
+  isFullCourse: boolean
+  intervalDescription: string
+  percentile: string | null
+  intervalDistance: number
+  cumulativeDistance: number
 }
