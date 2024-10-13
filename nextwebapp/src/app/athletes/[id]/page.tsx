@@ -1,4 +1,5 @@
 import { config } from "@/config"
+import { BracketRank } from "./BracketRank"
 
 export const dynamic = "force-dynamic"
 
@@ -25,21 +26,28 @@ interface ArpDto {
 }
 
 interface ArpResultDto {
-  athleteCourseId: number;
-  raceId: number;
-  raceName: string;
-  raceSeriesType: any;  // Assuming RaceSeriesType is defined elsewhere
-  courseId: number;
-  courseName: string;
-  state: string;
-  city: string;
-  overallRank: number;
-  genderRank: number;
-  primaryDivisionRank: number;
-  overallCount: number;
-  genderCount: number;
-  primaryDivisionCount: number;
-  paceWithTimeCumulative: any;  // Assuming PaceWithTime is defined elsewhere
+  athleteCourseId: number
+  raceId: number
+  raceName: string
+  raceSeriesType: any // Assuming RaceSeriesType is defined elsewhere
+  courseId: number
+  courseName: string
+  state: string
+  city: string
+  overallRank: number
+  genderRank: number
+  primaryDivisionRank: number
+  overallCount: number
+  genderCount: number
+  primaryDivisionCount: number
+  paceWithTimeCumulative: PaceWithTime
+}
+
+interface PaceWithTime {
+  timeFormatted: string
+  hasPace: boolean
+  paceValue?: string | null
+  paceLabel: string | null
 }
 
 const getArpData = async (id: string): Promise<ArpDto> => {
@@ -48,12 +56,26 @@ const getArpData = async (id: string): Promise<ArpDto> => {
   return await response.json()
 }
 
+const RankWithTime = ({ paceTime }: { paceTime: PaceWithTime }) => {
+  return (
+    <>
+      <div className="text-lg font-bold">{paceTime.timeFormatted}</div>
+      {paceTime.hasPace && (
+        <div>
+          <strong className="mr-1">{paceTime.paceValue || "N/A"}</strong>
+          {paceTime.paceLabel}
+        </div>
+      )}
+    </>
+  )
+}
+
 export default async function Page({ params: { id } }: Props) {
   const arp = await getArpData(id)
 
   return (
     <div className="flex gap-1">
-      <div className="bg-gray-200 w-1/3">
+      <div className="w-1/3">
         <div className="mt-4 text-2xl font-bold">{arp.fullName}</div>
         <div className="text-lg">
           {arp.locationInfoWithRank.city}, {arp.locationInfoWithRank.state}
@@ -62,7 +84,8 @@ export default async function Page({ params: { id } }: Props) {
           {arp.genderAbbreviated} | {arp.age}
         </div>
       </div>
-      <div className="bg-gray-400 w-2/3">
+      <div className="w-2/3">
+        <div className="mb-12">Results</div>
         <table className="my-5 table-auto w-full">
           <thead>
             <tr>
@@ -86,15 +109,33 @@ export default async function Page({ params: { id } }: Props) {
             </tr>
           </thead>
           <tbody>
-            {arp.results.map(result => {
+            {arp.results.map((result) => {
               return (
                 <tr>
                   <td></td>
                   <td></td>
                   <td>{result.courseName}</td>
-                  <td>Ba</td>
-                  <td>Ba</td>
-                  <td>Ba</td>
+                  <td>
+                    <BracketRank
+                      rank={result.overallRank}
+                      total={result.overallCount}
+                    />
+                  </td>
+                  <td>
+                    <BracketRank
+                      rank={result.genderRank}
+                      total={result.genderCount}
+                    />
+                  </td>
+                  <td>
+                    <BracketRank
+                      rank={result.primaryDivisionRank}
+                      total={result.primaryDivisionCount}
+                    />
+                  </td>
+                  <td>
+                    <RankWithTime paceTime={result.paceWithTimeCumulative} />
+                  </td>
                 </tr>
               )
             })}
