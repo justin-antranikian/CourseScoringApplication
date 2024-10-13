@@ -29,23 +29,17 @@ const RankWithTime = ({ paceTime }: { paceTime: PaceWithTime }) => {
   )
 }
 
-const Result = ({ result }: { result: ArpResultDto}) => {
+const Result = ({ result }: { result: ArpResultDto }) => {
   return (
     <tr>
       <td></td>
       <td></td>
       <td>{result.courseName}</td>
       <td>
-        <BracketRank
-          rank={result.overallRank}
-          total={result.overallCount}
-        />
+        <BracketRank rank={result.overallRank} total={result.overallCount} />
       </td>
       <td>
-        <BracketRank
-          rank={result.genderRank}
-          total={result.genderCount}
-        />
+        <BracketRank rank={result.genderRank} total={result.genderCount} />
       </td>
       <td>
         <BracketRank
@@ -75,23 +69,19 @@ export default async function Page({ params: { id } }: Props) {
         </div>
         <div className="my-3">{arp.firstName}'s training and diet</div>
         <ul className="list-disc pl-5">
-  {arp.wellnessTrainingAndDiet.map((entry, index) => (
-    <li key={index}>{entry.description}</li>
-  ))}
-</ul>
+          {arp.wellnessTrainingAndDiet.map((entry, index) => (
+            <li key={index}>{entry.description}</li>
+          ))}
+        </ul>
         <div className="my-3">{arp.firstName}'s goals</div>
         <ul className="list-disc pl-5">
-  {arp.wellnessGoals.map((entry, index) => (
-    <li key={index}>{entry.description}</li>
-  ))}
-</ul>
+          {arp.wellnessGoals.map((entry, index) => (
+            <li key={index}>{entry.description}</li>
+          ))}
+        </ul>
         <div className="my-3">{arp.firstName}'s inspiration</div>
-        {arp.wellnessMotivationalList.map(entry => {
-          return (
-            <div className="pl-5">
-              {entry.description}
-            </div>
-          )
+        {arp.wellnessMotivationalList.map((entry) => {
+          return <div className="pl-5">{entry.description}</div>
         })}
       </div>
       <div className="w-2/3">

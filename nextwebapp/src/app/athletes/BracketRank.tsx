@@ -1,4 +1,10 @@
-export const BracketRank = ({ rank, total }: { rank: number; total: number }) => {
+export const BracketRank = ({
+  rank,
+  total,
+}: {
+  rank: number
+  total: number
+}) => {
   return (
     <>
       <span className="text-lg font-bold">{rank}</span>

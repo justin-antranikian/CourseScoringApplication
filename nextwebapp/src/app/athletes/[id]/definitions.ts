@@ -1,4 +1,3 @@
-
 interface ArpDto {
   age: number
   allEventsGoal: any
