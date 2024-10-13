@@ -105,7 +105,9 @@ const Result = ({ result }: { result: ArpResultDto }) => {
         <Link href={`/results/${result.athleteCourseId}`}>View</Link>
       </td>
       <td>
-        <div>{result.raceName}</div>
+        <div>
+          <Link href={`/races/${result.raceId}`}>{result.raceName}</Link>
+        </div>
         <div>
           <Link href={`/courses/${result.courseId}`}>{result.courseName}</Link>
         </div>

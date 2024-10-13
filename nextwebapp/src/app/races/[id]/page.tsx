@@ -1,9 +1,7 @@
 import { config } from "@/config"
 import React from "react"
-import {
-  CourseLeaderboardByIntervalDto,
-  CourseLeaderboardDto,
-} from "./definitions"
+import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from "./definitions"
+import Link from "next/link"
 
 export const dynamic = "force-dynamic"
 
@@ -13,41 +11,39 @@ interface Props {
   }
 }
 
-const getData = async (id: string): Promise<CourseLeaderboardDto> => {
-  const url = `${config.apiHost}/courseLeaderboardApi/${id}`
+const getData = async (id: string): Promise<RaceLeaderboardDto> => {
+  const url = `${config.apiHost}/raceLeaderboardApi/${id}`
   const response = await fetch(url)
   return await response.json()
 }
 
 export default async function Page({ params: { id } }: Props) {
-  const courseLeaderboard = await getData(id)
+  const raceLeaderboard = await getData(id)
 
   return (
     <div className="flex gap-1">
       <div className="w-1/3">
         <div className="mt-4 text-2xl font-bold">
-          {courseLeaderboard.raceName}
+          {raceLeaderboard.raceName}
         </div>
-        <div className="text-lg text-blue-500 font-bold">
-          {courseLeaderboard.courseName}
-        </div>
+        <div className="text-lg text-blue-500 font-bold">All Courses</div>
+
         <div className="text-sm mb-2">
           <div>
-            {courseLeaderboard.locationInfoWithRank.city},{" "}
-            {courseLeaderboard.locationInfoWithRank.state}
+            {raceLeaderboard.locationInfoWithRank.city},{" "}
+            {raceLeaderboard.locationInfoWithRank.state}
           </div>
-          <div>Distance: {courseLeaderboard.courseDistance}</div>
-          <div>
-            {courseLeaderboard.courseDate} at{" "}
-            <strong>{courseLeaderboard.courseTime}</strong>
-          </div>
+          <div className="font-bold">{raceLeaderboard.raceKickOffDate}</div>
         </div>
       </div>
       <div className="w-2/3">
-        {courseLeaderboard.leaderboards.map((leaderboard, index) => (
+        {raceLeaderboard.leaderboards.map((leaderboard, index) => (
           <div className="mt-12" key={index}>
-            {leaderboard.intervalName}
+            {leaderboard.courseName}
             <LeaderBoard leaderboard={leaderboard} />
+            <div className="my-5 text-right">
+              <Link href={`/cources/${leaderboard.courseId}`}>View</Link>
+            </div>
           </div>
         ))}
       </div>
@@ -58,7 +54,7 @@ export default async function Page({ params: { id } }: Props) {
 const LeaderBoard = ({
   leaderboard,
 }: {
-  leaderboard: CourseLeaderboardByIntervalDto
+  leaderboard: RaceLeaderboardByCourseDto
 }) => {
   return (
     <table className="table-auto w-full">
@@ -66,14 +62,13 @@ const LeaderBoard = ({
         <tr>
           <th className="w-[5%]"></th>
           <th className="w-[5%]"></th>
-          <th className="w-[10%]">Bib</th>
+          <th className="w-[15%]">Bib</th>
           <th className="w-[20%]">Name</th>
           <th className="w-[10%]">Overall</th>
           <th className="w-[10%]">Gender</th>
           <th className="w-[10%]">Division</th>
           <th className="w-[15%]">Time</th>
           <th className="w-[10%]">Pace</th>
-          <th className="w-[5%]"></th>
         </tr>
       </thead>
       <tbody>
@@ -86,6 +81,7 @@ const LeaderBoard = ({
               <i
                 className="fa fa-plus-circle cursor-pointer"
                 title="view more"
+                // onClick={() => onViewIrpClicked(irp.athleteCourseId)}
               ></i>
             </td>
             <td>
@@ -96,7 +92,7 @@ const LeaderBoard = ({
             <td>
               <div>
                 <a
-                  className="font-bold bg-secondary text-black"
+                  className="font-bold text-black bg-secondary"
                   href={`/athletes/${irp.athleteId}`}
                 >
                   {irp.fullName}
@@ -117,15 +113,6 @@ const LeaderBoard = ({
                 {irp.paceWithTimeCumulative.paceValue || "--"}
               </div>
               {irp.paceWithTimeCumulative.paceLabel}
-            </td>
-            <td>
-              <button
-                type="button"
-                title="Compare Result"
-                className="btn btn-outline-secondary btn-sm"
-              >
-                <i className="fa fa-compress" aria-hidden="true"></i>
-              </button>
             </td>
           </tr>
         ))}
