@@ -1,5 +1,8 @@
 import { config } from "@/config"
-import { BracketRank } from "../BracketRank"
+import { BracketRank } from "../../_components/BracketRank"
+import Link from "next/link"
+import { ArpDto, ArpResultDto } from "./definitions"
+import { PaceWithTime } from "@/app/_components/IntervalTime"
 
 export const dynamic = "force-dynamic"
 
@@ -13,45 +16,6 @@ const getArpData = async (id: string): Promise<ArpDto> => {
   const url = `${config.apiHost}/arpApi/${id}`
   const response = await fetch(url)
   return await response.json()
-}
-
-const RankWithTime = ({ paceTime }: { paceTime: PaceWithTime }) => {
-  return (
-    <>
-      <div className="text-lg font-bold">{paceTime.timeFormatted}</div>
-      {paceTime.hasPace && (
-        <div>
-          <strong className="mr-1">{paceTime.paceValue || "N/A"}</strong>
-          {paceTime.paceLabel}
-        </div>
-      )}
-    </>
-  )
-}
-
-const Result = ({ result }: { result: ArpResultDto }) => {
-  return (
-    <tr>
-      <td></td>
-      <td></td>
-      <td>{result.courseName}</td>
-      <td>
-        <BracketRank rank={result.overallRank} total={result.overallCount} />
-      </td>
-      <td>
-        <BracketRank rank={result.genderRank} total={result.genderCount} />
-      </td>
-      <td>
-        <BracketRank
-          rank={result.primaryDivisionRank}
-          total={result.primaryDivisionCount}
-        />
-      </td>
-      <td>
-        <RankWithTime paceTime={result.paceWithTimeCumulative} />
-      </td>
-    </tr>
-  )
 }
 
 export default async function Page({ params: { id } }: Props) {
@@ -116,5 +80,48 @@ export default async function Page({ params: { id } }: Props) {
         </table>
       </div>
     </div>
+  )
+}
+
+const RankWithTime = ({ paceTime }: { paceTime: PaceWithTime }) => {
+  return (
+    <>
+      <div className="text-lg font-bold">{paceTime.timeFormatted}</div>
+      {paceTime.hasPace && (
+        <div>
+          <strong className="mr-1">{paceTime.paceValue || "N/A"}</strong>
+          {paceTime.paceLabel}
+        </div>
+      )}
+    </>
+  )
+}
+
+const Result = ({ result }: { result: ArpResultDto }) => {
+  return (
+    <tr>
+      <td></td>
+      <td><Link href={`/results/${result.athleteCourseId}`}>View</Link></td>
+      <td>
+        <div>{result.raceName}</div>
+        <div>{result.courseName}</div>
+        <div>{result.state}, {result.city}</div>
+      </td>
+      <td>
+        <BracketRank rank={result.overallRank} total={result.overallCount} />
+      </td>
+      <td>
+        <BracketRank rank={result.genderRank} total={result.genderCount} />
+      </td>
+      <td>
+        <BracketRank
+          rank={result.primaryDivisionRank}
+          total={result.primaryDivisionCount}
+        />
+      </td>
+      <td>
+        <RankWithTime paceTime={result.paceWithTimeCumulative} />
+      </td>
+    </tr>
   )
 }

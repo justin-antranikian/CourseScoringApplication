@@ -18,8 +18,7 @@ public static class PercentileHelper
             return "last place";
         }
 
-        var pecentile = $"{percentDouble}th percentile";
-        return pecentile;
+        return $"{percentDouble}th percentile";
     }
 
     private static string GetTopRanksPercentile(int rank)

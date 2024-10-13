@@ -1,4 +1,6 @@
-interface ArpDto {
+import { PaceWithTime } from "@/app/_components/IntervalTime"
+
+export interface ArpDto {
   age: number
   allEventsGoal: any
   firstName: string
@@ -14,7 +16,7 @@ interface ArpDto {
   wellnessMotivationalList: AthleteWellnessEntryDto[]
 }
 
-interface ArpResultDto {
+export interface ArpResultDto {
   athleteCourseId: number
   raceId: number
   raceName: string
@@ -32,14 +34,7 @@ interface ArpResultDto {
   paceWithTimeCumulative: PaceWithTime
 }
 
-interface AthleteWellnessEntryDto {
+export interface AthleteWellnessEntryDto {
   athleteWellnessType: any
   description: string
-}
-
-interface PaceWithTime {
-  timeFormatted: string
-  hasPace: boolean
-  paceValue?: string | null
-  paceLabel: string | null
 }
