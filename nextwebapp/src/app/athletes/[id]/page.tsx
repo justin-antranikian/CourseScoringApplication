@@ -1,5 +1,5 @@
 import { config } from "@/config"
-import { BracketRank } from "./BracketRank"
+import { BracketRank } from "../BracketRank"
 
 export const dynamic = "force-dynamic"
 
@@ -7,47 +7,6 @@ interface Props {
   params: {
     id: string
   }
-}
-
-interface ArpDto {
-  age: number
-  allEventsGoal: any
-  firstName: string
-  fullName: string
-  genderAbbreviated: string
-  goals: any[]
-  locationInfoWithRank: any
-  results: ArpResultDto[]
-  tags: string[]
-  wellnessTrainingAndDiet: any[]
-  wellnessGoals: any[]
-  wellnessGearList: any[]
-  wellnessMotivationalList: any[]
-}
-
-interface ArpResultDto {
-  athleteCourseId: number
-  raceId: number
-  raceName: string
-  raceSeriesType: any // Assuming RaceSeriesType is defined elsewhere
-  courseId: number
-  courseName: string
-  state: string
-  city: string
-  overallRank: number
-  genderRank: number
-  primaryDivisionRank: number
-  overallCount: number
-  genderCount: number
-  primaryDivisionCount: number
-  paceWithTimeCumulative: PaceWithTime
-}
-
-interface PaceWithTime {
-  timeFormatted: string
-  hasPace: boolean
-  paceValue?: string | null
-  paceLabel: string | null
 }
 
 const getArpData = async (id: string): Promise<ArpDto> => {
@@ -70,6 +29,37 @@ const RankWithTime = ({ paceTime }: { paceTime: PaceWithTime }) => {
   )
 }
 
+const Result = ({ result }: { result: ArpResultDto}) => {
+  return (
+    <tr>
+      <td></td>
+      <td></td>
+      <td>{result.courseName}</td>
+      <td>
+        <BracketRank
+          rank={result.overallRank}
+          total={result.overallCount}
+        />
+      </td>
+      <td>
+        <BracketRank
+          rank={result.genderRank}
+          total={result.genderCount}
+        />
+      </td>
+      <td>
+        <BracketRank
+          rank={result.primaryDivisionRank}
+          total={result.primaryDivisionCount}
+        />
+      </td>
+      <td>
+        <RankWithTime paceTime={result.paceWithTimeCumulative} />
+      </td>
+    </tr>
+  )
+}
+
 export default async function Page({ params: { id } }: Props) {
   const arp = await getArpData(id)
 
@@ -83,6 +73,26 @@ export default async function Page({ params: { id } }: Props) {
         <div className="mb-3 text-xs">
           {arp.genderAbbreviated} | {arp.age}
         </div>
+        <div className="my-3">{arp.firstName}'s training and diet</div>
+        <ul className="list-disc pl-5">
+  {arp.wellnessTrainingAndDiet.map((entry, index) => (
+    <li key={index}>{entry.description}</li>
+  ))}
+</ul>
+        <div className="my-3">{arp.firstName}'s goals</div>
+        <ul className="list-disc pl-5">
+  {arp.wellnessGoals.map((entry, index) => (
+    <li key={index}>{entry.description}</li>
+  ))}
+</ul>
+        <div className="my-3">{arp.firstName}'s inspiration</div>
+        {arp.wellnessMotivationalList.map(entry => {
+          return (
+            <div className="pl-5">
+              {entry.description}
+            </div>
+          )
+        })}
       </div>
       <div className="w-2/3">
         <div className="mb-12">Results</div>
@@ -110,34 +120,7 @@ export default async function Page({ params: { id } }: Props) {
           </thead>
           <tbody>
             {arp.results.map((result) => {
-              return (
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td>{result.courseName}</td>
-                  <td>
-                    <BracketRank
-                      rank={result.overallRank}
-                      total={result.overallCount}
-                    />
-                  </td>
-                  <td>
-                    <BracketRank
-                      rank={result.genderRank}
-                      total={result.genderCount}
-                    />
-                  </td>
-                  <td>
-                    <BracketRank
-                      rank={result.primaryDivisionRank}
-                      total={result.primaryDivisionCount}
-                    />
-                  </td>
-                  <td>
-                    <RankWithTime paceTime={result.paceWithTimeCumulative} />
-                  </td>
-                </tr>
-              )
+              return <Result result={result} />
             })}
           </tbody>
         </table>
