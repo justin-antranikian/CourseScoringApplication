@@ -12,14 +12,14 @@ interface Props {
   }
 }
 
-const getArpData = async (id: string): Promise<ArpDto> => {
+const getData = async (id: string): Promise<ArpDto> => {
   const url = `${config.apiHost}/arpApi/${id}`
   const response = await fetch(url)
   return await response.json()
 }
 
 export default async function Page({ params: { id } }: Props) {
-  const arp = await getArpData(id)
+  const arp = await getData(id)
 
   return (
     <div className="flex gap-1">
@@ -106,7 +106,9 @@ const Result = ({ result }: { result: ArpResultDto }) => {
       </td>
       <td>
         <div>{result.raceName}</div>
-        <div>{result.courseName}</div>
+        <div>
+          <Link href={`/courses/${result.courseId}`}>{result.courseName}</Link>
+        </div>
         <div>
           {result.state}, {result.city}
         </div>

@@ -12,14 +12,14 @@ interface Props {
   }
 }
 
-const getIrpData = async (id: string): Promise<Irp> => {
+const getData = async (id: string): Promise<Irp> => {
   const url = `${config.apiHost}/irpApi/${id}`
   const response = await fetch(url)
   return await response.json()
 }
 
 export default async function Page({ params: { id } }: Props) {
-  const irp = await getIrpData(id)
+  const irp = await getData(id)
 
   return (
     <div className="flex gap-1">
@@ -31,9 +31,72 @@ export default async function Page({ params: { id } }: Props) {
         <div className="mb-3 text-xs">
           {irp.genderAbbreviated} | {irp.raceAge}
         </div>
+        <div>
+          {irp.tags.map((tag, index) => (
+            <span
+              key={index}
+              className="text-lg bg-blue-500 text-white py-1 px-3 rounded-lg mr-2 mb-2 inline-block"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="mt-3">{irp.firstName}'s training</div>
+        <ul className="mt-3">
+          {irp.trainingList.map((training, index) => (
+            <li key={index} className="text-xs">
+              {training}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-3">{irp.firstName}'s personal goal</div>
+        <div className="mt-3 text-xs italic">
+          "{irp.personalGoalDescription}"
+        </div>
+
+        <div className="mt-3">{irp.firstName}'s course goal</div>
+        <div className="mt-3 text-xs italic text-blue-500">
+          <strong>"{irp.courseGoalDescription}"</strong>
+        </div>
       </div>
       <div className="w-2/3">
         <div className="mb-12">Finish Info</div>
+        <div className="my-5 flex flex-wrap">
+          <div className="w-full sm:w-1/3">
+            <div>Time</div>
+            <div className="text-xl font-bold">
+              {irp.paceWithTimeCumulative.timeFormatted}
+            </div>
+          </div>
+          <div className="w-full sm:w-1/3">
+            <div>Pace ({irp.paceWithTimeCumulative.paceLabel})</div>
+            <div className="text-xl font-bold">
+              {irp.paceWithTimeCumulative.paceValue || "--"}
+            </div>
+          </div>
+          <div className="w-full sm:w-1/3">
+            <div>Finish Time ({irp.timeZoneAbbreviated})</div>
+            <div className="text-xl font-bold">
+              {irp.finishTime ? irp.finishTime : "--"}
+            </div>
+          </div>
+        </div>
+        <hr className="my-5" />
+        <div className="flex space-x-4">
+          {irp.bracketResults.map((bracket) => (
+            <div className="flex-1" key={bracket.rank}>
+              <div className="truncate" title={bracket.name}>
+                {bracket.name}
+              </div>
+              <div className="mt-1 text-2xl font-bold text-primary">
+                {bracket.rank} of {bracket.totalRacers}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <hr className="my-5" />
         <table className="my-5 table-auto w-full">
           <thead>
             <tr>

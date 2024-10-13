@@ -3,7 +3,7 @@ import { PaceWithTime } from "@/app/_components/IntervalTime"
 export interface Irp {
   athleteId: number
   bib: string
-  bracketResults: any[]
+  bracketResults: IrpResultByBracketDto[]
   courseGoalDescription: string
   finishTime: string | null
   firstName: string
@@ -17,6 +17,13 @@ export interface Irp {
   tags: string[]
   timeZoneAbbreviated: string
   trainingList: string[]
+}
+
+export interface IrpResultByBracketDto {
+  id: number
+  name: string
+  rank: number
+  totalRacers: number
 }
 
 export interface IrpResultByIntervalDto {
