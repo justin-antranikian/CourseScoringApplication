@@ -42,7 +42,7 @@ export default async function Page({ params: { id } }: Props) {
             {leaderboard.courseName}
             <LeaderBoard leaderboard={leaderboard} />
             <div className="my-5 text-right">
-              <Link href={`/cources/${leaderboard.courseId}`}>View</Link>
+              <Link href={`/courses/${leaderboard.courseId}`}>View</Link>
             </div>
           </div>
         ))}
