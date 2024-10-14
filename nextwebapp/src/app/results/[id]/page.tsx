@@ -3,6 +3,8 @@ import React from "react"
 import { Irp, IrpResultByIntervalDto } from "./definitions"
 import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
+import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import Link from "next/link"
 
 export const dynamic = "force-dynamic"
 
@@ -24,13 +26,16 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/3">
-        <div className="mt-4 text-2xl font-bold">{irp.fullName}</div>
+        <div className="mt-4 text-2xl font-bold">
+          <Link href={`/athletes/${irp.athleteId}`}>{irp.fullName}</Link>
+        </div>
         <div className="text-lg">
           {irp.locationInfoWithRank.city}, {irp.locationInfoWithRank.state}
         </div>
         <div className="mb-3 text-xs">
           {irp.genderAbbreviated} | {irp.raceAge}
         </div>
+        <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} />
         <div>
           {irp.tags.map((tag, index) => (
             <span

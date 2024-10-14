@@ -1,4 +1,5 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
+import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
 
 export interface Irp {
   athleteId: number
@@ -10,7 +11,7 @@ export interface Irp {
   fullName: string
   genderAbbreviated: string
   intervalResults: IrpResultByIntervalDto[]
-  locationInfoWithRank: any
+  locationInfoWithRank: LocationInfoWithRank
   paceWithTimeCumulative: PaceWithTime
   personalGoalDescription: string
   raceAge: number

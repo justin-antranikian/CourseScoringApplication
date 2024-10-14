@@ -157,8 +157,6 @@ export class ScoringApiService {
       athleteIds: athleteIds
     };
 
-    debugger
-
     return this.http.post<any>(`${config.apiUrl}/compareAthletesApi`, body)
   }
 

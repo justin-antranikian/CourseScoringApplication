@@ -1,8 +1,9 @@
+import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
 import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
 
 export interface RaceLeaderboardDto {
   leaderboards: RaceLeaderboardByCourseDto[]
-  locationInfoWithRank: any
+  locationInfoWithRank: LocationInfoWithRank
   raceKickOffDate: string
   raceName: string
   raceSeriesDescription: string

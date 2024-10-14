@@ -1,4 +1,5 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
+import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
 
 export interface ArpDto {
   age: number
@@ -7,7 +8,7 @@ export interface ArpDto {
   fullName: string
   genderAbbreviated: string
   goals: any[]
-  locationInfoWithRank: any
+  locationInfoWithRank: LocationInfoWithRank
   results: ArpResultDto[]
   tags: string[]
   wellnessTrainingAndDiet: AthleteWellnessEntryDto[]

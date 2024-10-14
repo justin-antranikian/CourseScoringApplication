@@ -3,6 +3,7 @@ import { BracketRank } from "../../_components/BracketRank"
 import Link from "next/link"
 import { ArpDto, ArpResultDto } from "./definitions"
 import { PaceWithTime } from "@/app/_components/IntervalTime"
+import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 
 export const dynamic = "force-dynamic"
 
@@ -31,6 +32,7 @@ export default async function Page({ params: { id } }: Props) {
         <div className="mb-3 text-xs">
           {arp.genderAbbreviated} | {arp.age}
         </div>
+        <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} />
         <div className="my-3">{arp.firstName}'s training and diet</div>
         <ul className="list-disc pl-5">
           {arp.wellnessTrainingAndDiet.map((entry, index) => (

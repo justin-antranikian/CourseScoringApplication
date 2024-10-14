@@ -1,4 +1,5 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
+import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
 
 export interface CourseLeaderboardDto {
   courseDate: string
@@ -6,7 +7,7 @@ export interface CourseLeaderboardDto {
   courseName: string
   courseTime: string
   leaderboards: CourseLeaderboardByIntervalDto[]
-  locationInfoWithRank: any
+  locationInfoWithRank: LocationInfoWithRank
   raceId: number
   raceName: string
   raceSeriesId: number

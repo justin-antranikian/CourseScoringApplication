@@ -4,6 +4,7 @@ import {
   CourseLeaderboardByIntervalDto,
   CourseLeaderboardDto,
 } from "./definitions"
+import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 
 export const dynamic = "force-dynamic"
 
@@ -42,6 +43,9 @@ export default async function Page({ params: { id } }: Props) {
             <strong>{courseLeaderboard.courseTime}</strong>
           </div>
         </div>
+        <LocationInfoRankings
+          locationInfoWithRank={courseLeaderboard.locationInfoWithRank}
+        />
       </div>
       <div className="w-2/3">
         {courseLeaderboard.leaderboards.map((leaderboard, index) => (

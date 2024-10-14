@@ -1,30 +1,30 @@
 import { config } from "@/config"
 import React from "react"
-import { AthleteSearchResultDto } from "./definitions"
 import LocationInfoRankings from "../_components/LocationInfoRankings"
+import { EventSearchResultDto } from "./definitions"
 import Link from "next/link"
 
-const getData = async (): Promise<AthleteSearchResultDto[]> => {
-  const url = `${config.apiHost}/athleteSearchApi`
+const getData = async (): Promise<EventSearchResultDto[]> => {
+  const url = `${config.apiHost}/raceSeriesSearchApi`
   const response = await fetch(url)
   return await response.json()
 }
 
 export default async function Page() {
-  const athletes = await getData()
+  const events = await getData()
 
   return (
     <div className="flex gap-1">
       <div className="w-1/3">Directory</div>
       <div className="w-2/3">
         <div className="flex flex-wrap -mx-2">
-          {athletes.map((athlete, index) => (
+          {events.map((event, index) => (
             <div
               key={index}
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
             >
               <div className="p-4 bg-gray-200 rounded shadow">
-                <Card athlete={athlete} />
+                <Card event={event} />
               </div>
             </div>
           ))}
@@ -34,29 +34,22 @@ export default async function Page() {
   )
 }
 
-const Card = ({ athlete }: { athlete: AthleteSearchResultDto }) => {
+const Card = ({ event }: { event: EventSearchResultDto }) => {
   return (
     <div>
       <div className="py-2 text-center bg-secondary">
-        <Link href={`/athletes/${athlete.id}`}>
-          <strong>{athlete.fullName}</strong>
+        <Link href={`/races/${event.upcomingRaceId}`}>
+          <strong>{event.name}</strong>
         </Link>
       </div>
 
       <div className="mt-2 px-2">
         <LocationInfoRankings
-          locationInfoWithRank={athlete.locationInfoWithRank}
+          locationInfoWithRank={event.locationInfoWithRank}
         />
         <div className="text-right">
           <i className="fa fa-plus-circle cursor-pointer" title="view more"></i>
         </div>
-      </div>
-      <div className="mb-2 px-2 text-right">
-        <i
-          // onClick={() => onCompareClicked(athlete)}
-          className="fa fa-compress cursor-pointer"
-          title="compare"
-        ></i>
       </div>
     </div>
   )

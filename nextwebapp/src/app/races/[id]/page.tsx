@@ -2,6 +2,7 @@ import { config } from "@/config"
 import React from "react"
 import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from "./definitions"
 import Link from "next/link"
+import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 
 export const dynamic = "force-dynamic"
 
@@ -35,6 +36,9 @@ export default async function Page({ params: { id } }: Props) {
           </div>
           <div className="font-bold">{raceLeaderboard.raceKickOffDate}</div>
         </div>
+        <LocationInfoRankings
+          locationInfoWithRank={raceLeaderboard.locationInfoWithRank}
+        />
       </div>
       <div className="w-2/3">
         {raceLeaderboard.leaderboards.map((leaderboard, index) => (
