@@ -6,7 +6,7 @@ import { CompareAthletesAthleteInfoDto } from "./definitions"
 
 interface Params {
   searchParams: {
-    athleteIds: string
+    ids: string
   }
 }
 
@@ -24,17 +24,12 @@ const getData = async (
   }
 
   const response = await fetch(url, requestInit)
-
-  console.log(response)
-
   return await response.json()
 }
 
 export default async function Page({ searchParams }: Params) {
-  const athleteIds = searchParams.athleteIds
-    ? JSON.parse(searchParams.athleteIds)
-    : []
-  const athletes = await getData(athleteIds)
+  const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
+  const athletes = await getData(ids)
 
   return (
     <>
