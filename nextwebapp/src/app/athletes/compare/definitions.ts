@@ -10,7 +10,7 @@ export interface CompareAthletesAthleteInfoDto {
   stats: CompareAthletesStat[]
 }
 
-interface CompareAthletesResult {
+export interface CompareAthletesResult {
   athleteCourseId: number
   raceId: number
   raceName: string

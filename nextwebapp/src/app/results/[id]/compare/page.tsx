@@ -3,7 +3,7 @@ import React from "react"
 import { CompareIrpsAthleteInfoDto } from "./definitions"
 import Link from "next/link"
 
-interface Params {
+interface Props {
   searchParams: {
     ids: string
   }
@@ -26,7 +26,7 @@ const getData = async (
   return await response.json()
 }
 
-export default async function Page({ searchParams }: Params) {
+export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const irpsToCompare = await getData(ids)
 

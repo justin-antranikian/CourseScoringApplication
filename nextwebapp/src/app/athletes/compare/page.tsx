@@ -2,9 +2,12 @@ import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { config } from "@/config"
 import Link from "next/link"
 import React from "react"
-import { CompareAthletesAthleteInfoDto } from "./definitions"
+import {
+  CompareAthletesAthleteInfoDto,
+  CompareAthletesResult,
+} from "./definitions"
 
-interface Params {
+interface Props {
   searchParams: {
     ids: string
   }
@@ -27,7 +30,7 @@ const getData = async (
   return await response.json()
 }
 
-export default async function Page({ searchParams }: Params) {
+export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const athletes = await getData(ids)
 
@@ -93,34 +96,7 @@ export default async function Page({ searchParams }: Params) {
               </thead>
               <tbody>
                 {athleteInfo.results.map((result) => (
-                  <tr key={result.athleteCourseId}>
-                    <td className="text-left">
-                      <div className="text-lg font-bold">{result.raceName}</div>
-                      <div>
-                        <span className="text-sm font-bold">
-                          <strong>{result.paceWithTime.timeFormatted}</strong>
-                        </span>
-                        {result.paceWithTime.hasPace && (
-                          <span className="text-xs">
-                            ({result.paceWithTime.paceValue}{" "}
-                            {result.paceWithTime.paceLabel})
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <Link
-                          className="text-xs text-blue-500 hover:underline"
-                          title="view result"
-                          href={`/results/${result.athleteCourseId}`}
-                        >
-                          View
-                        </Link>
-                      </div>
-                    </td>
-                    <td>{result.overallRank}</td>
-                    <td>{result.genderRank}</td>
-                    <td>{result.divisionRank}</td>
-                  </tr>
+                  <Result result={result} />
                 ))}
               </tbody>
             </table>
@@ -128,5 +104,37 @@ export default async function Page({ searchParams }: Params) {
         ))}
       </div>
     </>
+  )
+}
+
+const Result = ({ result }: { result: CompareAthletesResult }) => {
+  return (
+    <tr key={result.athleteCourseId}>
+      <td className="text-left">
+        <div className="text-lg font-bold">{result.raceName}</div>
+        <div>
+          <span className="text-sm font-bold">
+            <strong>{result.paceWithTime.timeFormatted}</strong>
+          </span>
+          {result.paceWithTime.hasPace && (
+            <span className="text-xs">
+              ({result.paceWithTime.paceValue} {result.paceWithTime.paceLabel})
+            </span>
+          )}
+        </div>
+        <div>
+          <Link
+            className="text-xs text-blue-500 hover:underline"
+            title="view result"
+            href={`/results/${result.athleteCourseId}`}
+          >
+            View
+          </Link>
+        </div>
+      </td>
+      <td>{result.overallRank}</td>
+      <td>{result.genderRank}</td>
+      <td>{result.divisionRank}</td>
+    </tr>
   )
 }
