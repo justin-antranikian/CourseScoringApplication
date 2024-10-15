@@ -1,5 +1,4 @@
-
-import React from 'react'
+import React from "react"
 
 interface Props {
   params: {
@@ -7,11 +6,7 @@ interface Props {
   }
 }
 
-export default function Page({ params: { slug }}: Props) {
+export default function Page({ params: { slug } }: Props) {
   console.log(slug.length)
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>
 }
