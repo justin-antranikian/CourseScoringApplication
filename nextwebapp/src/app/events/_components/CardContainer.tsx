@@ -29,13 +29,13 @@ export default function CardContainer({
   ): Promise<void> => {
     const raceId = event.upcomingRaceId
     const response = await fetch(`${apiHost}/raceLeaderboardApi/${raceId}`)
-
     const result = (await response.json()) as RaceLeaderboardDto
+
     setLeaderboard(result)
     setDialogOpen(true)
   }
 
-  const LeaderboardDialogContent = () => {
+  const QuickViewDialogContent = () => {
     if (!leaderboard) {
       return
     }
@@ -150,7 +150,7 @@ export default function CardContainer({
       ))}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <LeaderboardDialogContent />
+        <QuickViewDialogContent />
       </Dialog>
     </>
   )

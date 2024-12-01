@@ -4,6 +4,7 @@ import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from "./definitions"
 import Link from "next/link"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { Camera } from "lucide-react"
+import Content from "./_components/Content"
 
 export const dynamic = "force-dynamic"
 
@@ -42,87 +43,8 @@ export default async function Page({ params: { id } }: Props) {
         />
       </div>
       <div className="w-2/3">
-        {raceLeaderboard.leaderboards.map((leaderboard, index) => (
-          <div className="mt-12" key={index}>
-            {leaderboard.courseName}
-            <LeaderBoard leaderboard={leaderboard} />
-            <div className="my-5 text-right">
-              <Link href={`/courses/${leaderboard.courseId}`}>View</Link>
-            </div>
-          </div>
-        ))}
+        <Content apiHost={config.apiHost} raceLeaderboard={raceLeaderboard} />
       </div>
     </div>
-  )
-}
-
-const LeaderBoard = ({
-  leaderboard,
-}: {
-  leaderboard: RaceLeaderboardByCourseDto
-}) => {
-  return (
-    <table className="table-auto w-full">
-      <thead>
-        <tr>
-          <th className="w-[5%]"></th>
-          <th className="w-[5%]"></th>
-          <th className="w-[15%]">Bib</th>
-          <th className="w-[20%]">Name</th>
-          <th className="w-[10%]">Overall</th>
-          <th className="w-[10%]">Gender</th>
-          <th className="w-[10%]">Division</th>
-          <th className="w-[15%]">Time</th>
-          <th className="w-[10%]">Pace</th>
-        </tr>
-      </thead>
-      <tbody>
-        {leaderboard.results.map((irp) => (
-          <tr key={irp.athleteCourseId}>
-            <td className="text-left">
-              <a href={`/results/${irp.athleteCourseId}`}>View</a>
-            </td>
-            <td>
-              <Camera size={14} color="blue" strokeWidth={1.5} />
-              {/* <i
-                className="fa fa-plus-circle cursor-pointer"
-                title="view more"
-                // onClick={() => onViewIrpClicked(irp.athleteCourseId)}
-              ></i> */}
-            </td>
-            <td>
-              <span className="bg-gray-800 text-white p-2 rounded" title="bib">
-                {irp.bib}
-              </span>
-            </td>
-            <td>
-              <div>
-                <a
-                  className="font-bold text-black bg-secondary"
-                  href={`/athletes/${irp.athleteId}`}
-                >
-                  {irp.fullName}
-                </a>
-              </div>
-              <div>
-                {irp.genderAbbreviated} | {irp.raceAge}
-              </div>
-            </td>
-            <td className="font-bold text-gray-500">{irp.overallRank}</td>
-            <td className="font-bold text-gray-500">{irp.genderRank}</td>
-            <td className="font-bold text-gray-500">{irp.divisionRank}</td>
-            <td className="font-bold">
-              {irp.paceWithTimeCumulative.timeFormatted}
-            </td>
-            <td>
-              <div className="font-bold">
-                {irp.paceWithTimeCumulative.paceValue || "--"}
-              </div>
-              {irp.paceWithTimeCumulative.paceLabel}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
   )
 }
