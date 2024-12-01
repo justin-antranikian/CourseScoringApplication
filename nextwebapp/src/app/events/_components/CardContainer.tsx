@@ -117,17 +117,14 @@ export default function CardContainer({
           })}
         </>
       )
-      // leaderboard.leaderboards.map(oo => {
-      //   ret
-      // })}
     }
 
     return (
-      <DialogContent className="w-[90%] max-w-screen-lg">
+      <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Race Leaderboard Quick View</DialogTitle>
           <DialogDescription>
-            <div className="flex">
+            <div className="flex mt-5">
               <div className="flex-[1]">{leaderboard.raceName}</div>
               <div className="flex-[3]">
                 <LeaderboardContent />

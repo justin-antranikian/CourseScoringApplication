@@ -3,6 +3,7 @@ import React from "react"
 import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from "./definitions"
 import Link from "next/link"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import { Camera } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -82,11 +83,12 @@ const LeaderBoard = ({
               <a href={`/results/${irp.athleteCourseId}`}>View</a>
             </td>
             <td>
-              <i
+              <Camera size={14} color="blue" strokeWidth={1.5} />
+              {/* <i
                 className="fa fa-plus-circle cursor-pointer"
                 title="view more"
                 // onClick={() => onViewIrpClicked(irp.athleteCourseId)}
-              ></i>
+              ></i> */}
             </td>
             <td>
               <span className="bg-gray-800 text-white p-2 rounded" title="bib">
