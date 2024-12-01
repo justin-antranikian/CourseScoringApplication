@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArpDto, ArpResultDto } from "./definitions"
 import { PaceWithTime } from "@/app/_components/IntervalTime"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import AtheleteResult from "./AtheleteResult"
 
 export const dynamic = "force-dynamic"
 
@@ -55,8 +56,7 @@ export default async function Page({ params: { id } }: Props) {
         <table className="my-5 table-auto w-full">
           <thead>
             <tr>
-              <th className="w-[5%]" scope="col"></th>
-              <th className="w-[15%]" scope="col"></th>
+              <th className="w-[20%]" scope="col"></th>
               <th className="w-[30%] text-left" scope="col">
                 Event Name
               </th>
@@ -76,62 +76,11 @@ export default async function Page({ params: { id } }: Props) {
           </thead>
           <tbody>
             {arp.results.map((result) => {
-              return <Result result={result} />
+              return <AtheleteResult result={result} />
             })}
           </tbody>
         </table>
       </div>
     </div>
-  )
-}
-
-const RankWithTime = ({ paceTime }: { paceTime: PaceWithTime }) => {
-  return (
-    <>
-      <div className="text-lg font-bold">{paceTime.timeFormatted}</div>
-      {paceTime.hasPace && (
-        <div>
-          <strong className="mr-1">{paceTime.paceValue || "N/A"}</strong>
-          {paceTime.paceLabel}
-        </div>
-      )}
-    </>
-  )
-}
-
-const Result = ({ result }: { result: ArpResultDto }) => {
-  return (
-    <tr>
-      <td></td>
-      <td>
-        <Link href={`/results/${result.athleteCourseId}`}>View</Link>
-      </td>
-      <td>
-        <div>
-          <Link href={`/races/${result.raceId}`}>{result.raceName}</Link>
-        </div>
-        <div>
-          <Link href={`/courses/${result.courseId}`}>{result.courseName}</Link>
-        </div>
-        <div>
-          {result.state}, {result.city}
-        </div>
-      </td>
-      <td>
-        <BracketRank rank={result.overallRank} total={result.overallCount} />
-      </td>
-      <td>
-        <BracketRank rank={result.genderRank} total={result.genderCount} />
-      </td>
-      <td>
-        <BracketRank
-          rank={result.primaryDivisionRank}
-          total={result.primaryDivisionCount}
-        />
-      </td>
-      <td>
-        <RankWithTime paceTime={result.paceWithTimeCumulative} />
-      </td>
-    </tr>
   )
 }

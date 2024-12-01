@@ -28,9 +28,8 @@ export default function Content({
   const handleQuickViewClicked = async (
     irpResult: LeaderboardResultDto,
   ): Promise<void> => {
-    const response = await fetch(
-      `${apiHost}/irpApi/${irpResult.athleteCourseId}`,
-    )
+    const url = `${apiHost}/irpApi/${irpResult.athleteCourseId}`
+    const response = await fetch(url)
     const result = (await response.json()) as Irp
     setIrp(result)
     setDialogOpen(true)
