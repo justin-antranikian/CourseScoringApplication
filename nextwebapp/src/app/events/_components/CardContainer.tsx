@@ -40,13 +40,99 @@ export default function CardContainer({
       return
     }
 
+    const LeaderboardContent = () => {
+      return (
+        <>
+          {leaderboard.leaderboards.map((board) => {
+            return (
+              <>
+                <div>
+                  <strong>{board.courseName}</strong>
+                </div>
+
+                <table className="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th className="w-[10%]"></th>
+                      <th className="w-[15%]">Bib</th>
+                      <th className="w-[20%]">Name</th>
+                      <th className="w-[10%]">Overall</th>
+                      <th className="w-[10%]">Gender</th>
+                      <th className="w-[10%]">Division</th>
+                      <th className="w-[15%]">Time</th>
+                      <th className="w-[10%]">Pace</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {board.results.map((irp) => (
+                      <tr key={irp.athleteCourseId}>
+                        <td className="text-left">
+                          <a href={`/results/${irp.athleteCourseId}`}>View</a>
+                        </td>
+                        <td>
+                          <span
+                            className="bg-gray-800 text-white p-2 rounded"
+                            title="bib"
+                          >
+                            {irp.bib}
+                          </span>
+                        </td>
+                        <td>
+                          <div>
+                            <a
+                              className="font-bold text-black bg-secondary"
+                              href={`/athletes/${irp.athleteId}`}
+                            >
+                              {irp.fullName}
+                            </a>
+                          </div>
+                          <div>
+                            {irp.genderAbbreviated} | {irp.raceAge}
+                          </div>
+                        </td>
+                        <td className="font-bold text-gray-500">
+                          {irp.overallRank}
+                        </td>
+                        <td className="font-bold text-gray-500">
+                          {irp.genderRank}
+                        </td>
+                        <td className="font-bold text-gray-500">
+                          {irp.divisionRank}
+                        </td>
+                        <td className="font-bold">
+                          {irp.paceWithTimeCumulative.timeFormatted}
+                        </td>
+                        <td>
+                          <div className="font-bold">
+                            {irp.paceWithTimeCumulative.paceValue || "--"}
+                          </div>
+                          {irp.paceWithTimeCumulative.paceLabel}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            )
+          })}
+        </>
+      )
+      // leaderboard.leaderboards.map(oo => {
+      //   ret
+      // })}
+    }
+
     return (
-      <DialogContent>
+      <DialogContent className="w-[90%] max-w-screen-lg">
         <DialogHeader>
-          <DialogTitle>{leaderboard.raceName}</DialogTitle>
+          <DialogTitle>Race Leaderboard Quick View</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            <div className="flex">
+              <div className="flex-[1]">{leaderboard.raceName}</div>
+              <div className="flex-[3]">
+                <LeaderboardContent />
+              </div>
+            </div>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
