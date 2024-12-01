@@ -11,7 +11,7 @@ export default function Card({
   clickHandler,
 }: {
   event: EventSearchResultDto
-  clickHandler: (id: number) => Promise<void>
+  clickHandler: (event: EventSearchResultDto) => Promise<void>
 }) {
   return (
     <div>
@@ -33,7 +33,7 @@ export default function Card({
             size={14}
             color="blue"
             strokeWidth={1.5}
-            onClick={() => clickHandler(event.id)}
+            onClick={() => clickHandler(event)}
           />
         </div>
       </div>

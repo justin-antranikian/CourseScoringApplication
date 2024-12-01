@@ -1,7 +1,6 @@
 import { config } from "@/config"
 import React from "react"
 import { EventSearchResultDto } from "./definitions"
-import Card from "./_components/Card"
 import CardContainer from "./_components/CardContainer"
 
 const getData = async (): Promise<EventSearchResultDto[]> => {
@@ -18,7 +17,7 @@ export default async function Page() {
       <div className="w-1/3">Directory</div>
       <div className="w-2/3">
         <div className="flex flex-wrap -mx-2">
-          <CardContainer events={events} />
+          <CardContainer events={events} apiHost={config.apiHost} />
         </div>
       </div>
     </div>
