@@ -14,6 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
 
 export default function EventCard({
   event,
@@ -24,53 +30,63 @@ export default function EventCard({
 }) {
   return (
     <div>
-      <Card className="rounded shadow">
-        <CardTitle>
-          <div className="bg-purple-200 text-center text-base py-2">
-            <Link href={`/races/${event.upcomingRaceId}`}>
-              <strong>{event.name}</strong>
-            </Link>
-          </div>
-        </CardTitle>
-        <CardContent>
-          <div className="my-3">
-            <LocationInfoRankings
-              locationInfoWithRank={event.locationInfoWithRank}
-            />
-          </div>
-          <div>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Ellipsis />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>Events</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {event.courses.map((course) => {
-                  return (
-                    <DropdownMenuItem key={course.id}>
-                      <Link href={`/races/${course.id}`}>
-                        {course.displayName}
-                      </Link>
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <Card className="rounded shadow">
+            <CardTitle>
+              <div className="bg-purple-200 text-center text-base py-2">
+                <Link href={`/races/${event.upcomingRaceId}`}>
+                  <strong>{event.name}</strong>
+                </Link>
+              </div>
+            </CardTitle>
+            <CardContent>
+              <div className="my-3">
+                <LocationInfoRankings
+                  locationInfoWithRank={event.locationInfoWithRank}
+                />
+              </div>
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Ellipsis />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Events</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {event.courses.map((course) => {
+                      return (
+                        <DropdownMenuItem key={course.id}>
+                          <Link href={`/races/${course.id}`}>
+                            {course.displayName}
+                          </Link>
+                        </DropdownMenuItem>
+                      )
+                    })}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => clickHandler(event)}>
+                      {" "}
+                      <BadgePlus
+                        className="cursor-pointer"
+                        size={10}
+                        color="black"
+                        strokeWidth={1.5}
+                      />
+                      Quick View
                     </DropdownMenuItem>
-                  )
-                })}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => clickHandler(event)}>
-                  {" "}
-                  <BadgePlus
-                    className="cursor-pointer"
-                    size={10}
-                    color="black"
-                    strokeWidth={1.5}
-                  />
-                  Quick View
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </CardContent>
-      </Card>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div></div>
+            </CardContent>
+          </Card>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem onClick={() => clickHandler(event)}>
+            Quick View
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
     </div>
   )
 }
