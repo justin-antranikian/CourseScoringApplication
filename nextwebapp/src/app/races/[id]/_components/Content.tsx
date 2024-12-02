@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog"
 import Link from "next/link"
 import Result from "@/app/results/[id]/Result"
+import { Button } from "@/components/ui/button"
 
 export default function Content({
   apiHost,
@@ -46,31 +47,31 @@ export default function Content({
           <table className="my-5 table-auto w-full">
             <thead>
               <tr>
-                <th className="w-[15%]" scope="col"></th>
-                <th className="w-[20%]" scope="col">
+                <th className="w-[15%] text-left" scope="col"></th>
+                <th className="w-[20%] text-left" scope="col">
                   Time{" "}
                   <span className="text-sm">({irp.timeZoneAbbreviated})</span>
                 </th>
-                <th className="w-[10%]" scope="col">
+                <th className="w-[10%] text-left" scope="col">
                   Overall
                 </th>
-                <th className="w-[10%]" scope="col">
+                <th className="w-[10%] text-left" scope="col">
                   Gender
                 </th>
-                <th className="w-[10%]" scope="col">
+                <th className="w-[10%] text-left" scope="col">
                   Division
                 </th>
-                <th className="w-[15%]" scope="col">
+                <th className="w-[15%] text-left" scope="col">
                   Interval Time
                 </th>
-                <th className="w-[20%]" scope="col">
+                <th className="w-[20%] text-left" scope="col">
                   Cumulative Time
                 </th>
               </tr>
             </thead>
             <tbody>
               {irp.intervalResults.map((intervalResult, index) => (
-                <Result result={intervalResult} />
+                <Result result={intervalResult} key={index} />
               ))}
             </tbody>
           </table>
@@ -98,14 +99,18 @@ export default function Content({
   return (
     <>
       {raceLeaderboard.leaderboards.map((leaderboard, index) => (
-        <div className="mt-12" key={index}>
-          {leaderboard.courseName}
+        <div key={index}>
+          <div className="mb-8 text-purple-500 bold text-2xl">
+            {leaderboard.courseName}
+          </div>
           <LeaderBoard
             leaderboard={leaderboard}
             clickHandler={handleQuickViewClicked}
           />
-          <div className="my-5 text-right">
-            <Link href={`/courses/${leaderboard.courseId}`}>View</Link>
+          <div className="my-8 text-right">
+            <Button>
+              <Link href={`/courses/${leaderboard.courseId}`}>View</Link>
+            </Button>
           </div>
         </div>
       ))}
@@ -126,20 +131,34 @@ const LeaderBoard = ({
 }) => {
   return (
     <table className="table-auto w-full">
-      <thead>
+      <thead className="text-lg">
         <tr>
-          <th className="w-[5%]"></th>
-          <th className="w-[5%]"></th>
-          <th className="w-[15%]">Bib</th>
-          <th className="w-[20%]">Name</th>
-          <th className="w-[10%]">Overall</th>
-          <th className="w-[10%]">Gender</th>
-          <th className="w-[10%]">Division</th>
-          <th className="w-[15%]">Time</th>
-          <th className="w-[10%]">Pace</th>
+          <th className="w-[5%] text-left" scope="col"></th>
+          <th className="w-[5%] text-left" scope="col"></th>
+          <th className="w-[15%] text-left" scope="col">
+            Bib
+          </th>
+          <th className="w-[20%] text-left" scope="col">
+            Name
+          </th>
+          <th className="w-[10%] text-left" scope="col">
+            Overall
+          </th>
+          <th className="w-[10%] text-left" scope="col">
+            Gender
+          </th>
+          <th className="w-[10%] text-left" scope="col">
+            Division
+          </th>
+          <th className="w-[15%] text-left" scope="col">
+            Time
+          </th>
+          <th className="w-[10%] text-left" scope="col">
+            Pace
+          </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="text-sm">
         {leaderboard.results.map((irp) => (
           <tr key={irp.athleteCourseId}>
             <td className="text-left">
@@ -147,8 +166,9 @@ const LeaderBoard = ({
             </td>
             <td>
               <Camera
+                className="cursor-pointer"
                 size={14}
-                color="blue"
+                color="black"
                 strokeWidth={1.5}
                 onClick={() => clickHandler(irp)}
               />
@@ -160,12 +180,7 @@ const LeaderBoard = ({
             </td>
             <td>
               <div>
-                <a
-                  className="font-bold text-black bg-secondary"
-                  href={`/athletes/${irp.athleteId}`}
-                >
-                  {irp.fullName}
-                </a>
+                <a href={`/athletes/${irp.athleteId}`}>{irp.fullName}</a>
               </div>
               <div>
                 {irp.genderAbbreviated} | {irp.raceAge}

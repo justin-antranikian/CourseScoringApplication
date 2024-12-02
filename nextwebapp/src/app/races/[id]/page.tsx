@@ -1,9 +1,7 @@
 import { config } from "@/config"
 import React from "react"
-import { RaceLeaderboardByCourseDto, RaceLeaderboardDto } from "./definitions"
-import Link from "next/link"
+import { RaceLeaderboardDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
-import { Camera } from "lucide-react"
 import Content from "./_components/Content"
 
 export const dynamic = "force-dynamic"
@@ -26,9 +24,7 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/3">
-        <div className="mt-4 text-2xl font-bold">
-          {raceLeaderboard.raceName}
-        </div>
+        <div className="text-2xl font-bold">{raceLeaderboard.raceName}</div>
         <div className="text-lg text-blue-500 font-bold">All Courses</div>
 
         <div className="text-sm mb-2">

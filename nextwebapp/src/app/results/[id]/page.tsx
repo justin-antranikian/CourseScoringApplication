@@ -1,8 +1,6 @@
 import { config } from "@/config"
 import React from "react"
-import { Irp, IrpResultByIntervalDto } from "./definitions"
-import { BracketRank } from "@/app/_components/BracketRank"
-import IntervalTime from "@/app/_components/IntervalTime"
+import { Irp } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Result from "./Result"
@@ -27,7 +25,7 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/3">
-        <div className="mt-4 text-2xl font-bold">
+        <div className="text-2xl font-bold">
           <Link href={`/athletes/${irp.athleteId}`}>{irp.fullName}</Link>
         </div>
         <div className="text-lg">
@@ -67,7 +65,7 @@ export default async function Page({ params: { id } }: Props) {
         </div>
       </div>
       <div className="w-2/3">
-        <div className="mb-12">Finish Info</div>
+        <div className="mb-12 bold text-2xl">Finish Info</div>
         <div className="my-5 flex flex-wrap">
           <div className="w-full sm:w-1/3">
             <div>Time</div>
@@ -106,24 +104,24 @@ export default async function Page({ params: { id } }: Props) {
         <table className="my-5 table-auto w-full">
           <thead>
             <tr>
-              <th className="w-[15%]" scope="col"></th>
-              <th className="w-[20%]" scope="col">
+              <th className="w-[15%] text-left" scope="col"></th>
+              <th className="w-[20%] text-left" scope="col">
                 Time{" "}
                 <span className="text-sm">({irp.timeZoneAbbreviated})</span>
               </th>
-              <th className="w-[10%]" scope="col">
+              <th className="w-[10%] text-left" scope="col">
                 Overall
               </th>
-              <th className="w-[10%]" scope="col">
+              <th className="w-[10%] text-left" scope="col">
                 Gender
               </th>
-              <th className="w-[10%]" scope="col">
+              <th className="w-[10%] text-left" scope="col">
                 Division
               </th>
-              <th className="w-[15%]" scope="col">
+              <th className="w-[15%] text-left" scope="col">
                 Interval Time
               </th>
-              <th className="w-[20%]" scope="col">
+              <th className="w-[20%] text-left" scope="col">
                 Cumulative Time
               </th>
             </tr>

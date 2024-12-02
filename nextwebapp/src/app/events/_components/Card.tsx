@@ -57,7 +57,7 @@ export default function EventCard({
                     {event.courses.map((course) => {
                       return (
                         <DropdownMenuItem key={course.id}>
-                          <Link href={`/races/${course.id}`}>
+                          <Link href={`/courses/${course.id}`}>
                             {course.displayName}
                           </Link>
                         </DropdownMenuItem>
