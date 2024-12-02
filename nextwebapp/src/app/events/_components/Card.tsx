@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -52,15 +51,12 @@ export default function EventCard({
                     <Ellipsis />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuLabel>Events</DropdownMenuLabel>
                     <DropdownMenuItem>
                       <Link href={`/races/${event.upcomingRaceId}`}>
                         Leaderboard
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-
                     {event.courses.map((course) => {
                       return (
                         <DropdownMenuItem key={course.id}>

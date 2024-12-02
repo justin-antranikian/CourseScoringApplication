@@ -3,12 +3,7 @@
 import React, { useState } from "react"
 import { EventSearchResultDto } from "../definitions"
 import EventCard from "./Card"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 

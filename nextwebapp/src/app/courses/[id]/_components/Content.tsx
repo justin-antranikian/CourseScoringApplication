@@ -1,21 +1,18 @@
 "use client"
 
 import React, { useState } from "react"
-import { RaceLeaderboardDto } from "../definitions"
+import { CourseLeaderboardDto, LeaderboardResultDto } from "../definitions"
 import { Camera } from "lucide-react"
-import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
 import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import IrpQuickView from "./IrpQuickView"
+import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
 
 export default function Content({
   apiHost,
-  raceLeaderboard,
+  courseLeaderboard,
 }: {
   apiHost: string
-  raceLeaderboard: RaceLeaderboardDto
+  courseLeaderboard: CourseLeaderboardDto
 }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
@@ -32,12 +29,12 @@ export default function Content({
 
   return (
     <>
-      {raceLeaderboard.leaderboards.map((leaderboard, index) => (
+      {courseLeaderboard.leaderboards.map((leaderboard, index) => (
         <div key={index}>
           <div className="mb-8 text-purple-500 bold text-2xl">
-            {leaderboard.courseName}
+            {leaderboard.intervalName}
           </div>
-          <table className="table-auto w-full">
+          <table className="table-auto w-full mb-8">
             <thead className="text-lg">
               <tr className="border-b border-black">
                 <th className="w-[5%] text-left py-2" scope="col"></th>
@@ -121,11 +118,6 @@ export default function Content({
               ))}
             </tbody>
           </table>
-          <div className="my-8 text-right">
-            <Button>
-              <Link href={`/courses/${leaderboard.courseId}`}>View</Link>
-            </Button>
-          </div>
         </div>
       ))}
 
