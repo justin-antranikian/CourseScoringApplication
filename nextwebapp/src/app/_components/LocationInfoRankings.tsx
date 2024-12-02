@@ -20,10 +20,10 @@ export default function LocationInfoRankings({
   locationInfoWithRank: LocationInfoWithRank
 }) {
   return (
-    <div>
+    <div className="text-xs">
       <div>
         <strong>#{locationInfoWithRank.overallRank}</strong>
-        <a>Overall</a>
+        <a> Overall</a>
       </div>
       <div>
         <RankLink

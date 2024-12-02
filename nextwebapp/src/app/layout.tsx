@@ -28,7 +28,7 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-        {children}
+        <div className="p-3">{children}</div>
       </body>
     </html>
   )

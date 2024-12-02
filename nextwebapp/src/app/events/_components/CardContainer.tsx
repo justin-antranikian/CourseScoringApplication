@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { EventSearchResultDto } from "../definitions"
-import Card from "./Card"
+import EventCard from "./Card"
 import {
   Dialog,
   DialogContent,
@@ -143,9 +143,7 @@ export default function CardContainer({
           key={index}
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
         >
-          <div className="p-4 bg-gray-200 rounded shadow">
-            <Card event={event} clickHandler={handleViewMoreClicked} />
-          </div>
+          <EventCard event={event} clickHandler={handleViewMoreClicked} />
         </div>
       ))}
 
