@@ -13,13 +13,19 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-import { Ellipsis, BadgePlus } from "lucide-react"
+import { Ellipsis, BadgePlus, Info } from "lucide-react"
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
 
 export default function CardContainer({
   events,
@@ -44,6 +50,15 @@ export default function CardContainer({
     setDialogOpen(true)
   }
 
+  const handlePopoverChange = (open: boolean, irp: LeaderboardResultDto) => {
+    if (!open) {
+      return
+    }
+
+    console.log(open)
+    console.log(irp)
+  }
+
   const QuickViewDialogContent = () => {
     if (!leaderboard) {
       return
@@ -62,8 +77,8 @@ export default function CardContainer({
                 <table className="table-auto w-full mb-8">
                   <thead className="text-lg">
                     <tr className="border-b border-black">
-                      <th className="w-[10%] text-left py-2" scope="col"></th>
-                      <th className="w-[15%] text-left py-2" scope="col">
+                      <th className="w-[15%] text-left py-2" scope="col"></th>
+                      <th className="w-[10%] text-left py-2" scope="col">
                         Bib
                       </th>
                       <th className="w-[20%] text-left py-2" scope="col">
@@ -94,6 +109,22 @@ export default function CardContainer({
                       >
                         <td className="text-left py-2">
                           <a href={`/results/${irp.athleteCourseId}`}>View</a>
+                          <span className="ml-2">
+                            <Popover
+                              onOpenChange={(open) =>
+                                handlePopoverChange(open, irp)
+                              }
+                            >
+                              <PopoverTrigger
+                                onClick={() => console.log("aaa")}
+                              >
+                                <Info size={12} />
+                              </PopoverTrigger>
+                              <PopoverContent>
+                                Place content for the popover here.
+                              </PopoverContent>
+                            </Popover>
+                          </span>
                         </td>
                         <td className="py-2">
                           <span
