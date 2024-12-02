@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { EventSearchResultDto } from "../definitions"
 import EventCard from "./Card"
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 
@@ -130,28 +130,26 @@ export default function CardContainer({
 
     return (
       <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <div className="flex mt-5">
-            <div className="flex-[1]">
-              <div className="text-2xl bold">{leaderboard.raceName}</div>
-              <div className="text-sm mb-2">
-                <div>
-                  {leaderboard.locationInfoWithRank.city},{" "}
-                  {leaderboard.locationInfoWithRank.state}
-                </div>
-                <div className="font-bold">{leaderboard.raceKickOffDate}</div>
-                <div className="mt-3">
-                  <LocationInfoRankings
-                    locationInfoWithRank={leaderboard.locationInfoWithRank}
-                  />
-                </div>
+        <div className="flex mt-5">
+          <div className="flex-[1]">
+            <div className="text-2xl bold">{leaderboard.raceName}</div>
+            <div className="text-sm mb-2">
+              <div>
+                {leaderboard.locationInfoWithRank.city},{" "}
+                {leaderboard.locationInfoWithRank.state}
+              </div>
+              <div className="font-bold">{leaderboard.raceKickOffDate}</div>
+              <div className="mt-3">
+                <LocationInfoRankings
+                  locationInfoWithRank={leaderboard.locationInfoWithRank}
+                />
               </div>
             </div>
-            <div className="flex-[3]">
-              <LeaderboardContent />
-            </div>
           </div>
-        </DialogHeader>
+          <div className="flex-[3]">
+            <LeaderboardContent />
+          </div>
+        </div>
       </DialogContent>
     )
   }

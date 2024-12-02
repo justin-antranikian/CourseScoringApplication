@@ -4,13 +4,7 @@ import React, { useState } from "react"
 import { AthleteSearchResultDto } from "../definitions"
 import Link from "next/link"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { ArpDto } from "../[id]/definitions"
 import { Camera } from "lucide-react"
 import AtheleteResult from "../[id]/AtheleteResult"
@@ -42,25 +36,24 @@ export default function Content({
     const AthleteResultsContent = () => {
       return (
         <>
-          <div className="mb-12">Results</div>
-
+          <div className="mb-8 text-purple-500 bold text-2xl">Results</div>
           <table className="my-5 table-auto w-full">
             <thead>
-              <tr>
-                <th className="w-[20%]" scope="col"></th>
-                <th className="w-[30%] text-left" scope="col">
+              <tr className="border-b border-black">
+                <th className="w-[10%] py-2" scope="col"></th>
+                <th className="w-[30%] text-left py-2" scope="col">
                   Event Name
                 </th>
-                <th className="w-[10%]" scope="col">
+                <th className="w-[13%] text-left py-2" scope="col">
                   Overall
                 </th>
-                <th className="w-[10%]" scope="col">
+                <th className="w-[13%] text-left py-2" scope="col">
                   Gender
                 </th>
-                <th className="w-[10%]" scope="col">
+                <th className="w-[14%] text-left py-2" scope="col">
                   Division
                 </th>
-                <th className="w-[20%]" scope="col">
+                <th className="w-[20%] text-left py-2" scope="col">
                   Total Time
                 </th>
               </tr>
@@ -77,17 +70,23 @@ export default function Content({
 
     return (
       <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Athlete Quick View</DialogTitle>
-          <DialogDescription>
-            <div className="flex mt-5">
-              <div className="flex-[1]">{arp.fullName}</div>
-              <div className="flex-[3]">
-                <AthleteResultsContent />
-              </div>
+        <div className="flex mt-5">
+          <div className="flex-[1]">
+            <div className="text-2xl font-bold">{arp.fullName}</div>
+            <div className="text-lg">
+              {arp.locationInfoWithRank.city}, {arp.locationInfoWithRank.state}
             </div>
-          </DialogDescription>
-        </DialogHeader>
+            <div className="mb-3 text-xs">
+              {arp.genderAbbreviated} | {arp.age}
+            </div>
+            <LocationInfoRankings
+              locationInfoWithRank={arp.locationInfoWithRank}
+            />
+          </div>
+          <div className="flex-[3]">
+            <AthleteResultsContent />
+          </div>
+        </div>
       </DialogContent>
     )
   }

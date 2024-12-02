@@ -14,8 +14,8 @@ export default async function Page() {
 
   return (
     <div className="flex gap-1">
-      <div className="w-1/3">Directory</div>
-      <div className="w-2/3">
+      <div className="w-1/4">Directory</div>
+      <div className="w-3/4">
         <div className="flex flex-wrap -mx-2">
           <Content apiHost={config.apiHost} athletes={athletes} />
         </div>

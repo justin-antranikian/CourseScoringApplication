@@ -19,8 +19,8 @@ export default function RootLayout({
           <div className="container mx-auto flex justify-between">
             <div className="text-white font-bold text-xl">Course Scoring</div>
             <div className="space-x-4">
-              <Link href="/people" className="text-white hover:text-gray-300">
-                People
+              <Link href="/athletes" className="text-white hover:text-gray-300">
+                Athletes
               </Link>
               <Link href="/events" className="text-white hover:text-gray-300">
                 Events

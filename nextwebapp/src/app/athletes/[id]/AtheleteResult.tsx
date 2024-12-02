@@ -6,11 +6,11 @@ import { PaceWithTime } from "@/app/_components/IntervalTime"
 
 export default function AtheleteResult({ result }: { result: ArpResultDto }) {
   return (
-    <tr>
-      <td>
+    <tr className="border-b border-gray-300">
+      <td className="py-2">
         <Link href={`/results/${result.athleteCourseId}`}>View</Link>
       </td>
-      <td>
+      <td className="py-2">
         <div>
           <Link href={`/races/${result.raceId}`}>{result.raceName}</Link>
         </div>
@@ -21,19 +21,19 @@ export default function AtheleteResult({ result }: { result: ArpResultDto }) {
           {result.state}, {result.city}
         </div>
       </td>
-      <td>
+      <td className="py-2">
         <BracketRank rank={result.overallRank} total={result.overallCount} />
       </td>
-      <td>
+      <td className="py-2">
         <BracketRank rank={result.genderRank} total={result.genderCount} />
       </td>
-      <td>
+      <td className="py-2">
         <BracketRank
           rank={result.primaryDivisionRank}
           total={result.primaryDivisionCount}
         />
       </td>
-      <td>
+      <td className="py-2">
         <RankWithTime paceTime={result.paceWithTimeCumulative} />
       </td>
     </tr>

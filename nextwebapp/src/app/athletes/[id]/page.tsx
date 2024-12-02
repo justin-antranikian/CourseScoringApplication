@@ -25,8 +25,8 @@ export default async function Page({ params: { id } }: Props) {
 
   return (
     <div className="flex gap-1">
-      <div className="w-1/3">
-        <div className="mt-4 text-2xl font-bold">{arp.fullName}</div>
+      <div className="w-1/4">
+        <div className="text-2xl font-bold">{arp.fullName}</div>
         <div className="text-lg">
           {arp.locationInfoWithRank.city}, {arp.locationInfoWithRank.state}
         </div>
@@ -35,41 +35,41 @@ export default async function Page({ params: { id } }: Props) {
         </div>
         <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} />
         <div className="my-3">{arp.firstName}'s training and diet</div>
-        <ul className="list-disc pl-5">
+        <ul className="list-disc pl-5 text-xs">
           {arp.wellnessTrainingAndDiet.map((entry, index) => (
             <li key={index}>{entry.description}</li>
           ))}
         </ul>
         <div className="my-3">{arp.firstName}'s goals</div>
-        <ul className="list-disc pl-5">
+        <ul className="list-disc pl-5 text-xs">
           {arp.wellnessGoals.map((entry, index) => (
             <li key={index}>{entry.description}</li>
           ))}
         </ul>
         <div className="my-3">{arp.firstName}'s inspiration</div>
         {arp.wellnessMotivationalList.map((entry) => {
-          return <div className="pl-5">{entry.description}</div>
+          return <div className="pl-5 text-xs">{entry.description}</div>
         })}
       </div>
-      <div className="w-2/3">
-        <div className="mb-12">Results</div>
+      <div className="w-3/4">
+        <div className="mb-12 bold text-2xl text-purple-500">Results</div>
         <table className="my-5 table-auto w-full">
           <thead>
-            <tr>
-              <th className="w-[20%]" scope="col"></th>
-              <th className="w-[30%] text-left" scope="col">
+            <tr className="border-b border-black">
+              <th className="w-[10%] py-2" scope="col"></th>
+              <th className="w-[30%] text-left py-2" scope="col">
                 Event Name
               </th>
-              <th className="w-[10%]" scope="col">
+              <th className="w-[13%] text-left py-2" scope="col">
                 Overall
               </th>
-              <th className="w-[10%]" scope="col">
+              <th className="w-[13%] text-left py-2" scope="col">
                 Gender
               </th>
-              <th className="w-[10%]" scope="col">
+              <th className="w-[14%] text-left py-2" scope="col">
                 Division
               </th>
-              <th className="w-[20%]" scope="col">
+              <th className="w-[20%] text-left py-2" scope="col">
                 Total Time
               </th>
             </tr>
