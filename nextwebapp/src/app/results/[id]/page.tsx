@@ -24,7 +24,7 @@ export default async function Page({ params: { id } }: Props) {
 
   return (
     <div className="flex gap-1">
-      <div className="w-1/3">
+      <div className="w-1/4">
         <div className="text-2xl font-bold">
           <Link href={`/athletes/${irp.athleteId}`}>{irp.fullName}</Link>
         </div>
@@ -35,7 +35,7 @@ export default async function Page({ params: { id } }: Props) {
           {irp.genderAbbreviated} | {irp.raceAge}
         </div>
         <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} />
-        <div>
+        <div className="mt-5">
           {irp.tags.map((tag, index) => (
             <span
               key={index}
@@ -64,8 +64,8 @@ export default async function Page({ params: { id } }: Props) {
           <strong>"{irp.courseGoalDescription}"</strong>
         </div>
       </div>
-      <div className="w-2/3">
-        <div className="mb-12 bold text-2xl">Finish Info</div>
+      <div className="w-3/4">
+        <div className="mb-12 bold text-2xl text-purple-500">Finish Info</div>
         <div className="my-5 flex flex-wrap">
           <div className="w-full sm:w-1/3">
             <div>Time</div>
@@ -101,6 +101,7 @@ export default async function Page({ params: { id } }: Props) {
         </div>
 
         <hr className="my-5" />
+        <div className="mb-12 bold text-2xl text-purple-500">Intervals</div>
         <table className="my-12 table-auto w-full">
           <thead>
             <tr className="border-b border-black">

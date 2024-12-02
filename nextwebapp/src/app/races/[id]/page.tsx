@@ -23,7 +23,7 @@ export default async function Page({ params: { id } }: Props) {
 
   return (
     <div className="flex gap-1">
-      <div className="w-1/3">
+      <div className="w-1/4">
         <div className="text-2xl font-bold">{raceLeaderboard.raceName}</div>
         <div className="text-lg text-blue-500 font-bold">All Courses</div>
 
@@ -38,7 +38,7 @@ export default async function Page({ params: { id } }: Props) {
           locationInfoWithRank={raceLeaderboard.locationInfoWithRank}
         />
       </div>
-      <div className="w-2/3">
+      <div className="w-3/4">
         <Content apiHost={config.apiHost} raceLeaderboard={raceLeaderboard} />
       </div>
     </div>
