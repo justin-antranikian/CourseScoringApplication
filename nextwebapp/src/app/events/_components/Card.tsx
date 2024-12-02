@@ -30,16 +30,16 @@ export default function EventCard({
 }) {
   return (
     <div>
-      <ContextMenu>
-        <ContextMenuTrigger>
-          <Card className="rounded shadow">
-            <CardTitle>
-              <div className="bg-purple-200 text-center text-base py-2">
-                <Link href={`/races/${event.upcomingRaceId}`}>
-                  <strong>{event.name}</strong>
-                </Link>
-              </div>
-            </CardTitle>
+      <Card className="rounded shadow">
+        <CardTitle>
+          <div className="bg-purple-200 text-center text-base py-2">
+            <Link href={`/races/${event.upcomingRaceId}`}>
+              <strong>{event.name}</strong>
+            </Link>
+          </div>
+        </CardTitle>
+        <ContextMenu>
+          <ContextMenuTrigger>
             <CardContent>
               <div className="my-3">
                 <LocationInfoRankings
@@ -52,8 +52,15 @@ export default function EventCard({
                     <Ellipsis />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel>Events</DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <DropdownMenuLabel>Events</DropdownMenuLabel>
+                    <DropdownMenuItem>
+                      <Link href={`/races/${event.upcomingRaceId}`}>
+                        Leaderboard
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+
                     {event.courses.map((course) => {
                       return (
                         <DropdownMenuItem key={course.id}>
@@ -79,14 +86,14 @@ export default function EventCard({
               </div>
               <div></div>
             </CardContent>
-          </Card>
-        </ContextMenuTrigger>
-        <ContextMenuContent>
-          <ContextMenuItem onClick={() => clickHandler(event)}>
-            Quick View
-          </ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
+          </ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuItem onClick={() => clickHandler(event)}>
+              Quick View
+            </ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
+      </Card>
     </div>
   )
 }
