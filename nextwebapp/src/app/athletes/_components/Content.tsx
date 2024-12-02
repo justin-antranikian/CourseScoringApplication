@@ -2,12 +2,25 @@
 
 import React, { useState } from "react"
 import { AthleteSearchResultDto } from "../definitions"
-import Link from "next/link"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { ArpDto } from "../[id]/definitions"
-import { Camera } from "lucide-react"
+import { BadgePlus, Camera, Ellipsis } from "lucide-react"
 import AtheleteResult from "../[id]/AtheleteResult"
+import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function Content({
   apiHost,
@@ -19,7 +32,7 @@ export default function Content({
   const [dialogOpen, setDialogOpen] = useState(false)
   const [arp, setArp] = useState<ArpDto | null>(null)
 
-  const handleQuickViewClicked = async (arpResult: AthleteSearchResultDto) => {
+  const handleViewMoreClicked = async (arpResult: AthleteSearchResultDto) => {
     const url = `${apiHost}/arpApi/${arpResult.id}`
     const response = await fetch(url)
     const result = (await response.json()) as ArpDto
@@ -98,26 +111,53 @@ export default function Content({
           key={index}
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
         >
-          <div className="p-4 bg-gray-200 rounded shadow">
-            <div>
-              <div className="py-2 text-center bg-secondary">
-                <Link href={`/athletes/${athlete.id}`}>
+          <Card className="rounded shadow">
+            <CardTitle>
+              <div className="bg-purple-200 text-center text-base py-2">
+                <a href={`/athletes/${athlete.id}`}>
                   <strong>{athlete.fullName}</strong>
-                </Link>
+                </a>
               </div>
-              <div className="mt-2 px-2">
-                <LocationInfoRankings
-                  locationInfoWithRank={athlete.locationInfoWithRank}
-                />
-                <div className="text-right">
-                  <Camera
-                    size={14}
-                    onClick={() => handleQuickViewClicked(athlete)}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+            </CardTitle>
+            <ContextMenu>
+              <ContextMenuTrigger>
+                <CardContent>
+                  <div className="my-3">
+                    <LocationInfoRankings
+                      locationInfoWithRank={athlete.locationInfoWithRank}
+                    />
+                  </div>
+                  <div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <Ellipsis />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem
+                          onClick={() => handleViewMoreClicked(athlete)}
+                        >
+                          {" "}
+                          <BadgePlus
+                            className="cursor-pointer"
+                            size={10}
+                            color="black"
+                            strokeWidth={1.5}
+                          />
+                          Quick View
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                  <div></div>
+                </CardContent>
+              </ContextMenuTrigger>
+              <ContextMenuContent>
+                <ContextMenuItem onClick={() => handleViewMoreClicked(athlete)}>
+                  Quick View
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
+          </Card>
         </div>
       ))}
 

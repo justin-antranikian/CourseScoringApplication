@@ -2,10 +2,24 @@
 
 import React, { useState } from "react"
 import { EventSearchResultDto } from "../definitions"
-import EventCard from "./Card"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import { Card, CardTitle, CardContent } from "@/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@radix-ui/react-dropdown-menu"
+import { Ellipsis, BadgePlus } from "lucide-react"
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
 
 export default function CardContainer({
   events,
@@ -161,7 +175,69 @@ export default function CardContainer({
           key={index}
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
         >
-          <EventCard event={event} clickHandler={handleViewMoreClicked} />
+          <Card className="rounded shadow">
+            <CardTitle>
+              <div className="bg-purple-200 text-center text-base py-2">
+                <a href={`/races/${event.upcomingRaceId}`}>
+                  <strong>{event.name}</strong>
+                </a>
+              </div>
+            </CardTitle>
+            <ContextMenu>
+              <ContextMenuTrigger>
+                <CardContent>
+                  <div className="my-3">
+                    <LocationInfoRankings
+                      locationInfoWithRank={event.locationInfoWithRank}
+                    />
+                  </div>
+                  <div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <Ellipsis />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>
+                          <a href={`/races/${event.upcomingRaceId}`}>
+                            Leaderboard
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        {event.courses.map((course) => {
+                          return (
+                            <DropdownMenuItem key={course.id}>
+                              <a href={`/courses/${course.id}`}>
+                                {course.displayName}
+                              </a>
+                            </DropdownMenuItem>
+                          )
+                        })}
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => handleViewMoreClicked(event)}
+                        >
+                          {" "}
+                          <BadgePlus
+                            className="cursor-pointer"
+                            size={10}
+                            color="black"
+                            strokeWidth={1.5}
+                          />
+                          Quick View
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                  <div></div>
+                </CardContent>
+              </ContextMenuTrigger>
+              <ContextMenuContent>
+                <ContextMenuItem onClick={() => handleViewMoreClicked(event)}>
+                  Quick View
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
+          </Card>
         </div>
       ))}
 
