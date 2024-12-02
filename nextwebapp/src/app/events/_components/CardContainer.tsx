@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "@radix-ui/react-dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 import { Ellipsis, BadgePlus } from "lucide-react"
 import {
   ContextMenu,
