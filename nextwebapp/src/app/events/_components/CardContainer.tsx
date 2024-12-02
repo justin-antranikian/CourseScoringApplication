@@ -6,11 +6,11 @@ import EventCard from "./Card"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
+import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 
 export default function CardContainer({
   events,
@@ -45,44 +45,58 @@ export default function CardContainer({
         <>
           {leaderboard.leaderboards.map((board) => {
             return (
-              <>
-                <div>
-                  <strong>{board.courseName}</strong>
+              <div>
+                <div className="mb-8 text-purple-500 bold text-2xl">
+                  {board.courseName}
                 </div>
 
-                <table className="table-auto w-full">
-                  <thead>
-                    <tr>
-                      <th className="w-[10%]"></th>
-                      <th className="w-[15%]">Bib</th>
-                      <th className="w-[20%]">Name</th>
-                      <th className="w-[10%]">Overall</th>
-                      <th className="w-[10%]">Gender</th>
-                      <th className="w-[10%]">Division</th>
-                      <th className="w-[15%]">Time</th>
-                      <th className="w-[10%]">Pace</th>
+                <table className="table-auto w-full mb-8">
+                  <thead className="text-lg">
+                    <tr className="border-b border-black">
+                      <th className="w-[10%] text-left py-2" scope="col"></th>
+                      <th className="w-[15%] text-left py-2" scope="col">
+                        Bib
+                      </th>
+                      <th className="w-[20%] text-left py-2" scope="col">
+                        Name
+                      </th>
+                      <th className="w-[10%] text-left py-2" scope="col">
+                        Overall
+                      </th>
+                      <th className="w-[10%] text-left py-2" scope="col">
+                        Gender
+                      </th>
+                      <th className="w-[10%] text-left py-2" scope="col">
+                        Division
+                      </th>
+                      <th className="w-[15%] text-left py-2" scope="col">
+                        Time
+                      </th>
+                      <th className="w-[10%] text-left py-2" scope="col">
+                        Pace
+                      </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="text-sm">
                     {board.results.map((irp) => (
-                      <tr key={irp.athleteCourseId}>
-                        <td className="text-left">
+                      <tr
+                        key={irp.athleteCourseId}
+                        className="border-b border-gray-300"
+                      >
+                        <td className="text-left py-2">
                           <a href={`/results/${irp.athleteCourseId}`}>View</a>
                         </td>
-                        <td>
+                        <td className="py-2">
                           <span
-                            className="bg-gray-800 text-white p-2 rounded"
+                            className="bg-gray-800 text-white px-2 py-1 rounded"
                             title="bib"
                           >
                             {irp.bib}
                           </span>
                         </td>
-                        <td>
+                        <td className="py-2">
                           <div>
-                            <a
-                              className="font-bold text-black bg-secondary"
-                              href={`/athletes/${irp.athleteId}`}
-                            >
+                            <a href={`/athletes/${irp.athleteId}`}>
                               {irp.fullName}
                             </a>
                           </div>
@@ -90,19 +104,19 @@ export default function CardContainer({
                             {irp.genderAbbreviated} | {irp.raceAge}
                           </div>
                         </td>
-                        <td className="font-bold text-gray-500">
+                        <td className="font-bold text-gray-500 py-2">
                           {irp.overallRank}
                         </td>
-                        <td className="font-bold text-gray-500">
+                        <td className="font-bold text-gray-500 py-2">
                           {irp.genderRank}
                         </td>
-                        <td className="font-bold text-gray-500">
+                        <td className="font-bold text-gray-500 py-2">
                           {irp.divisionRank}
                         </td>
-                        <td className="font-bold">
+                        <td className="font-bold py-2">
                           {irp.paceWithTimeCumulative.timeFormatted}
                         </td>
-                        <td>
+                        <td className="py-2">
                           <div className="font-bold">
                             {irp.paceWithTimeCumulative.paceValue || "--"}
                           </div>
@@ -112,7 +126,7 @@ export default function CardContainer({
                     ))}
                   </tbody>
                 </table>
-              </>
+              </div>
             )
           })}
         </>
@@ -122,15 +136,26 @@ export default function CardContainer({
     return (
       <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Race Leaderboard Quick View</DialogTitle>
-          <DialogDescription>
-            <div className="flex mt-5">
-              <div className="flex-[1]">{leaderboard.raceName}</div>
-              <div className="flex-[3]">
-                <LeaderboardContent />
+          <div className="flex mt-5">
+            <div className="flex-[1]">
+              <div className="text-2xl bold">{leaderboard.raceName}</div>
+              <div className="text-sm mb-2">
+                <div>
+                  {leaderboard.locationInfoWithRank.city},{" "}
+                  {leaderboard.locationInfoWithRank.state}
+                </div>
+                <div className="font-bold">{leaderboard.raceKickOffDate}</div>
+                <div className="mt-3">
+                  <LocationInfoRankings
+                    locationInfoWithRank={leaderboard.locationInfoWithRank}
+                  />
+                </div>
               </div>
             </div>
-          </DialogDescription>
+            <div className="flex-[3]">
+              <LeaderboardContent />
+            </div>
+          </div>
         </DialogHeader>
       </DialogContent>
     )
