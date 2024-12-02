@@ -1,7 +1,12 @@
 import { LocationInfoWithRank } from "../_components/LocationInfoRankings"
 
+export interface DisplayNameWithId {
+  id: number
+  displayName: string
+}
+
 export interface EventSearchResultDto {
-  courses: any[]
+  courses: DisplayNameWithId[]
   description: string
   kickOffDate: string
   kickOffTime: string

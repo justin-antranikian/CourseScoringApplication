@@ -4,7 +4,15 @@ import React from "react"
 import { EventSearchResultDto } from "../definitions"
 import Link from "next/link"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
-import { Camera } from "lucide-react"
+import { BadgePlus, Ellipsis } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function Card({
   event,
@@ -15,6 +23,24 @@ export default function Card({
 }) {
   return (
     <div>
+      <div className="text-right">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Ellipsis />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Events</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {event.courses.map((course) => {
+              return (
+                <DropdownMenuItem>
+                  <Link href={`/races/${course.id}`}>{course.displayName}</Link>
+                </DropdownMenuItem>
+              )
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <div className="py-2 text-center bg-secondary">
         <Link href={`/races/${event.upcomingRaceId}`}>
           <strong>{event.name}</strong>
@@ -25,13 +51,11 @@ export default function Card({
         <LocationInfoRankings
           locationInfoWithRank={event.locationInfoWithRank}
         />
-        <div className="text-right">
-          <i className="fa fa-plus-circle cursor-pointer" title="view more"></i>
-        </div>
         <div>
-          <Camera
+          <BadgePlus
+            className="cursor-pointer"
             size={14}
-            color="blue"
+            color="black"
             strokeWidth={1.5}
             onClick={() => clickHandler(event)}
           />
