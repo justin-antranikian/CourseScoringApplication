@@ -1,3 +1,5 @@
+import { BracketRank } from "@/app/_components/BracketRank"
+import IntervalTime from "@/app/_components/IntervalTime"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
@@ -10,7 +12,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { InfoIcon } from "lucide-react"
+import { Info, InfoIcon } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
 export default function QuickViewDialogContent({
@@ -102,9 +104,9 @@ export default function QuickViewDialogContent({
                         >
                           <td className="text-left py-2">
                             <a href={`/results/${irp.athleteCourseId}`}>View</a>
-                            <div>
-                              <InfoIcon onClick={() => getIrpData(irp)} />
-                            </div>
+                            <span className="pl-2 cursor-pointer">
+                              <Info size={14} onClick={() => getIrpData(irp)} />
+                            </span>
                           </td>
                           <td className="py-2">
                             <span
@@ -155,11 +157,55 @@ export default function QuickViewDialogContent({
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>{irpDetails?.bib}</SheetDescription>
+            <SheetTitle>Irp Details</SheetTitle>
           </SheetHeader>
+          <IrpDetails irpDetails={irpDetails} />
         </SheetContent>
       </Sheet>
     </DialogContent>
+  )
+}
+
+const IrpDetails = ({ irpDetails }: { irpDetails: Irp | null }) => {
+  if (!irpDetails) {
+    return null
+  }
+
+  return (
+    <>
+      <div className="my-5 text-purple-500 text-2xl">{irpDetails.bib}</div>
+      <table className="table-auto w-full text-sm">
+        <thead>
+          <tr className="border-b border-black">
+            <th className="w-[30%] text-left py-2" scope="col"></th>
+            <th className="w-[35%] text-left py-2" scope="col">
+              Interval Time
+            </th>
+            <th className="w-[35%] text-left py-2" scope="col">
+              Cumulative Time
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {irpDetails.intervalResults.map((intervalResult, index) => (
+            <tr className="border-b border-gray-300" key={index}>
+              <td className="py-2">
+                <span>{intervalResult.intervalName}</span>
+              </td>
+              <td className="py-2">
+                <IntervalTime
+                  paceTime={intervalResult.paceWithTimeIntervalOnly}
+                />
+              </td>
+              <td className="py-2">
+                <IntervalTime
+                  paceTime={intervalResult.paceWithTimeCumulative}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }
