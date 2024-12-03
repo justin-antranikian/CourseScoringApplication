@@ -2,7 +2,6 @@ import { config } from "@/config"
 import React from "react"
 import { EventSearchResultDto } from "./definitions"
 import CardContainer from "./_components/CardContainer"
-import DialogWrapper from "./_components/DialogWrapper"
 
 const getData = async (): Promise<EventSearchResultDto[]> => {
   const url = `${config.apiHost}/raceSeriesSearchApi`
