@@ -88,18 +88,6 @@ export default function QuickViewDialogContent({
                           <a href={`/results/${irp.athleteCourseId}`}>View</a>
                           <div>
                             <InfoIcon onClick={() => getIrpData(irp)} />
-                            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-                              <SheetContent>
-                                <SheetHeader>
-                                  <SheetTitle>
-                                    Are you absolutely sure?
-                                  </SheetTitle>
-                                  <SheetDescription>
-                                    {irpDetails?.bib}
-                                  </SheetDescription>
-                                </SheetHeader>
-                              </SheetContent>
-                            </Sheet>
                           </div>
                         </td>
                         <td className="py-2">
@@ -143,6 +131,14 @@ export default function QuickViewDialogContent({
                   })}
                 </tbody>
               </table>
+              <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Are you absolutely sure?</SheetTitle>
+                    <SheetDescription>{irpDetails?.bib}</SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
             </div>
           )
         })}
