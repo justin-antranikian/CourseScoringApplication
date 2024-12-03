@@ -1,4 +1,3 @@
-import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
@@ -8,11 +7,10 @@ import { DialogContent } from "@/components/ui/dialog"
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { Info, InfoIcon } from "lucide-react"
+import { Info } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
 export default function QuickViewDialogContent({
