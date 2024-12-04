@@ -21,6 +21,8 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
+import { getImage } from "@/app/utils"
+import Image from "next/image"
 
 export default function CardContainer({
   events,
@@ -55,7 +57,12 @@ export default function CardContainer({
               <ContextMenuTrigger>
                 <CardContent className="p-0">
                   <div>
-                    <img src="/MountainBike.jpg" alt="Example Image" />
+                    <Image
+                      src={getImage(event.raceSeriesTypeName)}
+                      alt="Example Image"
+                      width={300}
+                      height={300}
+                    />
                   </div>
                   <div className="bg-purple-200 text-center text-base py-2">
                     <a href={`/races/${event.upcomingRaceId}`}>
@@ -93,7 +100,6 @@ export default function CardContainer({
                           <DropdownMenuItem
                             onClick={() => handleViewMoreClicked(event)}
                           >
-                            {" "}
                             <BadgePlus
                               className="cursor-pointer"
                               size={10}

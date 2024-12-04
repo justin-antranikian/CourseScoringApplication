@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <nav className="bg-purple-600 p-4">
+        <nav className="p-4 bg-[#24325a]">
           <div className="container mx-auto flex justify-between">
             <div className="text-white font-bold text-xl">Course Scoring</div>
             <div className="space-x-4">
