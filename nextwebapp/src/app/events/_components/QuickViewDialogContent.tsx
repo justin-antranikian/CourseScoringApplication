@@ -1,3 +1,4 @@
+import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
@@ -5,12 +6,17 @@ import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
 import { Irp } from "@/app/results/[id]/definitions"
 import { DialogContent } from "@/components/ui/dialog"
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { Info } from "lucide-react"
+import { Info, InfoIcon } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
 export default function QuickViewDialogContent({
@@ -69,7 +75,8 @@ export default function QuickViewDialogContent({
                 <table className="table-auto w-full mb-8">
                   <thead className="text-lg">
                     <tr className="border-b border-black">
-                      <th className="w-[15%] text-left py-2" scope="col"></th>
+                      <th className="w-[7%] text-left py-2" scope="col"></th>
+                      <th className="w-[7%] text-left py-2" scope="col"></th>
                       <th className="w-[10%] text-left py-2" scope="col">
                         Bib
                       </th>
@@ -102,7 +109,9 @@ export default function QuickViewDialogContent({
                         >
                           <td className="text-left py-2">
                             <a href={`/results/${irp.athleteCourseId}`}>View</a>
-                            <span className="pl-2 cursor-pointer">
+                          </td>
+                          <td className="text-left py-2">
+                            <span className="cursor-pointer">
                               <Info size={14} onClick={() => getIrpData(irp)} />
                             </span>
                           </td>
@@ -175,7 +184,8 @@ const IrpDetails = ({ irpDetails }: { irpDetails: Irp | null }) => {
       <table className="table-auto w-full text-sm">
         <thead>
           <tr className="border-b border-black">
-            <th className="w-[30%] text-left py-2" scope="col"></th>
+            <th className="w-[25%] text-left py-2" scope="col"></th>
+            <th className="w-[5%] text-left py-2" scope="col"></th>
             <th className="w-[35%] text-left py-2" scope="col">
               Interval Time
             </th>
@@ -187,8 +197,51 @@ const IrpDetails = ({ irpDetails }: { irpDetails: Irp | null }) => {
         <tbody>
           {irpDetails.intervalResults.map((intervalResult, index) => (
             <tr className="border-b border-gray-300" key={index}>
+              <td className="py-2">{intervalResult.intervalName}</td>
               <td className="py-2">
-                <span>{intervalResult.intervalName}</span>
+                <Popover>
+                  <PopoverTrigger>
+                    <InfoIcon size={10} />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-black">
+                          <th className="w-[33%] text-left py-2">Overall</th>
+                          <th className="w-[33%] text-left py-2">Gender</th>
+                          <th className="w-[33%] text-left py-2">Division</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <BracketRank
+                              rank={intervalResult.overallRank}
+                              total={intervalResult.overallCount}
+                              indicator={intervalResult.overallIndicator}
+                            />
+                          </td>
+                          <td>
+                            <BracketRank
+                              rank={intervalResult.genderRank}
+                              total={intervalResult.genderCount}
+                              indicator={intervalResult.genderIndicator}
+                            />
+                          </td>
+                          <td>
+                            <BracketRank
+                              rank={intervalResult.primaryDivisionRank}
+                              total={intervalResult.primaryDivisionCount}
+                              indicator={
+                                intervalResult.primaryDivisionIndicator
+                              }
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </PopoverContent>
+                </Popover>
               </td>
               <td className="py-2">
                 <IntervalTime
