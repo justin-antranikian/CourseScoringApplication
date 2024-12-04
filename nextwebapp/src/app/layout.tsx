@@ -16,8 +16,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
         <nav className="p-4 bg-[#24325a]">
-          <div className="container mx-auto flex justify-between">
-            <div className="text-white font-bold text-xl">Course Scoring</div>
+          <div className="container mx-auto flex justify-between items-center">
+            <div className="text-white font-bold text-xl">
+              <span><img src="/CourseScoring9.png" /></span>
+              </div>
             <div className="space-x-4">
               <Link href="/athletes" className="text-white hover:text-gray-300">
                 Athletes
