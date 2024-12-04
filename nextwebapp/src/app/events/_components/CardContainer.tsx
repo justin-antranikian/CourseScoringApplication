@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/context-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import { getImage } from "@/app/utils"
-import Image from "next/image"
 
 export default function CardContainer({
   events,
@@ -57,11 +56,9 @@ export default function CardContainer({
               <ContextMenuTrigger>
                 <CardContent className="p-0">
                   <div>
-                    <Image
+                    <img
+                      style={{ width: "100%", height: 125 }}
                       src={getImage(event.raceSeriesTypeName)}
-                      alt="Example Image"
-                      width={300}
-                      height={300}
                     />
                   </div>
                   <div className="bg-purple-200 text-center text-base py-2">
