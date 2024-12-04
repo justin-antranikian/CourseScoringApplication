@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { CourseLeaderboardDto, LeaderboardResultDto } from "../definitions"
-import { Camera } from "lucide-react"
+import { InfoIcon } from "lucide-react"
 import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
@@ -72,7 +72,7 @@ export default function Content({
                     <a href={`/results/${irp.athleteCourseId}`}>View</a>
                   </td>
                   <td className="py-2">
-                    <Camera
+                    <InfoIcon
                       className="cursor-pointer"
                       size={14}
                       color="black"
