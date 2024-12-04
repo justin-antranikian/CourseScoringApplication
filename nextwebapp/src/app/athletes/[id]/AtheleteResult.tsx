@@ -17,9 +17,6 @@ export default function AtheleteResult({ result }: { result: ArpResultDto }) {
         <div>
           <Link href={`/courses/${result.courseId}`}>{result.courseName}</Link>
         </div>
-        <div>
-          {result.state}, {result.city}
-        </div>
       </td>
       <td className="py-2">
         <BracketRank rank={result.overallRank} total={result.overallCount} />
