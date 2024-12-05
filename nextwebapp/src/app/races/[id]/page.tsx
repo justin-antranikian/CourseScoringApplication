@@ -3,6 +3,7 @@ import React from "react"
 import { RaceLeaderboardDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
+import { getImage } from "@/app/utils"
 
 export const dynamic = "force-dynamic"
 
@@ -15,7 +16,7 @@ interface Props {
 const getData = async (id: string): Promise<RaceLeaderboardDto> => {
   const url = `${config.apiHost}/raceLeaderboardApi/${id}`
   const response = await fetch(url)
-  return await response.json()
+  return await response.json() 
 }
 
 export default async function Page({ params: { id } }: Props) {
@@ -24,6 +25,12 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/4">
+      <div>
+                    {/* <img
+                      style={{ width: "100%", height: 125 }}
+                      src={getImage(raceLeaderboard.raceSeriesTypeName)}
+                    /> */}
+                  </div>
         <div className="text-2xl font-bold">{raceLeaderboard.raceName}</div>
         <div className="text-lg text-blue-500 font-bold">All Courses</div>
 

@@ -62,7 +62,6 @@ export default function Content({
                       <strong>{athlete.fullName}</strong>
                     </a>
                   </div>
-
                   <div className="p-2">
                     <div className="my-3">
                       <LocationInfoRankings
@@ -103,7 +102,7 @@ export default function Content({
       ))}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <QuickViewDialogContent arp={arp} apiHost={apiHost} />
+        {arp ? <QuickViewDialogContent arp={arp} apiHost={apiHost} /> : null}
       </Dialog>
     </>
   )
