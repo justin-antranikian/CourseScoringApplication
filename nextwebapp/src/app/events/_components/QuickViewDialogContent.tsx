@@ -71,7 +71,6 @@ export default function QuickViewDialogContent({
                 <div className="mb-8 text-purple-500 bold text-2xl">
                   <a href={`/courses/${board.courseId}`}>{board.courseName}</a>
                 </div>
-
                 <table className="table-auto w-full mb-8">
                   <thead className="text-lg">
                     <tr className="border-b border-black">
