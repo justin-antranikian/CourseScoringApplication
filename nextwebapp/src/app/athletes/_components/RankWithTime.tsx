@@ -1,6 +1,5 @@
-
-import { PaceWithTime } from '@/app/_components/IntervalTime'
-import React from 'react'
+import { PaceWithTime } from "@/app/_components/IntervalTime"
+import React from "react"
 
 export default function RankWithTime({ paceTime }: { paceTime: PaceWithTime }) {
   return (

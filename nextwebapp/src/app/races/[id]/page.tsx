@@ -16,7 +16,7 @@ interface Props {
 const getData = async (id: string): Promise<RaceLeaderboardDto> => {
   const url = `${config.apiHost}/raceLeaderboardApi/${id}`
   const response = await fetch(url)
-  return await response.json() 
+  return await response.json()
 }
 
 export default async function Page({ params: { id } }: Props) {
@@ -25,12 +25,12 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/4">
-      <div>
-                    {/* <img
+        <div>
+          {/* <img
                       style={{ width: "100%", height: 125 }}
                       src={getImage(raceLeaderboard.raceSeriesTypeName)}
                     /> */}
-                  </div>
+        </div>
         <div className="text-2xl font-bold">{raceLeaderboard.raceName}</div>
         <div className="text-lg text-blue-500 font-bold">All Courses</div>
 

@@ -26,7 +26,10 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/4">
-        <div className="text-2xl font-bold">{arp.fullName}</div>
+        <div>
+          <img style={{ width: "75%", height: 125 }} src="/Athlete.png" />
+        </div>
+        <div className="mt-2 text-2xl font-bold">{arp.fullName}</div>
         <div className="text-lg">
           {arp.locationInfoWithRank.city}, {arp.locationInfoWithRank.state}
         </div>

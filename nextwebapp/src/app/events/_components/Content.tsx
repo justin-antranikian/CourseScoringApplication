@@ -23,7 +23,7 @@ import {
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import { getImage } from "@/app/utils"
 
-export default function CardContainer({
+export default function Content({
   events,
   apiHost,
 }: {
