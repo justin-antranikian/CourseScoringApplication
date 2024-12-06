@@ -11,7 +11,8 @@ public static class RaceLeaderboardDtoMapper
             RaceKickOffDate = race.KickOffDate.ToShortDateString(),
             RaceName = race.Name,
             RaceSeriesDescription = race.RaceSeries.Description,
-            RaceSeriesType = race.RaceSeries.RaceSeriesType
+            RaceSeriesType = race.RaceSeries.RaceSeriesType,
+            RaceSeriesTypeName = race.RaceSeries.RaceSeriesType.ToString()
         };
     }
 }

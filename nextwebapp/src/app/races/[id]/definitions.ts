@@ -7,6 +7,7 @@ export interface RaceLeaderboardDto {
   raceKickOffDate: string
   raceName: string
   raceSeriesDescription: string
+  raceSeriesTypeName: string
 }
 
 export interface RaceLeaderboardByCourseDto {

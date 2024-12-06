@@ -8,4 +8,5 @@ public record RaceLeaderboardDto
     public required string RaceName { get; init; }
     public required string RaceSeriesDescription { get; init; }
     public required RaceSeriesType RaceSeriesType { get; init; }
+    public required string RaceSeriesTypeName { get; init; }
 }

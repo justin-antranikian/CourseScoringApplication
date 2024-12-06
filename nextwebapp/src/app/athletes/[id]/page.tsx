@@ -1,8 +1,5 @@
 import { config } from "@/config"
-import { BracketRank } from "../../_components/BracketRank"
-import Link from "next/link"
-import { ArpDto, ArpResultDto } from "./definitions"
-import { PaceWithTime } from "@/app/_components/IntervalTime"
+import { ArpDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import AtheleteResult from "./AtheleteResult"
 

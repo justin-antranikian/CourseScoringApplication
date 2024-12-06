@@ -25,7 +25,10 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/4">
-        <div className="text-2xl font-bold">
+      <div>
+          <img style={{ width: "75%", height: 125 }} src="/Athlete.png" />
+        </div>
+        <div className="mt-2 text-2xl font-bold">
           <Link href={`/athletes/${irp.athleteId}`}>{irp.fullName}</Link>
         </div>
         <div className="text-lg">
@@ -35,6 +38,7 @@ export default async function Page({ params: { id } }: Props) {
           {irp.genderAbbreviated} | {irp.raceAge}
         </div>
         <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} />
+        <hr className="mt-5" />
         <div className="mt-5">
           {irp.tags.map((tag, index) => (
             <span
