@@ -18,7 +18,6 @@ export const getImage = (raceSeriesType: string) => {
 }
 
 export const getImageNonFormatted = (raceSeriesType: string) => {
-  console.log(raceSeriesType)
   switch (raceSeriesType) {
     case "Running":
       return "/RunningClipArt.png"

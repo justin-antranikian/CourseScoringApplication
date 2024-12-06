@@ -22,18 +22,18 @@ const getData = async (id: string): Promise<RaceLeaderboardDto> => {
 export default async function Page({ params: { id } }: Props) {
   const raceLeaderboard = await getData(id)
 
-  console.log(raceLeaderboard)
-
   return (
     <div className="flex gap-1">
       <div className="w-1/4">
         <div>
           <img
-                      style={{ width: "75%", height: 125 }}
-                      src={getImageNonFormatted(raceLeaderboard.raceSeriesTypeName)}
-                    />
+            style={{ width: "75%", height: 125 }}
+            src={getImageNonFormatted(raceLeaderboard.raceSeriesTypeName)}
+          />
         </div>
-        <div className="mt-2 text-2xl font-bold">{raceLeaderboard.raceName}</div>
+        <div className="mt-2 text-2xl font-bold">
+          {raceLeaderboard.raceName}
+        </div>
         <div className="text-lg text-blue-500 font-bold">All Courses</div>
 
         <div className="text-sm mb-2">
