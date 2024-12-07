@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import { CourseLeaderboardDto, LeaderboardResultDto } from "../definitions"
 import { InfoIcon } from "lucide-react"
 import { Irp } from "@/app/results/[id]/definitions"
@@ -16,16 +16,21 @@ export default function Content({
   courseLeaderboard: CourseLeaderboardDto
 }) {
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [selectedResults, setSelectedResults] = useState<number[]>([])
   const [irp, setIrp] = useState<Irp | null>(null)
+  const [selectedIds, setSelectedIds] = useState<number[]>([])
+  const [hideComparePane, setHideComparePane] = useState(false)
 
   const handleCompareClicked = (id: number) => {
-    setSelectedResults((prevSelectedResults) => {
+    setSelectedIds((prevSelectedResults) => {
       return prevSelectedResults.includes(id)
         ? prevSelectedResults.filter((resultId) => resultId !== id)
         : [...prevSelectedResults, id]
     })
   }
+
+  const idsEncoded = useMemo(() => {
+    return encodeURIComponent(`[${selectedIds.join(",")}]`)
+  }, [selectedIds])
 
   const handleQuickViewClicked = async (
     irpResult: LeaderboardResultDto,
@@ -35,6 +40,29 @@ export default function Content({
     const result = (await response.json()) as Irp
     setIrp(result)
     setDialogOpen(true)
+  }
+
+  const ComparePane = () => {
+    return (
+      <div className="fixed bottom-0 left-0 py-5 w-full bg-gray-200 bg-opacity-50 text-black flex items-center justify-between px-4">
+        {hideComparePane ? (
+          <div className="text-right">
+            <span onClick={() => setHideComparePane(false)}>open</span>
+          </div>
+        ) : (
+          <>
+            <div className="text-center flex-1">
+              <a href={`/compare-results?ids=${idsEncoded}`}>
+                Compare ({selectedIds.length})
+              </a>
+            </div>
+            <div className="text-right">
+              <span onClick={() => setHideComparePane(true)}>x</span>
+            </div>
+          </>
+        )}
+      </div>
+    )
   }
 
   return (
@@ -138,7 +166,7 @@ export default function Content({
           </table>
         </div>
       ))}
-      <div>compare: {selectedResults.length}</div>
+      {selectedIds.length > 0 ? <ComparePane /> : null}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <IrpQuickView irp={irp} />
