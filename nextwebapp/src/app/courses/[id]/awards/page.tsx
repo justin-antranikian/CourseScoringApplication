@@ -23,14 +23,14 @@ interface AwardWinnerDto {
   paceWithTime: PaceWithTime
 }
 
-export default async function Page({ params: { id } }: Props) {
-  const getData = async () => {
-    const url = `${config.apiHost}/awardsPodiumApi/${id}`
-    const response = await fetch(url, { cache: "no-store" })
-    return (await response.json()) as PodiumAward[]
-  }
+const getData = async (id: string) => {
+  const url = `${config.apiHost}/awardsPodiumApi/${id}`
+  const response = await fetch(url, { cache: "no-store" })
+  return (await response.json()) as PodiumAward[]
+}
 
-  const awards = await getData()
+export default async function Page({ params: { id } }: Props) {
+  const awards = await getData(id)
 
   return (
     <table className="table w-full">
