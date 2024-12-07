@@ -128,6 +128,7 @@ export default function Content({
           setHideComparePane={setHideComparePane}
           idsEncoded={idsEncoded}
           selectedIds={selectedIds}
+          thickOpactity={true}
         />
       ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

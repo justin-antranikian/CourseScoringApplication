@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp } from "lucide-react"
+import { CircleChevronDown, CircleChevronUp } from "lucide-react"
 import React from "react"
 
 interface Props {
@@ -6,6 +6,7 @@ interface Props {
   setHideComparePane: React.Dispatch<React.SetStateAction<boolean>>
   idsEncoded: string
   selectedIds: number[]
+  thickOpactity?: boolean
 }
 
 export default function ComparePane({
@@ -13,22 +14,29 @@ export default function ComparePane({
   setHideComparePane,
   idsEncoded,
   selectedIds,
+  thickOpactity,
 }: Props) {
+  const opacity = thickOpactity ? "80" : "50"
+
   if (hideComparePane) {
     return (
-      <div className="fixed bottom-0 left-0 w-full bg-gray-200 bg-opacity-50 text-black px-4 flex justify-end">
+      <div
+        className={`fixed bottom-0 left-0 w-full bg-gray-200 bg-opacity-20 text-black px-4 py-1 flex justify-end`}
+      >
         <span
           onClick={() => setHideComparePane(false)}
           className="cursor-pointer"
         >
-          <ArrowUp />
+          <CircleChevronUp size={14} />
         </span>
       </div>
     )
   }
 
   return (
-    <div className="fixed bottom-0 left-0 py-3 w-full bg-gray-200 bg-opacity-50 text-black flex items-center justify-between px-4">
+    <div
+      className={`fixed bottom-0 left-0 py-3 w-full bg-gray-200 bg-opacity-${opacity} text-black flex items-center justify-between px-4`}
+    >
       <div className="text-center flex-1">
         <a href={`/compare-results?ids=${idsEncoded}`}>
           Compare ({selectedIds.length})
@@ -39,7 +47,7 @@ export default function ComparePane({
           className="cursor-pointer"
           onClick={() => setHideComparePane(true)}
         >
-          <ArrowDown />
+          <CircleChevronDown size={16} />
         </span>
       </div>
     </div>
