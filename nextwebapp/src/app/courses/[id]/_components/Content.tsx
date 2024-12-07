@@ -6,6 +6,7 @@ import { InfoIcon } from "lucide-react"
 import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
+import { Scale } from "lucide-react"
 
 export default function Content({
   apiHost,
@@ -15,7 +16,16 @@ export default function Content({
   courseLeaderboard: CourseLeaderboardDto
 }) {
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [selectedResults, setSelectedResults] = useState<number[]>([])
   const [irp, setIrp] = useState<Irp | null>(null)
+
+  const handleCompareClicked = (id: number) => {
+    setSelectedResults((prevSelectedResults) => {
+      return prevSelectedResults.includes(id)
+        ? prevSelectedResults.filter((resultId) => resultId !== id)
+        : [...prevSelectedResults, id]
+    })
+  }
 
   const handleQuickViewClicked = async (
     irpResult: LeaderboardResultDto,
@@ -39,7 +49,7 @@ export default function Content({
               <tr className="border-b border-black">
                 <th className="w-[5%] text-left py-2" scope="col"></th>
                 <th className="w-[5%] text-left py-2" scope="col"></th>
-                <th className="w-[15%] text-left py-2" scope="col">
+                <th className="w-[10%] text-left py-2" scope="col">
                   Bib
                 </th>
                 <th className="w-[20%] text-left py-2" scope="col">
@@ -60,6 +70,7 @@ export default function Content({
                 <th className="w-[10%] text-left py-2" scope="col">
                   Pace
                 </th>
+                <th className="w-[5%] text-left py-2" scope="col"></th>
               </tr>
             </thead>
             <tbody className="text-sm">
@@ -114,12 +125,20 @@ export default function Content({
                     </div>
                     {irp.paceWithTimeCumulative.paceLabel}
                   </td>
+                  <td className="py-2">
+                    <Scale
+                      className="cursor-pointer"
+                      onClick={() => handleCompareClicked(irp.athleteCourseId)}
+                      size={12}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       ))}
+      <div>compare: {selectedResults.length}</div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <IrpQuickView irp={irp} />
