@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
+import ComparePane from "@/app/_components/ComparePane"
 
 export default function Content({
   apiHost,
@@ -53,39 +54,6 @@ export default function Content({
   const idsEncoded = useMemo(() => {
     return encodeURIComponent(`[${selectedIds.join(",")}]`)
   }, [selectedIds])
-
-  const ComparePane = () => {
-    if (hideComparePane) {
-      return (
-        <div className="fixed bottom-0 left-0 w-full bg-gray-200 bg-opacity-90 text-black px-4 text-right">
-          <span
-            onClick={() => setHideComparePane(false)}
-            className="cursor-pointer"
-          >
-            open
-          </span>
-        </div>
-      )
-    }
-
-    return (
-      <div className="fixed bottom-0 left-0 py-3 w-full bg-gray-200 bg-opacity-90 text-black flex items-center justify-between px-4">
-        <div className="text-center flex-1">
-          <a href={`/athletes/compare?ids=${idsEncoded}`}>
-            Compare ({selectedIds.length})
-          </a>
-        </div>
-        <div className="text-right">
-          <span
-            className="cursor-pointer"
-            onClick={() => setHideComparePane(true)}
-          >
-            x
-          </span>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <>
@@ -136,11 +104,11 @@ export default function Content({
                       </DropdownMenu>
                     </div>
                     <div>
-                    <Scale
-                      className="cursor-pointer"
-                      onClick={() => handleCompareClicked(athlete.id)}
-                      size={12}
-                    />
+                      <Scale
+                        className="cursor-pointer"
+                        onClick={() => handleCompareClicked(athlete.id)}
+                        size={12}
+                      />
                     </div>
                   </div>
                 </CardContent>
@@ -154,7 +122,14 @@ export default function Content({
           </Card>
         </div>
       ))}
-      {selectedIds.length > 0 ? <ComparePane /> : null}
+      {selectedIds.length > 0 ? (
+        <ComparePane
+          hideComparePane={hideComparePane}
+          setHideComparePane={setHideComparePane}
+          idsEncoded={idsEncoded}
+          selectedIds={selectedIds}
+        />
+      ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         {arp ? <QuickViewDialogContent arp={arp} apiHost={apiHost} /> : null}
       </Dialog>

@@ -7,6 +7,7 @@ import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
 import { Scale } from "lucide-react"
+import ComparePane from "@/app/_components/ComparePane"
 
 export default function Content({
   apiHost,
@@ -40,39 +41,6 @@ export default function Content({
     const result = (await response.json()) as Irp
     setIrp(result)
     setDialogOpen(true)
-  }
-
-  const ComparePane = () => {
-    if (hideComparePane) {
-      return (
-        <div className="fixed bottom-0 left-0 w-full bg-gray-200 bg-opacity-50 text-black px-4 text-right">
-          <span
-            onClick={() => setHideComparePane(false)}
-            className="cursor-pointer"
-          >
-            open
-          </span>
-        </div>
-      )
-    }
-
-    return (
-      <div className="fixed bottom-0 left-0 py-3 w-full bg-gray-200 bg-opacity-50 text-black flex items-center justify-between px-4">
-        <div className="text-center flex-1">
-          <a href={`/compare-results?ids=${idsEncoded}`}>
-            Compare ({selectedIds.length})
-          </a>
-        </div>
-        <div className="text-right">
-          <span
-            className="cursor-pointer"
-            onClick={() => setHideComparePane(true)}
-          >
-            x
-          </span>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -176,7 +144,14 @@ export default function Content({
           </table>
         </div>
       ))}
-      {selectedIds.length > 0 ? <ComparePane /> : null}
+      {selectedIds.length > 0 ? (
+        <ComparePane
+          hideComparePane={hideComparePane}
+          setHideComparePane={setHideComparePane}
+          idsEncoded={idsEncoded}
+          selectedIds={selectedIds}
+        />
+      ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <IrpQuickView irp={irp} />
       </Dialog>
