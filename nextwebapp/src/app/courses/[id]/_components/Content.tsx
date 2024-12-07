@@ -177,7 +177,6 @@ export default function Content({
         </div>
       ))}
       {selectedIds.length > 0 ? <ComparePane /> : null}
-
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <IrpQuickView irp={irp} />
       </Dialog>
