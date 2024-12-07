@@ -44,9 +44,7 @@ export default async function Page({ searchParams }: Props) {
             <div className="text-sm">
               {athleteInfo.genderAbbreviated} | {athleteInfo.raceAge}
             </div>
-
             <hr className="my-2" />
-
             <div className="mb-3">
               <Link
                 href={`/results/${athleteInfo.athleteCourseId}`}

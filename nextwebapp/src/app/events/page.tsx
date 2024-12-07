@@ -18,7 +18,6 @@ export default async function Page() {
       <div className="w-3/4">
         <div className="flex flex-wrap -mx-2">
           <Content events={events} apiHost={config.apiHost} />
-          {/* <DialogWrapper events={events} apiHost={config.apiHost} /> */}
         </div>
       </div>
     </div>

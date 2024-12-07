@@ -18,12 +18,13 @@ const getData = async (
 ): Promise<CompareAthletesAthleteInfoDto[]> => {
   const url = `${config.apiHost}/compareAthletesApi`
 
-  const requestInit = {
+  const requestInit: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ athleteIds }),
+    cache: "no-store",
   }
 
   const response = await fetch(url, requestInit)

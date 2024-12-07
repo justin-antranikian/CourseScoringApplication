@@ -34,6 +34,7 @@ export default async function Page({ params: { id } }: Props) {
           {arp.genderAbbreviated} | {arp.age}
         </div>
         <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} />
+        <hr className="my-5" />
         <div className="my-3">{arp.firstName}'s training and diet</div>
         <ul className="list-disc pl-5 text-xs">
           {arp.wellnessTrainingAndDiet.map((entry, index) => (

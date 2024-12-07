@@ -42,6 +42,9 @@ export default async function Page({ params: { id } }: Props) {
         <LocationInfoRankings
           locationInfoWithRank={courseLeaderboard.locationInfoWithRank}
         />
+        <div className="mt-5">
+          <a href={`/courses/${id}/awards`}>Awards</a>
+        </div>
       </div>
       <div className="w-3/4">
         <Content
