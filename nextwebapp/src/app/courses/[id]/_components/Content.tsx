@@ -2,12 +2,18 @@
 
 import React, { useMemo, useState } from "react"
 import { CourseLeaderboardDto, LeaderboardResultDto } from "../definitions"
-import { InfoIcon } from "lucide-react"
+import { ChartBarStacked, InfoIcon } from "lucide-react"
 import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
 import { Scale } from "lucide-react"
 import ComparePane from "@/app/_components/ComparePane"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function Content({
   apiHost,
@@ -132,11 +138,23 @@ export default function Content({
                     {irp.paceWithTimeCumulative.paceLabel}
                   </td>
                   <td className="py-2">
-                    <Scale
-                      className="cursor-pointer"
-                      onClick={() => handleCompareClicked(irp.athleteCourseId)}
-                      size={12}
-                    />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <ChartBarStacked
+                            className="cursor-pointer"
+                            onClick={() =>
+                              handleCompareClicked(irp.athleteCourseId)
+                            }
+                            size={15}
+                            color="green"
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Compare Results</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </td>
                 </tr>
               ))}

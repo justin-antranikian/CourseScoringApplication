@@ -1,5 +1,6 @@
 import { CircleChevronDown, CircleChevronUp } from "lucide-react"
 import React from "react"
+import { twMerge } from "tailwind-merge"
 
 interface Props {
   hideComparePane: boolean
@@ -16,12 +17,13 @@ export default function ComparePane({
   selectedIds,
   thickOpactity,
 }: Props) {
-  const opacity = thickOpactity ? "80" : "50"
-
   if (hideComparePane) {
     return (
       <div
-        className={`fixed bottom-0 left-0 w-full bg-gray-200 bg-opacity-20 text-black px-4 py-1 flex justify-end`}
+        className={twMerge(
+          "fixed bottom-0 left-0 w-full bg-gray-200 text-black px-4 py-1 flex justify-end",
+          thickOpactity ? "bg-opacity-70" : "bg-opacity-30",
+        )}
       >
         <span
           onClick={() => setHideComparePane(false)}
@@ -35,7 +37,10 @@ export default function ComparePane({
 
   return (
     <div
-      className={`fixed bottom-0 left-0 py-3 w-full bg-gray-200 bg-opacity-${opacity} text-black flex items-center justify-between px-4`}
+      className={twMerge(
+        "fixed bottom-0 left-0 py-3 w-full bg-gray-200 text-black flex items-center justify-between px-4",
+        thickOpactity ? "bg-opacity-70" : "bg-opacity-50",
+      )}
     >
       <div className="text-center flex-1">
         <a href={`/compare-results?ids=${idsEncoded}`}>
