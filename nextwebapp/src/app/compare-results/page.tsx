@@ -11,12 +11,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { BracketRank } from "../_components/BracketRank"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 import { PaceWithTime } from "../_components/IntervalTime"
 
 interface Props {
@@ -105,16 +99,6 @@ export default async function Page({ searchParams }: Props) {
                         <Popover>
                           <PopoverTrigger>
                             <InfoIcon size={10} />
-                            {/* <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger>
-                                  <InfoIcon size={10} />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>View Brackets</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider> */}
                           </PopoverTrigger>
                           <PopoverContent>
                             <table className="w-full">
