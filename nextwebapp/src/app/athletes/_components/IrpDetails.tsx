@@ -1,5 +1,5 @@
 import { BracketRank } from "@/app/_components/BracketRank"
-import IntervalTime, { PaceWithTime } from "@/app/_components/IntervalTime"
+import IntervalTime from "@/app/_components/IntervalTime"
 import { Irp } from "@/app/results/[id]/definitions"
 import {
   Popover,

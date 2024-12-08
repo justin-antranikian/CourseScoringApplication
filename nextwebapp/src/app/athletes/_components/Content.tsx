@@ -5,7 +5,7 @@ import { AthleteSearchResultDto } from "../definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
 import { ArpDto } from "../[id]/definitions"
-import { BadgePlus, ChartBarStacked, Ellipsis, Scale } from "lucide-react"
+import { BadgePlus, ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import {
   ContextMenu,
@@ -121,7 +121,7 @@ export default function Content({
                             />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Compare Results</p>
+                            <p>Compare Athletes</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
