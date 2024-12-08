@@ -6,7 +6,6 @@ import { ChartBarStacked, InfoIcon } from "lucide-react"
 import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
-import { Scale } from "lucide-react"
 import ComparePane from "@/app/_components/ComparePane"
 import {
   Tooltip,

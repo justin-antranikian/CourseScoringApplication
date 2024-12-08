@@ -5,7 +5,7 @@ import { AthleteSearchResultDto } from "../definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
 import { ArpDto } from "../[id]/definitions"
-import { BadgePlus, Ellipsis, Scale } from "lucide-react"
+import { BadgePlus, ChartBarStacked, Ellipsis, Scale } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import {
   ContextMenu,
@@ -21,6 +21,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/_components/ComparePane"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function Content({
   apiHost,
@@ -104,11 +110,21 @@ export default function Content({
                       </DropdownMenu>
                     </div>
                     <div>
-                      <Scale
-                        className="cursor-pointer"
-                        onClick={() => handleCompareClicked(athlete.id)}
-                        size={12}
-                      />
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <ChartBarStacked
+                              className="cursor-pointer"
+                              onClick={() => handleCompareClicked(athlete.id)}
+                              size={15}
+                              color="green"
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Compare Results</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                   </div>
                 </CardContent>
