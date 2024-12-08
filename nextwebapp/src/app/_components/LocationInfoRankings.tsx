@@ -35,7 +35,6 @@ export default function LocationInfoRankings({
           rank={locationInfoWithRank.areaRank}
           display={locationInfoWithRank.area}
         />
-        <div>ok</div>
       </div>
       <div>
         <RankLink
@@ -51,9 +50,6 @@ const RankLink = ({ rank, display }: { rank: number; display: string }) => {
   return (
     <>
       <strong>#{rank}</strong> from {display}
-      {/* <Link href={`${url}/${link}`} title={display} className="text-success">
-        {display}
-      </Link> */}
     </>
   )
 }

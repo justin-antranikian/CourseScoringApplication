@@ -23,7 +23,6 @@ export interface CourseLeaderboardByIntervalDto {
   totalRacers: number
 }
 
-// incorrect place for this.
 export interface LeaderboardResultDto {
   athleteCourseId: number
   athleteId: number

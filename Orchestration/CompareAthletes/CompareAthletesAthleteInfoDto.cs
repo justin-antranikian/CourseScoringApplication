@@ -43,15 +43,10 @@ public static class CompareAthletesAthleteInfoDtoMapper
 public class CompareAthletesAthleteInfoDto
 {
     public LocationInfoWithRank LocationInfoWithRank { get; }
-
     public string FullName { get; }
-
     public int Age { get; }
-
     public string GenderAbbreviated { get; }
-
     public List<CompareAthletesResult> Results { get; }
-
     public List<CompareAthletesStat> Stats { get; }
 
     public CompareAthletesAthleteInfoDto
