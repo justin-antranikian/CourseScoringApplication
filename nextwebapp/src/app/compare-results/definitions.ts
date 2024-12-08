@@ -19,7 +19,7 @@ interface FinishInfo {
   paceWithTimeCumulative: PaceWithTime
 }
 
-interface CompareIrpsIntervalDto {
+export interface CompareIrpsIntervalDto {
   intervalName: string
   paceWithTime: PaceWithTime | null
   crossingTime: string | null
