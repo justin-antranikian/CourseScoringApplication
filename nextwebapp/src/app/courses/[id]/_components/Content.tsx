@@ -34,7 +34,7 @@ export default function Content({
     })
   }
 
-  const idsEncoded = useMemo(() => { 
+  const idsEncoded = useMemo(() => {
     return encodeURIComponent(`[${selectedIds.join(",")}]`)
   }, [selectedIds])
 
