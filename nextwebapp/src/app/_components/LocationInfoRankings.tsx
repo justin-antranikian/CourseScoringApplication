@@ -35,6 +35,7 @@ export default function LocationInfoRankings({
           rank={locationInfoWithRank.areaRank}
           display={locationInfoWithRank.area}
         />
+          <div>ok</div>
       </div>
       <div>
         <RankLink
