@@ -1,7 +1,6 @@
-import Link from "next/link"
 import React from "react"
 
-export interface LocationInfoWithRank {
+export interface LocationInfoWithRank { 
   area: string
   areaRank: number
   areaUrl: string
