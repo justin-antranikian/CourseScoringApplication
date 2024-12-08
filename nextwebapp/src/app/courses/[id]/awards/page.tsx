@@ -33,40 +33,57 @@ export default async function Page({ params: { id } }: Props) {
   const awards = await getData(id)
 
   return (
-    <table className="table w-full">
-      <thead>
-        <tr>
-          <th className="text-left pb-2" style={{ width: "25%" }}></th>
-          <th className="font-24 text-left pb-2" style={{ width: "25%" }}>
-            First Place
-          </th>
-          <th className="font-24 text-left pb-2" style={{ width: "25%" }}>
-            Second Place
-          </th>
-          <th className="font-24 text-left pb-2" style={{ width: "25%" }}>
-            Third Place
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {awards.map((awardPodium) => (
-          <tr key={awardPodium.bracketName}>
-            <td className="text-left py-2">
-              <strong>{awardPodium.bracketName}</strong>
-            </td>
-            <td className="text-left py-2">
-              <AthleteTemplate athlete={awardPodium.firstPlaceAthlete} />
-            </td>
-            <td className="text-left py-2">
-              <AthleteTemplate athlete={awardPodium.secondPlaceAthlete} />
-            </td>
-            <td className="text-left py-2">
-              <AthleteTemplate athlete={awardPodium.thirdPlaceAthlete} />
-            </td>
+    <>
+      <div className="mb-8 text-purple-500 bold text-2xl">Awards</div>
+      <table className="table w-full">
+        <thead>
+          <tr>
+            <th className="text-left py-2 border-b border-black" scope="col">
+              Bracket Name
+            </th>
+            <th className="text-left py-2 border-b border-black" scope="col">
+              First Place
+            </th>
+            <th className="text-left py-2 border-b border-black" scope="col">
+              Second Place
+            </th>
+            <th className="text-left py-2 border-b border-black" scope="col">
+              Third Place
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {awards.map((awardPodium) => (
+            <tr key={awardPodium.bracketName}>
+              <td
+                className="text-left py-2 border-b border-gray-200"
+                scope="col"
+              >
+                <strong>{awardPodium.bracketName}</strong>
+              </td>
+              <td
+                className="text-left py-2 border-b border-gray-200"
+                scope="col"
+              >
+                <AthleteTemplate athlete={awardPodium.firstPlaceAthlete} />
+              </td>
+              <td
+                className="text-left py-2 border-b border-gray-200"
+                scope="col"
+              >
+                <AthleteTemplate athlete={awardPodium.secondPlaceAthlete} />
+              </td>
+              <td
+                className="text-left py-2 border-b border-gray-200"
+                scope="col"
+              >
+                <AthleteTemplate athlete={awardPodium.thirdPlaceAthlete} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }
 
@@ -80,13 +97,12 @@ const AthleteTemplate = ({ athlete }: { athlete: AwardWinnerDto | null }) => {
       <div>
         <a href={`/athletes/${athlete.athleteId}`}>{athlete.fullName}</a>
       </div>
-      <div className="primary-color font-weight-bold">{athlete.finishTime}</div>
       <div>
-        <span className="font-12 font-weight-bold">
+        <span className="mr-1">
           <strong>{athlete.paceWithTime.timeFormatted}</strong>
         </span>
         {athlete.paceWithTime.hasPace && (
-          <span style={{ fontSize: "12px" }}>
+          <span>
             ({athlete.paceWithTime.paceValue} {athlete.paceWithTime.paceLabel})
           </span>
         )}

@@ -40,8 +40,8 @@ export default function Content({
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [hideComparePane, setHideComparePane] = useState(false)
 
-  const handleViewMoreClicked = async (arpResult: AthleteSearchResultDto) => {
-    const url = `${apiHost}/arpApi/${arpResult.id}`
+  const handleViewMoreClicked = async (athlete: AthleteSearchResultDto) => {
+    const url = `${apiHost}/arpApi/${athlete.id}`
     const response = await fetch(url)
     const result = (await response.json()) as ArpDto
 
@@ -144,6 +144,7 @@ export default function Content({
           setHideComparePane={setHideComparePane}
           idsEncoded={idsEncoded}
           selectedIds={selectedIds}
+          url={"athletes/compare"}
           thickOpactity={true}
         />
       ) : null}

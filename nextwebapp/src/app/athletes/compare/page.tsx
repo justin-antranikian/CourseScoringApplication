@@ -1,11 +1,6 @@
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { config } from "@/config"
-import Link from "next/link"
 import React from "react"
-import {
-  CompareAthletesAthleteInfoDto,
-  CompareAthletesResult,
-} from "./definitions"
+import { CompareAthletesAthleteInfoDto } from "./definitions"
 
 interface Props {
   searchParams: {
@@ -35,107 +30,72 @@ export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const athletes = await getData(ids)
 
+  const raceSeriesName = [
+    "Running",
+    "Triathalon",
+    "Road Biking",
+    "Mountain Biking",
+    "Cross Country Skiing",
+    "Swimming",
+  ]
+
   return (
     <>
-      <div className="flex flex-wrap gap-8">
-        {athletes.map((athleteInfo) => (
-          <div key={athleteInfo.fullName} className="flex-1">
-            <div className="text-2xl font-bold">{athleteInfo.fullName}</div>
-            <div className="text-lg">
-              {athleteInfo.locationInfoWithRank.city},{" "}
-              {athleteInfo.locationInfoWithRank.state}
-            </div>
-            <div className="text-sm">
-              {athleteInfo.genderAbbreviated} | {athleteInfo.age}
-            </div>
-
-            <hr className="my-2" />
-            <LocationInfoRankings
-              locationInfoWithRank={athleteInfo.locationInfoWithRank}
-            />
-            <hr className="my-2" />
-          </div>
-        ))}
+      <div className="mb-8 text-purple-500 bold text-2xl">
+        Athlete Comparision
       </div>
+      <table className="table-auto w-full">
+        <thead>
+          <tr>
+            <th className="text-left py-2 border-b border-black" scope="col">
+              Athlete Info
+            </th>
+            {raceSeriesName.map((seriesName) => {
+              return (
+                <td
+                  key={seriesName}
+                  className="text-left py-2 border-b border-black"
+                  scope="col"
+                >
+                  {seriesName}
+                </td>
+              )
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {athletes.map((athleteInfo, index) => {
+            return (
+              <tr key={index}>
+                <td
+                  className="text-left py-2 border-b border-gray-200"
+                  scope="col"
+                >
+                  <div>{athleteInfo.fullName}</div>
+                  <div className="text-sm">
+                    {athleteInfo.genderAbbreviated} | {athleteInfo.age}
+                  </div>
+                </td>
+                {raceSeriesName.map((seriesName) => {
+                  const stat = athleteInfo.stats.find(
+                    (stat) => stat.raceSeriesTypeName === seriesName,
+                  )
 
-      <div className="flex flex-wrap gap-8">
-        {athletes.map((athleteInfo) => (
-          <div key={athleteInfo.fullName} className="flex-1">
-            {athleteInfo.stats.map((stat) => (
-              <div key={stat.raceSeriesTypeName} className="mb-2">
-                <div className="font-bold">{stat.raceSeriesTypeName}</div>
-                <div className="text-sm leading-3">
-                  Total distance: <i>{stat.totalDistance}</i>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-
-      <div className="row my-4 flex flex-wrap gap-8">
-        {athletes.map((athleteInfo) => (
-          <div key={athleteInfo.fullName} className="flex-1">
-            <table className="table-auto w-full border-collapse">
-              <thead>
-                <tr>
-                  <th
-                    className="text-left"
-                    style={{ width: "81%" }}
-                    scope="col"
-                  ></th>
-                  <th title="Overall" style={{ width: "7%" }} scope="col">
-                    O
-                  </th>
-                  <th title="Gender" style={{ width: "7%" }} scope="col">
-                    G
-                  </th>
-                  <th title="Division" style={{ width: "7%" }} scope="col">
-                    D
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {athleteInfo.results.map((result) => (
-                  <Result result={result} />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
-      </div>
+                  return (
+                    <td
+                      key={seriesName}
+                      className="text-left py-2 border-b border-gray-200"
+                      scope="col"
+                    >
+                      {stat?.actualTotal ?? "--"}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </>
-  )
-}
-
-const Result = ({ result }: { result: CompareAthletesResult }) => {
-  return (
-    <tr key={result.athleteCourseId}>
-      <td className="text-left">
-        <div className="text-lg font-bold">{result.raceName}</div>
-        <div>
-          <span className="text-sm font-bold">
-            <strong>{result.paceWithTime.timeFormatted}</strong>
-          </span>
-          {result.paceWithTime.hasPace && (
-            <span className="text-xs">
-              ({result.paceWithTime.paceValue} {result.paceWithTime.paceLabel})
-            </span>
-          )}
-        </div>
-        <div>
-          <Link
-            className="text-xs text-blue-500 hover:underline"
-            title="view result"
-            href={`/results/${result.athleteCourseId}`}
-          >
-            View
-          </Link>
-        </div>
-      </td>
-      <td>{result.overallRank}</td>
-      <td>{result.genderRank}</td>
-      <td>{result.divisionRank}</td>
-    </tr>
   )
 }

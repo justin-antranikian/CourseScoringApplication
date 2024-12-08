@@ -7,6 +7,7 @@ interface Props {
   setHideComparePane: React.Dispatch<React.SetStateAction<boolean>>
   idsEncoded: string
   selectedIds: number[]
+  url: string
   thickOpactity?: boolean
 }
 
@@ -15,6 +16,7 @@ export default function ComparePane({
   setHideComparePane,
   idsEncoded,
   selectedIds,
+  url,
   thickOpactity,
 }: Props) {
   if (hideComparePane) {
@@ -43,9 +45,7 @@ export default function ComparePane({
       )}
     >
       <div className="text-center flex-1">
-        <a href={`/compare-results?ids=${idsEncoded}`}>
-          Compare ({selectedIds.length})
-        </a>
+        <a href={`/${url}?ids=${idsEncoded}`}>Compare ({selectedIds.length})</a>
       </div>
       <div className="text-right">
         <span

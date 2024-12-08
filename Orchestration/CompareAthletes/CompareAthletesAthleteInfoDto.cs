@@ -20,8 +20,7 @@ public static class CompareAthletesAthleteInfoDtoMapper
         static CompareAthletesStat GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
         {
             var raceSeriesTypeName = raceSeriesTypeGrouping.Key.ToFriendlyText();
-            var distance = raceSeriesTypeGrouping.Sum(oo => oo.Distance);
-            return new CompareAthletesStat(raceSeriesTypeName, raceSeriesTypeGrouping.Count(), distance);
+            return new CompareAthletesStat(raceSeriesTypeName, raceSeriesTypeGrouping.Count());
         }
 
         var stats = coursesForAthlete
@@ -36,7 +35,6 @@ public static class CompareAthletesAthleteInfoDtoMapper
             athlete.FullName,
             athlete.DateOfBirth,
             athlete.Gender,
-            resultsForAthlete,
             stats
         );
     }
@@ -62,7 +60,6 @@ public class CompareAthletesAthleteInfoDto
         string fullName,
         DateTime dateOfBirth,
         Gender gender,
-        List<CompareAthletesResult> results,
         List<CompareAthletesStat> stats
     )
     {
@@ -70,7 +67,6 @@ public class CompareAthletesAthleteInfoDto
         FullName = fullName;
         GenderAbbreviated = gender.ToAbbreviation();
         Age = DateTimeHelper.GetCurrentAge(dateOfBirth);
-        Results = results;
         Stats = stats;
     }
 }

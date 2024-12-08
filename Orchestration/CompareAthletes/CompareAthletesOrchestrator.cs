@@ -5,8 +5,6 @@ namespace Orchestration.CompareAthletes;
 
 public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     public async Task<List<CompareAthletesAthleteInfoDto>> GetCompareAthletesDto(int[] athleteIds)
     {
         athleteIds = athleteIds.Take(4).ToArray();
@@ -22,13 +20,13 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<Athlete>> GetAthletes(int[] athleteIds)
     {
-        var query = _scoringDbContext.Athletes.Where(oo => athleteIds.Contains(oo.Id)).OrderBy(oo => oo.FullName);
+        var query = scoringDbContext.Athletes.Where(oo => athleteIds.Contains(oo.Id)).OrderBy(oo => oo.FullName);
         return await query.ToListAsync();
     }
 
     private async Task<List<Result>> GetResults(int[] athleteIds)
     {
-        var query = _scoringDbContext.Results
+        var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .Where(oo => athleteIds.Contains(oo.AthleteCourse.AthleteId))
                         .Where(oo => oo.Bracket.BracketType == BracketType.Overall && oo.IsHighestIntervalCompleted);
@@ -38,7 +36,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<Course>> GetCourses(int[] courseIds)
     {
-        var query = _scoringDbContext.Courses
+        var query = scoringDbContext.Courses
                         .Include(oo => oo.Race)
                         .ThenInclude(oo => oo.RaceSeries)
                         .Where(oo => courseIds.Contains(oo.Id));

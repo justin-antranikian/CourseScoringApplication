@@ -6,7 +6,6 @@ export interface CompareAthletesAthleteInfoDto {
   fullName: string
   age: number
   genderAbbreviated: string
-  results: CompareAthletesResult[]
   stats: CompareAthletesStat[]
 }
 
@@ -22,8 +21,7 @@ export interface CompareAthletesResult {
   divisionRank: number
 }
 
-interface CompareAthletesStat {
+export interface CompareAthletesStat {
   raceSeriesTypeName: string
   actualTotal: number
-  totalDistance: number
 }

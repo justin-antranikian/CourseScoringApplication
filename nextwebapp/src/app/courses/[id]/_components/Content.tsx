@@ -166,6 +166,7 @@ export default function Content({
           hideComparePane={hideComparePane}
           setHideComparePane={setHideComparePane}
           idsEncoded={idsEncoded}
+          url={"compare-results"}
           selectedIds={selectedIds}
         />
       ) : null}
