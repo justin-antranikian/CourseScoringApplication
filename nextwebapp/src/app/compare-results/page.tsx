@@ -98,7 +98,9 @@ export default async function Page({ searchParams }: Props) {
                       <div className="mt-1">
                         <Popover>
                           <PopoverTrigger>
-                            <InfoIcon size={10} />
+                            <span title="Bracket Details">
+                              <InfoIcon size={10} />
+                            </span>
                           </PopoverTrigger>
                           <PopoverContent>
                             <table className="w-full">
