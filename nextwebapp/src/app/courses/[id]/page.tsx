@@ -3,6 +3,7 @@ import React from "react"
 import { CourseLeaderboardDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
+import { getImageNonFormatted } from "@/app/utils"
 
 export const dynamic = "force-dynamic"
 
@@ -24,7 +25,15 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <div className="flex gap-1">
       <div className="w-1/4">
-        <div className="text-2xl font-bold">{courseLeaderboard.raceName}</div>
+        <div>
+          <img
+            style={{ width: "75%", height: 125 }}
+            src={getImageNonFormatted(courseLeaderboard.raceSeriesTypeName)}
+          />
+        </div>
+        <div className="mt-2 text-2xl font-bold">
+          {courseLeaderboard.raceName}
+        </div>
         <div className="text-lg text-blue-500 font-bold">
           {courseLeaderboard.courseName}
         </div>

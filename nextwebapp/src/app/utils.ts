@@ -21,7 +21,7 @@ export const getImageNonFormatted = (raceSeriesType: string) => {
   switch (raceSeriesType) {
     case "Running":
       return "/RunningClipArt.png"
-    case "Swimming":
+    case "Swim":
       return "/SwimmingClipArt.png"
     case "Triathalon":
       return "/Triathalon.jpg"

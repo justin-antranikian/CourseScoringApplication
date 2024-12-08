@@ -19,7 +19,8 @@ public static class CourseLeaderboardDtoMapper
             RaceName = race.Name,
             RaceSeriesDescription = raceSeries.Description,
             RaceSeriesId = race.Id,
-            RaceSeriesType = raceSeries.RaceSeriesType
+            RaceSeriesType = raceSeries.RaceSeriesType,
+            RaceSeriesTypeName = raceSeries.RaceSeriesType.ToString(),
         };
 
         return courseLeaderboardDto;

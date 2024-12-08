@@ -15,7 +15,7 @@ interface Props {
 
 const getData = async (id: string): Promise<RaceLeaderboardDto> => {
   const url = `${config.apiHost}/raceLeaderboardApi/${id}`
-  const response = await fetch(url)
+  const response = await fetch(url, { cache: "no-store" })
   return await response.json()
 }
 

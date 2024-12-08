@@ -12,6 +12,8 @@ export interface CourseLeaderboardDto {
   raceName: string
   raceSeriesId: number
   raceSeriesDescription: string
+  raceSeriesType: number
+  raceSeriesTypeName: string
 }
 
 export interface CourseLeaderboardByIntervalDto {
