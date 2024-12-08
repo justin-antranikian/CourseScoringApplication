@@ -11,7 +11,7 @@ export interface LocationInfoWithRank {
   state: string
   stateRank: number
   stateUrl: string
-}
+} 
 
 export default function LocationInfoRankings({
   locationInfoWithRank,
