@@ -41,9 +41,7 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
-      <div className="mb-8 text-purple-500 bold text-2xl">
-        Athlete Comparision
-      </div>
+      <div className="mb-8 text-purple-500 bold text-2xl">Athlete Compare</div>
       <table className="table-auto w-full">
         <thead>
           <tr>

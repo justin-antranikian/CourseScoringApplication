@@ -55,10 +55,7 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
-      <div className="mb-8 text-purple-500 bold text-2xl">
-        Result Comparision
-      </div>
-
+      <div className="mb-8 text-purple-500 bold text-2xl">Result Compare</div>
       <Table>
         <TableHeader>
           <TableRow>
