@@ -4,6 +4,16 @@ import { Irp } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Result from "./Result"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { BracketRank } from "@/app/_components/BracketRank"
+import IntervalTime from "@/app/_components/IntervalTime"
 
 export const dynamic = "force-dynamic"
 
@@ -106,37 +116,67 @@ export default async function Page({ params: { id } }: Props) {
 
         <hr className="my-5" />
         <div className="mb-12 bold text-2xl text-purple-500">Intervals</div>
-        <table className="my-12 table-auto w-full">
-          <thead>
-            <tr className="border-b border-black">
-              <th className="w-[15%] text-left py-2" scope="col"></th>
-              <th className="w-[20%] text-left py-2" scope="col">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[15%]"></TableHead>
+              <TableHead className="w-[20%]">
                 Time{" "}
                 <span className="text-sm">({irp.timeZoneAbbreviated})</span>
-              </th>
-              <th className="w-[10%] text-left py-2" scope="col">
-                Overall
-              </th>
-              <th className="w-[10%] text-left py-2" scope="col">
-                Gender
-              </th>
-              <th className="w-[10%] text-left py-2" scope="col">
-                Division
-              </th>
-              <th className="w-[15%] text-left py-2" scope="col">
-                Interval Time
-              </th>
-              <th className="w-[20%] text-left py-2" scope="col">
-                Cumulative Time
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+              </TableHead>
+              <TableHead className="w-[10%]">Overall</TableHead>
+              <TableHead className="w-[10%]">Gender</TableHead>
+              <TableHead className="w-[10%]">Division</TableHead>
+              <TableHead className="w-[15%]">Interval Time</TableHead>
+              <TableHead className="w-[20%]">Cumulative Time</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {irp.intervalResults.map((intervalResult, index) => (
-              <Result result={intervalResult} key={index} />
+              <TableRow key={index}>
+                <TableCell>
+                  <div className="truncate max-w-[100px]">
+                    {intervalResult.intervalName}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <span className="text-lg">{intervalResult.crossingTime}</span>
+                </TableCell>
+                <TableCell>
+                  <BracketRank
+                    rank={intervalResult.overallRank}
+                    total={intervalResult.overallCount}
+                    indicator={intervalResult.overallIndicator}
+                  />
+                </TableCell>
+                <TableCell>
+                  <BracketRank
+                    rank={intervalResult.genderRank}
+                    total={intervalResult.genderCount}
+                    indicator={intervalResult.genderIndicator}
+                  />
+                </TableCell>
+                <TableCell>
+                  <BracketRank
+                    rank={intervalResult.primaryDivisionRank}
+                    total={intervalResult.primaryDivisionCount}
+                    indicator={intervalResult.primaryDivisionIndicator}
+                  />
+                </TableCell>
+                <TableCell>
+                  <IntervalTime
+                    paceTime={intervalResult.paceWithTimeIntervalOnly}
+                  />
+                </TableCell>
+                <TableCell>
+                  <IntervalTime
+                    paceTime={intervalResult.paceWithTimeCumulative}
+                  />
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   )
