@@ -66,11 +66,10 @@ export default async function Page({ params: { id } }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[10%]"></TableHead>
-              <TableHead className="w-[30%]">Event Name</TableHead>
-              <TableHead className="w-[13%]">Overall</TableHead>
-              <TableHead className="w-[13%]">Gender</TableHead>
-              <TableHead className="w-[14%]">Division</TableHead>
+              <TableHead className="w-[20%]">Event Name</TableHead>
+              <TableHead className="w-[20%]">Overall</TableHead>
+              <TableHead className="w-[20%]">Gender</TableHead>
+              <TableHead className="w-[20%]">Division</TableHead>
               <TableHead className="w-[20%]">Total Time</TableHead>
             </TableRow>
           </TableHeader>
@@ -78,9 +77,9 @@ export default async function Page({ params: { id } }: Props) {
             {arp.results.map((result) => {
               return (
                 <TableRow>
-                  <TableCell>
+                  {/* <TableCell>
                     <a href={`/results/${result.athleteCourseId}`}>View</a>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <div>
                       <a href={`/races/${result.raceId}`}>{result.raceName}</a>
