@@ -12,6 +12,14 @@ import {
 } from "@/components/ui/popover"
 import { BracketRank } from "../_components/BracketRank"
 import { PaceWithTime } from "../_components/IntervalTime"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 interface Props {
   searchParams: {
@@ -50,32 +58,35 @@ export default async function Page({ searchParams }: Props) {
       <div className="mb-8 text-purple-500 bold text-2xl">
         Result Comparision
       </div>
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th className="text-left py-2 border-b border-black" scope="col">
-              Athlete Info
-            </th>
+
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="flex-1">Athlete Info</TableHead>
             {intervalNames.map((interval: string, index: number) => (
-              <th
-                key={index}
-                className="text-left py-2 border-b border-black"
-                scope="col"
-              >
+              <TableHead className="flex-1" key={index}>
                 {interval}
-              </th>
+              </TableHead>
+              // <th
+              //   key={index}
+              //   className="text-left py-2 border-b border-black"
+              //   scope="col"
+              // >
+              //   {interval}
+              // </th>
             ))}
-          </tr>
-        </thead>
-        <thead>
+            {/* <TableHead className="flex-1">Invoice</TableHead>
+            <TableHead className="flex-1">Status</TableHead>
+            <TableHead className="flex-1">Method</TableHead>
+            <TableHead className="flex-1">Amount</TableHead> */}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {irpsToCompare.map((athleteInfo) => {
             return (
-              <tr key={athleteInfo.athleteCourseId}>
-                <td
-                  className="text-left py-2 border-b border-gray-200"
-                  scope="col"
-                >
-                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-2xl">
+              <TableRow key={athleteInfo.athleteCourseId}>
+                <TableCell className="flex-1">
+                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">
                     {athleteInfo.fullName}
                   </div>
                   <div className="overflow-hidden text-ellipsis whitespace-nowrap">
@@ -84,13 +95,10 @@ export default async function Page({ searchParams }: Props) {
                   <div className="text-xs">
                     {athleteInfo.genderAbbreviated} | {athleteInfo.raceAge}
                   </div>
-                </td>
+                </TableCell>
                 {athleteInfo.compareIrpsIntervalDtos.map((result) => {
                   return (
-                    <td
-                      className="text-left py-2 border-b border-gray-200"
-                      scope="col"
-                    >
+                    <TableCell>
                       <div>
                         {result.crossingTime ? result.crossingTime : "--"}
                       </div>
@@ -143,14 +151,14 @@ export default async function Page({ searchParams }: Props) {
                           </PopoverContent>
                         </Popover>
                       </div>
-                    </td>
+                    </TableCell>
                   )
                 })}
-              </tr>
+              </TableRow>
             )
           })}
-        </thead>
-      </table>
+        </TableBody>
+      </Table>
     </>
   )
 }
