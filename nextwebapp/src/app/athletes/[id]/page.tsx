@@ -1,7 +1,16 @@
 import { config } from "@/config"
 import { ArpDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
-import AtheleteResult from "./AtheleteResult"
+import { BracketRank } from "@/app/_components/BracketRank"
+import RankWithTime from "../_components/RankWithTime"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export const dynamic = "force-dynamic"
 
@@ -54,33 +63,60 @@ export default async function Page({ params: { id } }: Props) {
       </div>
       <div className="w-3/4">
         <div className="mb-12 bold text-2xl text-purple-500">Results</div>
-        <table className="my-5 table-auto w-full">
-          <thead>
-            <tr className="border-b border-black">
-              <th className="w-[10%] py-2" scope="col"></th>
-              <th className="w-[30%] text-left py-2" scope="col">
-                Event Name
-              </th>
-              <th className="w-[13%] text-left py-2" scope="col">
-                Overall
-              </th>
-              <th className="w-[13%] text-left py-2" scope="col">
-                Gender
-              </th>
-              <th className="w-[14%] text-left py-2" scope="col">
-                Division
-              </th>
-              <th className="w-[20%] text-left py-2" scope="col">
-                Total Time
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[10%]"></TableHead>
+              <TableHead className="w-[30%]">Event Name</TableHead>
+              <TableHead className="w-[13%]">Overall</TableHead>
+              <TableHead className="w-[13%]">Gender</TableHead>
+              <TableHead className="w-[14%]">Division</TableHead>
+              <TableHead className="w-[20%]">Total Time</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {arp.results.map((result) => {
-              return <AtheleteResult result={result} />
+              return (
+                <TableRow>
+                  <TableCell>
+                    <a href={`/results/${result.athleteCourseId}`}>View</a>
+                  </TableCell>
+                  <TableCell>
+                    <div>
+                      <a href={`/races/${result.raceId}`}>{result.raceName}</a>
+                    </div>
+                    <div>
+                      <a href={`/courses/${result.courseId}`}>
+                        {result.courseName}
+                      </a>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <BracketRank
+                      rank={result.overallRank}
+                      total={result.overallCount}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <BracketRank
+                      rank={result.genderRank}
+                      total={result.genderCount}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <BracketRank
+                      rank={result.primaryDivisionRank}
+                      total={result.primaryDivisionCount}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <RankWithTime paceTime={result.paceWithTimeCumulative} />
+                  </TableCell>
+                </TableRow>
+              )
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   )
