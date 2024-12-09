@@ -1,5 +1,5 @@
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
-import IrpDetails from "@/app/athletes/_components/IrpDetails"
+import IrpDetails from "@/app/_components/IrpDetails"
 import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
 import { Irp } from "@/app/results/[id]/definitions"

@@ -13,7 +13,15 @@ import {
 } from "@/components/ui/sheet"
 import { Irp } from "@/app/results/[id]/definitions"
 import RankWithTime from "./RankWithTime"
-import IrpDetails from "./IrpDetails"
+import IrpDetails from "../../_components/IrpDetails"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function QuickViewDialogContent({
   arp,
@@ -55,80 +63,68 @@ export default function QuickViewDialogContent({
         </div>
         <div className="flex-[3]">
           <div className="mb-8 text-purple-500 bold text-2xl">Results</div>
-          <table className="my-5 table-auto w-full">
-            <thead>
-              <tr className="border-b border-black">
-                <th className="w-[10%] py-2" scope="col"></th>
-                <th className="w-[5%] py-2" scope="col"></th>
-                <th className="w-[25%] text-left py-2" scope="col">
-                  Event Name
-                </th>
-                <th className="w-[13%] text-left py-2" scope="col">
-                  Overall
-                </th>
-                <th className="w-[13%] text-left py-2" scope="col">
-                  Gender
-                </th>
-                <th className="w-[14%] text-left py-2" scope="col">
-                  Division
-                </th>
-                <th className="w-[20%] text-left py-2" scope="col">
-                  Total Time
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {arp.results.map((result) => {
-                return (
-                  <tr className="border-b border-gray-300">
-                    <td className="py-2">
-                      <Link href={`/results/${result.athleteCourseId}`}>
-                        View
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[10%]"></TableHead>
+                <TableHead className="w-[5%]"></TableHead>
+                <TableHead className="w-[25%]">Event Name</TableHead>
+                <TableHead className="w-[13%]">Overall</TableHead>
+                <TableHead className="w-[13%]">Gender</TableHead>
+                <TableHead className="w-[14%]">Division</TableHead>
+                <TableHead className="w-[20%]">Total Time</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {arp.results.map((result) => (
+                <TableRow key={result.athleteCourseId}>
+                  <TableCell>
+                    <Link href={`/results/${result.athleteCourseId}`}>
+                      View
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <span className="cursor-pointer">
+                      <Info size={14} onClick={() => getIrpData(result)} />
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div>
+                      <Link href={`/races/${result.raceId}`}>
+                        {result.raceName}
                       </Link>
-                    </td>
-                    <td className="text-left py-2">
-                      <span className="cursor-pointer">
-                        <Info size={14} onClick={() => getIrpData(result)} />
-                      </span>
-                    </td>
-                    <td className="py-2">
-                      <div>
-                        <Link href={`/races/${result.raceId}`}>
-                          {result.raceName}
-                        </Link>
-                      </div>
-                      <div>
-                        <Link href={`/courses/${result.courseId}`}>
-                          {result.courseName}
-                        </Link>
-                      </div>
-                    </td>
-                    <td className="py-2">
-                      <BracketRank
-                        rank={result.overallRank}
-                        total={result.overallCount}
-                      />
-                    </td>
-                    <td className="py-2">
-                      <BracketRank
-                        rank={result.genderRank}
-                        total={result.genderCount}
-                      />
-                    </td>
-                    <td className="py-2">
-                      <BracketRank
-                        rank={result.primaryDivisionRank}
-                        total={result.primaryDivisionCount}
-                      />
-                    </td>
-                    <td className="py-2">
-                      <RankWithTime paceTime={result.paceWithTimeCumulative} />
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+                    </div>
+                    <div>
+                      <Link href={`/courses/${result.courseId}`}>
+                        {result.courseName}
+                      </Link>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <BracketRank
+                      rank={result.overallRank}
+                      total={result.overallCount}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <BracketRank
+                      rank={result.genderRank}
+                      total={result.genderCount}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <BracketRank
+                      rank={result.primaryDivisionRank}
+                      total={result.primaryDivisionCount}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <RankWithTime paceTime={result.paceWithTimeCumulative} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>

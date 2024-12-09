@@ -62,30 +62,17 @@ export default async function Page({ searchParams }: Props) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="flex-1">Athlete Info</TableHead>
+            <TableHead>Athlete Info</TableHead>
             {intervalNames.map((interval: string, index: number) => (
-              <TableHead className="flex-1" key={index}>
-                {interval}
-              </TableHead>
-              // <th
-              //   key={index}
-              //   className="text-left py-2 border-b border-black"
-              //   scope="col"
-              // >
-              //   {interval}
-              // </th>
+              <TableHead key={index}>{interval}</TableHead>
             ))}
-            {/* <TableHead className="flex-1">Invoice</TableHead>
-            <TableHead className="flex-1">Status</TableHead>
-            <TableHead className="flex-1">Method</TableHead>
-            <TableHead className="flex-1">Amount</TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
           {irpsToCompare.map((athleteInfo) => {
             return (
               <TableRow key={athleteInfo.athleteCourseId}>
-                <TableCell className="flex-1">
+                <TableCell>
                   <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">
                     {athleteInfo.fullName}
                   </div>
