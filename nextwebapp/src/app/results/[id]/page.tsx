@@ -119,16 +119,16 @@ export default async function Page({ params: { id } }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[15%]"></TableHead>
-              <TableHead className="w-[20%]">
+              <TableHead></TableHead>
+              <TableHead>
                 Time{" "}
                 <span className="text-sm">({irp.timeZoneAbbreviated})</span>
               </TableHead>
-              <TableHead className="w-[10%]">Overall</TableHead>
-              <TableHead className="w-[10%]">Gender</TableHead>
-              <TableHead className="w-[10%]">Division</TableHead>
-              <TableHead className="w-[15%]">Interval Time</TableHead>
-              <TableHead className="w-[20%]">Cumulative Time</TableHead>
+              <TableHead>Overall</TableHead>
+              <TableHead>Gender</TableHead>
+              <TableHead>Division</TableHead>
+              <TableHead>Interval Time</TableHead>
+              <TableHead>Cumulative Time</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

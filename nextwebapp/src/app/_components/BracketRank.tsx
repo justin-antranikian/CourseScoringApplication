@@ -24,11 +24,11 @@ export const BracketRank = ({
     }
 
     if (indicator == BetweenIntervalTimeIndicator.Improving) {
-      return <span className="ml-1 text-xs text-green-500">(Better)</span>
+      return <div className="text-xs text-green-500">(Better)</div>
     }
 
     if (indicator == BetweenIntervalTimeIndicator.GettingWorse) {
-      return <span className="ml-1 text-xs text-red-500">(Worse)</span>
+      return <div className="text-xs text-red-500">(Worse)</div>
     }
   }
 
