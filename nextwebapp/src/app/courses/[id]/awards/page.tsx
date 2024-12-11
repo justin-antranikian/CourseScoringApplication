@@ -1,4 +1,12 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { config } from "@/config"
 import React from "react"
 
@@ -35,54 +43,34 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <>
       <div className="mb-8 text-purple-500 bold text-2xl">Awards</div>
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th className="text-left py-2 border-b border-black" scope="col">
-              Bracket Name
-            </th>
-            <th className="text-left py-2 border-b border-black" scope="col">
-              First Place
-            </th>
-            <th className="text-left py-2 border-b border-black" scope="col">
-              Second Place
-            </th>
-            <th className="text-left py-2 border-b border-black" scope="col">
-              Third Place
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Bracket Name</TableHead>
+            <TableHead>First Place</TableHead>
+            <TableHead>Second Place</TableHead>
+            <TableHead>Third Place</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {awards.map((awardPodium) => (
-            <tr key={awardPodium.bracketName}>
-              <td
-                className="text-left py-2 border-b border-gray-200"
-                scope="col"
-              >
+            <TableRow key={awardPodium.bracketName}>
+              <TableCell>
                 <strong>{awardPodium.bracketName}</strong>
-              </td>
-              <td
-                className="text-left py-2 border-b border-gray-200"
-                scope="col"
-              >
+              </TableCell>
+              <TableCell>
                 <AthleteTemplate athlete={awardPodium.firstPlaceAthlete} />
-              </td>
-              <td
-                className="text-left py-2 border-b border-gray-200"
-                scope="col"
-              >
+              </TableCell>
+              <TableCell>
                 <AthleteTemplate athlete={awardPodium.secondPlaceAthlete} />
-              </td>
-              <td
-                className="text-left py-2 border-b border-gray-200"
-                scope="col"
-              >
+              </TableCell>
+              <TableCell>
                 <AthleteTemplate athlete={awardPodium.thirdPlaceAthlete} />
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
   )
 }
