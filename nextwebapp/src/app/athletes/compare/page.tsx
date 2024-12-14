@@ -1,6 +1,14 @@
 import { config } from "@/config"
 import React from "react"
 import { CompareAthletesAthleteInfoDto } from "./definitions"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 interface Props {
   searchParams: {
@@ -42,58 +50,41 @@ export default async function Page({ searchParams }: Props) {
   return (
     <>
       <div className="mb-8 text-purple-500 bold text-2xl">Athlete Compare</div>
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th className="text-left py-2 border-b border-black" scope="col">
-              Athlete Info
-            </th>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Athlete Info</TableHead>
             {raceSeriesName.map((seriesName) => {
-              return (
-                <td
-                  key={seriesName}
-                  className="text-left py-2 border-b border-black"
-                  scope="col"
-                >
-                  {seriesName}
-                </td>
-              )
+              return <TableHead key={seriesName}>{seriesName}</TableHead>
             })}
-          </tr>
-        </thead>
-        <tbody>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {athletes.map((athleteInfo, index) => {
             return (
-              <tr key={index}>
-                <td
-                  className="text-left py-2 border-b border-gray-200"
-                  scope="col"
-                >
+              <TableRow key={index}>
+                <TableCell>
                   <div>{athleteInfo.fullName}</div>
                   <div className="text-sm">
                     {athleteInfo.genderAbbreviated} | {athleteInfo.age}
                   </div>
-                </td>
+                </TableCell>
                 {raceSeriesName.map((seriesName) => {
                   const stat = athleteInfo.stats.find(
                     (stat) => stat.raceSeriesTypeName === seriesName,
                   )
 
                   return (
-                    <td
-                      key={seriesName}
-                      className="text-left py-2 border-b border-gray-200"
-                      scope="col"
-                    >
+                    <TableCell key={seriesName}>
                       {stat?.actualTotal ?? "--"}
-                    </td>
+                    </TableCell>
                   )
                 })}
-              </tr>
+              </TableRow>
             )
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
   )
 }
