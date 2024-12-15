@@ -4,9 +4,9 @@ using Orchestration.CompareIrps;
 
 namespace Api.Controllers;
 
-public class CompareIrpApiRequest
+public record CompareIrpApiRequest
 {
-    public List<int> AthleteCourseIds { get; set; }
+    public required List<int> AthleteCourseIds { get; init; }
 }
 
 [Route("[controller]")]

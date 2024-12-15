@@ -4,22 +4,15 @@ using DataModels.Extensions;
 
 namespace Orchestration.CompareIrps;
 
-public class CompareIrpsOrchestrator
+public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task<List<CompareIrpsAthleteInfoDto>> GetCompareIrpsDto(List<int> athleteCourseIds)
     {
         var filteredAthleteCourseIds = athleteCourseIds.Take(4).ToList();
 
-        var courseId = (await _scoringDbContext.AthleteCourses.SingleAsync(oo => oo.Id == filteredAthleteCourseIds.First())).CourseId;
-        var course = await _scoringDbContext.Courses.Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
-        var primaryBracket = await _scoringDbContext.Brackets.SingleAsync(oo => oo.CourseId == courseId && oo.BracketType == BracketType.Overall);
+        var courseId = (await scoringDbContext.AthleteCourses.SingleAsync(oo => oo.Id == filteredAthleteCourseIds.First())).CourseId;
+        var course = await scoringDbContext.Courses.Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
+        var primaryBracket = await scoringDbContext.Brackets.SingleAsync(oo => oo.CourseId == courseId && oo.BracketType == BracketType.Overall);
         var athleteCourses = await GetAthleteCourses(filteredAthleteCourseIds);
 
         return GetCompareIrpsAthleteInfoDtos(athleteCourses, primaryBracket.Id, course);
@@ -56,7 +49,6 @@ public class CompareIrpsOrchestrator
         var fullCourseInterval = course.Intervals.Single(oo => oo.IsFullCourse);
         var fullCourseResult = filteredResults.SingleOrDefault(oo => oo.IntervalId == fullCourseInterval.Id);
         var finishInfo = GetFinishInfo(fullCourseResult, course);
-        var (courseDate, courseTime) = DateTimeHelper.GetFormattedFields(course.StartDate);
         var irpRank = index.MapToCompareIrpsRank();
 
         return new CompareIrpsAthleteInfoDto
@@ -102,7 +94,7 @@ public class CompareIrpsOrchestrator
 
     private async Task<List<AthleteCourse>> GetAthleteCourses(List<int> athleteCourseIds)
     {
-        var query = _scoringDbContext.AthleteCourses
+        var query = scoringDbContext.AthleteCourses
                         .Include(oo => oo.Results)
                         .Include(oo => oo.Athlete)
                         .Where(oo => athleteCourseIds.Contains(oo.Id));
