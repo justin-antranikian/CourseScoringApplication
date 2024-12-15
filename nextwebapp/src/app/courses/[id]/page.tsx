@@ -4,6 +4,7 @@ import { CourseLeaderboardDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
 import { getImageNonFormatted } from "@/app/utils"
+import { Button } from "@/components/ui/button"
 
 export const dynamic = "force-dynamic"
 
@@ -52,7 +53,9 @@ export default async function Page({ params: { id } }: Props) {
           locationInfoWithRank={courseLeaderboard.locationInfoWithRank}
         />
         <div className="mt-5">
-          <a href={`/courses/${id}/awards`}>Awards</a>
+          <a href={`/courses/${id}/awards`}>
+            <Button>Awards</Button>
+          </a>
         </div>
       </div>
       <div className="w-3/4">

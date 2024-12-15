@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { CircleChevronDown, CircleChevronUp } from "lucide-react"
 import React from "react"
 import { twMerge } from "tailwind-merge"
@@ -27,12 +33,21 @@ export default function ComparePane({
           thickOpactity ? "bg-opacity-70" : "bg-opacity-30",
         )}
       >
-        <span
-          onClick={() => setHideComparePane(false)}
-          className="cursor-pointer"
-        >
-          <CircleChevronUp size={14} />
-        </span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <span
+                onClick={() => setHideComparePane(false)}
+                className="cursor-pointer"
+              >
+                <CircleChevronUp size={14} />
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Expand Compare</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     )
   }
@@ -48,12 +63,21 @@ export default function ComparePane({
         <a href={`/${url}?ids=${idsEncoded}`}>Compare ({selectedIds.length})</a>
       </div>
       <div className="text-right">
-        <span
-          className="cursor-pointer"
-          onClick={() => setHideComparePane(true)}
-        >
-          <CircleChevronDown size={16} />
-        </span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <span
+                onClick={() => setHideComparePane(true)}
+                className="cursor-pointer"
+              >
+                <CircleChevronDown size={16} />
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Hide Compare</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </div>
   )

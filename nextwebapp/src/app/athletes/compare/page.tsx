@@ -1,6 +1,4 @@
-import { config } from "@/config"
 import React from "react"
-import { CompareAthletesAthleteInfoDto } from "./definitions"
 import {
   Table,
   TableBody,
@@ -9,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { apiCaller } from "@/app/_api/api"
 
 interface Props {
   searchParams: {
@@ -16,27 +15,11 @@ interface Props {
   }
 }
 
-const getData = async (
-  athleteIds: string[],
-): Promise<CompareAthletesAthleteInfoDto[]> => {
-  const url = `${config.apiHost}/compareAthletesApi`
-
-  const requestInit: RequestInit = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ athleteIds }),
-    cache: "no-store",
-  }
-
-  const response = await fetch(url, requestInit)
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
-  const athletes = await getData(ids)
+  const athletes = await api.athletes.compare(ids)
 
   const raceSeriesName = [
     "Running",
