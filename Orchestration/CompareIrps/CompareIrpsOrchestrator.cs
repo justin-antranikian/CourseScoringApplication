@@ -23,7 +23,7 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
         var orderedAthleteCourses = athleteCourses
                                         .Select(oo => oo.Results.Single(oo => oo.BracketId == primaryBracketId && oo.IsHighestIntervalCompleted))
                                         .OrderBy(oo => oo.Rank)
-                                        .Select(oo => athleteCourses.Single(athleteCourse => athleteCourse.Id == oo.AthleteCourseId))
+                                        .Select(oo => oo.AthleteCourse)
                                         .ToList();
 
         var athleteInfoDtos = orderedAthleteCourses.Select((oo, index) => MapToCompareIrpsAthleteInfoDto(oo, index, course, primaryBracketId)).ToList();
