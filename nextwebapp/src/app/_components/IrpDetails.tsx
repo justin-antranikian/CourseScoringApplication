@@ -1,19 +1,8 @@
 import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
 import { Irp } from "@/app/results/[id]/definitions"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { InfoIcon } from "lucide-react"
 import React from "react"
 
@@ -68,9 +57,7 @@ export default function IrpDetails({ irpDetails }: { irpDetails: Irp }) {
                               <BracketRank
                                 rank={intervalResult.primaryDivisionRank}
                                 total={intervalResult.primaryDivisionCount}
-                                indicator={
-                                  intervalResult.primaryDivisionIndicator
-                                }
+                                indicator={intervalResult.primaryDivisionIndicator}
                               />
                             </td>
                           </tr>
@@ -81,14 +68,10 @@ export default function IrpDetails({ irpDetails }: { irpDetails: Irp }) {
                 </div>
               </TableCell>
               <TableCell>
-                <IntervalTime
-                  paceTime={intervalResult.paceWithTimeIntervalOnly}
-                />
+                <IntervalTime paceTime={intervalResult.paceWithTimeIntervalOnly} />
               </TableCell>
               <TableCell>
-                <IntervalTime
-                  paceTime={intervalResult.paceWithTimeCumulative}
-                />
+                <IntervalTime paceTime={intervalResult.paceWithTimeCumulative} />
               </TableCell>
             </TableRow>
           ))}

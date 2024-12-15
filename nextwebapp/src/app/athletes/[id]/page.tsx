@@ -1,16 +1,8 @@
-import { config } from "@/config"
-import { ArpDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { BracketRank } from "@/app/_components/BracketRank"
 import RankWithTime from "../_components/RankWithTime"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { apiCaller } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -20,14 +12,10 @@ interface Props {
   }
 }
 
-const getData = async (id: string): Promise<ArpDto> => {
-  const url = `${config.apiHost}/arpApi/${id}`
-  const response = await fetch(url)
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page({ params: { id } }: Props) {
-  const arp = await getData(id)
+  const arp = await api.athletes.details(id)
 
   return (
     <div className="flex gap-1">
@@ -77,36 +65,25 @@ export default async function Page({ params: { id } }: Props) {
             {arp.results.map((result) => {
               return (
                 <TableRow>
-                  {/* <TableCell>
-                    <a href={`/results/${result.athleteCourseId}`}>View</a>
-                  </TableCell> */}
                   <TableCell>
                     <div>
                       <a href={`/races/${result.raceId}`}>{result.raceName}</a>
                     </div>
                     <div>
-                      <a href={`/courses/${result.courseId}`}>
-                        {result.courseName}
-                      </a>
+                      <a href={`/courses/${result.courseId}`}>{result.courseName}</a>
+                    </div>
+                    <div>
+                      <a href={`/results/${result.athleteCourseId}`}>View</a>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <BracketRank
-                      rank={result.overallRank}
-                      total={result.overallCount}
-                    />
+                    <BracketRank rank={result.overallRank} total={result.overallCount} />
                   </TableCell>
                   <TableCell>
-                    <BracketRank
-                      rank={result.genderRank}
-                      total={result.genderCount}
-                    />
+                    <BracketRank rank={result.genderRank} total={result.genderCount} />
                   </TableCell>
                   <TableCell>
-                    <BracketRank
-                      rank={result.primaryDivisionRank}
-                      total={result.primaryDivisionCount}
-                    />
+                    <BracketRank rank={result.primaryDivisionRank} total={result.primaryDivisionCount} />
                   </TableCell>
                   <TableCell>
                     <RankWithTime paceTime={result.paceWithTimeCumulative} />

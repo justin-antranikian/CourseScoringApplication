@@ -6,5 +6,6 @@
   "trailingComma": "all",
   "arrowParens": "always",
   "noExtraSpacing": true,
-  "endOfLine": "crlf"
+  "endOfLine": "crlf",
+  "printWidth": 120
 }

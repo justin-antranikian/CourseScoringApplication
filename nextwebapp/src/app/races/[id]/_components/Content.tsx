@@ -9,14 +9,7 @@ import { Dialog } from "@/components/ui/dialog"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import IrpQuickView from "./IrpQuickView"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function Content({
   apiHost,
@@ -28,9 +21,7 @@ export default function Content({
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
 
-  const handleQuickViewClicked = async (
-    irpResult: LeaderboardResultDto,
-  ): Promise<void> => {
+  const handleQuickViewClicked = async (irpResult: LeaderboardResultDto): Promise<void> => {
     const url = `${apiHost}/irpApi/${irpResult.athleteCourseId}`
     const response = await fetch(url)
     const result = (await response.json()) as Irp
@@ -42,9 +33,7 @@ export default function Content({
     <>
       {raceLeaderboard.leaderboards.map((leaderboard, index) => (
         <div key={index}>
-          <div className="mb-8 text-purple-500 bold text-2xl">
-            {leaderboard.courseName}
-          </div>
+          <div className="mb-8 text-purple-500 bold text-2xl">{leaderboard.courseName}</div>
           <Table>
             <TableHeader>
               <TableRow>
@@ -84,13 +73,9 @@ export default function Content({
                   <TableCell>{irp.overallRank}</TableCell>
                   <TableCell>{irp.genderRank}</TableCell>
                   <TableCell>{irp.divisionRank}</TableCell>
-                  <TableCell className="font-bold">
-                    {irp.paceWithTimeCumulative.timeFormatted}
-                  </TableCell>
+                  <TableCell className="font-bold">{irp.paceWithTimeCumulative.timeFormatted}</TableCell>
                   <TableCell>
-                    <div className="font-bold">
-                      {irp.paceWithTimeCumulative.paceValue || "--"}
-                    </div>
+                    <div className="font-bold">{irp.paceWithTimeCumulative.paceValue || "--"}</div>
                     {irp.paceWithTimeCumulative.paceLabel}
                   </TableCell>
                 </TableRow>

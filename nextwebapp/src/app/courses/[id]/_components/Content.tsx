@@ -7,20 +7,8 @@ import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
 import ComparePane from "@/app/_components/ComparePane"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function Content({
   apiHost,
@@ -46,9 +34,7 @@ export default function Content({
     return encodeURIComponent(`[${selectedIds.join(",")}]`)
   }, [selectedIds])
 
-  const handleQuickViewClicked = async (
-    irpResult: LeaderboardResultDto,
-  ): Promise<void> => {
+  const handleQuickViewClicked = async (irpResult: LeaderboardResultDto): Promise<void> => {
     const url = `${apiHost}/irpApi/${irpResult.athleteCourseId}`
     const response = await fetch(url)
     const result = (await response.json()) as Irp
@@ -60,9 +46,7 @@ export default function Content({
     <>
       {courseLeaderboard.leaderboards.map((leaderboard, index) => (
         <div key={index}>
-          <div className="mb-8 text-purple-500 bold text-2xl">
-            {leaderboard.intervalName}
-          </div>
+          <div className="mb-8 text-purple-500 bold text-2xl">{leaderboard.intervalName}</div>
           <Table className="mb-8">
             <TableHeader>
               <TableRow>
@@ -79,10 +63,7 @@ export default function Content({
             </TableHeader>
             <TableBody className="text-sm">
               {leaderboard.results.map((irp) => (
-                <TableRow
-                  key={irp.athleteCourseId}
-                  className="border-b border-gray-300"
-                >
+                <TableRow key={irp.athleteCourseId} className="border-b border-gray-300">
                   <TableCell className="text-left py-2">
                     <a href={`/results/${irp.athleteCourseId}`}>View</a>
                   </TableCell>
@@ -106,13 +87,9 @@ export default function Content({
                   <TableCell>{irp.overallRank}</TableCell>
                   <TableCell>{irp.genderRank}</TableCell>
                   <TableCell>{irp.divisionRank}</TableCell>
-                  <TableCell className="font-bold">
-                    {irp.paceWithTimeCumulative.timeFormatted}
-                  </TableCell>
+                  <TableCell className="font-bold">{irp.paceWithTimeCumulative.timeFormatted}</TableCell>
                   <TableCell>
-                    <div className="font-bold">
-                      {irp.paceWithTimeCumulative.paceValue || "--"}
-                    </div>
+                    <div className="font-bold">{irp.paceWithTimeCumulative.paceValue || "--"}</div>
                     {irp.paceWithTimeCumulative.paceLabel}
                   </TableCell>
                   <TableCell>
@@ -121,9 +98,7 @@ export default function Content({
                         <TooltipTrigger>
                           <ChartBarStacked
                             className="cursor-pointer"
-                            onClick={() =>
-                              handleCompareClicked(irp.athleteCourseId)
-                            }
+                            onClick={() => handleCompareClicked(irp.athleteCourseId)}
                             size={15}
                             color="green"
                           />

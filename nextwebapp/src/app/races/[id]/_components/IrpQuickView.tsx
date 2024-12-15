@@ -20,9 +20,7 @@ export default function IrpQuickView({ irp }: { irp: Irp | null }) {
           <div className="mb-3 text-xs">
             {irp.genderAbbreviated} | {irp.raceAge}
           </div>
-          <LocationInfoRankings
-            locationInfoWithRank={irp.locationInfoWithRank}
-          />
+          <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} />
         </div>
         <div className="flex-[3]">
           <div className="mb-8 text-purple-500 bold text-2xl">Results</div>

@@ -41,10 +41,7 @@ export default async function Page({ params: { id } }: Props) {
         <hr className="mt-5" />
         <div className="mt-5">
           {irp.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="text-lg bg-blue-500 text-white py-1 px-3 rounded-lg mr-2 mb-2 inline-block"
-            >
+            <span key={index} className="text-lg bg-blue-500 text-white py-1 px-3 rounded-lg mr-2 mb-2 inline-block">
               {tag}
             </span>
           ))}
@@ -59,9 +56,7 @@ export default async function Page({ params: { id } }: Props) {
         </ul>
 
         <div className="mt-3">{irp.firstName}'s personal goal</div>
-        <div className="mt-3 text-xs italic">
-          "{irp.personalGoalDescription}"
-        </div>
+        <div className="mt-3 text-xs italic">"{irp.personalGoalDescription}"</div>
 
         <div className="mt-3">{irp.firstName}'s course goal</div>
         <div className="mt-3 text-xs italic text-blue-500">
@@ -73,21 +68,15 @@ export default async function Page({ params: { id } }: Props) {
         <div className="my-5 flex flex-wrap">
           <div className="w-full sm:w-1/3">
             <div>Time</div>
-            <div className="text-xl font-bold">
-              {irp.paceWithTimeCumulative.timeFormatted}
-            </div>
+            <div className="text-xl font-bold">{irp.paceWithTimeCumulative.timeFormatted}</div>
           </div>
           <div className="w-full sm:w-1/3">
             <div>Pace ({irp.paceWithTimeCumulative.paceLabel})</div>
-            <div className="text-xl font-bold">
-              {irp.paceWithTimeCumulative.paceValue || "--"}
-            </div>
+            <div className="text-xl font-bold">{irp.paceWithTimeCumulative.paceValue || "--"}</div>
           </div>
           <div className="w-full sm:w-1/3">
             <div>Finish Time ({irp.timeZoneAbbreviated})</div>
-            <div className="text-xl font-bold">
-              {irp.finishTime ? irp.finishTime : "--"}
-            </div>
+            <div className="text-xl font-bold">{irp.finishTime ? irp.finishTime : "--"}</div>
           </div>
         </div>
         <hr className="my-5" />

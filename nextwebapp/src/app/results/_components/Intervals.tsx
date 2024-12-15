@@ -1,13 +1,6 @@
 import React from "react"
 import { Irp } from "../[id]/definitions"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
 
@@ -29,9 +22,7 @@ export default function Intervals({ irp }: { irp: Irp }) {
         {irp.intervalResults.map((intervalResult, index) => (
           <TableRow key={index}>
             <TableCell>
-              <div className="truncate max-w-[100px]">
-                {intervalResult.intervalName}
-              </div>
+              <div className="truncate max-w-[100px]">{intervalResult.intervalName}</div>
             </TableCell>
             <TableCell>
               <span className="text-lg">{intervalResult.crossingTime}</span>
@@ -58,9 +49,7 @@ export default function Intervals({ irp }: { irp: Irp }) {
               />
             </TableCell>
             <TableCell>
-              <IntervalTime
-                paceTime={intervalResult.paceWithTimeIntervalOnly}
-              />
+              <IntervalTime paceTime={intervalResult.paceWithTimeIntervalOnly} />
             </TableCell>
             <TableCell>
               <IntervalTime paceTime={intervalResult.paceWithTimeCumulative} />

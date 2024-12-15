@@ -1,12 +1,5 @@
 import React from "react"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { apiCaller } from "@/app/_api/api"
 
 interface Props {
@@ -21,14 +14,7 @@ export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const athletes = await api.athletes.compare(ids)
 
-  const raceSeriesName = [
-    "Running",
-    "Triathalon",
-    "Road Biking",
-    "Mountain Biking",
-    "Cross Country Skiing",
-    "Swimming",
-  ]
+  const raceSeriesName = ["Running", "Triathalon", "Road Biking", "Mountain Biking", "Cross Country Skiing", "Swimming"]
 
   return (
     <>
@@ -53,15 +39,9 @@ export default async function Page({ searchParams }: Props) {
                   </div>
                 </TableCell>
                 {raceSeriesName.map((seriesName) => {
-                  const stat = athleteInfo.stats.find(
-                    (stat) => stat.raceSeriesTypeName === seriesName,
-                  )
+                  const stat = athleteInfo.stats.find((stat) => stat.raceSeriesTypeName === seriesName)
 
-                  return (
-                    <TableCell key={seriesName}>
-                      {stat?.actualTotal ?? "--"}
-                    </TableCell>
-                  )
+                  return <TableCell key={seriesName}>{stat?.actualTotal ?? "--"}</TableCell>
                 })}
               </TableRow>
             )

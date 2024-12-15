@@ -13,11 +13,7 @@ export interface LocationInfoWithRank {
   stateUrl: string
 }
 
-export default function LocationInfoRankings({
-  locationInfoWithRank,
-}: {
-  locationInfoWithRank: LocationInfoWithRank
-}) {
+export default function LocationInfoRankings({ locationInfoWithRank }: { locationInfoWithRank: LocationInfoWithRank }) {
   return (
     <div className="text-xs">
       <div>
@@ -25,22 +21,13 @@ export default function LocationInfoRankings({
         <a> Overall</a>
       </div>
       <div>
-        <RankLink
-          rank={locationInfoWithRank.stateRank}
-          display={locationInfoWithRank.state}
-        />
+        <RankLink rank={locationInfoWithRank.stateRank} display={locationInfoWithRank.state} />
       </div>
       <div>
-        <RankLink
-          rank={locationInfoWithRank.areaRank}
-          display={locationInfoWithRank.area}
-        />
+        <RankLink rank={locationInfoWithRank.areaRank} display={locationInfoWithRank.area} />
       </div>
       <div>
-        <RankLink
-          rank={locationInfoWithRank.cityRank}
-          display={locationInfoWithRank.city}
-        />
+        <RankLink rank={locationInfoWithRank.cityRank} display={locationInfoWithRank.city} />
       </div>
     </div>
   )

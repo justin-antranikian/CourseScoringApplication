@@ -7,11 +7,7 @@ export interface PaceWithTime {
   paceLabel: string | null
 }
 
-export default function IntervalTime({
-  paceTime,
-}: {
-  paceTime: PaceWithTime | null
-}) {
+export default function IntervalTime({ paceTime }: { paceTime: PaceWithTime | null }) {
   if (!paceTime) {
     return <div>--</div>
   }

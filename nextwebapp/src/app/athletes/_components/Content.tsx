@@ -7,45 +7,22 @@ import { Dialog } from "@/components/ui/dialog"
 import { ArpDto } from "../[id]/definitions"
 import { BadgePlus, ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/_components/ComparePane"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { getAthleteDetails } from "../serverActions"
 
-export default function Content({
-  apiHost,
-  athletes,
-}: {
-  apiHost: string
-  athletes: AthleteSearchResultDto[]
-}) {
+export default function Content({ athletes }: { athletes: AthleteSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [arp, setArp] = useState<ArpDto | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [hideComparePane, setHideComparePane] = useState(false)
 
   const handleViewMoreClicked = async (athlete: AthleteSearchResultDto) => {
-    const url = `${apiHost}/arpApi/${athlete.id}`
-    const response = await fetch(url)
-    const result = (await response.json()) as ArpDto
-
-    setArp(result)
+    const arp = await getAthleteDetails(athlete.id)
+    setArp(arp)
     setDialogOpen(true)
   }
 
@@ -64,19 +41,13 @@ export default function Content({
   return (
     <>
       {athletes.map((athlete, index) => (
-        <div
-          key={index}
-          className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4"
-        >
+        <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
           <Card className="rounded shadow">
             <ContextMenu>
               <ContextMenuTrigger>
                 <CardContent className="p-0">
                   <div>
-                    <img
-                      style={{ width: "100%", height: 125 }}
-                      src="/Athlete.png"
-                    />
+                    <img style={{ width: "100%", height: 125 }} src="/Athlete.png" />
                   </div>
                   <div className="bg-purple-200 text-center text-base py-2">
                     <a href={`/athletes/${athlete.id}`}>
@@ -85,9 +56,7 @@ export default function Content({
                   </div>
                   <div className="p-2">
                     <div className="my-3">
-                      <LocationInfoRankings
-                        locationInfoWithRank={athlete.locationInfoWithRank}
-                      />
+                      <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} />
                     </div>
                     <div>
                       <DropdownMenu>
@@ -95,15 +64,8 @@ export default function Content({
                           <Ellipsis />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          <DropdownMenuItem
-                            onClick={() => handleViewMoreClicked(athlete)}
-                          >
-                            <BadgePlus
-                              className="cursor-pointer"
-                              size={10}
-                              color="black"
-                              strokeWidth={1.5}
-                            />
+                          <DropdownMenuItem onClick={() => handleViewMoreClicked(athlete)}>
+                            <BadgePlus className="cursor-pointer" size={10} color="black" strokeWidth={1.5} />
                             Quick View
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -130,9 +92,7 @@ export default function Content({
                 </CardContent>
               </ContextMenuTrigger>
               <ContextMenuContent>
-                <ContextMenuItem onClick={() => handleViewMoreClicked(athlete)}>
-                  Quick View
-                </ContextMenuItem>
+                <ContextMenuItem onClick={() => handleViewMoreClicked(athlete)}>Quick View</ContextMenuItem>
               </ContextMenuContent>
             </ContextMenu>
           </Card>
@@ -149,7 +109,7 @@ export default function Content({
         />
       ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        {arp ? <QuickViewDialogContent arp={arp} apiHost={apiHost} /> : null}
+        {arp ? <QuickViewDialogContent arp={arp} /> : null}
       </Dialog>
     </>
   )

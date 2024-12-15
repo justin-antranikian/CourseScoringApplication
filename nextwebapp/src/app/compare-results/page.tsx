@@ -1,25 +1,11 @@
-import { config } from "@/config"
 import React from "react"
-import {
-  CompareIrpsAthleteInfoDto,
-  CompareIrpsIntervalDto,
-} from "./definitions"
+import { CompareIrpsIntervalDto } from "./definitions"
 import { InfoIcon } from "lucide-react"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { BracketRank } from "../_components/BracketRank"
 import { PaceWithTime } from "../_components/IntervalTime"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { apiCaller } from "../_api/api"
 
 interface Props {
   searchParams: {
@@ -27,31 +13,12 @@ interface Props {
   }
 }
 
-const getData = async (
-  athleteCourseIds: string[],
-): Promise<CompareIrpsAthleteInfoDto[]> => {
-  const url = `${config.apiHost}/compareIrpApi`
-
-  const requestInit: RequestInit = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ athleteCourseIds }),
-    cache: "no-store",
-  }
-
-  const response = await fetch(url, requestInit)
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
-  const irpsToCompare = await getData(ids)
-
-  const intervalNames = irpsToCompare[0].compareIrpsIntervalDtos.map(
-    (inteval) => inteval.intervalName,
-  )
+  const irpsToCompare = await api.results.compare(ids)
+  const intervalNames = irpsToCompare[0].compareIrpsIntervalDtos.map((inteval) => inteval.intervalName)
 
   return (
     <>
@@ -70,9 +37,7 @@ export default async function Page({ searchParams }: Props) {
             return (
               <TableRow key={athleteInfo.athleteCourseId}>
                 <TableCell>
-                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">
-                    {athleteInfo.fullName}
-                  </div>
+                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">{athleteInfo.fullName}</div>
                   <div className="overflow-hidden text-ellipsis whitespace-nowrap">
                     {athleteInfo.city}, {athleteInfo.state}
                   </div>
@@ -83,9 +48,7 @@ export default async function Page({ searchParams }: Props) {
                 {athleteInfo.compareIrpsIntervalDtos.map((result) => {
                   return (
                     <TableCell>
-                      <div>
-                        {result.crossingTime ? result.crossingTime : "--"}
-                      </div>
+                      <div>{result.crossingTime ? result.crossingTime : "--"}</div>
                       <PaceContent result={result} />
                       <div className="mt-1">
                         <Popover>
@@ -98,36 +61,21 @@ export default async function Page({ searchParams }: Props) {
                             <table className="w-full">
                               <thead>
                                 <tr className="border-b border-black">
-                                  <th className="w-[33%] text-left py-2">
-                                    Overall
-                                  </th>
-                                  <th className="w-[33%] text-left py-2">
-                                    Gender
-                                  </th>
-                                  <th className="w-[33%] text-left py-2">
-                                    Division
-                                  </th>
+                                  <th className="w-[33%] text-left py-2">Overall</th>
+                                  <th className="w-[33%] text-left py-2">Gender</th>
+                                  <th className="w-[33%] text-left py-2">Division</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   <td>
-                                    <BracketRank
-                                      rank={result.overallRank}
-                                      total={0}
-                                    />
+                                    <BracketRank rank={result.overallRank} total={0} />
                                   </td>
                                   <td>
-                                    <BracketRank
-                                      rank={result.genderRank}
-                                      total={0}
-                                    />
+                                    <BracketRank rank={result.genderRank} total={0} />
                                   </td>
                                   <td>
-                                    <BracketRank
-                                      rank={result.primaryDivisionRank}
-                                      total={0}
-                                    />
+                                    <BracketRank rank={result.primaryDivisionRank} total={0} />
                                   </td>
                                 </tr>
                               </tbody>
@@ -157,18 +105,12 @@ const PaceContent = ({ result }: { result: CompareIrpsIntervalDto }) => {
       return null
     }
 
-    return (
-      <span className="text-sm">
-        ({`${paceWithTime.paceValue} ${paceWithTime.paceLabel}`})
-      </span>
-    )
+    return <span className="text-sm">({`${paceWithTime.paceValue} ${paceWithTime.paceLabel}`})</span>
   }
 
   return (
     <div>
-      <span className="text-sm font-bold mr-1">
-        {result.paceWithTime.timeFormatted}
-      </span>
+      <span className="text-sm font-bold mr-1">{result.paceWithTime.timeFormatted}</span>
       <Pace paceWithTime={result.paceWithTime} />
     </div>
   )

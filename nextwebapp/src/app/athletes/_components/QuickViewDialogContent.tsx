@@ -5,31 +5,14 @@ import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import { Info } from "lucide-react"
 import { BracketRank } from "@/app/_components/BracketRank"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Irp } from "@/app/results/[id]/definitions"
 import RankWithTime from "./RankWithTime"
 import IrpDetails from "../../_components/IrpDetails"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { getIrp } from "../serverActions"
 
-export default function QuickViewDialogContent({
-  arp,
-  apiHost,
-}: {
-  arp: ArpDto
-  apiHost: string
-}) {
+export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
   const [irpDetails, setIrpDetails] = useState<Irp | null>(null)
 
@@ -39,11 +22,9 @@ export default function QuickViewDialogContent({
     }
   }, [irpDetails])
 
-  const getIrpData = async (irp: ArpResultDto) => {
-    const url = `${apiHost}/irpApi/${irp.athleteCourseId}`
-    const response = await fetch(url)
-    const result = (await response.json()) as Irp
-    setIrpDetails(result)
+  const getIrpData = async (arp: ArpResultDto) => {
+    const irp = await getIrp(arp.athleteCourseId)
+    setIrpDetails(irp)
   }
 
   return (
@@ -57,9 +38,7 @@ export default function QuickViewDialogContent({
           <div className="mb-3 text-xs">
             {arp.genderAbbreviated} | {arp.age}
           </div>
-          <LocationInfoRankings
-            locationInfoWithRank={arp.locationInfoWithRank}
-          />
+          <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} />
         </div>
         <div className="flex-[3]">
           <div className="mb-8 text-purple-500 bold text-2xl">Results</div>
@@ -79,9 +58,7 @@ export default function QuickViewDialogContent({
               {arp.results.map((result) => (
                 <TableRow key={result.athleteCourseId}>
                   <TableCell>
-                    <Link href={`/results/${result.athleteCourseId}`}>
-                      View
-                    </Link>
+                    <Link href={`/results/${result.athleteCourseId}`}>View</Link>
                   </TableCell>
                   <TableCell>
                     <span className="cursor-pointer">
@@ -90,33 +67,20 @@ export default function QuickViewDialogContent({
                   </TableCell>
                   <TableCell>
                     <div>
-                      <Link href={`/races/${result.raceId}`}>
-                        {result.raceName}
-                      </Link>
+                      <Link href={`/races/${result.raceId}`}>{result.raceName}</Link>
                     </div>
                     <div>
-                      <Link href={`/courses/${result.courseId}`}>
-                        {result.courseName}
-                      </Link>
+                      <Link href={`/courses/${result.courseId}`}>{result.courseName}</Link>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <BracketRank
-                      rank={result.overallRank}
-                      total={result.overallCount}
-                    />
+                    <BracketRank rank={result.overallRank} total={result.overallCount} />
                   </TableCell>
                   <TableCell>
-                    <BracketRank
-                      rank={result.genderRank}
-                      total={result.genderCount}
-                    />
+                    <BracketRank rank={result.genderRank} total={result.genderCount} />
                   </TableCell>
                   <TableCell>
-                    <BracketRank
-                      rank={result.primaryDivisionRank}
-                      total={result.primaryDivisionCount}
-                    />
+                    <BracketRank rank={result.primaryDivisionRank} total={result.primaryDivisionCount} />
                   </TableCell>
                   <TableCell>
                     <RankWithTime paceTime={result.paceWithTimeCumulative} />

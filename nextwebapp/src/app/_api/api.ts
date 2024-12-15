@@ -2,11 +2,21 @@
 
 import { config } from "@/config"
 import athletes from "./athletes"
+import results from "./results"
 
-export type ApiFetch = (
-  url: string,
-  requestInit?: RequestInit,
-) => Promise<Response>
+export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Response>
+
+export const getPostRequestInit = (body: any): RequestInit => {
+  const requestInit: RequestInit = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  }
+
+  return requestInit
+}
 
 export const apiCaller = () => {
   const apiFetch = (url: string, requestInit?: RequestInit) => {
@@ -20,5 +30,6 @@ export const apiCaller = () => {
 
   return {
     athletes: athletes(apiFetch),
+    results: results(apiFetch),
   }
 }

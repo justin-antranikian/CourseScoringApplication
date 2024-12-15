@@ -1,12 +1,5 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { config } from "@/config"
 import React from "react"
 
@@ -96,11 +89,7 @@ const AthleteTemplate = ({ athlete }: { athlete: AwardWinnerDto | null }) => {
         )}
       </div>
       <div>
-        <a
-          href={`/results/${athlete.athleteCourseId}`}
-          className="font-12"
-          title="view result"
-        >
+        <a href={`/results/${athlete.athleteCourseId}`} className="font-12" title="view result">
           View
         </a>
       </div>

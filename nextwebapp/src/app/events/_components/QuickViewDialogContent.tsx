@@ -4,22 +4,10 @@ import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
 import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
 import { Irp } from "@/app/results/[id]/definitions"
 import { DialogContent } from "@/components/ui/dialog"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Info } from "lucide-react"
 import React, { useEffect, useState } from "react"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function QuickViewDialogContent({
   apiHost,
@@ -55,14 +43,11 @@ export default function QuickViewDialogContent({
           <div className="text-2xl bold">{leaderboard.raceName}</div>
           <div className="text-sm mb-2">
             <div>
-              {leaderboard.locationInfoWithRank.city},{" "}
-              {leaderboard.locationInfoWithRank.state}
+              {leaderboard.locationInfoWithRank.city}, {leaderboard.locationInfoWithRank.state}
             </div>
             <div className="font-bold">{leaderboard.raceKickOffDate}</div>
             <div className="mt-3">
-              <LocationInfoRankings
-                locationInfoWithRank={leaderboard.locationInfoWithRank}
-              />
+              <LocationInfoRankings locationInfoWithRank={leaderboard.locationInfoWithRank} />
             </div>
           </div>
         </div>
@@ -89,10 +74,7 @@ export default function QuickViewDialogContent({
                   <TableBody className="text-sm">
                     {board.results.map((irp) => {
                       return (
-                        <TableRow
-                          key={irp.athleteCourseId}
-                          className="border-b border-gray-300"
-                        >
+                        <TableRow key={irp.athleteCourseId} className="border-b border-gray-300">
                           <TableCell>
                             <a href={`/results/${irp.athleteCourseId}`}>View</a>
                           </TableCell>
@@ -103,9 +85,7 @@ export default function QuickViewDialogContent({
                           </TableCell>
                           <TableCell>
                             <div>
-                              <a href={`/athletes/${irp.athleteId}`}>
-                                {irp.fullName}
-                              </a>
+                              <a href={`/athletes/${irp.athleteId}`}>{irp.fullName}</a>
                             </div>
                             <div>
                               {irp.genderAbbreviated} | {irp.bib}
@@ -114,13 +94,9 @@ export default function QuickViewDialogContent({
                           <TableCell>{irp.overallRank}</TableCell>
                           <TableCell>{irp.genderRank}</TableCell>
                           <TableCell>{irp.divisionRank}</TableCell>
-                          <TableCell className="font-bold">
-                            {irp.paceWithTimeCumulative.timeFormatted}
-                          </TableCell>
+                          <TableCell className="font-bold">{irp.paceWithTimeCumulative.timeFormatted}</TableCell>
                           <TableCell>
-                            <div className="font-bold">
-                              {irp.paceWithTimeCumulative.paceValue || "--"}
-                            </div>
+                            <div className="font-bold">{irp.paceWithTimeCumulative.paceValue || "--"}</div>
                             {irp.paceWithTimeCumulative.paceLabel}
                           </TableCell>
                         </TableRow>
