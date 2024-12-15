@@ -8,14 +8,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Info } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { getIrp } from "@/app/_api/serverActions"
 
-export default function QuickViewDialogContent({
-  apiHost,
-  leaderboard,
-}: {
-  leaderboard: RaceLeaderboardDto | null
-  apiHost: string
-}) {
+export default function QuickViewDialogContent({ leaderboard }: { leaderboard: RaceLeaderboardDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
   const [irpDetails, setIrpDetails] = useState<Irp | null>(null)
 
@@ -25,15 +20,9 @@ export default function QuickViewDialogContent({
     }
   }, [irpDetails])
 
-  const getIrpData = async (irp: LeaderboardResultDto) => {
-    const url = `${apiHost}/irpApi/${irp.athleteCourseId}`
-    const response = await fetch(url)
-    const result = (await response.json()) as Irp
-    setIrpDetails(result)
-  }
-
-  if (!leaderboard) {
-    return
+  const getIrpData = async ({ athleteCourseId }: LeaderboardResultDto) => {
+    const irp = await getIrp(athleteCourseId)
+    setIrpDetails(irp)
   }
 
   return (

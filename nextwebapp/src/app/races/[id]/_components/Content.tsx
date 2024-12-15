@@ -10,22 +10,15 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import IrpQuickView from "./IrpQuickView"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { getIrp } from "@/app/_api/serverActions"
 
-export default function Content({
-  apiHost,
-  raceLeaderboard,
-}: {
-  apiHost: string
-  raceLeaderboard: RaceLeaderboardDto
-}) {
+export default function Content({ raceLeaderboard }: { raceLeaderboard: RaceLeaderboardDto }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
 
-  const handleQuickViewClicked = async (irpResult: LeaderboardResultDto): Promise<void> => {
-    const url = `${apiHost}/irpApi/${irpResult.athleteCourseId}`
-    const response = await fetch(url)
-    const result = (await response.json()) as Irp
-    setIrp(result)
+  const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto): Promise<void> => {
+    const irp = await getIrp(athleteCourseId)
+    setIrp(irp)
     setDialogOpen(true)
   }
 
@@ -91,7 +84,7 @@ export default function Content({
       ))}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <IrpQuickView irp={irp} />
+        {irp ? <IrpQuickView irp={irp} /> : null}
       </Dialog>
     </>
   )

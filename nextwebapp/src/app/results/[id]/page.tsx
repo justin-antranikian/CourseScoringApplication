@@ -1,9 +1,8 @@
-import { config } from "@/config"
 import React from "react"
-import { Irp } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Intervals from "../_components/Intervals"
+import { apiCaller } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -13,14 +12,10 @@ interface Props {
   }
 }
 
-const getData = async (id: string): Promise<Irp> => {
-  const url = `${config.apiHost}/irpApi/${id}`
-  const response = await fetch(url)
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page({ params: { id } }: Props) {
-  const irp = await getData(id)
+  const irp = await api.results.details(id)
 
   return (
     <div className="flex gap-1">

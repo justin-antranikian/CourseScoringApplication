@@ -1,3 +1,5 @@
+"server only"
+
 export interface Config {
   apiHost: string
 }

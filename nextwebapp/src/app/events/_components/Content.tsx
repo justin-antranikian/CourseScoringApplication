@@ -17,17 +17,17 @@ import { Ellipsis, BadgePlus } from "lucide-react"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import { getImage } from "@/app/utils"
+import { getLeaderboard } from "../serverActions"
 
-export default function Content({ events, apiHost }: { events: EventSearchResultDto[]; apiHost: string }) {
+export default function Content({ events }: { events: EventSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [leaderboard, setLeaderboard] = useState<RaceLeaderboardDto | null>(null)
 
   const handleViewMoreClicked = async (event: EventSearchResultDto) => {
     const raceId = event.upcomingRaceId
-    const response = await fetch(`${apiHost}/raceLeaderboardApi/${raceId}`)
-    const result = (await response.json()) as RaceLeaderboardDto
+    const leaderboard = await getLeaderboard(raceId)
 
-    setLeaderboard(result)
+    setLeaderboard(leaderboard)
     setDialogOpen(true)
   }
 
@@ -88,7 +88,7 @@ export default function Content({ events, apiHost }: { events: EventSearchResult
       ))}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <QuickViewDialogContent leaderboard={leaderboard} apiHost={apiHost} />
+        {leaderboard ? <QuickViewDialogContent leaderboard={leaderboard} /> : null}
       </Dialog>
     </>
   )

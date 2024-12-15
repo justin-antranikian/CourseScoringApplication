@@ -9,14 +9,9 @@ import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { getIrp } from "@/app/_api/serverActions"
 
-export default function Content({
-  apiHost,
-  courseLeaderboard,
-}: {
-  apiHost: string
-  courseLeaderboard: CourseLeaderboardDto
-}) {
+export default function Content({ courseLeaderboard }: { courseLeaderboard: CourseLeaderboardDto }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
@@ -34,11 +29,9 @@ export default function Content({
     return encodeURIComponent(`[${selectedIds.join(",")}]`)
   }, [selectedIds])
 
-  const handleQuickViewClicked = async (irpResult: LeaderboardResultDto): Promise<void> => {
-    const url = `${apiHost}/irpApi/${irpResult.athleteCourseId}`
-    const response = await fetch(url)
-    const result = (await response.json()) as Irp
-    setIrp(result)
+  const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto): Promise<void> => {
+    const irp = await getIrp(athleteCourseId)
+    setIrp(irp)
     setDialogOpen(true)
   }
 
@@ -125,7 +118,7 @@ export default function Content({
         />
       ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <IrpQuickView irp={irp} />
+        {irp ? <IrpQuickView irp={irp} /> : null}
       </Dialog>
     </>
   )

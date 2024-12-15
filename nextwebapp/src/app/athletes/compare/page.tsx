@@ -13,7 +13,6 @@ const api = apiCaller()
 export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const athletes = await api.athletes.compare(ids)
-
   const raceSeriesName = ["Running", "Triathalon", "Road Biking", "Mountain Biking", "Cross Country Skiing", "Swimming"]
 
   return (
@@ -40,7 +39,6 @@ export default async function Page({ searchParams }: Props) {
                 </TableCell>
                 {raceSeriesName.map((seriesName) => {
                   const stat = athleteInfo.stats.find((stat) => stat.raceSeriesTypeName === seriesName)
-
                   return <TableCell key={seriesName}>{stat?.actualTotal ?? "--"}</TableCell>
                 })}
               </TableRow>

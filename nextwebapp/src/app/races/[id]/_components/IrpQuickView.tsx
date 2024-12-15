@@ -4,11 +4,7 @@ import Intervals from "@/app/results/_components/Intervals"
 import { DialogContent } from "@/components/ui/dialog"
 import React from "react"
 
-export default function IrpQuickView({ irp }: { irp: Irp | null }) {
-  if (!irp) {
-    return
-  }
-
+export default function IrpQuickView({ irp }: { irp: Irp }) {
   return (
     <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
       <div className="flex mt-5">

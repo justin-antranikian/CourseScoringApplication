@@ -10,7 +10,7 @@ import { Irp } from "@/app/results/[id]/definitions"
 import RankWithTime from "./RankWithTime"
 import IrpDetails from "../../_components/IrpDetails"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "../serverActions"
+import { getIrp } from "@/app/_api/serverActions"
 
 export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
@@ -22,8 +22,8 @@ export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
     }
   }, [irpDetails])
 
-  const getIrpData = async (arp: ArpResultDto) => {
-    const irp = await getIrp(arp.athleteCourseId)
+  const getIrpData = async ({ athleteCourseId }: ArpResultDto) => {
+    const irp = await getIrp(athleteCourseId)
     setIrpDetails(irp)
   }
 

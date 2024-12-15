@@ -1,10 +1,9 @@
-import { config } from "@/config"
 import React from "react"
-import { CourseLeaderboardDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
 import { getImageNonFormatted } from "@/app/utils"
 import { Button } from "@/components/ui/button"
+import { apiCaller } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -14,14 +13,10 @@ interface Props {
   }
 }
 
-const getData = async (id: string): Promise<CourseLeaderboardDto> => {
-  const url = `${config.apiHost}/courseLeaderboardApi/${id}`
-  const response = await fetch(url, { cache: "no-store" })
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page({ params: { id } }: Props) {
-  const courseLeaderboard = await getData(id)
+  const courseLeaderboard = await api.courses.leaderboard(id)
 
   return (
     <div className="flex gap-1">
@@ -48,7 +43,7 @@ export default async function Page({ params: { id } }: Props) {
         </div>
       </div>
       <div className="w-3/4">
-        <Content courseLeaderboard={courseLeaderboard} apiHost={config.apiHost} />
+        <Content courseLeaderboard={courseLeaderboard} />
       </div>
     </div>
   )

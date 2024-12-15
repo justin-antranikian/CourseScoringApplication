@@ -3,6 +3,8 @@
 import { config } from "@/config"
 import athletes from "./athletes"
 import results from "./results"
+import races from "./races"
+import courses from "./courses"
 
 export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Response>
 
@@ -31,5 +33,7 @@ export const apiCaller = () => {
   return {
     athletes: athletes(apiFetch),
     results: results(apiFetch),
+    races: races(apiFetch),
+    courses: courses(apiFetch),
   }
 }

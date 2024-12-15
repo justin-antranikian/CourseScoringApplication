@@ -1,23 +1,18 @@
-import { config } from "@/config"
 import React from "react"
-import { EventSearchResultDto } from "./definitions"
 import Content from "./_components/Content"
+import { apiCaller } from "../_api/api"
 
-const getData = async (): Promise<EventSearchResultDto[]> => {
-  const url = `${config.apiHost}/raceSeriesSearchApi`
-  const response = await fetch(url)
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page() {
-  const events = await getData()
+  const events = await api.races.search()
 
   return (
     <div className="flex gap-1">
       <div className="w-1/4">Directory</div>
       <div className="w-3/4">
         <div className="flex flex-wrap -mx-2">
-          <Content events={events} apiHost={config.apiHost} />
+          <Content events={events} />
         </div>
       </div>
     </div>

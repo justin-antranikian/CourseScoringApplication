@@ -1,9 +1,8 @@
-import { config } from "@/config"
 import React from "react"
-import { RaceLeaderboardDto } from "./definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
 import { getImageNonFormatted } from "@/app/utils"
+import { apiCaller } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -13,14 +12,10 @@ interface Props {
   }
 }
 
-const getData = async (id: string): Promise<RaceLeaderboardDto> => {
-  const url = `${config.apiHost}/raceLeaderboardApi/${id}`
-  const response = await fetch(url, { cache: "no-store" })
-  return await response.json()
-}
+const api = apiCaller()
 
 export default async function Page({ params: { id } }: Props) {
-  const raceLeaderboard = await getData(id)
+  const raceLeaderboard = await api.races.leaderboard(id)
 
   return (
     <div className="flex gap-1">
@@ -40,7 +35,7 @@ export default async function Page({ params: { id } }: Props) {
         <LocationInfoRankings locationInfoWithRank={raceLeaderboard.locationInfoWithRank} />
       </div>
       <div className="w-3/4">
-        <Content apiHost={config.apiHost} raceLeaderboard={raceLeaderboard} />
+        <Content raceLeaderboard={raceLeaderboard} />
       </div>
     </div>
   )

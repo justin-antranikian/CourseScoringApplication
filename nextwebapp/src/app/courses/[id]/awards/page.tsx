@@ -1,6 +1,6 @@
-import { PaceWithTime } from "@/app/_components/IntervalTime"
+import { apiCaller } from "@/app/_api/api"
+import { AwardWinnerDto } from "@/app/_api/courses"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { config } from "@/config"
 import React from "react"
 
 interface Props {
@@ -8,30 +8,10 @@ interface Props {
     id: string
   }
 }
-
-interface PodiumAward {
-  bracketName: string
-  firstPlaceAthlete: AwardWinnerDto | null
-  secondPlaceAthlete: AwardWinnerDto | null
-  thirdPlaceAthlete: AwardWinnerDto | null
-}
-
-interface AwardWinnerDto {
-  athleteId: number
-  athleteCourseId: number
-  fullName: string
-  finishTime: string
-  paceWithTime: PaceWithTime
-}
-
-const getData = async (id: string) => {
-  const url = `${config.apiHost}/awardsPodiumApi/${id}`
-  const response = await fetch(url, { cache: "no-store" })
-  return (await response.json()) as PodiumAward[]
-}
+const api = apiCaller()
 
 export default async function Page({ params: { id } }: Props) {
-  const awards = await getData(id)
+  const awards = await api.courses.awards(id)
 
   return (
     <>
