@@ -20,14 +20,14 @@ export const getPostRequestInit = (body: any): RequestInit => {
   return requestInit
 }
 
+const { apiHost } = config
+
 export const apiCaller = () => {
   const apiFetch = (url: string, requestInit?: RequestInit) => {
-    const _requestInit: RequestInit = {
+    return fetch(`${apiHost}/${url}`, {
       cache: "no-store",
       ...requestInit,
-    }
-
-    return fetch(`${config.apiHost}/${url}`, _requestInit)
+    })
   }
 
   return {
