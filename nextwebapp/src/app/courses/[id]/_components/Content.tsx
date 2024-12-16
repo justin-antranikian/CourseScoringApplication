@@ -1,15 +1,15 @@
 "use client"
 
 import React, { useMemo, useState } from "react"
-import { CourseLeaderboardDto, LeaderboardResultDto } from "../definitions"
+import { CourseLeaderboardDto, LeaderboardResultDto } from "../../../_api/courses/definitions"
 import { ChartBarStacked, InfoIcon } from "lucide-react"
-import { Irp } from "@/app/results/[id]/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/_components/IrpQuickView"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverActions"
+import { Irp } from "@/app/_api/results/definitions"
 
 export default function Content({ courseLeaderboard }: { courseLeaderboard: CourseLeaderboardDto }) {
   const [dialogOpen, setDialogOpen] = useState(false)

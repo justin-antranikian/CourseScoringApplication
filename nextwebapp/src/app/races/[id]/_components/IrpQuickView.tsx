@@ -1,8 +1,8 @@
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
-import { Irp } from "@/app/results/[id]/definitions"
-import Intervals from "@/app/results/_components/Intervals"
+import Intervals from "@/app/_components/Intervals"
 import { DialogContent } from "@/components/ui/dialog"
 import React from "react"
+import { Irp } from "@/app/_api/results/definitions"
 
 export default function IrpQuickView({ irp }: { irp: Irp }) {
   return (

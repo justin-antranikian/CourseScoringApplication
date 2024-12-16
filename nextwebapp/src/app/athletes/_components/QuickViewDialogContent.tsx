@@ -1,16 +1,16 @@
 import { DialogContent } from "@/components/ui/dialog"
 import React, { useEffect, useState } from "react"
-import { ArpDto, ArpResultDto } from "../[id]/definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import { Info } from "lucide-react"
 import { BracketRank } from "@/app/_components/BracketRank"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { Irp } from "@/app/results/[id]/definitions"
 import RankWithTime from "./RankWithTime"
 import IrpDetails from "../../_components/IrpDetails"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverActions"
+import { ArpDto, ArpResultDto } from "@/app/_api/athletes/definitions"
+import { Irp } from "@/app/_api/results/definitions"
 
 export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)

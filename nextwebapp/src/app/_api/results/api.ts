@@ -1,8 +1,7 @@
 "server only"
 
-import { CompareIrpsAthleteInfoDto } from "../compare-results/definitions"
-import { Irp } from "../results/[id]/definitions"
-import { ApiFetch, getPostRequestInit } from "./api"
+import { ApiFetch, getPostRequestInit } from "../api"
+import { CompareIrpsAthleteInfoDto, Irp } from "./definitions"
 
 export default (apiFetch: ApiFetch) => ({
   details: async (athleteCourseId: string | number): Promise<Irp> => {

@@ -1,5 +1,5 @@
 import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
-import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
+import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
 
 export interface RaceLeaderboardDto {
   leaderboards: RaceLeaderboardByCourseDto[]
@@ -17,4 +17,22 @@ export interface RaceLeaderboardByCourseDto {
   highestIntervalName: string
   intervalType: any
   results: LeaderboardResultDto[]
+}
+
+export interface DisplayNameWithId {
+  id: number
+  displayName: string
+}
+
+export interface EventSearchResultDto {
+  courses: DisplayNameWithId[]
+  description: string
+  kickOffDate: string
+  kickOffTime: string
+  id: number
+  locationInfoWithRank: LocationInfoWithRank
+  name: string
+  raceSeriesTypeName: string
+  rating: number
+  upcomingRaceId: number
 }

@@ -1,10 +1,10 @@
 "server only"
 
 import { config } from "@/config"
-import athletes from "./athletes"
-import results from "./results"
-import races from "./races"
-import courses from "./courses"
+import athletes from "./athletes/api"
+import results from "./results/api"
+import races from "./races/api"
+import courses from "./courses/api"
 
 export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Response>
 

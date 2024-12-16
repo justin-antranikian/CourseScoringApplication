@@ -1,8 +1,7 @@
 "server only"
 
-import { EventSearchResultDto } from "../events/definitions"
-import { RaceLeaderboardDto } from "../races/[id]/definitions"
-import { ApiFetch } from "./api"
+import { ApiFetch } from "../api"
+import { RaceLeaderboardDto, EventSearchResultDto } from "./definitions"
 
 export default (apiFetch: ApiFetch) => ({
   leaderboard: async (id: string | number): Promise<RaceLeaderboardDto> => {

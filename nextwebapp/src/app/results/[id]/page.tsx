@@ -1,7 +1,7 @@
 import React from "react"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
-import Intervals from "../_components/Intervals"
+import Intervals from "../../_components/Intervals"
 import { apiCaller } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"

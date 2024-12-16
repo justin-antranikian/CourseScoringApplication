@@ -1,9 +1,7 @@
 "server only"
 
-import { ArpDto } from "../athletes/[id]/definitions"
-import { CompareAthletesAthleteInfoDto } from "../athletes/compare/definitions"
-import { AthleteSearchResultDto } from "../athletes/definitions"
-import { ApiFetch, getPostRequestInit } from "./api"
+import { ApiFetch, getPostRequestInit } from "../api"
+import { ArpDto, AthleteSearchResultDto, CompareAthletesAthleteInfoDto } from "./definitions"
 
 export default (apiFetch: ApiFetch) => ({
   details: async (id: string | number): Promise<ArpDto> => {

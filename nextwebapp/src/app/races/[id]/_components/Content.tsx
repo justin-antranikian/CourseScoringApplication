@@ -1,16 +1,16 @@
 "use client"
 
 import React, { useState } from "react"
-import { RaceLeaderboardDto } from "../definitions"
+import { RaceLeaderboardDto } from "../../../_api/races/definitions"
 import { InfoIcon } from "lucide-react"
-import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
-import { Irp } from "@/app/results/[id]/definitions"
+import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
 import { Dialog } from "@/components/ui/dialog"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import IrpQuickView from "./IrpQuickView"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverActions"
+import { Irp } from "@/app/_api/results/definitions"
 
 export default function Content({ raceLeaderboard }: { raceLeaderboard: RaceLeaderboardDto }) {
   const [dialogOpen, setDialogOpen] = useState(false)

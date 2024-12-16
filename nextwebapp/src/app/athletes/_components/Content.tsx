@@ -1,10 +1,8 @@
 "use client"
 
 import React, { useMemo, useState } from "react"
-import { AthleteSearchResultDto } from "../definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
-import { ArpDto } from "../[id]/definitions"
 import { BadgePlus, ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
@@ -13,6 +11,7 @@ import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { getAthleteDetails } from "../serverActions"
+import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
 
 export default function Content({ athletes }: { athletes: AthleteSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)

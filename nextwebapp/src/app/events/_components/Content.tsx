@@ -1,9 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { EventSearchResultDto } from "../definitions"
 import { Dialog } from "@/components/ui/dialog"
-import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
+import { EventSearchResultDto, RaceLeaderboardDto } from "@/app/_api/races/definitions"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { Card, CardContent } from "@/components/ui/card"
 import {

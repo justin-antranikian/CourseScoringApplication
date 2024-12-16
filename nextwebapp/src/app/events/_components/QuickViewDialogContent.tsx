@@ -1,14 +1,14 @@
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import IrpDetails from "@/app/_components/IrpDetails"
-import { LeaderboardResultDto } from "@/app/courses/[id]/definitions"
-import { RaceLeaderboardDto } from "@/app/races/[id]/definitions"
-import { Irp } from "@/app/results/[id]/definitions"
+import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
+import { RaceLeaderboardDto } from "@/app/_api/races/definitions"
 import { DialogContent } from "@/components/ui/dialog"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Info } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverActions"
+import { Irp } from "@/app/_api/results/definitions"
 
 export default function QuickViewDialogContent({ leaderboard }: { leaderboard: RaceLeaderboardDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)

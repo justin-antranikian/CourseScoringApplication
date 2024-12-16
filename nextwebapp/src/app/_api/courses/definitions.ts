@@ -35,3 +35,18 @@ export interface LeaderboardResultDto {
   raceAge: number
   paceWithTimeCumulative: PaceWithTime
 }
+
+export interface PodiumAward {
+  bracketName: string
+  firstPlaceAthlete: AwardWinnerDto | null
+  secondPlaceAthlete: AwardWinnerDto | null
+  thirdPlaceAthlete: AwardWinnerDto | null
+}
+
+export interface AwardWinnerDto {
+  athleteId: number
+  athleteCourseId: number
+  fullName: string
+  finishTime: string
+  paceWithTime: PaceWithTime
+}

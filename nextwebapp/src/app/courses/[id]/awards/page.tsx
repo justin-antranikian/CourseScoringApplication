@@ -1,7 +1,7 @@
-import { apiCaller } from "@/app/_api/api"
-import { AwardWinnerDto } from "@/app/_api/courses"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import React from "react"
+import { apiCaller } from "@/app/_api/api"
+import { AwardWinnerDto } from "@/app/_api/courses/definitions"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 interface Props {
   params: {
