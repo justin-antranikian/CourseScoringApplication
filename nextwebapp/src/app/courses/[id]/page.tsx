@@ -3,7 +3,7 @@ import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
 import { getImageNonFormatted } from "@/app/utils"
 import { Button } from "@/components/ui/button"
-import { apiCaller } from "@/app/_api/api"
+import { useApi } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -13,7 +13,7 @@ interface Props {
   }
 }
 
-const api = apiCaller()
+const api = useApi()
 
 export default async function Page({ params: { id } }: Props) {
   const courseLeaderboard = await api.courses.leaderboard(id)

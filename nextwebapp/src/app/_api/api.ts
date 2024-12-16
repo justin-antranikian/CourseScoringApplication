@@ -8,6 +8,8 @@ import courses from "./courses/api"
 
 export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Response>
 
+const { apiHost } = config
+
 export const getPostRequestInit = (body: any): RequestInit => {
   const requestInit: RequestInit = {
     method: "POST",
@@ -20,9 +22,7 @@ export const getPostRequestInit = (body: any): RequestInit => {
   return requestInit
 }
 
-const { apiHost } = config
-
-export const apiCaller = () => {
+export const useApi = () => {
   const apiFetch = (url: string, requestInit?: RequestInit) => {
     return fetch(`${apiHost}/${url}`, {
       cache: "no-store",

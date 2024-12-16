@@ -1,6 +1,6 @@
 import React from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { apiCaller } from "@/app/_api/api"
+import { useApi } from "@/app/_api/api"
 
 interface Props {
   searchParams: {
@@ -8,7 +8,7 @@ interface Props {
   }
 }
 
-const api = apiCaller()
+const api = useApi()
 
 export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []

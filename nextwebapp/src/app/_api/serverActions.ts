@@ -1,11 +1,11 @@
 "use server"
 
-import { apiCaller } from "./api"
+import { useApi } from "./api"
 
-const api = apiCaller()
+const api = useApi()
 
 export const getIrp = (athleteCourseId: string | number) => api.results.details(athleteCourseId)
 
-export const getLeaderboard = (id: string | number) => api.races.leaderboard(id)
+export const getRaceLeaderboard = (raceId: string | number) => api.races.leaderboard(raceId)
 
-export const getAthleteDetails = (id: string | number) => api.athletes.details(id)
+export const getAthleteDetails = (athleteId: string | number) => api.athletes.details(athleteId)

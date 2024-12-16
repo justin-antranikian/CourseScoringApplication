@@ -2,7 +2,7 @@ import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { BracketRank } from "@/app/_components/BracketRank"
 import RankWithTime from "../_components/RankWithTime"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { apiCaller } from "@/app/_api/api"
+import { useApi } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -12,7 +12,7 @@ interface Props {
   }
 }
 
-const api = apiCaller()
+const api = useApi()
 
 export default async function Page({ params: { id } }: Props) {
   const arp = await api.athletes.details(id)

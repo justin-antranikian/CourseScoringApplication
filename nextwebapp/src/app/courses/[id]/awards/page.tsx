@@ -1,5 +1,5 @@
 import React from "react"
-import { apiCaller } from "@/app/_api/api"
+import { useApi } from "@/app/_api/api"
 import { AwardWinnerDto } from "@/app/_api/courses/definitions"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -8,7 +8,7 @@ interface Props {
     id: string
   }
 }
-const api = apiCaller()
+const api = useApi()
 
 export default async function Page({ params: { id } }: Props) {
   const awards = await api.courses.awards(id)
@@ -19,10 +19,10 @@ export default async function Page({ params: { id } }: Props) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Bracket Name</TableHead>
-            <TableHead>First Place</TableHead>
-            <TableHead>Second Place</TableHead>
-            <TableHead>Third Place</TableHead>
+            <TableHead className="w-[25%]">Bracket Name</TableHead>
+            <TableHead className="w-[25%]">First Place</TableHead>
+            <TableHead className="w-[25%]">Second Place</TableHead>
+            <TableHead className="w-[25%]">Third Place</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
