@@ -1,10 +1,10 @@
 import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
-import { Irp } from "@/app/results/[id]/definitions"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { InfoIcon } from "lucide-react"
 import React from "react"
+import { Irp } from "../_api/results/definitions"
 
 export default function IrpDetails({ irpDetails }: { irpDetails: Irp }) {
   return (

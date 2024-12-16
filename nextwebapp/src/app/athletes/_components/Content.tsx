@@ -10,8 +10,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { getAthleteDetails } from "../serverActions"
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
+import { getAthleteDetails } from "@/app/_api/serverActions"
 
 export default function Content({ athletes }: { athletes: AthleteSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)

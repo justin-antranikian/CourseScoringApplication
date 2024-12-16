@@ -22,9 +22,8 @@ export default function Content({ events }: { events: EventSearchResultDto[] }) 
   const [dialogOpen, setDialogOpen] = useState(false)
   const [leaderboard, setLeaderboard] = useState<RaceLeaderboardDto | null>(null)
 
-  const handleViewMoreClicked = async (event: EventSearchResultDto) => {
-    const raceId = event.upcomingRaceId
-    const leaderboard = await getLeaderboard(raceId)
+  const handleViewMoreClicked = async ({ upcomingRaceId }: EventSearchResultDto) => {
+    const leaderboard = await getLeaderboard(upcomingRaceId)
 
     setLeaderboard(leaderboard)
     setDialogOpen(true)
