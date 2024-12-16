@@ -28,8 +28,8 @@ export default function RootLayout({
               <Link href="/athletes" className="text-white hover:text-gray-300">
                 Athletes
               </Link>
-              <Link href="/events" className="text-white hover:text-gray-300">
-                Events
+              <Link href="/races" className="text-white hover:text-gray-300">
+                Races
               </Link>
             </div>
           </div>

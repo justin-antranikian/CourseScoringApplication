@@ -1,11 +1,11 @@
 import React from "react"
 import { InfoIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { BracketRank } from "../_components/BracketRank"
-import { PaceWithTime } from "../_components/IntervalTime"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { apiCaller } from "../_api/api"
-import { CompareIrpsIntervalDto } from "../_api/results/definitions"
+import { apiCaller } from "@/app/_api/api"
+import { CompareIrpsIntervalDto } from "@/app/_api/results/definitions"
+import { BracketRank } from "@/app/_components/BracketRank"
+import { PaceWithTime } from "@/app/_components/IntervalTime"
 
 interface Props {
   searchParams: {

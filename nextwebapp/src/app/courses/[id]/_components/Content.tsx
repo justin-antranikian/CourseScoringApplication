@@ -113,7 +113,7 @@ export default function Content({ courseLeaderboard }: { courseLeaderboard: Cour
           hideComparePane={hideComparePane}
           setHideComparePane={setHideComparePane}
           idsEncoded={idsEncoded}
-          url={"compare-results"}
+          url={"results/compare"}
           selectedIds={selectedIds}
         />
       ) : null}

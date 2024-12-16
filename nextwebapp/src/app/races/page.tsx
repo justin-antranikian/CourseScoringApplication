@@ -1,6 +1,6 @@
 import React from "react"
-import Content from "./_components/Content"
 import { apiCaller } from "../_api/api"
+import Content from "./_components/Content"
 
 const api = apiCaller()
 

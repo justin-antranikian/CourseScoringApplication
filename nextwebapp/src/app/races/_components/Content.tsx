@@ -16,7 +16,7 @@ import { Ellipsis, BadgePlus } from "lucide-react"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import { getImage } from "@/app/utils"
-import { getLeaderboard } from "../serverActions"
+import { getLeaderboard } from "@/app/_api/serverActions"
 
 export default function Content({ events }: { events: EventSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
