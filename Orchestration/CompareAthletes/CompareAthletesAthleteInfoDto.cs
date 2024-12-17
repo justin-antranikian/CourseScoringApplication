@@ -33,6 +33,7 @@ public static class CompareAthletesAthleteInfoDtoMapper
 
         return new CompareAthletesAthleteInfoDto
         (
+            athlete.Id,
             locationInfoWithRank,
             athlete.FullName,
             athlete.DateOfBirth,
@@ -44,6 +45,7 @@ public static class CompareAthletesAthleteInfoDtoMapper
 
 public class CompareAthletesAthleteInfoDto
 {
+    public int Id { get; set; }
     public LocationInfoWithRank LocationInfoWithRank { get; }
     public string FullName { get; }
     public int Age { get; }
@@ -53,6 +55,7 @@ public class CompareAthletesAthleteInfoDto
 
     public CompareAthletesAthleteInfoDto
     (
+        int id,
         LocationInfoWithRank locationInfoWithRank,
         string fullName,
         DateTime dateOfBirth,
@@ -60,6 +63,7 @@ public class CompareAthletesAthleteInfoDto
         List<CompareAthletesStat> stats
     )
     {
+        Id = id;
         LocationInfoWithRank = locationInfoWithRank;
         FullName = fullName;
         GenderAbbreviated = gender.ToAbbreviation();
