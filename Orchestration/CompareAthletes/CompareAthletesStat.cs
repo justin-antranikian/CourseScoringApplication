@@ -3,5 +3,6 @@
 public record CompareAthletesStat
 (
     string RaceSeriesTypeName,
-    int ActualTotal
+    int ActualTotal,
+    int? GoalTotal
 );

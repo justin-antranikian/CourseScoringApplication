@@ -12,15 +12,17 @@ public static class CompareAthletesAthleteInfoDtoMapper
         return filter.ToList();
     }
 
-    public static CompareAthletesAthleteInfoDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<CompareAthletesResult> resultsForAthlete)
+    public static CompareAthletesAthleteInfoDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<CompareAthletesResult> resultsForAthlete, List<AthleteRaceSeriesGoal> goals)
     {
         var locationInfoWithRank = new LocationInfoWithRank(athlete);
         var coursesForAthlete = GetCoursesForAthlete(courses, resultsForAthlete);
 
-        static CompareAthletesStat GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
+        CompareAthletesStat GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
         {
-            var raceSeriesTypeName = raceSeriesTypeGrouping.Key.ToFriendlyText();
-            return new CompareAthletesStat(raceSeriesTypeName, raceSeriesTypeGrouping.Count());
+            var raceSeriesType = raceSeriesTypeGrouping.Key;
+            var raceSeriesTypeName = raceSeriesType.ToFriendlyText();
+            var goal = goals.SingleOrDefault(oo => oo.RaceSeriesType == raceSeriesType);
+            return new CompareAthletesStat(raceSeriesTypeName, raceSeriesTypeGrouping.Count(), goal?.TotalEvents);
         }
 
         var stats = coursesForAthlete

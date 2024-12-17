@@ -33,6 +33,7 @@ export interface CompareAthletesResult {
 export interface CompareAthletesStat {
   raceSeriesTypeName: string
   actualTotal: number
+  goalTotal: number | null
 }
 
 export interface ArpDto {

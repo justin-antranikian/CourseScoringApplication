@@ -11,10 +11,12 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
         var athletes = await GetAthletes(athleteIds);
         var results = await GetResults(athleteIds);
 
+        var goals = await scoringDbContext.AthleteRaceSeriesGoals.Where(oo => athleteIds.Contains(oo.AthleteId)).ToListAsync();
+
         var distinctCourseIds = results.Select(oo => oo.CourseId).Distinct().ToArray();
         var courses = await GetCourses(distinctCourseIds);
 
-        var helper = new CompareAthletesHelper(courses, athletes, results);
+        var helper = new CompareAthletesHelper(courses, athletes, results, goals);
         return helper.GetMappedResults();
     }
 
