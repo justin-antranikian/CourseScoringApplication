@@ -4,7 +4,7 @@ import { CompareAthletesAthleteInfoDto, CompareAthletesStat } from "@/app/_api/a
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
-import React, { useMemo, useState } from "react"
+import React, { useState } from "react"
 import { raceSeriesNames } from "../definitions"
 
 export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthleteInfoDto }) {
