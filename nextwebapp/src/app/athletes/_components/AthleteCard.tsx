@@ -4,53 +4,35 @@ import { CompareAthletesAthleteInfoDto, CompareAthletesStat } from "@/app/_api/a
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
-import React, { useState } from "react"
-
-const raceSeriesNames = ["Running", "Triathalon", "Road Biking", "Mountain Biking", "Cross Country Skiing", "Swimming"]
-
-const slideCount = 2
+import React, { useMemo, useState } from "react"
+import { raceSeriesNames } from "../definitions"
 
 export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthleteInfoDto }) {
-  const [selectedIndex, setSelectedIndex] = useState(1)
+  const [slideNumber, setSlideNumber] = useState(1)
+
+  const slides = [
+    <div>
+      <div className="text-2xl">
+        {athlete.age} | {athlete.genderAbbreviated}
+      </div>
+      <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} />
+    </div>,
+    <div>
+      {raceSeriesNames.map((seriesName) => {
+        const stat = athlete.stats.find((stat) => stat.raceSeriesTypeName === seriesName)
+        return <StatLine key={seriesName} raceSeriesTypeName={seriesName} stat={stat} />
+      })}
+    </div>,
+  ]
+
+  const slideCount = slides.length
 
   const decrementIndex = () => {
-    if (selectedIndex === 1) {
-      setSelectedIndex(slideCount)
-      return
-    }
-
-    setSelectedIndex((previous: number) => previous - 1)
+    setSlideNumber((previous: number) => (previous === 1 ? slideCount : previous - 1))
   }
 
   const incrementIndex = () => {
-    if (selectedIndex === slideCount) {
-      setSelectedIndex(1)
-      return
-    }
-
-    setSelectedIndex((previous: number) => previous + 1)
-  }
-
-  const Content = () => {
-    if (selectedIndex === 1) {
-      return (
-        <div>
-          <div className="text-2xl">
-            {athlete.age} | {athlete.genderAbbreviated}
-          </div>
-          <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} />
-        </div>
-      )
-    }
-
-    return (
-      <div>
-        {raceSeriesNames.map((seriesName) => {
-          const stat = athlete.stats.find((stat) => stat.raceSeriesTypeName === seriesName)
-          return <StatLine key={seriesName} raceSeriesTypeName={seriesName} stat={stat} />
-        })}
-      </div>
-    )
+    setSlideNumber((previous: number) => (previous === slideCount ? 1 : previous + 1))
   }
 
   return (
@@ -67,9 +49,7 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
         <div className="flex-shrink-0 flex justify-start">
           <MoveLeft onClick={decrementIndex} className="cursor-pointer" />
         </div>
-        <div className="flex-grow mx-3 text-center">
-          <Content />
-        </div>
+        <div className="flex-grow mx-3 text-center">{slides[slideNumber - 1]}</div>
         <div className="flex-shrink-0 flex justify-end">
           <MoveRight onClick={incrementIndex} className="cursor-pointer" />
         </div>

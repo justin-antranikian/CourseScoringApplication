@@ -2,14 +2,13 @@ import React from "react"
 import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import AthleteCard from "../_components/AthleteCard"
+import { raceSeriesNames } from "../definitions"
 
 interface Props {
   searchParams: {
     ids: string
   }
 }
-
-const raceSeriesNames = ["Running", "Triathalon", "Road Biking", "Mountain Biking", "Cross Country Skiing", "Swimming"]
 
 const api = getApi()
 
