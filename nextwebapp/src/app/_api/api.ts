@@ -22,7 +22,7 @@ export const getPostRequestInit = (body: any): RequestInit => {
   return requestInit
 }
 
-export const useApi = () => {
+export const getApi = () => {
   const apiFetch = (url: string, requestInit?: RequestInit) => {
     return fetch(`${apiHost}/${url}`, {
       cache: "no-store",

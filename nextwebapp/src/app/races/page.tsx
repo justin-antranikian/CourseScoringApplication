@@ -1,8 +1,8 @@
 import React from "react"
-import { useApi } from "../_api/api"
+import { getApi } from "../_api/api"
 import Content from "./_components/Content"
 
-const api = useApi()
+const api = getApi()
 
 export default async function Page() {
   const events = await api.races.search()

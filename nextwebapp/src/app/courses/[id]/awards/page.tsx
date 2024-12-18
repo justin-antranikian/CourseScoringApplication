@@ -1,5 +1,5 @@
 import React from "react"
-import { useApi } from "@/app/_api/api"
+import { getApi } from "@/app/_api/api"
 import { AwardWinnerDto } from "@/app/_api/courses/definitions"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -8,7 +8,7 @@ interface Props {
     id: string
   }
 }
-const api = useApi()
+const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
   const awards = await api.courses.awards(id)

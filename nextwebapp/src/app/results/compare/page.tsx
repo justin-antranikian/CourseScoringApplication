@@ -2,7 +2,7 @@ import React from "react"
 import { InfoIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useApi } from "@/app/_api/api"
+import { getApi } from "@/app/_api/api"
 import { CompareIrpsIntervalDto } from "@/app/_api/results/definitions"
 import { BracketRank } from "@/app/_components/BracketRank"
 import { PaceWithTime } from "@/app/_components/IntervalTime"
@@ -13,7 +13,7 @@ interface Props {
   }
 }
 
-const api = useApi()
+const api = getApi()
 
 export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []

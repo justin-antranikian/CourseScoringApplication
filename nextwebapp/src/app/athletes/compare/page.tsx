@@ -1,5 +1,5 @@
 import React from "react"
-import { useApi } from "@/app/_api/api"
+import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import AthleteCard from "../_components/AthleteCard"
 
@@ -11,7 +11,7 @@ interface Props {
 
 const raceSeriesNames = ["Running", "Triathalon", "Road Biking", "Mountain Biking", "Cross Country Skiing", "Swimming"]
 
-const api = useApi()
+const api = getApi()
 
 export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []

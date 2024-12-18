@@ -2,7 +2,7 @@ import React from "react"
 import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Intervals from "../../_components/Intervals"
-import { useApi } from "@/app/_api/api"
+import { getApi } from "@/app/_api/api"
 
 export const dynamic = "force-dynamic"
 
@@ -12,7 +12,7 @@ interface Props {
   }
 }
 
-const api = useApi()
+const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
   const irp = await api.results.details(id)

@@ -1,8 +1,8 @@
 "use server"
 
-import { useApi } from "./api"
+import { getApi } from "./api"
 
-const api = useApi()
+const api = getApi()
 
 export const getIrp = (athleteCourseId: string | number) => api.results.details(athleteCourseId)
 
