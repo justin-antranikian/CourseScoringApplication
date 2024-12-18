@@ -27,11 +27,11 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
 
   const slideCount = slides.length
 
-  const decrementIndex = () => {
+  const previousSlide = () => {
     setSlideNumber((previous: number) => (previous === 1 ? slideCount : previous - 1))
   }
 
-  const incrementIndex = () => {
+  const nextSlide = () => {
     setSlideNumber((previous: number) => (previous === slideCount ? 1 : previous + 1))
   }
 
@@ -47,11 +47,11 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
       </div>
       <div className="flex items-center">
         <div className="flex-shrink-0 flex justify-start">
-          <MoveLeft onClick={decrementIndex} className="cursor-pointer" />
+          <MoveLeft onClick={previousSlide} className="cursor-pointer" />
         </div>
         <div className="flex-grow mx-3 text-center">{slides[slideNumber - 1]}</div>
         <div className="flex-shrink-0 flex justify-end">
-          <MoveRight onClick={incrementIndex} className="cursor-pointer" />
+          <MoveRight onClick={nextSlide} className="cursor-pointer" />
         </div>
       </div>
     </ContextMenuContent>
