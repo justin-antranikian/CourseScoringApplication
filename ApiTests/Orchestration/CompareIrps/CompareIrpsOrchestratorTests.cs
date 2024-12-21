@@ -80,7 +80,7 @@ public class CompareIrpsOrchestratorTests
                 CourseId = 1,
                 Bib = "A3"
             },
-            new AthleteCourse
+            new()
             {
                 Id = 5,
                 Athlete = new Athlete { FullName = "FD", Id = 50 },

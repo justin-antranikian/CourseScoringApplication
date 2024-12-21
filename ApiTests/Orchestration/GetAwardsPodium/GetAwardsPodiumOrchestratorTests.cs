@@ -19,17 +19,14 @@ public class GetAwardsPodiumOrchestratorTests
 
         var intervals = new List<Interval>
         {
-            new Interval { Id = 55, CourseId = 1, IntervalType = IntervalType.FullCourse, IsFullCourse = true },
-            new Interval { Id = 56, CourseId = 1, IntervalType = IntervalType.Bike, IsFullCourse = false }
+            new() { Id = 55, CourseId = 1, IntervalType = IntervalType.FullCourse, IsFullCourse = true },
+            new() { Id = 56, CourseId = 1, IntervalType = IntervalType.Bike, IsFullCourse = false }
         };
 
-        var athleteCourses = Enumerable.Range(1, 50).Select(index =>
+        var athleteCourses = Enumerable.Range(1, 50).Select(index => new AthleteCourse
         {
-            return new AthleteCourse
-            {
-                Id = index,
-                Athlete = new Athlete { Id = index, FullName = $"JA{index}" }
-            };
+            Id = index,
+            Athlete = new Athlete { Id = index, FullName = $"JA{index}" }
         }).ToList();
 
         var overallBracket = new Bracket { CourseId = 1, BracketType = BracketType.Overall, Id = 5, Name = "Overall" };

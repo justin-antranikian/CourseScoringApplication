@@ -3,11 +3,9 @@ using Api.Orchestration.GenerateData;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
 
 var dbConnection = builder.Configuration.GetConnectionString("DbConnection");
-
 builder.Services.AddDbContextPool<ScoringDbContext>(
     options => options.UseSqlServer(dbConnection, oo => oo.UseNetTopologySuite())
 );

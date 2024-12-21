@@ -71,7 +71,7 @@ internal static class TestDataGenerator
                     new ("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse, "Full Course D"),
                 }
             },
-            new Course
+            new()
             {
                 PaceType = PaceType.MilesOrKilometersPerHour,
                 PreferedMetric = PreferredMetric.Imperial,
@@ -99,7 +99,7 @@ internal static class TestDataGenerator
                     new ("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse, null),
                 }
             },
-            new Course
+            new()
             {
                 PaceType = PaceType.MilesOrKilometersPerHour,
                 PreferedMetric = PreferredMetric.Imperial,
@@ -111,16 +111,16 @@ internal static class TestDataGenerator
                 SortOrder = 1,
                 Brackets = new List<Bracket>
                 {
-                    new Bracket("Overall", BracketType.Overall), // Id : 13
-                    new Bracket("Gender", BracketType.Gender),
-                    new Bracket("Primary", BracketType.PrimaryDivision),
+                    new("Overall", BracketType.Overall), // Id : 13
+                    new("Gender", BracketType.Gender),
+                    new("Primary", BracketType.PrimaryDivision),
                 },
                 Intervals = new List<Interval>
                 {
-                    new Interval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim, null), // Id : 13
-                    new Interval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition, null),
-                    new Interval("Run", 1000, 2000, 3, false, PaceType.MinuteMileOrKilometer, IntervalType.Run, null),
-                    new Interval("Full Course", 2000, 2000, 4, true, PaceType.None, IntervalType.FullCourse, null),
+                    new("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim, null), // Id : 13
+                    new("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition, null),
+                    new("Run", 1000, 2000, 3, false, PaceType.MinuteMileOrKilometer, IntervalType.Run, null),
+                    new("Full Course", 2000, 2000, 4, true, PaceType.None, IntervalType.FullCourse, null),
                 },
             }
         };

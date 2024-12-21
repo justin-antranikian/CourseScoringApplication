@@ -111,23 +111,23 @@ public class ArpDtoTests
             AreaRank = 2,
             CityRank = 1,
             Gender = Gender.Male,
-            AthleteRaceSeriesGoals = new()
-            {
-                new (RaceSeriesType.Triathalon, 15),
-                new (RaceSeriesType.Swim, 1),
-            },
-            AthleteWellnessEntries = new()
-            {
-                new (AthleteWellnessType.Gear, "G1"),
-                new (AthleteWellnessType.Gear, "G2"),
-                new (AthleteWellnessType.Diet, "D1"),
-                new (AthleteWellnessType.Goal, "G1"),
-                new (AthleteWellnessType.Motivational, "M1"),
-                new (AthleteWellnessType.Motivational, "M2"),
-                new (AthleteWellnessType.Training, "T1"),
-                new (AthleteWellnessType.Training, "T2"),
-                new (AthleteWellnessType.Training, "T3"),
-            }
+            AthleteRaceSeriesGoals =
+            [
+                new(RaceSeriesType.Triathalon, 15),
+                new(RaceSeriesType.Swim, 1)
+            ],
+            AthleteWellnessEntries =
+            [
+                new(AthleteWellnessType.Gear, "G1"),
+                new(AthleteWellnessType.Gear, "G2"),
+                new(AthleteWellnessType.Diet, "D1"),
+                new(AthleteWellnessType.Goal, "G1"),
+                new(AthleteWellnessType.Motivational, "M1"),
+                new(AthleteWellnessType.Motivational, "M2"),
+                new(AthleteWellnessType.Training, "T1"),
+                new(AthleteWellnessType.Training, "T2"),
+                new(AthleteWellnessType.Training, "T3")
+            ]
         };
     }
 
