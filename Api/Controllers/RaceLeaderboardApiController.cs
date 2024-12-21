@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DataModels;
-using Orchestration.GetLeaderboard.GetRaceLeaderboard;
+﻿using Api.DataModels;
+using Api.Orchestration.GetLeaderboard.GetRaceLeaderboard;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 

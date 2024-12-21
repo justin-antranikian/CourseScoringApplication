@@ -1,9 +1,9 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetRaceSeriesSearch;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.DataModels;
+using Api.Orchestration.SearchEvents;
 using Xunit;
 
 namespace OrchestrationTests.SearchEvents;

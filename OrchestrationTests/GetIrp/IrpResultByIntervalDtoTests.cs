@@ -1,9 +1,9 @@
 ﻿using Core;
-using DataModels;
-using Orchestration;
-using Orchestration.GetIrp;
 using System;
 using System.Collections.Generic;
+using Api.DataModels;
+using Api.Orchestration;
+using Api.Orchestration.GetIrp;
 using Core.Enums;
 using Xunit;
 

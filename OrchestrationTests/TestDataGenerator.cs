@@ -1,10 +1,10 @@
 ﻿using Core;
 using Core.Enums;
-using DataModels;
-using Orchestration.ScoreCourses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Api.DataModels;
+using Api.Orchestration.ScoreCourses;
 
 namespace OrchestrationTests;
 

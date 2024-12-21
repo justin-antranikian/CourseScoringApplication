@@ -1,8 +1,7 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetRaceSeriesDashboard;
 using System;
-using System.Collections.Generic;
+using Api.DataModels;
+using Api.Orchestration.GetRaceSeriesDashboard;
 using Xunit;
 
 namespace OrchestrationTests.GetRaceSeriesDashboard;

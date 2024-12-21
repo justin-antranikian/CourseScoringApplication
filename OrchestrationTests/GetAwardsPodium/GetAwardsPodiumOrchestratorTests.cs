@@ -1,10 +1,10 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetAwardsPodium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.DataModels;
+using Api.Orchestration.GetAwardsPodium;
 using Xunit;
 
 namespace OrchestrationTests.GetAwardsPodiumOrchestratorTests;

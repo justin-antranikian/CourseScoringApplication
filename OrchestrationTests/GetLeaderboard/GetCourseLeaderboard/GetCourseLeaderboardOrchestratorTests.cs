@@ -1,6 +1,5 @@
-﻿using Core;
-using Orchestration.GetLeaderboard.GetCourseLeaderboard;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Api.Orchestration.GetLeaderboard.GetCourseLeaderboard;
 using Xunit;
 
 namespace OrchestrationTests.GetCourseResults.GetCourseLeaderboard;

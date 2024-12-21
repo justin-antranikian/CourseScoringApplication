@@ -1,6 +1,7 @@
-﻿using DataModels;
+﻿using Api.DataModels;
+using Api.Orchestration.GetDashboardInfo;
 using Microsoft.AspNetCore.Mvc;
-using Orchestration.GetDashboardInfo;
+
 
 namespace Api.Controllers;
 

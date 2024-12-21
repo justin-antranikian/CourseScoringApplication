@@ -1,6 +1,5 @@
-﻿using Core;
-using Orchestration.GetIrp;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Api.Orchestration.GetIrp;
 using Xunit;
 
 namespace OrchestrationTests.GetIrp;

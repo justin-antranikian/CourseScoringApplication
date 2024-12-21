@@ -1,5 +1,5 @@
-﻿using DataModels;
-using Orchestration.GetDashboardInfo;
+﻿using Api.DataModels;
+using Api.Orchestration.GetDashboardInfo;
 using Xunit;
 
 namespace OrchestrationTests.GetDashboardInfo;

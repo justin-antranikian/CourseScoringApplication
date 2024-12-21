@@ -1,6 +1,7 @@
-﻿using DataModels;
+﻿using Api.DataModels;
+using Api.Orchestration.CompareAthletes;
 using Microsoft.AspNetCore.Mvc;
-using Orchestration.CompareAthletes;
+
 
 namespace Api.Controllers;
 

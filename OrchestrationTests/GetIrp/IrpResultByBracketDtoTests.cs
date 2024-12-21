@@ -1,5 +1,5 @@
-﻿using DataModels;
-using Orchestration.GetIrp;
+﻿using Api.DataModels;
+using Api.Orchestration.GetIrp;
 using Xunit;
 
 namespace OrchestrationTests.GetIrp;

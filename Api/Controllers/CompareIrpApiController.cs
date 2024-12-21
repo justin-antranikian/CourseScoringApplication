@@ -1,6 +1,7 @@
-﻿using DataModels;
+﻿using Api.DataModels;
+using Api.Orchestration.CompareIrps;
 using Microsoft.AspNetCore.Mvc;
-using Orchestration.CompareIrps;
+
 
 namespace Api.Controllers;
 

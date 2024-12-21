@@ -1,7 +1,7 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.AthletesSearch;
 using System;
+using Api.DataModels;
+using Api.Orchestration.SearchAthletes;
 using Xunit;
 
 namespace OrchestrationTests.SearchAthletes;

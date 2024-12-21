@@ -1,9 +1,9 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.AthletesSearch;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.DataModels;
+using Api.Orchestration.SearchAthletes;
 using Xunit;
 
 namespace OrchestrationTests.SearchEvents;

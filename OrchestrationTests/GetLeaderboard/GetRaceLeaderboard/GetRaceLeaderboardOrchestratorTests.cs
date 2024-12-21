@@ -1,5 +1,5 @@
-﻿using Orchestration.GetLeaderboard.GetRaceLeaderboard;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Api.Orchestration.GetLeaderboard.GetRaceLeaderboard;
 using Xunit;
 
 namespace OrchestrationTests.GetLeaderboard.GetRaceLeaderboard;

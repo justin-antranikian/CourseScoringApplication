@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DataModels;
-using Orchestration.GetArp;
+﻿using Api.DataModels;
+using Api.Orchestration.GetArp;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Api.Controllers;
 

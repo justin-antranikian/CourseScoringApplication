@@ -1,18 +1,16 @@
-﻿using DataModels;
+﻿using Api.DataModels;
+using Api.Orchestration.SearchIrps;
 using Microsoft.AspNetCore.Mvc;
-using Orchestration.SearchIrps;
 
 namespace Api.Controllers;
 
 [Route("[controller]")]
 public class SearchIrpsApiController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    private readonly ScoringDbContext _scoringDbContext = scoringDbContext;
-
     [HttpGet]
     public async Task<List<IrpSearchResultDto>> Get([FromQuery] SearchIrpsRequestDto searchRequestDto)
     {
-        var orchestrator = new SearchIrpsOrchestrator(_scoringDbContext);
+        var orchestrator = new SearchIrpsOrchestrator(scoringDbContext);
         return await orchestrator.GetSearchResults(searchRequestDto);
     }
 }

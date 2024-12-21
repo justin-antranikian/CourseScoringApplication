@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DataModels;
-using Orchestration.GetAwardsPodium;
+﻿using Api.DataModels;
+using Api.Orchestration.GetAwardsPodium;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 

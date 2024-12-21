@@ -1,9 +1,8 @@
 ﻿using Core;
 using Core.Enums;
-using DataModels;
-using Orchestration.GetArp;
 using System.Collections.Generic;
-using System.Linq;
+using Api.DataModels;
+using Api.Orchestration.GetArp;
 using Xunit;
 
 namespace OrchestrationTests.GetArp;

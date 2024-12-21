@@ -1,8 +1,8 @@
-using DataModels;
+using Api.DataModels;
+using Api.Orchestration.GenerateData;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
-using Orchestration.GenerateData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +15,9 @@ builder.Services.AddCors(options =>
 });
 
 var dbConnection = "server=JustinPC;database=ScoringDB;Trusted_Connection=true;TrustServerCertificate=True";
-builder.Services.AddDbContextPool<ScoringDbContext>(
-    options => options.UseSqlServer(dbConnection, oo => oo.UseNetTopologySuite())
-);
+//builder.Services.AddDbContextPool<ScoringDbContext>(
+//    options => options.UseSqlServer(dbConnection, oo => oo.UseNetTopologySuite())
+//);
 
 var app = builder.Build();
 app.UseAuthorization();
@@ -45,13 +45,13 @@ course.Location = polygon;
 
 //await scoringDbContext.SaveChangesAsync();
 
-var oregonPoint = new Point(-124.4000, 42.0000);
-var oregonPointTwo = new Point(-124.4000, 43.0000);
-var californiaPoint = new Point(-124.4000, 41.0000);
+//var oregonPoint = new Point(-124.4000, 42.0000);
+//var oregonPointTwo = new Point(-124.4000, 43.0000);
+//var californiaPoint = new Point(-124.4000, 41.0000);
 
-var queryOne = await scoringDbContext.Courses.Where(oo => oo.Location != null && oo.Location.Intersects(oregonPoint)).ToListAsync();
-var queryTwo = await scoringDbContext.Courses.Where(oo => oo.Location != null && oo.Location.Intersects(oregonPointTwo)).ToListAsync();
-var queryThree = await scoringDbContext.Courses.Where(oo => oo.Location != null && oo.Location.Intersects(californiaPoint)).ToListAsync();
+//var queryOne = await scoringDbContext.Courses.Where(oo => oo.Location != null && oo.Location.Intersects(oregonPoint)).ToListAsync();
+//var queryTwo = await scoringDbContext.Courses.Where(oo => oo.Location != null && oo.Location.Intersects(oregonPointTwo)).ToListAsync();
+//var queryThree = await scoringDbContext.Courses.Where(oo => oo.Location != null && oo.Location.Intersects(californiaPoint)).ToListAsync();
 
 app.Run();
 return;

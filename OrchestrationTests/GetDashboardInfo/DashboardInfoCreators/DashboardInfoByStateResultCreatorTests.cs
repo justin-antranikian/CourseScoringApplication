@@ -1,7 +1,8 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetDashboardInfo;
 using System.Linq;
+using Api.DataModels;
+using Api.Orchestration.GetDashboardInfo;
+using Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
 using Xunit;
 
 namespace OrchestrationTests.GetDashboardInfo.DashboardInfoCreators;

@@ -1,5 +1,5 @@
-﻿using Orchestration.GetSearchAllEntitiesSearch;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Api.Orchestration.SearchAllEntities;
 using Xunit;
 
 namespace OrchestrationTests.SearchEvents;

@@ -1,7 +1,7 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.SearchIrps;
 using System;
+using Api.DataModels;
+using Api.Orchestration.SearchIrps;
 using Xunit;
 
 namespace OrchestrationTests.SearchIrps;

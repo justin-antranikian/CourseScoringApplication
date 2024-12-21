@@ -1,7 +1,7 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.SearchEvents;
 using System;
+using Api.DataModels;
+using Api.Orchestration.SearchEvents;
 using Xunit;
 
 namespace OrchestrationTests.SearchEvents;

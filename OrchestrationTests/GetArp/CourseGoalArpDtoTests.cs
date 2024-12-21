@@ -1,5 +1,5 @@
-﻿using DataModels;
-using Orchestration.GetArp;
+﻿using Api.DataModels;
+using Api.Orchestration.GetArp;
 using Xunit;
 
 namespace OrchestrationTests.GetArp;

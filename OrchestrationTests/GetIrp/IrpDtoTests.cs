@@ -1,9 +1,9 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetIrp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Api.DataModels;
+using Api.Orchestration.GetIrp;
 using Xunit;
 
 namespace OrchestrationTests.GetIrp;

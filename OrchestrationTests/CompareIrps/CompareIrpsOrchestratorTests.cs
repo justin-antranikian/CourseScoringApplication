@@ -1,10 +1,10 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.CompareIrps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.DataModels;
+using Api.Orchestration.CompareIrps;
 using Xunit;
 
 namespace OrchestrationTests.CompareIrps;

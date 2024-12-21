@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DataModels;
-using Orchestration.AthletesSearch;
+﻿using Api.DataModels;
+using Api.Orchestration.SearchAthletes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 

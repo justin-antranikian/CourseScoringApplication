@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DataModels;
-using Orchestration.GetSearchAllEntitiesSearch;
+﻿using Api.DataModels;
+using Api.Orchestration.SearchAllEntities;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Api.Controllers;
 

@@ -1,7 +1,7 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetLeaderboard.GetCourseLeaderboard;
 using System;
+using Api.DataModels;
+using Api.Orchestration.GetLeaderboard.GetCourseLeaderboard;
 using Xunit;
 
 namespace OrchestrationTests.GetLeaderboard.GetCourseLeaderboard;

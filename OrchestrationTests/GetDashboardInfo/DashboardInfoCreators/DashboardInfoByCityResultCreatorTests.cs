@@ -1,7 +1,8 @@
 ﻿using Core;
-using DataModels;
-using Orchestration.GetDashboardInfo;
 using System.Linq;
+using Api.DataModels;
+using Api.Orchestration.GetDashboardInfo;
+using Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
 using Xunit;
 
 namespace OrchestrationTests.GetDashboardInfo.DashboardInfoCreators;
@@ -61,16 +62,16 @@ public class DashboardInfoByCityResultCreatorTests
         var coloradoSprings = denver with { Area = "Greater Colorado Springs Area", City = "Colorado Springs" };
         var laJolla = new RaceSeries { State = "California", Area = "Greater San Diego Area", City = "La Jolla" };
 
-        return new RaceSeries[]
-        {
+        return
+        [
             denver,
             denver with {},
             denver with { City = "Boulder" },
             coloradoSprings,
             coloradoSprings with {},
             laJolla,
-            laJolla with {},
-        };
+            laJolla with {}
+        ];
     }
 
     #endregion

@@ -1,6 +1,6 @@
-﻿using DataModels;
+﻿using Api.DataModels;
+using Api.Orchestration.GetBreadcrumb;
 using Microsoft.AspNetCore.Mvc;
-using Orchestration.GetBreadcrumb;
 
 namespace Api.Controllers;
 
