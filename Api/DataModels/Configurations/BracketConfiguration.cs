@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Api.DataModels.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

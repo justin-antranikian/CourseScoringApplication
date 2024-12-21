@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Core.Enums;
+using Api.DataModels.Enums;
 
 namespace Api.Orchestration.GetRaceSeriesDashboard;
 

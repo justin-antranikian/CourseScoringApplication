@@ -1,5 +1,4 @@
-﻿using Core;
-using Core.Enums;
+﻿using Api.DataModels.Enums;
 using NetTopologySuite.Geometries;
 
 namespace Api.DataModels;

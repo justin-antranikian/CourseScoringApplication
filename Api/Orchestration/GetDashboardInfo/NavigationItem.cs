@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetDashboardInfo;
+﻿namespace Api.Orchestration.GetDashboardInfo;
 
 public class NavigationItem(string displayName, int count, bool isOpen = false, bool isHighlighted = false, List<NavigationItem>? items = null)
 {

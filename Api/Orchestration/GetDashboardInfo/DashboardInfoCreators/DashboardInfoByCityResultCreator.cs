@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
+﻿namespace Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
 
 public class DashboardInfoByCityResultCreator(Location location) : DashboardInfoCreatorBase(location)
 {

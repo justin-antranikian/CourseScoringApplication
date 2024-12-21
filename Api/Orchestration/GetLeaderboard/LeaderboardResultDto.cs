@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetLeaderboard;
+﻿namespace Api.Orchestration.GetLeaderboard;
 
 public class LeaderboardResultDto
 {

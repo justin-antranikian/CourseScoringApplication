@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Core;
+using Api.DataModels.Enums;
 
 namespace Api.Orchestration.SearchIrps;
 

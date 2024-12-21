@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetIrp;
+﻿namespace Api.Orchestration.GetIrp;
 
 /// <summary>
 /// Irp (Individual result projection) is used to populate the irp page.

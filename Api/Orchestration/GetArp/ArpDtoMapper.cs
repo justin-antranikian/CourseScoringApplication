@@ -1,6 +1,5 @@
 ﻿using Api.DataModels;
-using Core;
-using Core.Enums;
+using Api.DataModels.Enums;
 
 namespace Api.Orchestration.GetArp;
 

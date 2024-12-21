@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetBreadcrumb;
+﻿namespace Api.Orchestration.GetBreadcrumb;
 
 public abstract class GetBreadcrumbOrchestratorBase
 {

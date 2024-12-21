@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetDashboardInfo;
+﻿namespace Api.Orchestration.GetDashboardInfo;
 
 public static class DashboardInfoHelper
 {

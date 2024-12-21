@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.CompareAthletes;
+﻿namespace Api.Orchestration.CompareAthletes;
 
 public record CompareAthletesResult
 (

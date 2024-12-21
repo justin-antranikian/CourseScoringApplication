@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
+using Api.DataModels.Enums;
 using Bogus;
-using Core;
 
 namespace Api.Orchestration.GenerateData;
 

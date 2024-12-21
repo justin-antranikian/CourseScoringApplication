@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Api.DataModels.Enums;
 
 namespace Api.Orchestration.CreateIntervals;
 

@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.GetAwardsPodium;
+﻿namespace Api.Orchestration.GetAwardsPodium;
 
 public record AwardWinnerDto
 (

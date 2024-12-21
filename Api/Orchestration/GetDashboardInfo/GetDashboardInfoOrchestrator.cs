@@ -1,6 +1,5 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
-using Core;
 
 namespace Api.Orchestration.GetDashboardInfo;
 

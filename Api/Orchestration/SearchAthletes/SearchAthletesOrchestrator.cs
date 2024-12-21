@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.SearchAthletes;

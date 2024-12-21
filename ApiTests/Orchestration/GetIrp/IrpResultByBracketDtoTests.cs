@@ -1,0 +1,30 @@
+﻿using Api.DataModels;
+using Api.Orchestration.GetIrp;
+
+namespace ApiTests.Orchestration.GetIrp;
+
+public class IrpResultByBracketDtoTests
+{
+    [Fact]
+    public void MapsAllFeilds()
+    {
+        var bracket = new Bracket
+        {
+            Name = "NA"
+        };
+
+        var result = new Result
+        {
+            OverallRank = 4,
+            GenderRank = 3,
+            DivisionRank = 2,
+            Rank = 2
+        };
+
+        var bracketDto = IrpResultByBracketDtoMapper.GetIrpResultByBracketDto(bracket, result, 10);
+
+        Assert.Equal("NA", bracketDto.Name);
+        Assert.Equal(2, bracketDto.Rank);
+        Assert.Equal(10, bracketDto.TotalRacers);
+    }
+}

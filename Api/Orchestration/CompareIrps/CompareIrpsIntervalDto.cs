@@ -1,6 +1,4 @@
-﻿using Core;
-
-namespace Api.Orchestration.CompareIrps;
+﻿namespace Api.Orchestration.CompareIrps;
 
 public record CompareIrpsIntervalDto
 (
