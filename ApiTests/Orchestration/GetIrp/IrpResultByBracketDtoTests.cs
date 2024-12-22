@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetIrp;
+using Api.Orchestration.Results.GetDetails;
 
 namespace ApiTests.Orchestration.GetIrp;
 

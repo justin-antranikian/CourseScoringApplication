@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetArp;
+using Api.Orchestration.Athletes.GetDetails;
 
 namespace ApiTests.Orchestration.GetArp;
 
@@ -10,7 +10,7 @@ public class GetArpOrchestratorTests
     {
         var dbContext = ScoringDbContextCreator.GetScoringDbContext();
 
-        var orchestrator = new GetArpOrchestrator(dbContext);
+        var orchestrator = new GetAthleteDetailsOrchestrator(dbContext);
         var arpDto = await orchestrator.GetArpDto(1);
 
         Assert.Equal("FA LA", arpDto.FullName);

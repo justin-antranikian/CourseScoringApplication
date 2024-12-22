@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetIrp;
+using Api.Orchestration.Results.GetDetails;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.CompareAthletes;
+using Api.Orchestration.Athletes.Compare;
 using Microsoft.AspNetCore.Mvc;
 
 

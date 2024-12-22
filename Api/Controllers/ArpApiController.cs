@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetArp;
+using Api.Orchestration.Athletes.GetDetails;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -12,7 +12,7 @@ public class ArpApiController(ScoringDbContext scoringDbContext) : ControllerBas
     [Route("{athleteId:int}")]
     public async Task<ArpDto> Get(int athleteId)
     {
-        var orchestrator = new GetArpOrchestrator(scoringDbContext);
+        var orchestrator = new GetAthleteDetailsOrchestrator(scoringDbContext);
         return await orchestrator.GetArpDto(athleteId);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.SearchAthletes;
+using Api.Orchestration.Athletes.Search;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

@@ -1,4 +1,4 @@
-﻿using Api.Orchestration.SearchAthletes;
+﻿using Api.Orchestration.Athletes.Search;
 using Api.Orchestration.SearchEvents;
 
 namespace Api.Orchestration.SearchAllEntities;

@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.SearchAthletes;
+using Api.Orchestration.Athletes.Search;
 using Api.Orchestration.SearchEvents;
 using Microsoft.EntityFrameworkCore;
 

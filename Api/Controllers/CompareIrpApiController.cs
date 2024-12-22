@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.CompareIrps;
+using Api.Orchestration.Results.Compare;
 using Microsoft.AspNetCore.Mvc;
 
 

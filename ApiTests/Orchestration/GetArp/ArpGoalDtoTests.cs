@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetArp;
+using Api.Orchestration.Athletes.GetDetails;
 
 namespace ApiTests.Orchestration.GetArp;
 
