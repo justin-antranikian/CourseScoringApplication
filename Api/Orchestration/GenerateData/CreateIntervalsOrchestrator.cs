@@ -1,24 +1,17 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Orchestration.CreateIntervals;
+namespace Api.Orchestration.GenerateData;
 
-public class CreateIntervalsOrchestrator
+public class CreateIntervalsOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public CreateIntervalsOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task Create()
     {
-        var courses = await _scoringDbContext.Courses.ToListAsync();
+        var courses = await scoringDbContext.Courses.ToListAsync();
         var courseIntervals = courses.SelectMany(GetIntervals);
 
-        await _scoringDbContext.Intervals.AddRangeAsync(courseIntervals);
-        await _scoringDbContext.SaveChangesAsync();
+        await scoringDbContext.Intervals.AddRangeAsync(courseIntervals);
+        await scoringDbContext.SaveChangesAsync();
     }
 
     private List<Interval> GetIntervals(Course course)

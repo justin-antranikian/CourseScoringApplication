@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.CreateIntervals;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.GenerateData;

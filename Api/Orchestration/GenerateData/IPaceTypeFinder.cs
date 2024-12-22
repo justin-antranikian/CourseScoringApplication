@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
 
-namespace Api.Orchestration.CreateIntervals;
+namespace Api.Orchestration.GenerateData;
 
 internal interface IPaceTypeFinder
 {

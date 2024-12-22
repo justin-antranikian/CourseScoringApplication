@@ -8,6 +8,5 @@ public record CompareIrpsAthleteInfoDto
     public required string GenderAbbreviated { get; init; }
     public required int RaceAge { get; init; }
     public required string State { get; init; }
-
     public required List<CompareIrpsIntervalDto> CompareIrpsIntervalDtos { get; init; }
 }
