@@ -5,9 +5,8 @@ namespace Api.Orchestration.CompareAthletes;
 
 public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    public async Task<List<CompareAthletesAthleteInfoDto>> GetCompareAthletesDto(int[] athleteIds)
+    public async Task<List<CompareAthletesAthleteInfoDto>> GetCompareAthletesDto(List<int> athleteIds)
     {
-        athleteIds = athleteIds.Take(4).ToArray();
         var athletes = await GetAthletes(athleteIds);
         var results = await GetResults(athleteIds);
 
@@ -20,13 +19,13 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
         return helper.GetMappedResults();
     }
 
-    private async Task<List<Athlete>> GetAthletes(int[] athleteIds)
+    private async Task<List<Athlete>> GetAthletes(List<int> athleteIds)
     {
         var query = scoringDbContext.Athletes.Where(oo => athleteIds.Contains(oo.Id)).OrderBy(oo => oo.FullName);
         return await query.ToListAsync();
     }
 
-    private async Task<List<Result>> GetResults(int[] athleteIds)
+    private async Task<List<Result>> GetResults(List<int> athleteIds)
     {
         var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)

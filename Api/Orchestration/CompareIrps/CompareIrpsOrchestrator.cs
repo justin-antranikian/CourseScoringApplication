@@ -7,12 +7,10 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
 {
     public async Task<List<CompareIrpsAthleteInfoDto>> GetCompareIrpsDto(List<int> athleteCourseIds)
     {
-        var filteredAthleteCourseIds = athleteCourseIds.Take(4).ToList();
-
-        var courseId = (await scoringDbContext.AthleteCourses.SingleAsync(oo => oo.Id == filteredAthleteCourseIds.First())).CourseId;
+        var courseId = (await scoringDbContext.AthleteCourses.SingleAsync(oo => oo.Id == athleteCourseIds.First())).CourseId;
         var course = await scoringDbContext.Courses.Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
         var primaryBracket = await scoringDbContext.Brackets.SingleAsync(oo => oo.CourseId == courseId && oo.BracketType == BracketType.Overall);
-        var athleteCourses = await GetAthleteCourses(filteredAthleteCourseIds);
+        var athleteCourses = await GetAthleteCourses(athleteCourseIds);
 
         return GetCompareIrpsAthleteInfoDtos(athleteCourses, primaryBracket.Id, course);
     }
@@ -25,16 +23,16 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
                                         .Select(oo => oo.AthleteCourse)
                                         .ToList();
 
-        var athleteInfoDtos = orderedAthleteCourses.Select((oo, index) => MapToCompareIrpsAthleteInfoDto(oo, index, course, primaryBracketId)).ToList();
+        var athleteInfoDtos = orderedAthleteCourses.Select(oo => MapToCompareIrpsAthleteInfoDto(oo, course, primaryBracketId)).ToList();
         return athleteInfoDtos;
     }
 
-    private static CompareIrpsAthleteInfoDto MapToCompareIrpsAthleteInfoDto(AthleteCourse athleteCourse, int index, Course course, int primaryBracketId)
+    private static CompareIrpsAthleteInfoDto MapToCompareIrpsAthleteInfoDto(AthleteCourse athleteCourse, Course course, int primaryBracketId)
     {
         var athlete = athleteCourse.Athlete;
         var filteredResults = athleteCourse.Results.Where(result => result.BracketId == primaryBracketId && !result.IsHighestIntervalCompleted).ToList();
 
-        IEnumerable<CompareIrpsIntervalDto> GetIntervalDtos()
+        IEnumerable<CompareIrpsIntervalDto> GetIntervals()
         {
             foreach (var interval in course.Intervals.OrderBy(oo => oo.Order))
             {
@@ -44,30 +42,19 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
             }
         }
 
-        var intervalDtos = GetIntervalDtos().ToList();
-        var fullCourseInterval = course.Intervals.Single(oo => oo.IsFullCourse);
-        var fullCourseResult = filteredResults.SingleOrDefault(oo => oo.IntervalId == fullCourseInterval.Id);
-        var finishInfo = GetFinishInfo(fullCourseResult, course);
-        var irpRank = index.MapToCompareIrpsRank();
-
         return new CompareIrpsAthleteInfoDto
-        (
-            athlete.Id,
-            athlete.FullName,
-            athlete.DateOfBirth,
-            athlete.Gender,
-            athleteCourse.Bib,
-            course.StartDate,
-            irpRank,
-            athlete.City,
-            athlete.State,
-            athleteCourse.Id,
-            finishInfo,
-            intervalDtos
-        );
+        {
+            AthleteCourseId = athleteCourse.Id,
+            City = athlete.City,
+            FullName = athlete.FullName,
+            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
+            State = athlete.State,
+            CompareIrpsIntervalDtos = GetIntervals().ToList()
+        };
     }
 
-    private static CompareIrpsIntervalDto GetIntervalResult(Result result, Interval interval, Course course)
+    private static CompareIrpsIntervalDto GetIntervalResult(Result? result, Interval interval, Course course)
     {
         if (result == null)
         {
@@ -77,18 +64,6 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
         var paceWithTime = course.GetPaceWithTime(result.TimeOnCourse, interval.DistanceFromStart);
         var crossingTime = course.GetCrossingTime(result.TimeOnCourse);
         return new CompareIrpsIntervalDto(interval.Name, paceWithTime, crossingTime, result.OverallRank, result.GenderRank, result.DivisionRank);
-    }
-
-    private static FinishInfo? GetFinishInfo(Result? fullCourseResult, Course course)
-    {
-        if (fullCourseResult is null)
-        {
-            return null;
-        }
-
-        var paceWithTime = course.GetPaceWithTime(fullCourseResult.TimeOnCourse);
-        var crossingTime = course.GetCrossingTime(fullCourseResult.TimeOnCourse);
-        return new FinishInfo(crossingTime, paceWithTime);
     }
 
     private async Task<List<AthleteCourse>> GetAthleteCourses(List<int> athleteCourseIds)

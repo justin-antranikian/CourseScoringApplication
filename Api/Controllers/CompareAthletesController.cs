@@ -17,6 +17,6 @@ public class CompareAthletesApiController(ScoringDbContext scoringDbContext) : C
     public async Task<List<CompareAthletesAthleteInfoDto>> Post([FromBody]CompareAthletesApiRequest compareIrpApiRequest)
     {
         var orchestrator = new CompareAthletesOrchestrator(scoringDbContext);
-        return await orchestrator.GetCompareAthletesDto(compareIrpApiRequest.AthleteIds);
+        return await orchestrator.GetCompareAthletesDto(compareIrpApiRequest.AthleteIds.Take(4).ToList());
     }
 }
