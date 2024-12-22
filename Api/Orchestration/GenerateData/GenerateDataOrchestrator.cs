@@ -1,6 +1,5 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.CreateIntervals;
-using Api.Orchestration.ScoreCourses;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.GenerateData;

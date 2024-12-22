@@ -1,7 +1,7 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Orchestration.ScoreCourses;
+namespace Api.Orchestration.GenerateData;
 
 public class ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
 {

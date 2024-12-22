@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
 
-namespace Api.Orchestration.ScoreCourses;
+namespace Api.Orchestration.GenerateData;
 
 public abstract class ScorerBase
 {

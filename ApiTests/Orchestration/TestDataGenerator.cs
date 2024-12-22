@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.ScoreCourses;
+using Api.Orchestration.GenerateData;
 
 namespace ApiTests.Orchestration;
 
