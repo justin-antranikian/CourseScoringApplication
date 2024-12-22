@@ -27,21 +27,6 @@ public class ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
                 throw new Exception("Cannot Score a race with no tag reads");
             }
 
-            foreach (var bracket in brackets)
-            {
-                var athleteBracketsForBracket = athleteBracketsForCourse.Where(oo => oo.BracketId == bracket.Id).Select(oo => oo.AthleteCourseId).ToList();
-                var readsForBracket = courseReads.Where(oo => athleteBracketsForBracket.Contains(oo.AthleteCourseId)).ToList();
-
-                if (!readsForBracket.Any())
-                {
-                    continue;
-                }
-
-                var maxIntervalReadsForBracket = GetReadsForMaxInterval(readsForBracket, intervals);
-            }
-
-            var maxIntervalReads = GetReadsForMaxInterval(courseReads, intervals);
-
             var scorer = new CourseScorer(course, brackets, courseReads, athleteBracketsForCourse, intervals);
             var scoringResult = scorer.GetScoringResult();
             return scoringResult;
@@ -53,12 +38,5 @@ public class ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
         await scoringDbContext.BracketMetadataEntries.AddRangeAsync(metaResults);
         await scoringDbContext.Results.AddRangeAsync(results);
         await scoringDbContext.SaveChangesAsync();
-    }
-
-    private static List<TagRead> GetReadsForMaxInterval(List<TagRead> reads, List<Interval> intervals)
-    {
-        var intervalsFromReads = reads.Select(oo => oo.IntervalId).Distinct().ToList();
-        var maxIntervalId = intervals.Where(oo => intervalsFromReads.Contains(oo.Id)).OrderByDescending(oo => oo.Order).First().Id;
-        return reads.Where(oo => oo.IntervalId == maxIntervalId).ToList();
     }
 }

@@ -34,42 +34,23 @@ public static class CompareAthletesAthleteInfoDtoMapper
                         .ToList();
 
         return new CompareAthletesAthleteInfoDto
-        (
-            athlete.Id,
-            locationInfoWithRank,
-            athlete.FullName,
-            athlete.DateOfBirth,
-            athlete.Gender,
-            stats
-        );
+        {
+            Id = athlete.Id,
+            Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
+            FullName = athlete.FullName,
+            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            LocationInfoWithRank = locationInfoWithRank,
+            Stats = stats
+        };
     }
 }
 
-public class CompareAthletesAthleteInfoDto
+public record CompareAthletesAthleteInfoDto
 {
-    public int Id { get; set; }
-    public LocationInfoWithRank LocationInfoWithRank { get; }
-    public string FullName { get; }
-    public int Age { get; }
-    public string GenderAbbreviated { get; }
-    public List<CompareAthletesResult> Results { get; }
-    public List<CompareAthletesStat> Stats { get; }
-
-    public CompareAthletesAthleteInfoDto
-    (
-        int id,
-        LocationInfoWithRank locationInfoWithRank,
-        string fullName,
-        DateTime dateOfBirth,
-        Gender gender,
-        List<CompareAthletesStat> stats
-    )
-    {
-        Id = id;
-        LocationInfoWithRank = locationInfoWithRank;
-        FullName = fullName;
-        GenderAbbreviated = gender.ToAbbreviation();
-        Age = DateTimeHelper.GetCurrentAge(dateOfBirth);
-        Stats = stats;
-    }
+    public required int Id { get; set; }
+    public required int Age { get; init; }
+    public required string GenderAbbreviated { get; init; }
+    public required string FullName { get; init; }
+    public required LocationInfoWithRank LocationInfoWithRank { get; init; }
+    public required List<CompareAthletesStat> Stats { get; init; }
 }

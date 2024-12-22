@@ -12,10 +12,10 @@ export interface AthleteSearchResultDto {
 
 export interface CompareAthletesAthleteInfoDto {
   id: number
-  locationInfoWithRank: LocationInfoWithRank
-  fullName: string
   age: number
+  fullName: string
   genderAbbreviated: string
+  locationInfoWithRank: LocationInfoWithRank
   stats: CompareAthletesStat[]
 }
 
