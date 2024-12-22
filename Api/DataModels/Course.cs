@@ -23,6 +23,27 @@ public enum CourseType
     TwoMileSwim
 }
 
+public enum PreferredMetric
+{
+    /// <summary>
+    /// meters, kilometers, etc. Used by most of the world.
+    /// </summary>
+    Metric,
+
+    /// <summary>
+    /// feet, miles, etc. Used by the USA.
+    /// </summary>
+    Imperial
+}
+
+public enum PaceType
+{
+    None,
+    MilesOrKilometersPerHour,
+    MinuteMileOrKilometer,
+    MinutePer100Meters
+}
+
 public record Course
 {
     public int Id { get; init; }

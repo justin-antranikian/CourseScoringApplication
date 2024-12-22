@@ -1,5 +1,17 @@
 ﻿namespace Api.DataModels;
 
+public enum IntervalType
+{
+    Swim,
+    Bike,
+    Run,
+    Transition,
+    FullCourse,
+    MountainBike,
+    CrossCountrySki,
+}
+
+
 public record Interval
 {
     public int Id { get; init; }
