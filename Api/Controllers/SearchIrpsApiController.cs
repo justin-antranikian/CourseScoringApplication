@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.SearchIrps;
+using Api.Orchestration.Results.Search;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.Athletes.Search;
-using Api.Orchestration.SearchEvents;
+using Api.Orchestration.Races.SearchEvents;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.SearchAllEntities;

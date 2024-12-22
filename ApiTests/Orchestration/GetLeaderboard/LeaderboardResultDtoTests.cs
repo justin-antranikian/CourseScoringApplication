@@ -1,6 +1,5 @@
 ﻿using Api.DataModels;
 using Api.Orchestration;
-using Api.Orchestration.GetLeaderboard;
 
 namespace ApiTests.Orchestration.GetLeaderboard;
 

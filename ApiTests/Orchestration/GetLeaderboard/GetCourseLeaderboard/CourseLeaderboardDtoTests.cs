@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetLeaderboard.GetCourseLeaderboard;
+using Api.Orchestration.Courses.GetCourseLeaderboard;
 
 namespace ApiTests.Orchestration.GetLeaderboard.GetCourseLeaderboard;
 

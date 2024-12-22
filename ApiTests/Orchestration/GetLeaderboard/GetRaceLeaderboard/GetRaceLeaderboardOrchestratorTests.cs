@@ -1,4 +1,4 @@
-﻿using Api.Orchestration.GetLeaderboard.GetRaceLeaderboard;
+﻿using Api.Orchestration.Races.GetRaceLeaderboard;
 
 namespace ApiTests.Orchestration.GetLeaderboard.GetRaceLeaderboard;
 

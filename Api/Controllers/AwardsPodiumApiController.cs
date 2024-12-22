@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetAwardsPodium;
+using Api.Orchestration.Courses.GetAwardsPodium;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.GetLeaderboard.GetCourseLeaderboard;
+using Api.Orchestration.Courses.GetCourseLeaderboard;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
