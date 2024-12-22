@@ -2,18 +2,18 @@
 
 public record AthleteCourse
 {
-    public int Id { get; init; }
-    public int AthleteId { get; init; }
-    public int CourseId { get; init; }
+    public int Id { get; set; }
+    public int AthleteId { get; set; }
+    public int CourseId { get; set; }
 
-    public string Bib { get; init; }
-    public string CourseGoalDescription { get; init; }
-    public string PersonalGoalDescription { get; init; }
+    public required string Bib { get; set; }
+    public required string CourseGoalDescription { get; set; }
+    public required string PersonalGoalDescription { get; set; }
 
-    public Athlete Athlete { get; init; }
-    public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];
-    public List<AthleteCourseTraining> AthleteCourseTrainings { get; init; } = [];
-    public Course Course { get; init; }
-    public List<Result> Results { get; init; } = [];
+    public Athlete? Athlete { get; set; }
+    public List<AthleteCourseBracket> AthleteCourseBrackets { get; set; } = [];
+    public List<AthleteCourseTraining> AthleteCourseTrainings { get; set; } = [];
+    public Course? Course { get; set; }
+    public List<Result> Results { get; set; } = [];
     public List<TagRead> TagReads { get; set; } = [];
 }

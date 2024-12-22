@@ -14,57 +14,19 @@ public enum IntervalType
 
 public record Interval
 {
-    public int Id { get; init; }
-    public int CourseId { get; init; }
+    public int Id { get; set; }
+    public int CourseId { get; set; }
 
-    public string? Description { get; init; }
-    public double Distance { get; init; }
-    public double DistanceFromStart { get; init; }
-    public IntervalType IntervalType { get; init; }
-    public bool IsFullCourse { get; init; }
-    public string Name { get; init; }
-    public int Order { get; init; }
-    public PaceType PaceType { get; init; }
+    public required double Distance { get; set; }
+    public required double DistanceFromStart { get; set; }
+    public required IntervalType IntervalType { get; set; }
+    public required bool IsFullCourse { get; set; }
+    public required string Name { get; set; }
+    public required int Order { get; set; }
+    public required PaceType PaceType { get; set; }
 
-    public List<BracketMetadata> BracketMetadatas { get; init; } = [];
-    public Course Course { get; set; }
+    public List<BracketMetadata> BracketMetadatas { get; set; } = [];
+    public Course? Course { get; set; }
     public List<Result> Results { get; set; } = [];
     public List<TagRead> TagReads { get; set; } = [];
-
-    public Interval() {}
-
-    public Interval
-    (
-        int courseId,
-        string name,
-        double distance,
-        double distanceFromStart,
-        int order,
-        bool isFullCourse,
-        PaceType paceType,
-        IntervalType intervalType,
-        string? description
-    ) : this
-    (
-        name,
-        distance,
-        distanceFromStart,
-        order,
-        isFullCourse,
-        paceType,
-        intervalType,
-        description
-    ) => CourseId = courseId;
-
-    public Interval(string name, double distance, double distanceFromStart, int order, bool isFullCourse, PaceType paceType, IntervalType intervalType, string? description)
-    {
-        Name = name;
-        Distance = distance;
-        DistanceFromStart = distanceFromStart;
-        Order = order;
-        IsFullCourse = isFullCourse;
-        PaceType = paceType;
-        IntervalType = intervalType;
-        Description = description;
-    }
 }

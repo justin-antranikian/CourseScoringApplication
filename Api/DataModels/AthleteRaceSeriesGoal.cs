@@ -1,12 +1,12 @@
 ﻿namespace Api.DataModels;
 
-public class AthleteRaceSeriesGoal(RaceSeriesType raceSeriesType, int totalEvents)
+public class AthleteRaceSeriesGoal
 {
     public int Id { get; set; }
     public int AthleteId { get; set; }
 
-    public RaceSeriesType RaceSeriesType { get; set; } = raceSeriesType;
-    public int TotalEvents { get; set; } = totalEvents;
+    public required RaceSeriesType RaceSeriesType { get; set; }
+    public required int TotalEvents { get; set; }
 
-    public Athlete Athlete { get; set; }
+    public Athlete? Athlete { get; set; }
 }

@@ -10,20 +10,20 @@ public enum Gender
 
 public record Athlete
 {
-    public int Id { get; init; }
+    public int Id { get; set; }
 
-    public string Area { get; init; }
-    public int AreaRank { get; set; }
-    public string City { get; init; }
-    public int CityRank { get; set; }
-    public DateTime DateOfBirth { get; init; }
-    public Gender Gender { get; init; }
-    public string FirstName { get; init; }
-    public string FullName { get; init; }
-    public string LastName { get; init; }
-    public int OverallRank { get; set; }
-    public string State { get; init; }
-    public int StateRank { get; set; }
+    public required string Area { get; set; }
+    public required int AreaRank { get; set; }
+    public required string City { get; set; }
+    public required int CityRank { get; set; }
+    public required DateTime DateOfBirth { get; set; }
+    public required string FirstName { get; set; }
+    public required string FullName { get; set; }
+    public required Gender Gender { get; set; }
+    public required string LastName { get; set; }
+    public required int OverallRank { get; set; }
+    public required string State { get; set; }
+    public required int StateRank { get; set; }
 
     public List<AthleteCourse> AthleteCourses { get; set; } = [];
     public List<AthleteRaceSeriesGoal> AthleteRaceSeriesGoals { get; set; } = [];

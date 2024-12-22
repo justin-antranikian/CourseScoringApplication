@@ -12,15 +12,8 @@ public record CourseInformationEntry
     public int Id { get; init; }
     public int CourseId { get; set; }
 
-    public CourseInformationType CourseInformationType { get; set; }
-    public string Description { get; set; }
+    public required CourseInformationType CourseInformationType { get; set; }
+    public required string Description { get; set; }
 
-    public CourseInformationEntry() { }
-
-    public CourseInformationEntry(CourseInformationType courseInformationType, string description)
-    {
-        CourseInformationType = courseInformationType;
-        Description = description;
-    }
-    public Course Course { get; set; }
+    public Course? Course { get; set; }
 }

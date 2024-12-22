@@ -14,18 +14,17 @@ public record RaceSeries
 {
     public int Id { get; init; }
 
-    public string Area { get; init; }
-    public int AreaRank { get; init; }
-    public string City { get; init; }
-    public int CityRank { get; init; }
-    public string Description { get; init; }
-    public bool IsUpcoming { get; init; }
-    public string Name { get; init; }
-    public int OverallRank { get; init; }
-    public RaceSeriesType RaceSeriesType { get; init; }
-    public int Rating { get; init; }
-    public string State { get; init; }
-    public int StateRank { get; init; }
+    public required string Area { get; init; }
+    public required int AreaRank { get; init; }
+    public required string City { get; init; }
+    public required int CityRank { get; init; }
+    public required string Description { get; init; }
+    public required string Name { get; init; }
+    public required int OverallRank { get; init; }
+    public required RaceSeriesType RaceSeriesType { get; init; }
+    public required int Rating { get; init; }
+    public required string State { get; init; }
+    public required int StateRank { get; init; }
 
     public List<Race> Races { get; init; } = [];
 }

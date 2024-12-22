@@ -7,5 +7,5 @@ public class AthleteCourseTraining
 
     public required string Description { get; set; }
 
-    public AthleteCourse AthleteCourse { get; set; }
+    public AthleteCourse? AthleteCourse { get; set; }
 }
