@@ -110,9 +110,9 @@ internal static class TestDataGenerator
                 SortOrder = 1,
                 Brackets = new List<Bracket>
                 {
-                    new("Overall", BracketType.Overall), // Id : 13
-                    new("Gender", BracketType.Gender),
-                    new("Primary", BracketType.PrimaryDivision),
+                    Bracket.Create(0, "Overall", BracketType.Overall), // Id : 13
+                    Bracket.Create(0 ,"Gender", BracketType.Gender),
+                    Bracket.Create(0, "Primary", BracketType.PrimaryDivision),
                 },
                 Intervals = new List<Interval>
                 {
@@ -129,25 +129,25 @@ internal static class TestDataGenerator
     {
         return new()
         {
-            new (1, 1, 1, 700, 700),
-            new (1, 1, 2, 700, 1400),
-            new (1, 4, 1, 701, 701),
-            new (1, 4, 2, 701, 1402),
-            new (1, 7, 1, 702, 702),
-            new (1, 7, 2, 702, 1404),
-            new (1, 10, 1, 703, 703),
-            new (1, 10, 2, 703, 1406),
-            new (1, 10, 3, 703, 2109),
-            new (2, 2, 7, 700, 700),
-            new (2, 5, 7, 701, 701),
-            new (2, 8, 7, 702, 702),
-            new (2, 11, 7, 703, 703),
-            new (3, 3, 13, 700, 700),
-            new (3, 3, 14, 700, 1400),
-            new (3, 6, 13, 699, 699),
-            new (3, 6, 14, 703, 1402),
-            new (3, 6, 15, 701, 2103),
-            new (3, 6, 16, 701, 2804),
+            TagRead.Create(1, 1, 1, 700, 700),
+            TagRead.Create(1, 1, 2, 700, 1400),
+            TagRead.Create(4, 1, 1, 701, 701),
+            TagRead.Create(4, 1, 2, 701, 1402),
+            TagRead.Create(7, 1, 1, 702, 702),
+            TagRead.Create(7, 1, 2, 702, 1404),
+            TagRead.Create(10, 1, 1, 703, 703),
+            TagRead.Create(10, 1, 2, 703, 1406),
+            TagRead.Create(10, 1, 3, 703, 2109),
+            TagRead.Create(2, 2, 7, 700, 700),
+            TagRead.Create(5, 2, 7, 701, 701),
+            TagRead.Create(8, 2, 7, 702, 702),
+            TagRead.Create(11, 2, 7, 703, 703),
+            TagRead.Create(3, 3, 13, 700, 700),
+            TagRead.Create(3, 3, 14, 700, 1400),
+            TagRead.Create(6, 3, 13, 699, 699),
+            TagRead.Create(6, 3, 14, 703, 1402),
+            TagRead.Create(6, 3, 15, 701, 2103),
+            TagRead.Create(6, 3, 16, 701, 2804),
         };
     }
 

@@ -18,4 +18,13 @@ public record AthleteWellnessEntry
     public required string Description { get; set; }
 
     public Athlete? Athlete { get; set; }
+
+    public static AthleteWellnessEntry Create(AthleteWellnessType athleteWellnessType, string description)
+    {
+        return new AthleteWellnessEntry
+        {
+            AthleteWellnessType = athleteWellnessType,
+            Description = description
+        };
+    }
 }
