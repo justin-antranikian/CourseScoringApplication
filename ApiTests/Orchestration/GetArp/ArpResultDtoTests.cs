@@ -72,7 +72,13 @@ public class ArpResultDtoTests
                     State = "SA",
                     City = "CA",
                 }
-            }
+            },
+            CourseType = CourseType.Running5K,
+            Distance = 0,
+            PaceType = PaceType.None,
+            PreferedMetric = PreferredMetric.Metric,
+            SortOrder = 0,
+            StartDate = default
         };
     }
 

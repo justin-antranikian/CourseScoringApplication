@@ -61,7 +61,15 @@ public class LeaderboardResultDtoTests
         var course = new Course
         {
             Id = 1,
-            StartDate = new DateTime(2010, 1, 1)
+            StartDate = new DateTime(2010,
+                1,
+                1),
+            CourseType = CourseType.Running5K,
+            Distance = 0,
+            Name = null,
+            PaceType = PaceType.None,
+            PreferedMetric = PreferredMetric.Metric,
+            SortOrder = 0
         };
 
         return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, athlete, new PaceWithTime("01:01", false), course);

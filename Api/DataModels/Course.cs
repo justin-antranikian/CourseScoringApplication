@@ -47,15 +47,15 @@ public enum PaceType
 public record Course
 {
     public int Id { get; init; }
-    public int RaceId { get; init; }
+    public int RaceId { get; set; }
 
-    public CourseType CourseType { get; init; }
-    public double Distance { get; set; }
-    public string Name { get; init; }
-    public PaceType PaceType { get; init; }
-    public PreferredMetric PreferedMetric { get; init; }
-    public int SortOrder { get; init; }
-    public DateTime StartDate { get; init; }
+    public required CourseType CourseType { get; set; }
+    public required double Distance { get; set; }
+    public required string Name { get; set; }
+    public required PaceType PaceType { get; set; }
+    public required PreferredMetric PreferedMetric { get; set; }
+    public required int SortOrder { get; set; }
+    public required DateTime StartDate { get; set; }
     public Geometry? Location { get; set; }
 
     public List<AthleteCourse> AthleteCourses { get; set; } = [];

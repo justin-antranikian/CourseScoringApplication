@@ -14,18 +14,25 @@ public class GetAwardsPodiumOrchestratorTests
         {
             Id = 1,
             StartDate = new DateTime(2010, 1, 1, 7, 30, 0),
+            CourseType = CourseType.Running5K,
+            Distance = 0,
+            Name = "",
+            PaceType = PaceType.None,
+            PreferedMetric = PreferredMetric.Metric,
+            SortOrder = 0,
         };
 
         var intervals = new List<Interval>
         {
-            new() { Id = 55, CourseId = 1, IntervalType = IntervalType.FullCourse, IsFullCourse = true },
-            new() { Id = 56, CourseId = 1, IntervalType = IntervalType.Bike, IsFullCourse = false }
+            new() { Id = 55, CourseId = 1, IntervalType = IntervalType.FullCourse, IsFullCourse = true, Name = "" },
+            new() { Id = 56, CourseId = 1, IntervalType = IntervalType.Bike, IsFullCourse = false, Name = ""  }
         };
 
         var athleteCourses = Enumerable.Range(1, 50).Select(index => new AthleteCourse
         {
             Id = index,
-            Athlete = new Athlete { Id = index, FullName = $"JA{index}" }
+            Bib = "",
+            Athlete = new Athlete { Id = index, FullName = $"JA{index}", Area = "", City = "", State = "", FirstName = "", LastName = ""}
         }).ToList();
 
         var overallBracket = new Bracket { CourseId = 1, BracketType = BracketType.Overall, Id = 5, Name = "Overall" };

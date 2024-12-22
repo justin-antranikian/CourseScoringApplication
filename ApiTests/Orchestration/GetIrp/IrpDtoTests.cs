@@ -82,7 +82,9 @@ public class IrpDtoTests
         {
             Id = 1,
             Name = "CA",
-            StartDate = new DateTime(2010, 1, 1),
+            StartDate = new DateTime(2010,
+                1,
+                1),
             Distance = 1000,
             RaceId = 1,
             Race = new()
@@ -96,7 +98,11 @@ public class IrpDtoTests
                     Description = "DA"
                 },
                 TimeZoneId = "Pacific Standard Time"
-            }
+            },
+            CourseType = CourseType.Running5K,
+            PaceType = PaceType.None,
+            PreferedMetric = PreferredMetric.Metric,
+            SortOrder = 0
         };
 
         var paceWithTime = new PaceWithTime("01:01", false);

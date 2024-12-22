@@ -77,13 +77,14 @@ public static class CourseGenerator
         return new()
         {
             RaceId = race.Id,
-            SortOrder = index,
-            PreferedMetric = oo.PreferedMetric,
-            StartDate = courseStart,
             CourseType = oo.CourseType,
+            Distance = 0,
             Name = oo.CourseType.ToFriendlyText(),
             PaceType = _racePaceTypeDictionary[raceSeriesType],
-            CourseInformationEntries = courseInfos
+            PreferedMetric = oo.PreferedMetric,
+            SortOrder = index,
+            StartDate = courseStart,
+            CourseInformationEntries = courseInfos,
         };
     }
 }

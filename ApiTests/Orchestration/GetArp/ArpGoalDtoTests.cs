@@ -67,7 +67,13 @@ public class ArpGoalDtoTests
                         City = "CA",
                         Description = "DA"
                     }
-                }
+                },
+                CourseType = CourseType.Running5K,
+                Distance = 0,
+                PaceType = PaceType.None,
+                PreferedMetric = PreferredMetric.Metric,
+                SortOrder = 0,
+                StartDate = default
             }
         };
 

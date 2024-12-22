@@ -158,7 +158,9 @@ public class IrpResultByIntervalDtoTests
             StartDate = new DateTime(2010, 1, 1),
             CourseType = CourseType.Running25K,
             PaceType = PaceType.MinuteMileOrKilometer,
-            PreferedMetric = PreferredMetric.Imperial
+            PreferedMetric = PreferredMetric.Imperial,
+            Distance = 0,
+            SortOrder = 0
         };
     }
 

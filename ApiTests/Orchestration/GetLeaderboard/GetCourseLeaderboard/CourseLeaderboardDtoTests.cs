@@ -13,8 +13,17 @@ public class CourseLeaderboardDtoTests
             Id = 1,
             Name = "CA",
             RaceId = 1,
-            StartDate = new DateTime(2010, 1, 1, 6, 30, 0),
-            Distance = 1000
+            StartDate = new DateTime(2010,
+                1,
+                1,
+                6,
+                30,
+                0),
+            Distance = 1000,
+            CourseType = CourseType.Running5K,
+            PaceType = PaceType.None,
+            PreferedMetric = PreferredMetric.Metric,
+            SortOrder = 0
         };
 
         var race = new Race
