@@ -71,7 +71,7 @@ public static class CourseGenerator
             new() { CourseInformationType = CourseInformationType.HowToPrepare, Description = "There will not be any cell coverage. GPS is recommended." },
         };
 
-        var courseInfos = (new[] { descriptionEntries, motivationalEntries, howToPrepareEntries }).SelectMany(oo => oo.GetRandomValues()).ToList();
+        var courseInfos = new[] { descriptionEntries, motivationalEntries, howToPrepareEntries }.SelectMany(oo => oo.GetRandomValues()).ToList();
         var courseStart = new DateTime(race.KickOffDate.Year, race.KickOffDate.Month, race.KickOffDate.Day, 6, 30, 0);
 
         return new()
