@@ -3,15 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.SearchIrps;
 
-public class SearchIrpsOrchestrator
+public class SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task<List<IrpSearchResultDto>> GetSearchResults(SearchIrpsRequestDto searchRequestDto)
     {
         var baseQuery = GetBaseQuery(searchRequestDto);
@@ -22,7 +15,7 @@ public class SearchIrpsOrchestrator
 
     private IQueryable<AthleteCourse> GetBaseQuery(SearchIrpsRequestDto searchRequestDto)
     {
-        var baseQuery = _scoringDbContext.AthleteCourses.Include(oo => oo.Athlete).Include(oo => oo.Course).AsQueryable();
+        var baseQuery = scoringDbContext.AthleteCourses.Include(oo => oo.Athlete).Include(oo => oo.Course).AsQueryable();
 
         if (searchRequestDto.RaceId is int raceId)
         {
