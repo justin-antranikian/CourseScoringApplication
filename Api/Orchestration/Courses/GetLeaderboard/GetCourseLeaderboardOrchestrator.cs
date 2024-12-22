@@ -82,7 +82,7 @@ public class GetCourseLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
     private static LeaderboardResultDto GetResultByCourseDto(Result result, Course course, Interval interval)
     {
         var timeOnCoursePace = course.GetPaceWithTime(result.TimeOnCourse, interval.DistanceFromStart);
-        var athlete = result.AthleteCourse.Athlete;
+        var athlete = result.AthleteCourse!.Athlete!;
         return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, athlete, timeOnCoursePace, course);
     }
 }

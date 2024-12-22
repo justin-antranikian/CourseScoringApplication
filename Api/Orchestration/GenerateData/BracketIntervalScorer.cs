@@ -34,7 +34,7 @@ public class BracketIntervalScorer(
                 count++;
             }
 
-            metadataEntries.Add(new BracketMetadata(_course.Id, bracket.Id, reads.Count, interval.Id));
+            metadataEntries.Add(BracketMetadata.Create(_course.Id, bracket.Id, interval.Id, reads.Count));
         }
 
         return (results, metadataEntries);

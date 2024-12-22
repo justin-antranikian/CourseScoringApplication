@@ -29,4 +29,6 @@ public record Interval
     public Course? Course { get; set; }
     public List<Result> Results { get; set; } = [];
     public List<TagRead> TagReads { get; set; } = [];
+
+    //public static Interval Create(int courseId, )
 }

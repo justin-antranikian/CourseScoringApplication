@@ -11,11 +11,19 @@ public abstract class ScorerBase
 
     protected record TagReadWithIntervalOrder : TagRead
     {
-        public int IntervalOrder { get; set; }
+        public required int IntervalOrder { get; set; }
 
-        public TagReadWithIntervalOrder(TagRead read, int intervalOrder) : base(read.CourseId, read.AthleteCourseId, read.IntervalId, read.TimeOnInterval, read.TimeOnCourse)
+        public static TagReadWithIntervalOrder Create(TagRead read, int intervalOrder)
         {
-            IntervalOrder = intervalOrder;
+            return new TagReadWithIntervalOrder
+            {
+                AthleteCourseId = read.AthleteCourseId,
+                CourseId = read.CourseId,
+                IntervalId = read.IntervalId,
+                IntervalOrder = intervalOrder,
+                TimeOnInterval = read.TimeOnInterval,
+                TimeOnCourse = read.TimeOnCourse
+            };
         }
     }
 
@@ -32,7 +40,7 @@ public abstract class ScorerBase
 
         var reads = from read in tagReads
                     join iv in intervals on read.IntervalId equals iv.Id
-                    select new TagReadWithIntervalOrder(read, iv.Order);
+                    select TagReadWithIntervalOrder.Create(read, iv.Order);
 
         _tagReads = reads.ToList();
         _atheleteCourseBrackets = atheleteCourseBrackets;

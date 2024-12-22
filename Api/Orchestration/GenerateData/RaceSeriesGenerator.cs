@@ -48,8 +48,7 @@ public static class RaceSeriesGenerator
             "A great event through the city. Brought to you by our sponsers.",
         };
 
-        var possibleUpcomingValues = new[] { true, false };
-        var possibleRatings = Enumerable.Range(1, 10);
+        var possibleRatings = Enumerable.Range(1, 10).ToList();
 
         RaceSeries MapToRaceSeries(RaceSeriesBasic raceSeriesBasic)
         {
@@ -67,13 +66,11 @@ public static class RaceSeriesGenerator
                 StateRank = stateDictionary[id],
                 AreaRank = areaDictionary[id],
                 CityRank = cityDictionary[id],
-                IsUpcoming = possibleUpcomingValues.GetRandomValue(),
                 Rating = possibleRatings.GetRandomValue()
             };
         }
 
-        var raceSeriesEntries = raceSeriesBasicEntries.Select(MapToRaceSeries).ToList();
-        return raceSeriesEntries;
+        return raceSeriesBasicEntries.Select(MapToRaceSeries).ToList();
     }
 
     private static List<RaceSeriesBasic> GetRaceSeriesBasicEntries()

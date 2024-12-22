@@ -4,7 +4,7 @@ namespace Api.DataModels;
 
 public record Course
 {
-    public int Id { get; init; }
+    public int Id { get; set; }
     public int RaceId { get; set; }
 
     public required CourseType CourseType { get; set; }

@@ -29,8 +29,8 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
     {
         var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)
-                        .Where(oo => athleteIds.Contains(oo.AthleteCourse.AthleteId))
-                        .Where(oo => oo.Bracket.BracketType == BracketType.Overall && oo.IsHighestIntervalCompleted);
+                        .Where(oo => athleteIds.Contains(oo.AthleteCourse!.AthleteId))
+                        .Where(oo => oo.Bracket!.BracketType == BracketType.Overall && oo.IsHighestIntervalCompleted);
 
         return await query.ToListAsync();
     }

@@ -19,7 +19,6 @@ public static class RaceSeriesConfiguration
         builder.Property(oo => oo.City).HasColumnType("VARCHAR(50)").IsRequired();
         builder.Property(oo => oo.CityRank).IsRequired();
         builder.Property(oo => oo.Description).HasColumnType("VARCHAR(250)").IsRequired();
-        builder.Property(oo => oo.IsUpcoming).IsRequired();
         builder.Property(oo => oo.Name).HasColumnType("VARCHAR(100)").IsRequired();
         builder.Property(oo => oo.OverallRank).IsRequired();
 

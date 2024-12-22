@@ -9,7 +9,18 @@ public class BracketMetadata
 
     public required int TotalRacers { get; set; }
 
-    public Bracket Bracket { get; set; }
-    public Course Course { get; set; }
-    public Interval Interval { get; set; }
+    public Bracket? Bracket { get; set; }
+    public Course? Course { get; set; }
+    public Interval? Interval { get; set; }
+
+    public static BracketMetadata Create(int bracketId, int courseId, int? intervalId, int totalRacers)
+    {
+        return new BracketMetadata
+        {
+            BracketId = bracketId,
+            CourseId = courseId,
+            IntervalId = intervalId,
+            TotalRacers = totalRacers
+        };
+    }
 }

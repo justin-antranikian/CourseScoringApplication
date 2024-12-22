@@ -2,7 +2,8 @@
 
 namespace Api.Orchestration.GenerateData;
 
-public class CourseScorer(
+public class CourseScorer
+(
     Course course,
     List<Bracket> brackets,
     List<TagRead> tagReads,
@@ -16,11 +17,7 @@ public class CourseScorer(
 
         var highestIntervalResults = highestIntervalScorer.GetResults();
         var (resultsForInterval, intervalMetadata) = bracketIntervalScorer.GetResults();
-
-        var bracketMetadata = atheleteCourseBrackets.GroupBy(oo => oo.BracketId).Select(oo =>
-        {
-            return new BracketMetadata(course.Id, oo.Key, oo.Count());
-        });
+        var bracketMetadata = atheleteCourseBrackets.GroupBy(oo => oo.BracketId).Select(oo => BracketMetadata.Create(oo.Key, course.Id, null, oo.Count()));
 
         var allMetadata = intervalMetadata.Concat(bracketMetadata).ToList();
         var allResults = resultsForInterval.Concat(highestIntervalResults).ToList();

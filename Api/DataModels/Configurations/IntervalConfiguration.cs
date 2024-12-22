@@ -15,7 +15,6 @@ public static class IntervalConfiguration
         builder.Property(oo => oo.Id).IsRequired();
         builder.Property(oo => oo.CourseId).IsRequired();
 
-        builder.Property(oo => oo.Description).HasColumnType("VARCHAR(250)").IsRequired(false);
         builder.Property(oo => oo.Distance).IsRequired();
         builder.Property(oo => oo.DistanceFromStart).IsRequired();
 

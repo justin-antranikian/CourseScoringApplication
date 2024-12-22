@@ -10,4 +10,14 @@ public class AthleteCourseBracket
     public AthleteCourse? AthleteCourse { get; set; }
     public Bracket? Bracket { get; set; }
     public Course? Course { get; set; }
+
+    public static AthleteCourseBracket Create(int athleteCourseId, int bracketId, int courseId)
+    {
+        return new AthleteCourseBracket
+        {
+            AthleteCourseId = athleteCourseId,
+            BracketId = bracketId,
+            CourseId = courseId
+        };
+    }
 }

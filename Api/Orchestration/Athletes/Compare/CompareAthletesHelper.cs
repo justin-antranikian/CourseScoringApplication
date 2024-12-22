@@ -26,7 +26,7 @@ public class CompareAthletesHelper(List<Course> courses, List<Athlete> athletes,
         (
             result.AthleteCourseId,
             course.RaceId,
-            course.Race.Name,
+            course.Race!.Name,
             course.Id,
             course.Name,
             paceWithTime,

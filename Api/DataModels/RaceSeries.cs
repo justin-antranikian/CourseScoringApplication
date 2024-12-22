@@ -12,21 +12,21 @@ public enum RaceSeriesType
 
 public record RaceSeries
 {
-    public int Id { get; init; }
+    public int Id { get; set; }
 
-    public required string Area { get; init; }
-    public required int AreaRank { get; init; }
-    public required string City { get; init; }
-    public required int CityRank { get; init; }
-    public required string Description { get; init; }
-    public required string Name { get; init; }
-    public required int OverallRank { get; init; }
-    public required RaceSeriesType RaceSeriesType { get; init; }
-    public required int Rating { get; init; }
-    public required string State { get; init; }
-    public required int StateRank { get; init; }
+    public required string Area { get; set; }
+    public required int AreaRank { get; set; }
+    public required string City { get; set; }
+    public required int CityRank { get; set; }
+    public required string Description { get; set; }
+    public required string Name { get; set; }
+    public required int OverallRank { get; set; }
+    public required RaceSeriesType RaceSeriesType { get; set; }
+    public required int Rating { get; set; }
+    public required string State { get; set; }
+    public required int StateRank { get; set; }
 
-    public List<Race> Races { get; init; } = [];
+    public List<Race> Races { get; set; } = [];
 }
 
 public static class RaceSeriesTypeExtensions

@@ -19,7 +19,7 @@ public class GetAwardsPodiumOrchestrator(ScoringDbContext scoringDbContext)
     {
         var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)
-                        .ThenInclude(oo => oo.Athlete)
+                        .ThenInclude(oo => oo!.Athlete)
                         .Where(oo => oo.CourseId == courseId && !oo.IsHighestIntervalCompleted)
                         .Where(oo => oo.IntervalId == fullCourseInterval.Id && oo.Rank <= 9);
 
@@ -54,7 +54,7 @@ public class GetAwardsPodiumOrchestrator(ScoringDbContext scoringDbContext)
     {
         AwardWinnerDto MapToAwardWinnerDto(Result result)
         {
-            var athlete = result.AthleteCourse.Athlete;
+            var athlete = result.AthleteCourse!.Athlete!;
             var finishTime = course.GetCrossingTime(result.TimeOnCourse);
             var paceWithTime = course.GetPaceWithTime(result.TimeOnCourse);
             return new AwardWinnerDto(athlete.Id, result.AthleteCourseId, athlete.FullName, finishTime, paceWithTime);
@@ -74,7 +74,7 @@ public class GetAwardsPodiumOrchestrator(ScoringDbContext scoringDbContext)
         return new PodiumEntryDto(bracket.Name, firstPlace, secondPlace, thirdPlace);
     }
 
-    private List<Result> FilterWinnersInHigherBrackets(List<Result> resultsPool, int bracketId, List<Result>? previousWinners = null)
+    private static List<Result> FilterWinnersInHigherBrackets(List<Result> resultsPool, int bracketId, List<Result>? previousWinners = null)
     {
         IEnumerable<Result> GetWinners(int[] idsThatHaveAlreadyWon)
         {
@@ -85,7 +85,6 @@ public class GetAwardsPodiumOrchestrator(ScoringDbContext scoringDbContext)
         }
 
         var idsThatHaveAlreadyWon = (previousWinners ?? []).Select(oo => oo.AthleteCourseId).ToArray();
-        var winners = GetWinners(idsThatHaveAlreadyWon).ToList();
-        return winners;
+        return GetWinners(idsThatHaveAlreadyWon).ToList();
     }
 }

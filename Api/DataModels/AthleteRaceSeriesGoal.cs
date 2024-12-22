@@ -9,4 +9,13 @@ public class AthleteRaceSeriesGoal
     public required int TotalEvents { get; set; }
 
     public Athlete? Athlete { get; set; }
+
+    public static AthleteRaceSeriesGoal Create(RaceSeriesType raceSeriesType, int totalEvents)
+    {
+        return new AthleteRaceSeriesGoal
+        {
+            RaceSeriesType = raceSeriesType,
+            TotalEvents = totalEvents
+        };
+    }
 }

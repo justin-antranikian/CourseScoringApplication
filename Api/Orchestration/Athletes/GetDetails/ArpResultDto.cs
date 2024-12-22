@@ -7,7 +7,7 @@ public static class ArpResultDtoMapper
     public static ArpResultDto GetArpResultDto(ResultWithBracketType result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
     {
         var race = course.Race;
-        var raceSeries = race.RaceSeries;
+        var raceSeries = race!.RaceSeries!;
 
         var overallTotal = metadataGetTotalHelper.GetOverallTotal();
         var genderTotal = metadataGetTotalHelper.GetGenderTotal();

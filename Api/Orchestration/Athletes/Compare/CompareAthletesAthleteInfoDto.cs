@@ -28,7 +28,7 @@ public static class CompareAthletesAthleteInfoDtoMapper
         }
 
         var stats = coursesForAthlete
-                        .GroupBy(oo => oo.Race.RaceSeries.RaceSeriesType)
+                        .GroupBy(oo => oo.Race!.RaceSeries!.RaceSeriesType)
                         .Select(GetCompareAthletesStat)
                         .OrderBy(oo => oo.RaceSeriesTypeName)
                         .ToList();

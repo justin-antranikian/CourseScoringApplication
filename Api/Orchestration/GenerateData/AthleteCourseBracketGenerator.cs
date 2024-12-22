@@ -17,10 +17,10 @@ public static class AthleteCourseBracketGenerator
             var primaryBracket = bracketsForCourse.Where(oo => oo.BracketType == BracketType.PrimaryDivision).GetRandomValue();
             var nonPrimaryBracket = bracketsForCourse.Where(oo => oo.BracketType == BracketType.NonPrimaryDivision).GetRandomValue();
 
-            yield return new AthleteCourseBracket(athleteCourse.Id, athleteCourse.CourseId, overallBracket.Id);
-            yield return new AthleteCourseBracket(athleteCourse.Id, athleteCourse.CourseId, genderBracket.Id);
-            yield return new AthleteCourseBracket(athleteCourse.Id, athleteCourse.CourseId, primaryBracket.Id);
-            yield return new AthleteCourseBracket(athleteCourse.Id, athleteCourse.CourseId, nonPrimaryBracket.Id);
+            yield return AthleteCourseBracket.Create(athleteCourse.Id, overallBracket.Id, athleteCourse.CourseId);
+            yield return AthleteCourseBracket.Create(athleteCourse.Id, genderBracket.Id, athleteCourse.CourseId);
+            yield return AthleteCourseBracket.Create(athleteCourse.Id, primaryBracket.Id, athleteCourse.CourseId);
+            yield return AthleteCourseBracket.Create(athleteCourse.Id, nonPrimaryBracket.Id, athleteCourse.CourseId);
         }
     }
 }

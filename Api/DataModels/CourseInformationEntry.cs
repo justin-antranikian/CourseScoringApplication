@@ -9,7 +9,7 @@ public enum CourseInformationType
 
 public record CourseInformationEntry
 {
-    public int Id { get; init; }
+    public int Id { get; set; }
     public int CourseId { get; set; }
 
     public required CourseInformationType CourseInformationType { get; set; }

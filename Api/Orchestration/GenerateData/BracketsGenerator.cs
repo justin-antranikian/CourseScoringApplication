@@ -16,19 +16,19 @@ public static class BracketsGenerator
         {
             var courseId = course.Id;
 
-            yield return new Bracket(courseId, "Overall", BracketType.Overall);
-            yield return new Bracket(courseId, "Male", BracketType.Gender);
-            yield return new Bracket(courseId, "Female", BracketType.Gender);
+            yield return Bracket.Create(courseId, "Overall", BracketType.Overall);
+            yield return Bracket.Create(courseId, "Male", BracketType.Gender);
+            yield return Bracket.Create(courseId, "Female", BracketType.Gender);
 
             var primaryBracketNames = new[] { "M20-25", "F20-25", "M25-30", "F25-30", "M30-35", "F30-35" };
             foreach (var primaryBracketName in primaryBracketNames)
             {
-                yield return new Bracket(courseId, primaryBracketName, BracketType.PrimaryDivision);
+                yield return Bracket.Create(courseId, primaryBracketName, BracketType.PrimaryDivision);
             }
 
             foreach (var bracket in nonPrimaryBracketsPool.GetRandomValues(5))
             {
-                yield return new Bracket(courseId, bracket.Name, BracketType.NonPrimaryDivision);
+                yield return Bracket.Create(courseId, bracket.Name, BracketType.NonPrimaryDivision);
             }
         }
     }

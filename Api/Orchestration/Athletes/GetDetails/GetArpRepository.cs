@@ -53,7 +53,7 @@ public class GetArpRepository(ScoringDbContext scoringDbContext)
                         .Include(oo => oo.Brackets)
                         .Include(oo => oo.Intervals)
                         .Include(oo => oo.Race)
-                        .ThenInclude(oo => oo.RaceSeries)
+                        .ThenInclude(oo => oo!.RaceSeries)
                         .AsSplitQuery()
                         .Where(oo => courseIds.Contains(oo.Id));
 

@@ -53,31 +53,42 @@ public class CreateIntervalsOrchestrator(ScoringDbContext scoringDbContext)
 
     private static List<Interval> GenerateIntervals(string[] intervalNames, Course course, int distancePerInterval, IPaceTypeFinder paceTypeFinder)
     {
-        var possibleDescriptions = new[]
-        {
-            "This is a really tough part of the event.",
-            "You are part of the way through. You need to keep going.",
-            "This interval will set you up for success later in the event.",
-            "Might be a good idea to conserve some energy on this interval.",
-            "The full course. You have finished the event !"
-        };
-
         var cumulativeDistance = distancePerInterval;
         var intervalOrder = 1;
         var intervals = intervalNames.Select(intervalName =>
         {
             var intervalType = paceTypeFinder.GetIntervalType(intervalName);
             var paceType = paceTypeFinder.GetPaceType(intervalName);
-            var interval = new Interval(course.Id, intervalName, distancePerInterval, cumulativeDistance, intervalOrder, false, paceType, intervalType, possibleDescriptions.GetRandomValue());
+
+            var interval = new Interval
+            {
+                CourseId = course.Id,
+                Distance = distancePerInterval,
+                DistanceFromStart = cumulativeDistance,
+                IntervalType = intervalType,
+                IsFullCourse = false,
+                Name = intervalName,
+                Order = intervalOrder,
+                PaceType = paceType
+            };
+
             cumulativeDistance += distancePerInterval;
             intervalOrder++;
             return interval;
         }).ToList();
 
-        var fullCourseDistance = intervals.Max(oo => oo.DistanceFromStart);
-        var fullCourseDescription = "Congrats, you have finished the event. Now enjoy the reward of completing the full course.";
-        var fullCourse = new Interval(course.Id, "Full Course", fullCourseDistance, fullCourseDistance, intervalOrder, true, course.PaceType, IntervalType.FullCourse, fullCourseDescription);
-        course.Distance = fullCourseDistance;
+        var fullCourse = new Interval
+        {
+            Distance = cumulativeDistance,
+            DistanceFromStart = cumulativeDistance,
+            IntervalType = IntervalType.FullCourse,
+            IsFullCourse = true,
+            Name = "Full Course",
+            Order = intervalOrder,
+            PaceType = course.PaceType
+        };
+
+        course.Distance = cumulativeDistance;
         return intervals.ConcatSingle(fullCourse);
     }
 }

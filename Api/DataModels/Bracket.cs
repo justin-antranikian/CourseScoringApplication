@@ -20,4 +20,14 @@ public record Bracket
     public List<BracketMetadata> BracketMetadatas { get; set; } = [];
     public Course? Course { get; set; }
     public List<Result> Results { get; set; } = [];
+
+    public static Bracket Create(int courseId, string name, BracketType bracketType)
+    {
+        return new Bracket
+        {
+            CourseId = courseId,
+            BracketType = bracketType,
+            Name = name
+        };
+    }
 }
