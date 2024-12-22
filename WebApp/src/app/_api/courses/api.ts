@@ -3,13 +3,15 @@
 import { ApiFetch } from "../api"
 import { CourseLeaderboardDto, PodiumAward } from "./definitions"
 
+const baseUrl = "courses"
+
 export default (apiFetch: ApiFetch) => ({
-  awards: async (courseId: string | number): Promise<PodiumAward[]> => {
-    const response = await apiFetch(`awardsPodiumApi/${courseId}`)
+  details: async (courseId: string | number): Promise<CourseLeaderboardDto> => {
+    const response = await apiFetch(`${baseUrl}/${courseId}`)
     return await response.json()
   },
-  leaderboard: async (courseId: string | number): Promise<CourseLeaderboardDto> => {
-    const response = await apiFetch(`courseLeaderboardApi/${courseId}`)
+  awards: async (courseId: string | number): Promise<PodiumAward[]> => {
+    const response = await apiFetch(`${baseUrl}/${courseId}/awards`)
     return await response.json()
   },
 })

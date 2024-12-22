@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Races.Search;
 
-public class SearchEventsOrchestrator(ScoringDbContext scoringDbContext)
+public class SearchRacesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    public async Task<List<EventSearchResultDto>> GetSearchResults(SearchEventsRequestDto raceSeriesRequest)
+    public async Task<List<EventSearchResultDto>> Get(SearchEventsRequestDto raceSeriesRequest)
     {
         var baseQuery = scoringDbContext.RaceSeries.AsQueryable();
 

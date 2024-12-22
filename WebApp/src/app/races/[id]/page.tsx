@@ -15,7 +15,7 @@ interface Props {
 const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
-  const raceLeaderboard = await api.races.leaderboard(id)
+  const raceLeaderboard = await api.races.details(id)
 
   return (
     <div className="flex gap-1">
