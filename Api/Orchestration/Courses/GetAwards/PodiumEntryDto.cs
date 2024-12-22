@@ -1,4 +1,4 @@
-﻿namespace Api.Orchestration.Courses.GetAwardsPodium;
+﻿namespace Api.Orchestration.Courses.GetAwards;
 
 public record PodiumEntryDto
 (

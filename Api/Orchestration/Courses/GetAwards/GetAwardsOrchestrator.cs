@@ -1,9 +1,9 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Orchestration.Courses.GetAwardsPodium;
+namespace Api.Orchestration.Courses.GetAwards;
 
-public class GetAwardsPodiumOrchestrator(ScoringDbContext scoringDbContext)
+public class GetAwardsOrchestrator(ScoringDbContext scoringDbContext)
 {
     public async Task<List<PodiumEntryDto>> GetPodiumEntries(int courseId)
     {

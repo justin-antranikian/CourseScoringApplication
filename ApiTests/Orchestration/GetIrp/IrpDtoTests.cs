@@ -75,7 +75,9 @@ public class IrpDtoTests
         {
             AthleteId = 1,
             Bib = "BA",
-            Athlete = athlete
+            Athlete = athlete,
+            CourseGoalDescription = "",
+            PersonalGoalDescription = ""
         };
 
         var course = new Course
@@ -95,9 +97,17 @@ public class IrpDtoTests
                     RaceSeriesType = RaceSeriesType.Triathalon,
                     State = "SA",
                     City = "CA",
-                    Description = "DA"
+                    Description = "DA",
+                    Area = "",
+                    AreaRank = 0,
+                    CityRank = 0,
+                    Name = "",
+                    OverallRank = 0,
+                    Rating = 0,
+                    StateRank = 0
                 },
-                TimeZoneId = "Pacific Standard Time"
+                TimeZoneId = "Pacific Standard Time",
+                KickOffDate = default
             },
             CourseType = CourseType.Running5K,
             PaceType = PaceType.None,

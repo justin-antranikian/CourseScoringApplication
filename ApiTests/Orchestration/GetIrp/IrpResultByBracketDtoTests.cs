@@ -10,7 +10,8 @@ public class IrpResultByBracketDtoTests
     {
         var bracket = new Bracket
         {
-            Name = "NA"
+            Name = "NA",
+            BracketType = BracketType.Overall
         };
 
         var result = new Result
@@ -18,7 +19,14 @@ public class IrpResultByBracketDtoTests
             OverallRank = 4,
             GenderRank = 3,
             DivisionRank = 2,
-            Rank = 2
+            Rank = 2,
+            IsHighestIntervalCompleted = false,
+            AthleteCourseId = 0,
+            BracketId = 0,
+            CourseId = 0,
+            IntervalId = 0,
+            TimeOnInterval = 0,
+            TimeOnCourse = 0
         };
 
         var bracketDto = IrpResultByBracketDtoMapper.GetIrpResultByBracketDto(bracket, result, 10);

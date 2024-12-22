@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.Courses.GetAwardsPodium;
+using Api.Orchestration.Courses.GetAwards;
 using Api.Orchestration.Courses.GetLeaderboard;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +19,7 @@ public class CoursesController(ScoringDbContext scoringDbContext) : ControllerBa
     [HttpGet("{courseId:int}/awards")]
     public async Task<List<PodiumEntryDto>> Awards([FromRoute] int courseId)
     {
-        var orchestrator = new GetAwardsPodiumOrchestrator(scoringDbContext);
+        var orchestrator = new GetAwardsOrchestrator(scoringDbContext);
         return await orchestrator.GetPodiumEntries(courseId);
     }
 }

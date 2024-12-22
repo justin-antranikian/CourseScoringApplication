@@ -37,8 +37,16 @@ public class CourseLeaderboardDtoTests
                 RaceSeriesType = RaceSeriesType.Running,
                 State = "SA",
                 Area = "AA",
-                City = "CA"
-            }
+                City = "CA",
+                AreaRank = 0,
+                CityRank = 0,
+                Name = "",
+                OverallRank = 0,
+                Rating = 0,
+                StateRank = 0
+            },
+            KickOffDate = default,
+            TimeZoneId = null
         };
 
         var courseLeaderboardDto = CourseLeaderboardDtoMapper.GetCourseLeaderboardDto(course, race, new());

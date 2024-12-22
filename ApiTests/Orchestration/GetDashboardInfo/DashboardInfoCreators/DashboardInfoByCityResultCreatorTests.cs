@@ -56,9 +56,35 @@ public class DashboardInfoByCityResultCreatorTests
 
     private static RaceSeries[] GetRaceSeriesEntries()
     {
-        var denver = new RaceSeries { State = "Colorado", Area = "Greater Denver Area", City = "Denver" };
+        var denver = new RaceSeries
+        {
+            State = "Colorado",
+            Area = "Greater Denver Area",
+            City = "Denver",
+            AreaRank = 0,
+            CityRank = 0,
+            Description = "",
+            Name = "null",
+            OverallRank = 0,
+            RaceSeriesType = RaceSeriesType.Running,
+            Rating = 0,
+            StateRank = 0
+        };
         var coloradoSprings = denver with { Area = "Greater Colorado Springs Area", City = "Colorado Springs" };
-        var laJolla = new RaceSeries { State = "California", Area = "Greater San Diego Area", City = "La Jolla" };
+        var laJolla = new RaceSeries
+        {
+            State = "California",
+            Area = "Greater San Diego Area",
+            City = "La Jolla",
+            AreaRank = 0,
+            CityRank = 0,
+            Description = "",
+            Name = "",
+            OverallRank = 0,
+            RaceSeriesType = RaceSeriesType.Running,
+            Rating = 0,
+            StateRank = 0
+        };
 
         return
         [

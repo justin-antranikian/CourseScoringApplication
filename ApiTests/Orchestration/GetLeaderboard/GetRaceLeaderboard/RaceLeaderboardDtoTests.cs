@@ -11,12 +11,27 @@ public class RaceLeaderboardDtoTests
         var race = new Race
         {
             Name = "RA",
-            KickOffDate = new DateTime(2010, 1, 1, 6, 30, 0),
+            KickOffDate = new DateTime(2010,
+                1,
+                1,
+                6,
+                30,
+                0),
             RaceSeries = new()
             {
                 Description = "DA",
-                RaceSeriesType = RaceSeriesType.RoadBiking
-            }
+                RaceSeriesType = RaceSeriesType.RoadBiking,
+                Area = null,
+                AreaRank = 0,
+                City = null,
+                CityRank = 0,
+                Name = null,
+                OverallRank = 0,
+                Rating = 0,
+                State = null,
+                StateRank = 0
+            },
+            TimeZoneId = ""
         };
 
         var raceLeaderboardDto = RaceLeaderboardDtoMapper.GetRaceLeaderboardDto(race, new());

@@ -65,8 +65,18 @@ public class ArpGoalDtoTests
                     {
                         State = "SA",
                         City = "CA",
-                        Description = "DA"
-                    }
+                        Description = "DA",
+                        Area = "null",
+                        AreaRank = 0,
+                        CityRank = 0,
+                        Name = "null",
+                        OverallRank = 0,
+                        RaceSeriesType = RaceSeriesType.Running,
+                        Rating = 0,
+                        StateRank = 0
+                    },
+                    KickOffDate = default,
+                    TimeZoneId = null
                 },
                 CourseType = CourseType.Running5K,
                 Distance = 0,

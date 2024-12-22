@@ -39,9 +39,9 @@ public class ArpResultDtoTests
     {
         var brackets = new List<Bracket>
         {
-            new() { Id = 1, BracketType = BracketType.Overall },
-            new() { Id = 2, BracketType = BracketType.Gender },
-            new() { Id = 3, BracketType = BracketType.PrimaryDivision },
+            new() { BracketType = BracketType.Overall, Name = "" },
+            new() { BracketType = BracketType.Gender, Name = "" },
+            new() { BracketType = BracketType.PrimaryDivision, Name = "" },
         };
 
         var bracketMetadataEntries = new List<BracketMetadata>
@@ -71,7 +71,17 @@ public class ArpResultDtoTests
                     RaceSeriesType = RaceSeriesType.RoadBiking,
                     State = "SA",
                     City = "CA",
-                }
+                    Area = "",
+                    AreaRank = 0,
+                    CityRank = 0,
+                    Description = "",
+                    Name = "",
+                    OverallRank = 0,
+                    Rating = 0,
+                    StateRank = 0,
+                },
+                KickOffDate = default,
+                TimeZoneId = null
             },
             CourseType = CourseType.Running5K,
             Distance = 0,

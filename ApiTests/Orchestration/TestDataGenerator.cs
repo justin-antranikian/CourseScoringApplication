@@ -20,7 +20,8 @@ internal static class TestDataGenerator
                 OverallRank = 4,
                 StateRank = 3,
                 AreaRank = 2,
-                CityRank = 1
+                CityRank = 1,
+                Rating = 0
             }
         };
     }
@@ -38,6 +39,20 @@ internal static class TestDataGenerator
 
     internal static List<Course> GetCourses()
     {
+        Interval CreateInterval(string name, double distance, double cumulativeDistance, int order, bool isFullCourse, PaceType paceType, IntervalType intervalType)
+        {
+            return new Interval
+            {
+                Distance = distance,
+                DistanceFromStart = cumulativeDistance,
+                IntervalType = intervalType,
+                IsFullCourse = isFullCourse,
+                Name = name,
+                Order = order,
+                PaceType = paceType
+            };
+        }
+
         return new List<Course>
         {
             new()
@@ -52,22 +67,22 @@ internal static class TestDataGenerator
                 SortOrder = 2,
                 Brackets = new List<Bracket>
                 {
-                    new ("Overall", BracketType.Overall), // Id : 1
-                    new ("Female", BracketType.Gender),
-                    new ("Male", BracketType.Gender),
-                    new ("M20-30", BracketType.PrimaryDivision),
-                    new ("F20-30", BracketType.PrimaryDivision),
-                    new ("Florida 20-30", BracketType.NonPrimaryDivision),
-                    new ("Elite", BracketType.NonPrimaryDivision)
+                    Bracket.Create(0, "Overall", BracketType.Overall), // Id : 1
+                    Bracket.Create(0, "Female", BracketType.Gender),
+                    Bracket.Create(0, "Male", BracketType.Gender),
+                    Bracket.Create(0, "M20-30", BracketType.PrimaryDivision),
+                    Bracket.Create(0, "F20-30", BracketType.PrimaryDivision),
+                    Bracket.Create(0, "Florida 20-30", BracketType.NonPrimaryDivision),
+                    Bracket.Create(0, "Elite", BracketType.NonPrimaryDivision)
                 },
                 Intervals = new()
                 {
-                    new ("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim, "Swim D"), // Id : 1
-                    new ("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition, "Transition 1 D"),
-                    new ("Bike", 1000, 2000, 3, false, PaceType.MilesOrKilometersPerHour, IntervalType.Bike, "Bike D"),
-                    new ("Transition 2", 0, 2000, 4, false, PaceType.None, IntervalType.Transition, "Transition 2 D"),
-                    new ("Run", 1000, 3000, 5, false, PaceType.MinuteMileOrKilometer, IntervalType.Run, "Run D"),
-                    new ("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse, "Full Course D"),
+                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim), // Id : 1
+                    CreateInterval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition),
+                    CreateInterval("Bike", 1000, 2000, 3, false, PaceType.MilesOrKilometersPerHour, IntervalType.Bike),
+                    CreateInterval("Transition 2", 0, 2000, 4, false, PaceType.None, IntervalType.Transition),
+                    CreateInterval("Run", 1000, 3000, 5, false, PaceType.MinuteMileOrKilometer, IntervalType.Run),
+                    CreateInterval("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse),
                 }
             },
             new()
@@ -82,20 +97,20 @@ internal static class TestDataGenerator
                 SortOrder = 1,
                 Brackets = new()
                 {
-                    new ("Overall", BracketType.Overall), // Id : 8
-                    new ("Gender", BracketType.Gender),
-                    new ("M20-30", BracketType.PrimaryDivision),
-                    new ("Florida 20-30", BracketType.NonPrimaryDivision),
-                    new ("Elite", BracketType.NonPrimaryDivision)
+                    Bracket.Create(0, "Overall", BracketType.Overall), // Id : 8
+                    Bracket.Create(0, "Gender", BracketType.Gender),
+                    Bracket.Create(0, "M20-30", BracketType.PrimaryDivision),
+                    Bracket.Create(0, "Florida 20-30", BracketType.NonPrimaryDivision),
+                    Bracket.Create(0, "Elite", BracketType.NonPrimaryDivision)
                 },
                 Intervals = new()
                 {
-                    new ("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim, null), // Id : 7
-                    new ("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition, null),
-                    new ("Bike", 1000, 2000, 3, false, PaceType.MilesOrKilometersPerHour, IntervalType.Bike, null),
-                    new ("Transition 2", 0, 2000, 4, false, PaceType.None, IntervalType.Transition, null),
-                    new ("Run", 1000, 3000, 5, false, PaceType.MinuteMileOrKilometer, IntervalType.Run, null),
-                    new ("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse, null),
+                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim), // Id : 7
+                    CreateInterval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition),
+                    CreateInterval("Bike", 1000, 2000, 3, false, PaceType.MilesOrKilometersPerHour, IntervalType.Bike),
+                    CreateInterval("Transition 2", 0, 2000, 4, false, PaceType.None, IntervalType.Transition),
+                    CreateInterval("Run", 1000, 3000, 5, false, PaceType.MinuteMileOrKilometer, IntervalType.Run),
+                    CreateInterval("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse),
                 }
             },
             new()
@@ -116,10 +131,10 @@ internal static class TestDataGenerator
                 },
                 Intervals = new List<Interval>
                 {
-                    new("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim, null), // Id : 13
-                    new("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition, null),
-                    new("Run", 1000, 2000, 3, false, PaceType.MinuteMileOrKilometer, IntervalType.Run, null),
-                    new("Full Course", 2000, 2000, 4, true, PaceType.None, IntervalType.FullCourse, null),
+                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim), // Id : 13
+                    CreateInterval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition),
+                    CreateInterval("Run", 1000, 2000, 3, false, PaceType.MinuteMileOrKilometer, IntervalType.Run),
+                    CreateInterval("Full Course", 2000, 2000, 4, true, PaceType.None, IntervalType.FullCourse),
                 },
             }
         };
@@ -155,40 +170,40 @@ internal static class TestDataGenerator
     {
         return new ()
         {
-            new (1, 1, 1),
-            new (1, 1, 2),
-            new (1, 1, 4),
-            new (1, 1, 6),
-            new (4, 1, 1),
-            new (4, 1, 2),
-            new (4, 1, 4),
-            new (4, 1, 7),
-            new (7, 1, 1),
-            new (7, 1, 3),
-            new (7, 1, 5),
-            new (7, 1, 6),
-            new (10, 1, 1),
-            new (10, 1, 3),
-            new (10, 1, 5),
-            new (10, 1, 7),
-            new (2, 2, 8),
-            new (2, 2, 9),
-            new (2, 2, 10),
-            new (5, 2, 8),
-            new (5, 2, 9),
-            new (5, 2, 10),
-            new (8, 2, 8),
-            new (8, 2, 9),
-            new (8, 2, 10),
-            new (11, 2, 8),
-            new (11, 2, 9),
-            new (11, 2, 10),
-            new (3, 3, 13),
-            new (3, 3, 14),
-            new (3, 3, 15),
-            new (6, 3, 13),
-            new (6, 3, 14),
-            new (6, 3, 15),
+            AthleteCourseBracket.Create(1, 1, 1),
+            AthleteCourseBracket.Create(1, 2, 1),
+            AthleteCourseBracket.Create(1, 4, 1),
+            AthleteCourseBracket.Create(1, 6, 1),
+            AthleteCourseBracket.Create(4, 1, 1),
+            AthleteCourseBracket.Create(4, 2, 1),
+            AthleteCourseBracket.Create(4, 4, 1),
+            AthleteCourseBracket.Create(4, 7, 1),
+            AthleteCourseBracket.Create(7, 1, 1),
+            AthleteCourseBracket.Create(7, 3, 1),
+            AthleteCourseBracket.Create(7, 5, 1),
+            AthleteCourseBracket.Create(7, 6, 1),
+            AthleteCourseBracket.Create(10, 1, 1),
+            AthleteCourseBracket.Create(10, 3, 1),
+            AthleteCourseBracket.Create(10, 5, 1),
+            AthleteCourseBracket.Create(10, 7, 1),
+            AthleteCourseBracket.Create(2, 8, 2),
+            AthleteCourseBracket.Create(2, 9, 2),
+            AthleteCourseBracket.Create(2, 10, 2),
+            AthleteCourseBracket.Create(5, 8, 2),
+            AthleteCourseBracket.Create(5, 9, 2),
+            AthleteCourseBracket.Create(5, 10, 2),
+            AthleteCourseBracket.Create(8, 8, 2),
+            AthleteCourseBracket.Create(8, 9, 2),
+            AthleteCourseBracket.Create(8, 10, 2),
+            AthleteCourseBracket.Create(11, 8, 2),
+            AthleteCourseBracket.Create(11, 9, 2),
+            AthleteCourseBracket.Create(11, 10, 2),
+            AthleteCourseBracket.Create(3, 13, 3),
+            AthleteCourseBracket.Create(3, 14, 3),
+            AthleteCourseBracket.Create(3, 15, 3),
+            AthleteCourseBracket.Create(6, 13, 3),
+            AthleteCourseBracket.Create(6, 14, 3),
+            AthleteCourseBracket.Create(6, 15, 3),
         };
     }
 
@@ -234,26 +249,26 @@ internal static class TestDataGenerator
                 DateOfBirth = new DateTime(2000, 1, 1),
                 AthleteCourses = new()
                 {
-                    new() { CourseId = 1, Bib = bib },
-                    new() { CourseId = 2, Bib = bib },
-                    new() { CourseId = 3, Bib = bib },
+                    new() { CourseId = 1, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
+                    new() { CourseId = 2, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
+                    new() { CourseId = 3, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
                 },
                 AthleteRaceSeriesGoals = new()
                 {
-                    new (RaceSeriesType.Triathalon, 15),
-                    new (RaceSeriesType.Running, 1)
+                    AthleteRaceSeriesGoal.Create(RaceSeriesType.Triathalon, 15),
+                    AthleteRaceSeriesGoal.Create(RaceSeriesType.Running, 1)
                 },
                 AthleteWellnessEntries = new()
                 {
-                    new (AthleteWellnessType.Gear, "G1"),
-                    new (AthleteWellnessType.Gear, "G2"),
-                    new (AthleteWellnessType.Diet, "D1"),
-                    new (AthleteWellnessType.Goal, "G1"),
-                    new (AthleteWellnessType.Motivational, "M1"),
-                    new (AthleteWellnessType.Motivational, "M2"),
-                    new (AthleteWellnessType.Training, "T1"),
-                    new (AthleteWellnessType.Training, "T2"),
-                    new (AthleteWellnessType.Training, "T3"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Gear, "G1"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Gear, "G2"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Diet, "D1"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Goal, "G1"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Motivational, "M1"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Motivational, "M2"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T1"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T2"),
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T3"),
                 }
             };
         });

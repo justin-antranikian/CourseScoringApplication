@@ -1,9 +1,9 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.Courses.GetAwardsPodium;
+using Api.Orchestration.Courses.GetAwards;
 
 namespace ApiTests.Orchestration.GetAwardsPodium;
 
-public class GetAwardsPodiumOrchestratorTests
+public class GetAwardsOrchestratorTests
 {
     [Fact]
     public async Task MapsAllFields()
@@ -24,15 +24,32 @@ public class GetAwardsPodiumOrchestratorTests
 
         var intervals = new List<Interval>
         {
-            new() { Id = 55, CourseId = 1, IntervalType = IntervalType.FullCourse, IsFullCourse = true, Name = "" },
-            new() { Id = 56, CourseId = 1, IntervalType = IntervalType.Bike, IsFullCourse = false, Name = ""  }
+            new() { Id = 55, CourseId = 1, IntervalType = IntervalType.FullCourse, IsFullCourse = true, Name = "", Distance = 0, DistanceFromStart = 0, Order = 0, PaceType = PaceType.None },
+            new() { Id = 56, CourseId = 1, IntervalType = IntervalType.Bike, IsFullCourse = false, Name = "", Distance = 0, DistanceFromStart = 0, Order = 0, PaceType = PaceType.None }
         };
 
         var athleteCourses = Enumerable.Range(1, 50).Select(index => new AthleteCourse
         {
             Id = index,
             Bib = "",
-            Athlete = new Athlete { Id = index, FullName = $"JA{index}", Area = "", City = "", State = "", FirstName = "", LastName = ""}
+            CourseGoalDescription = "",
+            PersonalGoalDescription = "",
+            Athlete = new Athlete
+            {
+                Id = index,
+                FullName = $"JA{index}",
+                Area = "",
+                City = "",
+                State = "",
+                FirstName = "",
+                LastName = "",
+                AreaRank = 0,
+                CityRank = 0,
+                DateOfBirth = default,
+                Gender = Gender.Male,
+                OverallRank = 0,
+                StateRank = 0
+            }
         }).ToList();
 
         var overallBracket = new Bracket { CourseId = 1, BracketType = BracketType.Overall, Id = 5, Name = "Overall" };
@@ -50,7 +67,20 @@ public class GetAwardsPodiumOrchestratorTests
             overallBracket with { BracketType = BracketType.PrimaryDivision, Id = 13, Name = "13 Division" },
         };
 
-        var baseResult = new Result { CourseId = 1, IntervalId = 55 };
+        var baseResult = new Result
+        {
+            CourseId = 1,
+            IntervalId = 55,
+            DivisionRank = 0,
+            GenderRank = 0,
+            IsHighestIntervalCompleted = false,
+            OverallRank = 0,
+            AthleteCourseId = 0,
+            BracketId = 0,
+            Rank = 0,
+            TimeOnInterval = 0,
+            TimeOnCourse = 0
+        };
         var firstAthleteCourseResult = baseResult with { AthleteCourseId = 1, BracketId = 5, Rank = 1, TimeOnCourse = 1000 };
 
         var results = new List<Result>
@@ -108,7 +138,7 @@ public class GetAwardsPodiumOrchestratorTests
 
         await dbContext.SaveChangesAsync();
 
-        var orchestrator = new GetAwardsPodiumOrchestrator(dbContext);
+        var orchestrator = new GetAwardsOrchestrator(dbContext);
         var podiumEntries = await orchestrator.GetPodiumEntries(1);
 
         var overallPodiumWinners = GetPodiumEntryDto(podiumEntries, "Overall");

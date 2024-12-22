@@ -134,9 +134,9 @@ public class IrpResultByIntervalDtoTests
     {
         var brackets = new List<Bracket>
         {
-            new() { Id = 1, BracketType = BracketType.Overall },
-            new() { Id = 2, BracketType = BracketType.Gender },
-            new() { Id = 3, BracketType = BracketType.PrimaryDivision },
+            new() { Id = 1, BracketType = BracketType.Overall, Name = "" },
+            new() { Id = 2, BracketType = BracketType.Gender, Name = "" },
+            new() { Id = 3, BracketType = BracketType.PrimaryDivision, Name = "" },
         };
 
         var bracketMetas = new List<BracketMetadata>
@@ -173,7 +173,12 @@ public class IrpResultByIntervalDtoTests
             GenderRank = 3,
             DivisionRank = 2,
             TimeOnCourse = 1001,
-            TimeOnInterval = timeOnInterval
+            TimeOnInterval = timeOnInterval,
+            IsHighestIntervalCompleted = false,
+            AthleteCourseId = 0,
+            BracketId = 0,
+            CourseId = 0,
+            Rank = 0
         };
     }
 
@@ -185,10 +190,10 @@ public class IrpResultByIntervalDtoTests
             Name = "NA",
             IntervalType = intervalType,
             IsFullCourse = intervalType == IntervalType.FullCourse,
-            Description = "DA",
             Distance = distance,
             DistanceFromStart = 20000,
             PaceType = paceType,
+            Order = 0,
         };
     }
 
