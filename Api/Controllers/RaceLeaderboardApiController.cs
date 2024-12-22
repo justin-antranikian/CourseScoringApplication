@@ -1,5 +1,5 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.Races.GetRaceLeaderboard;
+using Api.Orchestration.Races.GetLeaderboard;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

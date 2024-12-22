@@ -8,11 +8,10 @@ public static class IrpDtoMapper
     {
         var athlete = athleteCourse.Athlete;
         var race = course.Race;
-
         var trainingList = athleteCourse.GetTrainingList();
         var finishTime = intervalResults.Single(oo => oo.IsFullCourse).CrossingTime;
 
-        var irpDto = new IrpDto
+        return new IrpDto
         {
             AthleteId = athlete.Id,
             Bib = athleteCourse.Bib,
@@ -31,7 +30,5 @@ public static class IrpDtoMapper
             TimeZoneAbbreviated = race.TimeZoneId.ToAbbreviation(),
             TrainingList = trainingList
         };
-
-        return irpDto;
     }
 }

@@ -1,20 +1,13 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Orchestration.Races.SearchEvents;
+namespace Api.Orchestration.Races.Search;
 
-public class SearchEventsOrchestrator
+public class SearchEventsOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public SearchEventsOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task<List<EventSearchResultDto>> GetSearchResults(SearchEventsRequestDto raceSeriesRequest)
     {
-        var baseQuery = _scoringDbContext.RaceSeries.AsQueryable();
+        var baseQuery = scoringDbContext.RaceSeries.AsQueryable();
 
         if (raceSeriesRequest.SearchTerm is string searchTerm)
         {

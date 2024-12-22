@@ -9,7 +9,7 @@ public class GetAthleteDetailsOrchestrator(ScoringDbContext scoringDbContext)
         var getArpRepository = new GetArpRepository(scoringDbContext);
         var (results, courses, metadataEntries, athlete) = await getArpRepository.GetQueryResults(athleteId);
         var arpResults = GetResults(results, courses, metadataEntries).ToList();
-        var raceSeriesTypes = EnumExtensions.GetValues<RaceSeriesType>();
+        var raceSeriesTypes = Enum.GetValues<RaceSeriesType>();
 
         ArpGoalDto MapToGoal(RaceSeriesType seriesType)
         {

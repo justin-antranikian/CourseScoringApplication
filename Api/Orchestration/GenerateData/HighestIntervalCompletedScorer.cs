@@ -2,12 +2,14 @@
 
 namespace Api.Orchestration.GenerateData;
 
-public class HighestIntervalCompletedScorer : ScorerBase
+public class HighestIntervalCompletedScorer(
+    Course course,
+    List<Bracket> brackets,
+    List<TagRead> tagReads,
+    List<AthleteCourseBracket> atheleteCourseBrackets,
+    List<Interval> intervals)
+    : ScorerBase(course, brackets, tagReads, atheleteCourseBrackets, intervals)
 {
-    public HighestIntervalCompletedScorer(Course course, List<Bracket> brackets, List<TagRead> tagReads, List<AthleteCourseBracket> atheleteCourseBrackets, List<Interval> intervals) : base(course, brackets, tagReads, atheleteCourseBrackets, intervals)
-    {
-    }
-
     public List<Result> GetResults()
     {
         var rankOnlyResults = GetResultsRankOnly();

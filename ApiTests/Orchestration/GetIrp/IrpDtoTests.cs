@@ -103,32 +103,26 @@ public class IrpDtoTests
 
         var intervalResults = new IrpResultByIntervalDto[]
         {
-            new
-            (
-                "full course",
-                IntervalType.Bike,
-                false,
-                null,
-                null,
-                null,
-                null,
-                null,
-                0,
-                0,
-                0,
-                BetweenIntervalTimeIndicator.NotStarted,
-                BetweenIntervalTimeIndicator.NotStarted,
-                BetweenIntervalTimeIndicator.NotStarted,
-                null,
-                true,
-                "",
-                "",
-                0.0,
-                0.0
-            )
+            new()
+            {
+                IntervalName = "full course",
+                PaceWithTimeCumulative = null,
+                PaceWithTimeIntervalOnly = null,
+                OverallRank = null,
+                GenderRank = null,
+                PrimaryDivisionRank = null,
+                OverallCount = 0,
+                GenderCount = 0,
+                PrimaryDivisionCount = 0,
+                OverallIndicator = BetweenIntervalTimeIndicator.NotStarted,
+                GenderIndicator = BetweenIntervalTimeIndicator.NotStarted,
+                PrimaryDivisionIndicator = BetweenIntervalTimeIndicator.NotStarted,
+                CrossingTime = null,
+                IsFullCourse = true
+            }
         };
 
-        return IrpDtoMapper.GetIrpDto(athleteCourse, course, paceWithTime, new List<IrpResultByBracketDto>(), intervalResults.ToList());
+        return IrpDtoMapper.GetIrpDto(athleteCourse, course, paceWithTime, [], intervalResults.ToList());
     }
 
     #endregion

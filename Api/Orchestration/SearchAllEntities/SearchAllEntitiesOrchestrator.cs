@@ -1,19 +1,12 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.Athletes.Search;
-using Api.Orchestration.Races.SearchEvents;
+using Api.Orchestration.Races.Search;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.SearchAllEntities;
 
-public class SearchAllEntitiesOrchestrator
+public class SearchAllEntitiesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public SearchAllEntitiesOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task<AllEntitiesSearchResultDto> GetSearchResults(string searchTerm)
     {
         var athletes = await GetAthletes(searchTerm);
@@ -23,7 +16,7 @@ public class SearchAllEntitiesOrchestrator
 
     private async Task<List<AthleteSearchResultDto>> GetAthletes(string searhTerm)
     {
-        var query = _scoringDbContext.Athletes
+        var query = scoringDbContext.Athletes
                         .Include(oo => oo.AthleteRaceSeriesGoals)
                         .Where(oo => oo.FullName.StartsWith(searhTerm))
                         .OrderBy(oo => oo.OverallRank);
@@ -34,7 +27,7 @@ public class SearchAllEntitiesOrchestrator
 
     private async Task<List<EventSearchResultDto>> GetRaceSeries(string searchTerm)
     {
-        var query = _scoringDbContext.RaceSeries
+        var query = scoringDbContext.RaceSeries
                         .Include(oo => oo.Races)
                         .ThenInclude(oo => oo.Courses)
                         .Where(oo => oo.Name.StartsWith(searchTerm))

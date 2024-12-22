@@ -3,18 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Athletes.Search;
 
-public class SearchAthletesOrchestrator
+public class SearchAthletesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public SearchAthletesOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task<List<AthleteSearchResultDto>> GetSearchResults(SearchAthletesRequestDto searchRequestDto)
     {
-        var baseQuery = _scoringDbContext.Athletes.Include(oo => oo.AthleteRaceSeriesGoals).AsQueryable();
+        var baseQuery = scoringDbContext.Athletes.Include(oo => oo.AthleteRaceSeriesGoals).AsQueryable();
 
         if (searchRequestDto.SearchTerm is string searchTerm)
         {

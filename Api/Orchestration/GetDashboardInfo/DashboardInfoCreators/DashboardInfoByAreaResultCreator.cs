@@ -1,9 +1,7 @@
 ﻿namespace Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
 
-public class DashboardInfoByAreaResultCreator : DashboardInfoCreatorBase
+public class DashboardInfoByAreaResultCreator(Location location) : DashboardInfoCreatorBase(location)
 {
-    public DashboardInfoByAreaResultCreator(Location location) : base(location) { }
-
     public override DashboardInfoResponseDto GetResult(List<Location> locations)
     {
         var locationsByState = locations.Where(oo => oo.State == _location.State).ToList();

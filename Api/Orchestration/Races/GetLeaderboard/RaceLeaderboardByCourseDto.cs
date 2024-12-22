@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
 
-namespace Api.Orchestration.Races.GetRaceLeaderboard;
+namespace Api.Orchestration.Races.GetLeaderboard;
 
 public record RaceLeaderboardByCourseDto
 (

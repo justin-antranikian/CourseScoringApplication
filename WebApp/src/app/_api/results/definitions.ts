@@ -29,10 +29,8 @@ export interface IrpResultByBracketDto {
 
 export interface IrpResultByIntervalDto {
   intervalName: string
-  intervalType: any
-  intervalFinished: boolean
-  paceWithTimeCumulative: PaceWithTime
-  paceWithTimeIntervalOnly: PaceWithTime
+  paceWithTimeCumulative: PaceWithTime | null
+  paceWithTimeIntervalOnly: PaceWithTime | null
   overallRank: number | null
   genderRank: number | null
   primaryDivisionRank: number | null

@@ -2,31 +2,19 @@
 
 namespace Api.Orchestration;
 
-public abstract class AthleteResultBase
+public abstract class AthleteResultBase(
+    int athleteId,
+    string fullName,
+    DateTime dateOfBirth,
+    Gender gender,
+    string bib,
+    DateTime courseStartTime,
+    PaceWithTime paceWithTimeCumulative)
 {
-    public int AthleteId { get; }
-    public string FullName { get; }
-    public int RaceAge { get; }
-    public string GenderAbbreviated { get; }
-    public string Bib { get; }
-    public PaceWithTime PaceWithTimeCumulative { get; }
-
-    protected AthleteResultBase
-    (
-        int athleteId,
-        string fullName,
-        DateTime dateOfBirth,
-        Gender gender,
-        string bib,
-        DateTime courseStartTime,
-        PaceWithTime paceWithTimeCumulative
-    )
-    {
-        AthleteId = athleteId;
-        FullName = fullName;
-        Bib = bib;
-        PaceWithTimeCumulative = paceWithTimeCumulative;
-        GenderAbbreviated = gender.ToAbbreviation();
-        RaceAge = DateTimeHelper.GetRaceAge(dateOfBirth, courseStartTime);
-    }
+    public int AthleteId { get; } = athleteId;
+    public string FullName { get; } = fullName;
+    public int RaceAge { get; } = DateTimeHelper.GetRaceAge(dateOfBirth, courseStartTime);
+    public string GenderAbbreviated { get; } = gender.ToAbbreviation();
+    public string Bib { get; } = bib;
+    public PaceWithTime PaceWithTimeCumulative { get; } = paceWithTimeCumulative;
 }

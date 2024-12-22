@@ -3,15 +3,8 @@ using Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
 
 namespace Api.Orchestration.GetDashboardInfo;
 
-public partial class GetDashboardInfoOrchestrator
+public partial class GetDashboardInfoOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public GetDashboardInfoOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public DashboardInfoResponseDto GetResult(DashboardInfoRequestDto request)
     {
         var locations = GetLocations(request);
@@ -29,7 +22,7 @@ public partial class GetDashboardInfoOrchestrator
     private List<Location> GetLocations(DashboardInfoRequestDto requestDto)
     {
         var isEvents = requestDto.DashboardInfoType == DashboardInfoType.Events;
-        return isEvents ? GetLocationsByEventsFromCache(_scoringDbContext) : GetLocationsByAthletesFromCache(_scoringDbContext);
+        return isEvents ? GetLocationsByEventsFromCache(scoringDbContext) : GetLocationsByAthletesFromCache(scoringDbContext);
     }
 
     private Func<Location, bool> GetFilterPredicate(DashboardInfoRequestDto request)

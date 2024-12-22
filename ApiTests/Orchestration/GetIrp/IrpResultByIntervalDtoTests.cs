@@ -17,8 +17,6 @@ public class IrpResultByIntervalDtoTests
 
         Assert.NotNull(intervalDto);
         Assert.Equal("NA", intervalDto.IntervalName);
-        Assert.Equal(IntervalType.Transition, intervalDto.IntervalType);
-        Assert.False(intervalDto.IntervalFinished);
 
         Assert.Null(intervalDto.PaceWithTimeCumulative);
         Assert.Null(intervalDto.PaceWithTimeIntervalOnly);
@@ -34,10 +32,6 @@ public class IrpResultByIntervalDtoTests
         Assert.Equal(BetweenIntervalTimeIndicator.NotStarted, intervalDto.PrimaryDivisionIndicator);
         Assert.Null(intervalDto.CrossingTime);
         Assert.False(intervalDto.IsFullCourse);
-        Assert.Equal("DA", intervalDto.IntervalDescription);
-        Assert.Null(intervalDto.Percentile);
-        Assert.Equal(10000, intervalDto.IntervalDistance);
-        Assert.Equal(20000, intervalDto.CumulativeDistance);
     }
 
     [Fact]
@@ -52,8 +46,6 @@ public class IrpResultByIntervalDtoTests
 
         Assert.NotNull(intervalDto);
         Assert.Equal("NA", intervalDto.IntervalName);
-        Assert.Equal(IntervalType.Transition, intervalDto.IntervalType);
-        Assert.True(intervalDto.IntervalFinished);
 
         var cumulativePace = intervalDto.PaceWithTimeCumulative;
         Assert.Equal("16:41", cumulativePace.TimeFormatted);
@@ -78,10 +70,6 @@ public class IrpResultByIntervalDtoTests
         Assert.Equal(BetweenIntervalTimeIndicator.StartingOrSame, intervalDto.PrimaryDivisionIndicator);
         Assert.Equal("12:16:41 AM", intervalDto.CrossingTime);
         Assert.False(intervalDto.IsFullCourse);
-        Assert.Equal("DA", intervalDto.IntervalDescription);
-        Assert.Equal("13th percentile", intervalDto.Percentile);
-        Assert.Equal(10000, intervalDto.IntervalDistance);
-        Assert.Equal(20000, intervalDto.CumulativeDistance);
     }
 
     [Fact]
@@ -93,35 +81,27 @@ public class IrpResultByIntervalDtoTests
         var result = GetResult(1001);
 
         var previousResult = new IrpResultByIntervalDto
-        (
-            "",
-            IntervalType.MountainBike,
-            true,
-            null,
-            null,
-            10,
-            10,
-            10,
-            0,
-            0,
-            0,
-            BetweenIntervalTimeIndicator.GettingWorse,
-            BetweenIntervalTimeIndicator.GettingWorse,
-            BetweenIntervalTimeIndicator.GettingWorse,
-            "",
-            false,
-            "",
-            "",
-            1000,
-            1000
-        );
+        {
+            IntervalName = "null",
+            PaceWithTimeCumulative = null,
+            PaceWithTimeIntervalOnly = null,
+            OverallRank = 10,
+            GenderRank = 10,
+            PrimaryDivisionRank = 10,
+            OverallCount = 0,
+            GenderCount = 0,
+            PrimaryDivisionCount = 0,
+            OverallIndicator = BetweenIntervalTimeIndicator.GettingWorse,
+            GenderIndicator = BetweenIntervalTimeIndicator.GettingWorse,
+            PrimaryDivisionIndicator = BetweenIntervalTimeIndicator.GettingWorse,
+            CrossingTime = "",
+            IsFullCourse = false
+        };
 
         var intervalDto = IrpResultByIntervalDtoMapper.GetIrpResultByIntervalDto(course, interval, result, previousResult, metadataTotalHelper);
 
         Assert.NotNull(intervalDto);
         Assert.Equal("NA", intervalDto.IntervalName);
-        Assert.Equal(IntervalType.FullCourse, intervalDto.IntervalType);
-        Assert.True(intervalDto.IntervalFinished);
 
         var cumulativePace = intervalDto.PaceWithTimeCumulative;
         Assert.Equal("16:41", cumulativePace.TimeFormatted);
@@ -146,10 +126,6 @@ public class IrpResultByIntervalDtoTests
         Assert.Equal(BetweenIntervalTimeIndicator.Improving, intervalDto.PrimaryDivisionIndicator);
         Assert.Equal("12:16:41 AM", intervalDto.CrossingTime);
         Assert.True(intervalDto.IsFullCourse);
-        Assert.Equal("DA", intervalDto.IntervalDescription);
-        Assert.Equal("13th percentile", intervalDto.Percentile);
-        Assert.Equal(20000, intervalDto.IntervalDistance);
-        Assert.Equal(20000, intervalDto.CumulativeDistance);
     }
 
     #region test preperation methods

@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
 
-namespace Api.Orchestration.Courses.GetCourseLeaderboard;
+namespace Api.Orchestration.Courses.GetLeaderboard;
 
 public record CourseLeaderboardDto
 {

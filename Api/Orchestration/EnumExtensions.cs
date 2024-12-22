@@ -13,9 +13,4 @@ public static class EnumExtensions
         var randomValue = possibleValues[random.Next(possibleValues.Length)];
         return randomValue;
     }
-
-    public static T[] GetValues<T>() where T : Enum
-    {
-        return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
-    }
 }

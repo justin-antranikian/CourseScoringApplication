@@ -65,7 +65,6 @@ public class GetIrpOrchestratorTests
         Assert.Collection(irpDto.IntervalResults, result =>
         {
             Assert.Equal("Swim", result.IntervalName);
-            Assert.True(result.IntervalFinished);
             Assert.Equal("11:40", result.PaceWithTimeCumulative.TimeFormatted);
             Assert.False(result.PaceWithTimeCumulative.HasPace);
             Assert.Null(result.PaceWithTimeCumulative.PaceValue);
@@ -85,14 +84,9 @@ public class GetIrpOrchestratorTests
             Assert.Equal(BetweenIntervalTimeIndicator.StartingOrSame, result.PrimaryDivisionIndicator);
             Assert.Equal("12:11:40 AM", result.CrossingTime);
             Assert.False(result.IsFullCourse);
-            Assert.Equal("Swim D", result.IntervalDescription);
-            Assert.Equal("1rst place", result.Percentile);
-            Assert.Equal(1000, result.IntervalDistance);
-            Assert.Equal(1000, result.CumulativeDistance);
         }, result =>
         {
             Assert.Equal("Transition 1", result.IntervalName);
-            Assert.True(result.IntervalFinished);
             Assert.Equal("23:20", result.PaceWithTimeCumulative.TimeFormatted);
             Assert.False(result.PaceWithTimeCumulative.HasPace);
             Assert.Null(result.PaceWithTimeCumulative.PaceValue);
@@ -112,14 +106,9 @@ public class GetIrpOrchestratorTests
             Assert.Equal(BetweenIntervalTimeIndicator.StartingOrSame, result.PrimaryDivisionIndicator);
             Assert.Equal("12:23:20 AM", result.CrossingTime);
             Assert.False(result.IsFullCourse);
-            Assert.Equal("Transition 1 D", result.IntervalDescription);
-            Assert.Equal("1rst place", result.Percentile);
-            Assert.Equal(0, result.IntervalDistance);
-            Assert.Equal(1000, result.CumulativeDistance);
         }, result =>
         {
             Assert.Equal("Bike", result.IntervalName);
-            Assert.False(result.IntervalFinished);
             Assert.Null(result.PaceWithTimeCumulative);
             Assert.Null(result.PaceWithTimeIntervalOnly);
             Assert.Null(result.OverallRank);
@@ -133,14 +122,9 @@ public class GetIrpOrchestratorTests
             Assert.Equal(BetweenIntervalTimeIndicator.NotStarted, result.PrimaryDivisionIndicator);
             Assert.Null(result.CrossingTime);
             Assert.False(result.IsFullCourse);
-            Assert.Equal("Bike D", result.IntervalDescription);
-            Assert.Null(result.Percentile);
-            Assert.Equal(1000, result.IntervalDistance);
-            Assert.Equal(2000, result.CumulativeDistance);
         }, result =>
         {
             Assert.Equal("Transition 2", result.IntervalName);
-            Assert.False(result.IntervalFinished);
             Assert.Null(result.PaceWithTimeCumulative);
             Assert.Null(result.PaceWithTimeIntervalOnly);
             Assert.Null(result.OverallRank);
@@ -154,14 +138,9 @@ public class GetIrpOrchestratorTests
             Assert.Equal(BetweenIntervalTimeIndicator.NotStarted, result.PrimaryDivisionIndicator);
             Assert.Null(result.CrossingTime);
             Assert.False(result.IsFullCourse);
-            Assert.Equal("Transition 2 D", result.IntervalDescription);
-            Assert.Null(result.Percentile);
-            Assert.Equal(0, result.IntervalDistance);
-            Assert.Equal(2000, result.CumulativeDistance);
         }, result =>
         {
             Assert.Equal("Run", result.IntervalName);
-            Assert.False(result.IntervalFinished);
             Assert.Null(result.PaceWithTimeCumulative);
             Assert.Null(result.PaceWithTimeIntervalOnly);
             Assert.Null(result.OverallRank);
@@ -175,14 +154,9 @@ public class GetIrpOrchestratorTests
             Assert.Equal(BetweenIntervalTimeIndicator.NotStarted, result.PrimaryDivisionIndicator);
             Assert.Null(result.CrossingTime);
             Assert.False(result.IsFullCourse);
-            Assert.Equal("Run D", result.IntervalDescription);
-            Assert.Null(result.Percentile);
-            Assert.Equal(1000, result.IntervalDistance);
-            Assert.Equal(3000, result.CumulativeDistance);
         }, result =>
         {
             Assert.Equal("Full Course", result.IntervalName);
-            Assert.False(result.IntervalFinished);
             Assert.Null(result.PaceWithTimeCumulative);
             Assert.Null(result.PaceWithTimeIntervalOnly);
             Assert.Null(result.OverallRank);
@@ -196,10 +170,6 @@ public class GetIrpOrchestratorTests
             Assert.Equal(BetweenIntervalTimeIndicator.NotStarted, result.PrimaryDivisionIndicator);
             Assert.Null(result.CrossingTime);
             Assert.True(result.IsFullCourse);
-            Assert.Equal("Full Course D", result.IntervalDescription);
-            Assert.Null(result.Percentile);
-            Assert.Equal(3000, result.IntervalDistance);
-            Assert.Equal(3000, result.CumulativeDistance);
         });
     }
 

@@ -1,13 +1,8 @@
 ﻿namespace Api.Orchestration.GetDashboardInfo.DashboardInfoCreators;
 
-public abstract class DashboardInfoCreatorBase
+public abstract class DashboardInfoCreatorBase(Location location)
 {
-    protected readonly Location _location;
-
-    protected DashboardInfoCreatorBase(Location location)
-    {
-        _location = location;
-    }
+    protected readonly Location _location = location;
 
     public abstract DashboardInfoResponseDto GetResult(List<Location> locations);
 

@@ -2,10 +2,14 @@
 
 namespace Api.Orchestration.GenerateData;
 
-public class BracketIntervalScorer : ScorerBase
+public class BracketIntervalScorer(
+    Course course,
+    List<Bracket> brackets,
+    List<TagRead> tagReads,
+    List<AthleteCourseBracket> atheleteCourseBrackets,
+    List<Interval> intervals)
+    : ScorerBase(course, brackets, tagReads, atheleteCourseBrackets, intervals)
 {
-    public BracketIntervalScorer(Course course, List<Bracket> brackets, List<TagRead> tagReads, List<AthleteCourseBracket> atheleteCourseBrackets, List<Interval> intervals) : base(course, brackets, tagReads, atheleteCourseBrackets, intervals) { }
-
     public (List<Result> results, List<BracketMetadata> bracketMetaData) GetResults()
     {
         var (results, bracketMetaData) = GetResultsRankOnly();

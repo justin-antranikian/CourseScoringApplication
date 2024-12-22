@@ -4,7 +4,7 @@ public static class IEnumerableExtensions
 {
     public static T GetRandomValue<T>(this IEnumerable<T> items)
     {
-        return items.OrderBy(oo => Guid.NewGuid()).FirstOrDefault();
+        return items.OrderBy(static oo => Guid.NewGuid()).FirstOrDefault();
     }
 
     /// <summary>

@@ -1,22 +1,15 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Orchestration.Courses.GetCourseLeaderboard;
+namespace Api.Orchestration.Courses.GetLeaderboard;
 
-public class GetCourseLeaderboardOrchestrator
+public class GetCourseLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public GetCourseLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     public async Task<CourseLeaderboardDto> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
-        var course = await _scoringDbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
+        var course = await scoringDbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
 
-        var race = await _scoringDbContext.Races.Include(oo => oo.RaceSeries).Include(oo => oo.Courses).SingleAsync(oo => oo.Id == course.RaceId);
+        var race = await scoringDbContext.Races.Include(oo => oo.RaceSeries).Include(oo => oo.Courses).SingleAsync(oo => oo.Id == course.RaceId);
         var bracketToUse = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);
 
         var results = await GetResults(bracketToUse.Id, intervalId, startingRank, take);
@@ -31,7 +24,7 @@ public class GetCourseLeaderboardOrchestrator
         var endingRank = startingRank + (take - 1);
         var wantsHighestIntervalCompleted = !intervalId.HasValue;
 
-        var query = _scoringDbContext.Results
+        var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .ThenInclude(oo => oo.Athlete)
                         .Where(oo =>
@@ -51,7 +44,7 @@ public class GetCourseLeaderboardOrchestrator
 
     private async Task<List<BracketMetadata>> GetMetadataEntries(int bracketId, int? intervalId)
     {
-        var query = _scoringDbContext.BracketMetadataEntries.Where(oo => oo.BracketId == bracketId);
+        var query = scoringDbContext.BracketMetadataEntries.Where(oo => oo.BracketId == bracketId);
 
         if (intervalId is int)
         {

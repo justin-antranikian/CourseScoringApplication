@@ -1,5 +1,5 @@
 ﻿using Api.Orchestration.Athletes.Search;
-using Api.Orchestration.Races.SearchEvents;
+using Api.Orchestration.Races.Search;
 
 namespace Api.Orchestration.SearchAllEntities;
 

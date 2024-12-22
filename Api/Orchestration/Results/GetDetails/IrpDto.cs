@@ -1,8 +1,5 @@
 ﻿namespace Api.Orchestration.Results.GetDetails;
 
-/// <summary>
-/// Irp (Individual result projection) is used to populate the irp page.
-/// </summary>
 public class IrpDto
 {
     public required int AthleteId { get; init; }

@@ -1,6 +1,6 @@
 ﻿using Api.DataModels;
 
-namespace Api.Orchestration.Races.SearchEvents;
+namespace Api.Orchestration.Races.Search;
 
 public static class EventSearchResultDtoMapper
 {

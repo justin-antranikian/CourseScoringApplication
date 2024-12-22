@@ -1,28 +1,21 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Orchestration.Races.GetRaceLeaderboard;
+namespace Api.Orchestration.Races.GetLeaderboard;
 
-public class GetRaceLeaderboardOrchestrator
+public class GetRaceLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private readonly ScoringDbContext _scoringDbContext;
-
-    public GetRaceLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
-    {
-        _scoringDbContext = scoringDbContext;
-    }
-
     /// <summary>
     /// Returns the top 3 athletes for a course for all the courses in a race. The results are determined from the overall bracket.
     /// </summary>
     /// <param name="raceId"></param>
     public async Task<RaceLeaderboardDto> GetRaceLeaderboardDto(int raceId)
     {
-        var race = await _scoringDbContext.Races.Include(oo => oo.RaceSeries).SingleAsync(oo => oo.Id == raceId);
+        var race = await scoringDbContext.Races.Include(oo => oo.RaceSeries).SingleAsync(oo => oo.Id == raceId);
         var allCourses = await GetCourses(raceId);
         var overallBrackets = allCourses.SelectMany(oo => oo.Brackets).Where(oo => oo.BracketType == BracketType.Overall);
         var overallBracketIds = overallBrackets.Select(oo => oo.Id).ToList();
-        var metadataEntries = await _scoringDbContext.BracketMetadataEntries.Where(oo => overallBracketIds.Contains(oo.BracketId) && oo.IntervalId != null && oo.TotalRacers > 0).ToListAsync();
+        var metadataEntries = await scoringDbContext.BracketMetadataEntries.Where(oo => overallBracketIds.Contains(oo.BracketId) && oo.IntervalId != null && oo.TotalRacers > 0).ToListAsync();
 
         var allIntervals = allCourses.SelectMany(oo => oo.Intervals).ToList();
         var highestCompletedIntervals = metadataEntries.GroupBy(oo => oo.CourseId).Select(grouping => GetHighestCompletedInterval(allIntervals, grouping)).ToList();
@@ -35,7 +28,7 @@ public class GetRaceLeaderboardOrchestrator
 
     private async Task<List<Course>> GetCourses(int raceId)
     {
-        var query = _scoringDbContext.Courses
+        var query = scoringDbContext.Courses
                         .Include(oo => oo.Brackets)
                         .Include(oo => oo.Intervals)
                         .Where(oo => oo.RaceId == raceId);
@@ -63,7 +56,7 @@ public class GetRaceLeaderboardOrchestrator
     {
         var intervalIds = intervals.Select(oo => oo.Id).ToList();
 
-        var query = _scoringDbContext.Results
+        var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .ThenInclude(oo => oo.Athlete)
                         .Where(oo => 
