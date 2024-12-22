@@ -37,15 +37,11 @@ export interface IrpResultByIntervalDto {
   overallCount: number
   genderCount: number
   primaryDivisionCount: number
-  overallIndicator: any
-  genderIndicator: any
-  primaryDivisionIndicator: any
+  overallIndicator: number
+  genderIndicator: number
+  primaryDivisionIndicator: number
   crossingTime: string | null
   isFullCourse: boolean
-  intervalDescription: string
-  percentile: string | null
-  intervalDistance: number
-  cumulativeDistance: number
 }
 
 export interface CompareIrpsAthleteInfoDto {
