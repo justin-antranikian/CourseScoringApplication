@@ -1,4 +1,4 @@
-﻿using Api.DataModels.Enums;
+﻿using Api.DataModels;
 
 namespace ApiTests.Orchestration;
 

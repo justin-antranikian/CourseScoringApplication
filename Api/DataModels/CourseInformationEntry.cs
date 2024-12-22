@@ -1,6 +1,11 @@
-﻿using Api.DataModels.Enums;
+﻿namespace Api.DataModels;
 
-namespace Api.DataModels;
+public enum CourseInformationType
+{
+    Description,
+    Promotional,
+    HowToPrepare
+}
 
 public record CourseInformationEntry
 {

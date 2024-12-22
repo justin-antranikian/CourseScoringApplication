@@ -1,4 +1,4 @@
-﻿using Api.DataModels.Enums;
+﻿using Api.DataModels;
 using Api.Orchestration.GetRaceSeriesDashboard;
 
 namespace ApiTests.Orchestration.GetRaceSeriesDashboard;

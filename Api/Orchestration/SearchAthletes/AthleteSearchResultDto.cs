@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Api.DataModels.Enums;
 
 namespace Api.Orchestration.SearchAthletes;
 

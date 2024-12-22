@@ -1,6 +1,4 @@
-﻿using Api.DataModels.Enums;
-
-namespace Api.DataModels;
+﻿namespace Api.DataModels;
 
 public class AthleteRaceSeriesGoal
 {

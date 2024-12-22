@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Api.DataModels.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.GetLeaderboard.GetCourseLeaderboard;

@@ -15,7 +15,7 @@ export interface RaceLeaderboardByCourseDto {
   courseName: string
   sortOrder: number
   highestIntervalName: string
-  intervalType: any
+  intervalType: number
   results: LeaderboardResultDto[]
 }
 

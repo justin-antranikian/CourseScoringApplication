@@ -1,6 +1,13 @@
-﻿using Api.DataModels.Enums;
+﻿namespace Api.DataModels;
 
-namespace Api.DataModels;
+public enum AthleteWellnessType
+{
+    Goal,
+    Training,
+    Gear,
+    Diet,
+    Motivational
+}
 
 public record AthleteWellnessEntry
 {

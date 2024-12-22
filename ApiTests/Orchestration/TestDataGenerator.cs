@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Api.DataModels.Enums;
 using Api.Orchestration.ScoreCourses;
 
 namespace ApiTests.Orchestration;

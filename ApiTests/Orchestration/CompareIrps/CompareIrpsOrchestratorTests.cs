@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Api.DataModels.Enums;
 using Api.Orchestration.CompareIrps;
 
 namespace ApiTests.Orchestration.CompareIrps;

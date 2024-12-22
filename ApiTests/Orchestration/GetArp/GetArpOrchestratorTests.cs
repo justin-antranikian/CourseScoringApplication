@@ -1,4 +1,4 @@
-﻿using Api.DataModels.Enums;
+﻿using Api.DataModels;
 using Api.Orchestration.GetArp;
 
 namespace ApiTests.Orchestration.GetArp;

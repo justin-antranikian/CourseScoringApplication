@@ -18,7 +18,7 @@ export interface CourseLeaderboardDto {
 
 export interface CourseLeaderboardByIntervalDto {
   intervalName: string
-  intervalType: any
+  intervalType: number
   results: LeaderboardResultDto[]
   totalRacers: number
 }

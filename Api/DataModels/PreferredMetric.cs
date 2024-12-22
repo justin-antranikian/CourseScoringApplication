@@ -1,4 +1,4 @@
-﻿namespace Api.DataModels.Enums;
+﻿namespace Api.DataModels;
 
 public enum PreferredMetric
 {

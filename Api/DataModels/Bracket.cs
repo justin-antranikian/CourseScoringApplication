@@ -1,6 +1,12 @@
-﻿using Api.DataModels.Enums;
+﻿namespace Api.DataModels;
 
-namespace Api.DataModels;
+public enum BracketType
+{
+    Overall,
+    Gender,
+    PrimaryDivision,
+    NonPrimaryDivision,
+}
 
 public record Bracket
 {
