@@ -6,10 +6,10 @@
 public abstract record ResultBase
 {
     public int Id { get; set; }
+    public int AthleteCourseId { get; set; }
+    public int BracketId { get; set; }
+    public int CourseId { get; set; }
 
-    public required int AthleteCourseId { get; set; }
-    public required int BracketId { get; set; }
-    public required int CourseId { get; set; }
     public required int IntervalId { get; set; }
     public required int Rank { get; set; }
     public required int TimeOnInterval { get; set; }

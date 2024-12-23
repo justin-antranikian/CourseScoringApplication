@@ -52,19 +52,17 @@ public class GetAwardsOrchestratorTests
             }
         }).ToList();
 
-        var overallBracket = new Bracket { CourseId = 1, BracketType = BracketType.Overall, Id = 5, Name = "Overall" };
-
         var brackets = new List<Bracket>
         {
-            overallBracket,
-            overallBracket with { BracketType = BracketType.Gender, Id = 6, Name = "Male" },
-            overallBracket with { BracketType = BracketType.Gender, Id = 7, Name = "Female" },
-            overallBracket with { BracketType = BracketType.PrimaryDivision, Id = 8, Name = "8 Division" },
-            overallBracket with { BracketType = BracketType.PrimaryDivision, Id = 9, Name = "9 Division" },
-            overallBracket with { BracketType = BracketType.NonPrimaryDivision, Id = 10, Name = "10 Division" },
-            overallBracket with { BracketType = BracketType.NonPrimaryDivision, Id = 11, Name = "11 Division" },
-            overallBracket with { BracketType = BracketType.PrimaryDivision, Id = 12, Name = "12 Division" },
-            overallBracket with { BracketType = BracketType.PrimaryDivision, Id = 13, Name = "13 Division" },
+            new() { CourseId = 1, BracketType = BracketType.Overall, Id = 5, Name = "Overall" },
+            new() { CourseId = 1, BracketType = BracketType.Gender, Id = 6, Name = "Male" },
+            new() { CourseId = 1, BracketType = BracketType.Gender, Id = 7, Name = "Female" },
+            new() { CourseId = 1, BracketType = BracketType.PrimaryDivision, Id = 8, Name = "8 Division" },
+            new() { CourseId = 1, BracketType = BracketType.PrimaryDivision, Id = 9, Name = "9 Division" },
+            new() { CourseId = 1, BracketType = BracketType.NonPrimaryDivision, Id = 10, Name = "10 Division" },
+            new() { CourseId = 1, BracketType = BracketType.NonPrimaryDivision, Id = 11, Name = "11 Division" },
+            new() { CourseId = 1, BracketType = BracketType.PrimaryDivision, Id = 12, Name = "12 Division" },
+            new() { CourseId = 1, BracketType = BracketType.PrimaryDivision, Id = 13, Name = "13 Division" },
         };
 
         var baseResult = new Result
@@ -75,12 +73,11 @@ public class GetAwardsOrchestratorTests
             GenderRank = 0,
             IsHighestIntervalCompleted = false,
             OverallRank = 0,
-            AthleteCourseId = 0,
-            BracketId = 0,
             Rank = 0,
             TimeOnInterval = 0,
             TimeOnCourse = 0
         };
+
         var firstAthleteCourseResult = baseResult with { AthleteCourseId = 1, BracketId = 5, Rank = 1, TimeOnCourse = 1000 };
 
         var results = new List<Result>
@@ -128,6 +125,7 @@ public class GetAwardsOrchestratorTests
         results.ForEach(result =>
         {
             result.AthleteCourse = athleteCourses.Single(oo => oo.Id == result.AthleteCourseId);
+            result.Bracket = brackets.Single(oo => oo.Id == result.BracketId);
         });
 
         await dbContext.Courses.AddAsync(course);
