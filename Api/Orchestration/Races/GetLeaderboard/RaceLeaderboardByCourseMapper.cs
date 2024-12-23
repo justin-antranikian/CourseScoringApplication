@@ -14,14 +14,14 @@ internal class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedInte
         foreach (var course in courses)
         {
             var interval = highestCompletedIntervalsForAllCourses.Single(oo => oo.CourseId == course.Id);
-            var leaderboardResultDtos = GetLeaderboardResultDtos(course, interval).ToList();
+            var results = GetLeaderboardResultDtos(course, interval).ToList();
 
             yield return new RaceLeaderboardByCourseDto
             {
                 CourseId = course.Id,
                 CourseName = course.Name,
                 SortOrder = interval.Order,
-                Results = leaderboardResultDtos
+                Results = results
             };
         }
     }

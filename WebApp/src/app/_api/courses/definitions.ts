@@ -36,7 +36,7 @@ export interface LeaderboardResultDto {
   paceWithTimeCumulative: PaceWithTime
 }
 
-export interface PodiumAward {
+export interface AwardsDto {
   bracketName: string
   firstPlaceAthlete: AwardWinnerDto | null
   secondPlaceAthlete: AwardWinnerDto | null
