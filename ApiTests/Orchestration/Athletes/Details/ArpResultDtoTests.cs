@@ -2,7 +2,7 @@
 using Api.Orchestration;
 using Api.Orchestration.Athletes.GetDetails;
 
-namespace ApiTests.Orchestration.GetArp;
+namespace ApiTests.Orchestration.Athletes.Details;
 
 public class ArpResultDtoTests
 {

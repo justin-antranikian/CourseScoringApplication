@@ -1,7 +1,7 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.Courses.GetAwards;
 
-namespace ApiTests.Orchestration.GetAwardsPodium;
+namespace ApiTests.Orchestration.Courses.Awards;
 
 public class GetAwardsOrchestratorTests
 {

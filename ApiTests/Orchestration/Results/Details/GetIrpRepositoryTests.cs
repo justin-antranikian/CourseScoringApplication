@@ -1,6 +1,6 @@
 ﻿using Api.Orchestration.Results.GetDetails;
 
-namespace ApiTests.Orchestration.GetIrp;
+namespace ApiTests.Orchestration.Results.Details;
 
 public class GetIrpRepositoryTests
 {

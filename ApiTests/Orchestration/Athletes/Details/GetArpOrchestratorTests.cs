@@ -1,7 +1,7 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.Athletes.GetDetails;
 
-namespace ApiTests.Orchestration.GetArp;
+namespace ApiTests.Orchestration.Athletes.Details;
 
 public class GetArpOrchestratorTests
 {
