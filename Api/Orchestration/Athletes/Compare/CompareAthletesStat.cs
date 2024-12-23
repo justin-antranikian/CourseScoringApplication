@@ -1,8 +1,8 @@
 ﻿namespace Api.Orchestration.Athletes.Compare;
 
 public record CompareAthletesStat
-(
-    string RaceSeriesTypeName,
-    int ActualTotal,
-    int? GoalTotal
-);
+{
+    public required int ActualTotal { get; init; }
+    public required int? GoalTotal { get; init; }
+    public required string RaceSeriesTypeName { get; init; }
+}

@@ -13,44 +13,42 @@ public static class ArpResultDtoMapper
         var genderTotal = metadataGetTotalHelper.GetGenderTotal();
         var primaryTotal = metadataGetTotalHelper.GetPrimaryDivisionTotal();
 
-        var arpResultDto = new ArpResultDto
-        (
-            result.AthleteCourseId,
-            course.RaceId,
-            race.Name,
-            raceSeries.RaceSeriesType,
-            course.Id,
-            course.Name,
-            raceSeries.State,
-            raceSeries.City,
-            result.OverallRank,
-            result.GenderRank,
-            result.DivisionRank,
-            overallTotal,
-            genderTotal,
-            primaryTotal,
-            paceWithTimeCumulative
-        );
-
-        return arpResultDto;
+        return new ArpResultDto
+        {
+            AthleteCourseId = result.AthleteCourseId,
+            City = raceSeries.City,
+            CourseId = course.Id,
+            CourseName = course.Name,
+            GenderCount = genderTotal,
+            GenderRank = result.GenderRank,
+            OverallCount = overallTotal,
+            OverallRank = result.OverallRank,
+            PaceWithTimeCumulative = paceWithTimeCumulative,
+            PrimaryDivisionCount = primaryTotal,
+            PrimaryDivisionRank = result.DivisionRank,
+            RaceId = course.RaceId,
+            RaceName = race.Name,
+            RaceSeriesType = raceSeries.RaceSeriesType,
+            State = raceSeries.State
+        };
     }
 }
 
 public record ArpResultDto
-(
-    int AthleteCourseId,
-    int RaceId,
-    string RaceName,
-    RaceSeriesType RaceSeriesType,
-    int CourseId,
-    string CourseName,
-    string State,
-    string City,
-    int OverallRank,
-    int GenderRank,
-    int PrimaryDivisionRank,
-    int OverallCount,
-    int GenderCount,
-    int PrimaryDivisionCount,
-    PaceWithTime PaceWithTimeCumulative
-);
+{
+    public required int AthleteCourseId { get; init; }
+    public required string City { get; init; }
+    public required int CourseId { get; init; }
+    public required string CourseName { get; init; }
+    public required int GenderCount { get; init; }
+    public required int GenderRank { get; init; }
+    public required int OverallCount { get; init; }
+    public required int OverallRank { get; init; }
+    public required PaceWithTime PaceWithTimeCumulative { get; init; }
+    public required int PrimaryDivisionCount { get; init; }
+    public required int PrimaryDivisionRank { get; init; }
+    public required int RaceId { get; init; }
+    public required string RaceName { get; init; }
+    public required RaceSeriesType RaceSeriesType { get; init; }
+    public required string State { get; init; }
+}

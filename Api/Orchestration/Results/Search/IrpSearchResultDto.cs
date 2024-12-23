@@ -14,28 +14,28 @@ public static class IrpSearchResultDtoMapper
         var athlete = athleteCourse.Athlete;
         var course = athleteCourse.Course;
 
-        return new
-        (
-            athleteCourse.Id,
-            athlete.FullName,
-            DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
-            athlete.Gender.ToAbbreviation(),
-            athleteCourse.Bib,
-            athlete.State,
-            athlete.City,
-            course.Name
-        );
+        return new IrpSearchResultDto
+        {
+            AthleteCourseId = athlete.Id,
+            Bib = athleteCourse.Bib,
+            City = athlete.City,
+            CourseName = course.Name,
+            FullName = athlete.FullName,
+            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
+            State = athlete.State,
+        };
     }
 }
 
 public record IrpSearchResultDto
-(
-    int AthleteCourseId,
-    string FullName,
-    int RaceAge,
-    string GenderAbbreviated,
-    string Bib,
-    string State,
-    string City,
-    string CourseName
-);
+{
+    public required int AthleteCourseId { get; init; }
+    public required string Bib { get; init; }
+    public required string City { get; init; }
+    public required string CourseName { get; init; }
+    public required string FullName { get; init; }
+    public required string GenderAbbreviated { get; init; }
+    public required int RaceAge { get; init; }
+    public required string State { get; init; }
+}

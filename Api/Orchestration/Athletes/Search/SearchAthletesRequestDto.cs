@@ -1,9 +1,9 @@
 ﻿namespace Api.Orchestration.Athletes.Search;
 
-public class SearchAthletesRequestDto
+public record SearchAthletesRequestDto
 {
-    public string? Area { get; set; }
-    public string? City { get; set; }
-    public string? State { get; set; }
-    public string? SearchTerm { get; set; }
+    public string? Area { get; init; }
+    public string? City { get; init; }
+    public string? State { get; init; }
+    public string? SearchTerm { get; init; }
 }

@@ -52,7 +52,6 @@ public class GetRaceLeaderboardOrchestratorTests
         {
             Assert.Equal(1, result.CourseId);
             Assert.Equal("Course 1", result.CourseName);
-            Assert.Equal("Bike", result.HighestIntervalName);
             Assert.Collection(result.Results, athlete =>
             {
                 Assert.Equal(4, athlete.AthleteId);

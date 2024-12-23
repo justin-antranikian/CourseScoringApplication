@@ -14,7 +14,13 @@ public static class CompareAthletesAthleteInfoDtoMapper
             var raceSeriesType = raceSeriesTypeGrouping.Key;
             var raceSeriesTypeName = raceSeriesType.ToFriendlyText();
             var goal = goals.SingleOrDefault(oo => oo.RaceSeriesType == raceSeriesType);
-            return new CompareAthletesStat(raceSeriesTypeName, raceSeriesTypeGrouping.Count(), goal?.TotalEvents);
+
+            return new CompareAthletesStat
+            {
+                ActualTotal = raceSeriesTypeGrouping.Count(),
+                GoalTotal = goal?.TotalEvents,
+                RaceSeriesTypeName = raceSeriesTypeName,
+            };
         }
 
         var stats = coursesForAthlete

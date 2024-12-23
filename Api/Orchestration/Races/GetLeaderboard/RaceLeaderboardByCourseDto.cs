@@ -1,13 +1,9 @@
-﻿using Api.DataModels;
-
-namespace Api.Orchestration.Races.GetLeaderboard;
+﻿namespace Api.Orchestration.Races.GetLeaderboard;
 
 public record RaceLeaderboardByCourseDto
-(
-    int CourseId,
-    string CourseName,
-    int SortOrder,
-    string HighestIntervalName,
-    IntervalType IntervalType,
-    List<LeaderboardResultDto> Results
-);
+{
+    public required int CourseId { get; init; }
+    public required string CourseName { get; init; }
+    public required int SortOrder { get; init; }
+    public required List<LeaderboardResultDto> Results { get; init; }
+}

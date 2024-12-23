@@ -15,7 +15,14 @@ internal class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedInte
         {
             var interval = highestCompletedIntervalsForAllCourses.Single(oo => oo.CourseId == course.Id);
             var leaderboardResultDtos = GetLeaderboardResultDtos(course, interval).ToList();
-            yield return new RaceLeaderboardByCourseDto(course.Id, course.Name, course.SortOrder, interval.Name, interval.IntervalType, leaderboardResultDtos);
+
+            yield return new RaceLeaderboardByCourseDto
+            {
+                CourseId = course.Id,
+                CourseName = course.Name,
+                SortOrder = interval.Order,
+                Results = leaderboardResultDtos
+            };
         }
     }
 
