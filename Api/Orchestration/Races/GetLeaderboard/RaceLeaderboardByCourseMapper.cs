@@ -5,7 +5,7 @@ namespace Api.Orchestration.Races.GetLeaderboard;
 internal class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedIntervalsForAllCourses, List<Result> resultsForAllCourses)
 {
     /// <summary>
-    /// Takes a list a list of courses and returns a list of TopThreeAthletesForCourseDtos.
+    /// Takes in list a list of courses and returns a list of TopThreeAthletesForCourseDtos.
     /// </summary>
     /// <param name="courses"></param>
     /// <returns></returns>

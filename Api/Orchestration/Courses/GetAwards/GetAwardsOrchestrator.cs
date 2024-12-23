@@ -56,6 +56,7 @@ public class GetAwardsOrchestrator(ScoringDbContext scoringDbContext)
             var athlete = result.AthleteCourse!.Athlete!;
             var finishTime = course.GetCrossingTime(result.TimeOnCourse);
             var paceWithTime = course.GetPaceWithTime(result.TimeOnCourse);
+
             return new AwardWinnerDto
             {
                 AthleteId = athlete.Id,
