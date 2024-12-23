@@ -58,12 +58,29 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
     {
         if (result == null)
         {
-            return new CompareIrpsIntervalDto(interval.Name, null, null, null, null, null);
+            return new CompareIrpsIntervalDto
+            {
+                CrossingTime = null,
+                IntervalName = interval.Name,
+                PaceWithTime = null,
+                OverallRank = null,
+                GenderRank = null,
+                PrimaryDivisionRank = null
+            };
         }
 
         var paceWithTime = course.GetPaceWithTime(result.TimeOnCourse, interval.DistanceFromStart);
         var crossingTime = course.GetCrossingTime(result.TimeOnCourse);
-        return new CompareIrpsIntervalDto(interval.Name, paceWithTime, crossingTime, result.OverallRank, result.GenderRank, result.DivisionRank);
+
+        return new CompareIrpsIntervalDto
+        {
+            CrossingTime = crossingTime,
+            IntervalName = interval.Name,
+            PaceWithTime = paceWithTime,
+            OverallRank = result.OverallRank,
+            GenderRank = result.GenderRank,
+            PrimaryDivisionRank = result.DivisionRank
+        };
     }
 
     private async Task<List<AthleteCourse>> GetAthleteCourses(List<int> athleteCourseIds)

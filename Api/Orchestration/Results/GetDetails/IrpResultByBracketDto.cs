@@ -1,29 +1,9 @@
-﻿using Api.DataModels;
-
-namespace Api.Orchestration.Results.GetDetails;
-
-public static class IrpResultByBracketDtoMapper
-{
-    public static IrpResultByBracketDto GetIrpResultByBracketDto(Bracket bracket, Result result, int totalRacers)
-    {
-        var rank = result.Rank;
-
-        var irpResultByBracketDto = new IrpResultByBracketDto
-        (
-            bracket.Id,
-            bracket.Name,
-            rank,
-            totalRacers
-        );
-
-        return irpResultByBracketDto;
-    }
-}
+﻿namespace Api.Orchestration.Results.GetDetails;
 
 public record IrpResultByBracketDto
-(
-    int Id,
-    string Name,
-    int Rank,
-    int TotalRacers
-);
+{
+    public required int Id { get; init; }
+    public required string Name { get; init; }
+    public required int Rank { get; init; }
+    public required int TotalRacers { get; init; }
+}

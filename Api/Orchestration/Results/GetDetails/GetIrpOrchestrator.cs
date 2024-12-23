@@ -27,7 +27,14 @@ public class GetIrpOrchestrator(ScoringDbContext scoringDbContext)
         {
             var totalRacers = metadataEntries.Single(oo => oo.BracketId == result.BracketId).TotalRacers;
             var bracket = course.Brackets.Single(oo => oo.Id == result.BracketId);
-            yield return IrpResultByBracketDtoMapper.GetIrpResultByBracketDto(bracket, result, totalRacers);
+
+            yield return new IrpResultByBracketDto
+            {
+                Id = bracket.Id,
+                Name = bracket.Name,
+                Rank = result.Rank,
+                TotalRacers = totalRacers
+            };
         }
     }
 
