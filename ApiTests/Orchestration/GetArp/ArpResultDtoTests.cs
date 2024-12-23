@@ -39,9 +39,9 @@ public class ArpResultDtoTests
     {
         var brackets = new List<Bracket>
         {
-            new() { BracketType = BracketType.Overall, Name = "" },
-            new() { BracketType = BracketType.Gender, Name = "" },
-            new() { BracketType = BracketType.PrimaryDivision, Name = "" },
+            new() { Id = 1, BracketType = BracketType.Overall, Name = "" },
+            new() { Id = 2, BracketType = BracketType.Gender, Name = "" },
+            new() { Id = 3, BracketType = BracketType.PrimaryDivision, Name = "" },
         };
 
         var bracketMetadataEntries = new List<BracketMetadata>

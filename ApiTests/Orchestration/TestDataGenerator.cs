@@ -168,8 +168,8 @@ internal static class TestDataGenerator
 
     internal static List<AthleteCourseBracket> GetAthleteCourseBrackets()
     {
-        return new ()
-        {
+        return
+        [
             AthleteCourseBracket.Create(1, 1, 1),
             AthleteCourseBracket.Create(1, 2, 1),
             AthleteCourseBracket.Create(1, 4, 1),
@@ -203,8 +203,8 @@ internal static class TestDataGenerator
             AthleteCourseBracket.Create(3, 15, 3),
             AthleteCourseBracket.Create(6, 13, 3),
             AthleteCourseBracket.Create(6, 14, 3),
-            AthleteCourseBracket.Create(6, 15, 3),
-        };
+            AthleteCourseBracket.Create(6, 15, 3)
+        ];
     }
 
     internal static (List<BracketMetadata> metadataEntries, List<Result> results) GetScoringResults(ScoringDbContext dbContext, params int[] courseIds)

@@ -175,7 +175,7 @@ public class GetAwardsOrchestratorTests
         Assert.Null(division13PodiumWinners.ThirdPlaceAthlete);
     }
 
-    private static PodiumEntryDto GetPodiumEntryDto(List<PodiumEntryDto> podiumEntries, string bracketName)
+    private static AwardsDto GetPodiumEntryDto(List<AwardsDto> podiumEntries, string bracketName)
     {
         return podiumEntries.Single(oo => oo.BracketName == bracketName);
     }

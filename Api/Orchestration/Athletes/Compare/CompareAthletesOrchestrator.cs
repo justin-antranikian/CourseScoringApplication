@@ -15,8 +15,16 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
         var distinctCourseIds = results.Select(oo => oo.CourseId).Distinct().ToArray();
         var courses = await GetCourses(distinctCourseIds);
 
-        var helper = new CompareAthletesHelper(courses, athletes, results, goals);
-        return helper.GetMappedResults();
+        var dtos = new List<CompareAthletesAthleteInfoDto>();
+        foreach (var athlete in athletes)
+        {
+            var resultsForAthlete = results.Where(result => result.AthleteCourse.AthleteId == athlete.Id).ToList();
+            var athleteGoals = goals.Where(oo => oo.AthleteId == athlete.Id).ToList();
+            var dto = CompareAthletesAthleteInfoDtoMapper.GetCompareAthletesAthleteInfoDto(athlete, courses, resultsForAthlete, athleteGoals);
+            dtos.Add(dto);
+        }
+
+        return dtos;
     }
 
     private async Task<List<Athlete>> GetAthletes(List<int> athleteIds)

@@ -4,17 +4,7 @@ namespace Api.Orchestration.Athletes.Compare;
 
 public static class CompareAthletesAthleteInfoDtoMapper
 {
-    private static List<Course> GetCoursesForAthlete(List<Course> courses, List<CompareAthletesResult> resultsForAthlete)
-    {
-        var filter = resultsForAthlete.Join(courses,
-                        result => result.CourseId,
-                        course => course.Id,
-                        (_, course) => course);
-
-        return filter.ToList();
-    }
-
-    public static CompareAthletesAthleteInfoDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<CompareAthletesResult> resultsForAthlete, List<AthleteRaceSeriesGoal> goals)
+    public static CompareAthletesAthleteInfoDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<Result> resultsForAthlete, List<AthleteRaceSeriesGoal> goals)
     {
         var locationInfoWithRank = new LocationInfoWithRank(athlete);
         var coursesForAthlete = GetCoursesForAthlete(courses, resultsForAthlete);
@@ -28,10 +18,10 @@ public static class CompareAthletesAthleteInfoDtoMapper
         }
 
         var stats = coursesForAthlete
-                        .GroupBy(oo => oo.Race!.RaceSeries!.RaceSeriesType)
-                        .Select(GetCompareAthletesStat)
-                        .OrderBy(oo => oo.RaceSeriesTypeName)
-                        .ToList();
+            .GroupBy(oo => oo.Race!.RaceSeries!.RaceSeriesType)
+            .Select(GetCompareAthletesStat)
+            .OrderBy(oo => oo.RaceSeriesTypeName)
+            .ToList();
 
         return new CompareAthletesAthleteInfoDto
         {
@@ -42,6 +32,16 @@ public static class CompareAthletesAthleteInfoDtoMapper
             LocationInfoWithRank = locationInfoWithRank,
             Stats = stats
         };
+    }
+
+    private static List<Course> GetCoursesForAthlete(List<Course> courses, List<Result> resultsForAthlete)
+    {
+        var filter = resultsForAthlete.Join(courses,
+                        result => result.CourseId,
+                        course => course.Id,
+                        (_, course) => course);
+
+        return filter.ToList();
     }
 }
 

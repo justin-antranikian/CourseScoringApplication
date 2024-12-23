@@ -17,7 +17,7 @@ public class CoursesController(ScoringDbContext scoringDbContext) : ControllerBa
     }
 
     [HttpGet("{courseId:int}/awards")]
-    public async Task<List<PodiumEntryDto>> Awards([FromRoute] int courseId)
+    public async Task<List<AwardsDto>> Awards([FromRoute] int courseId)
     {
         var orchestrator = new GetAwardsOrchestrator(scoringDbContext);
         return await orchestrator.GetPodiumEntries(courseId);
