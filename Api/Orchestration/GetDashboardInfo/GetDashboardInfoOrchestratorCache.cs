@@ -7,8 +7,8 @@ namespace Api.Orchestration.GetDashboardInfo;
 /// </summary>
 public partial class GetDashboardInfoOrchestrator
 {
-    private static readonly object _eventsLock = new();
-    private static readonly object _athletesLock = new();
+    private static readonly Lock _eventsLock = new();
+    private static readonly Lock _athletesLock = new();
 
     private static List<Location>? _locationsByAthletes;
     private static List<Location>? _locationsByEvents;
