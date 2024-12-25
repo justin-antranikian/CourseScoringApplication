@@ -26,7 +26,7 @@ public class RaceSeries
     public required string State { get; set; }
     public required int StateRank { get; set; }
 
-    public List<Race> Races { get; set; } = [];
+    public List<Race> Races { get; init; } = [];
 }
 
 public static class RaceSeriesTypeExtensions

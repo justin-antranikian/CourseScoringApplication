@@ -25,9 +25,9 @@ public class Athlete
     public required string State { get; set; }
     public required int StateRank { get; set; }
 
-    public List<AthleteCourse> AthleteCourses { get; set; } = [];
-    public List<AthleteRaceSeriesGoal> AthleteRaceSeriesGoals { get; set; } = [];
-    public List<AthleteWellnessEntry> AthleteWellnessEntries { get; set; } = [];
+    public List<AthleteCourse> AthleteCourses { get; init; } = [];
+    public List<AthleteRaceSeriesGoal> AthleteRaceSeriesGoals { get; init; } = [];
+    public List<AthleteWellnessEntry> AthleteWellnessEntries { get; init; } = [];
 
     public int GetRaceAge(DateTime courseStartTime) => DateTimeHelper.GetRaceAge(DateOfBirth, courseStartTime);
 }

@@ -25,8 +25,8 @@ public class Interval
     public required int Order { get; set; }
     public required PaceType PaceType { get; set; }
 
-    public List<BracketMetadata> BracketMetadatas { get; set; } = [];
+    public List<BracketMetadata> BracketMetadatas { get; init; } = [];
     public Course? Course { get; set; }
-    public List<Result> Results { get; set; } = [];
-    public List<TagRead> TagReads { get; set; } = [];
+    public List<Result> Results { get; init; } = [];
+    public List<TagRead> TagReads { get; init; } = [];
 }

@@ -16,13 +16,13 @@ public class Course
     public required DateTime StartDate { get; set; }
     public Geometry? Location { get; set; }
 
-    public List<AthleteCourse> AthleteCourses { get; set; } = [];
+    public List<AthleteCourse> AthleteCourses { get; init; } = [];
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];
     public List<Bracket> Brackets { get; init; } = [];
     public List<BracketMetadata> BracketMetadatas { get; init; } = [];
     public List<CourseInformationEntry> CourseInformationEntries { get; init; } = [];
     public List<Interval> Intervals { get; init; } = [];
-    public Race? Race { get; init; }
-    public List<Result> Results { get; set; } = [];
-    public List<TagRead> TagReads { get; set; } = [];
+    public Race? Race { get; set; }
+    public List<Result> Results { get; init; } = [];
+    public List<TagRead> TagReads { get; init; } = [];
 }

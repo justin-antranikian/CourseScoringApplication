@@ -9,6 +9,6 @@ public record Race
     public required string Name { get; set; }
     public required string TimeZoneId { get; set; }
 
-    public List<Course> Courses { get; set; } = [];
+    public List<Course> Courses { get; init; } = [];
     public RaceSeries? RaceSeries { get; set; }
 }
