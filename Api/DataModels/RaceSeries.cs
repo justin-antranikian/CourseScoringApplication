@@ -10,7 +10,7 @@ public enum RaceSeriesType
     Swim
 }
 
-public record RaceSeries
+public class RaceSeries
 {
     public int Id { get; set; }
 

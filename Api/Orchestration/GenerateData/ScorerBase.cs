@@ -4,12 +4,21 @@ namespace Api.Orchestration.GenerateData;
 
 public abstract class ScorerBase
 {
-    protected record ResultWithRankOnly : ResultBase
+    protected record ResultWithRankOnly
     {
-        public BracketType BracketType { get; init; }
+        public int Id { get; set; }
+        public int AthleteCourseId { get; set; }
+        public int BracketId { get; set; }
+        public int CourseId { get; set; }
+
+        public required BracketType BracketType { get; init; }
+        public required int IntervalId { get; set; }
+        public required int Rank { get; set; }
+        public required int TimeOnInterval { get; set; }
+        public required int TimeOnCourse { get; set; }
     }
 
-    protected record TagReadWithIntervalOrder : TagRead
+    protected class TagReadWithIntervalOrder : TagRead
     {
         public required int IntervalOrder { get; set; }
 

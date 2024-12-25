@@ -12,7 +12,7 @@ public enum IntervalType
 }
 
 
-public record Interval
+public class Interval
 {
     public int Id { get; set; }
     public int CourseId { get; set; }
@@ -29,6 +29,4 @@ public record Interval
     public Course? Course { get; set; }
     public List<Result> Results { get; set; } = [];
     public List<TagRead> TagReads { get; set; } = [];
-
-    //public static Interval Create(int courseId, )
 }

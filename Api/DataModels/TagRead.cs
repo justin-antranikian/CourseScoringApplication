@@ -1,6 +1,6 @@
 ﻿namespace Api.DataModels;
 
-public record TagRead
+public class TagRead
 {
     public int Id { get; set; }
     public int AthleteCourseId { get; set; }

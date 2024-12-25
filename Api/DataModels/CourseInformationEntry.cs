@@ -7,7 +7,7 @@ public enum CourseInformationType
     HowToPrepare
 }
 
-public record CourseInformationEntry
+public class CourseInformationEntry
 {
     public int Id { get; set; }
     public int CourseId { get; set; }

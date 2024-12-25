@@ -2,7 +2,7 @@
 
 namespace Api.DataModels;
 
-public record Course
+public class Course
 {
     public int Id { get; set; }
     public int RaceId { get; set; }

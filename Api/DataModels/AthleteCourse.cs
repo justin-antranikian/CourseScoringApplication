@@ -1,6 +1,6 @@
 ﻿namespace Api.DataModels;
 
-public record AthleteCourse
+public class AthleteCourse
 {
     public int Id { get; set; }
     public int AthleteId { get; set; }

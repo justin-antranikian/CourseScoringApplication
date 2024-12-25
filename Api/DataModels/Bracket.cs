@@ -8,7 +8,7 @@ public enum BracketType
     NonPrimaryDivision,
 }
 
-public record Bracket
+public class Bracket
 {
     public int Id { get; set; }
     public int CourseId { get; set; }

@@ -9,7 +9,7 @@ public enum AthleteWellnessType
     Motivational
 }
 
-public record AthleteWellnessEntry
+public class AthleteWellnessEntry
 {
     public int Id { get; set; }
     public int AthleteId { get; set; }

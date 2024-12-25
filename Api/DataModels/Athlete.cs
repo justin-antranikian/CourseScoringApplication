@@ -8,7 +8,7 @@ public enum Gender
     Femail
 }
 
-public record Athlete
+public class Athlete
 {
     public int Id { get; set; }
 
