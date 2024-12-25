@@ -49,9 +49,7 @@ public static class AthletesGenerator
 
         return new Athlete
         {
-            Area = location.Area,
             AreaRank = 0,
-            City = location.City,
             CityRank = 0,
             DateOfBirth = athleteFaker.DateOfBirth,
             FirstName = athleteFaker.FirstName,
@@ -59,7 +57,6 @@ public static class AthletesGenerator
             Gender = athleteFaker.Gender,
             LastName = athleteFaker.LastName,
             OverallRank = 0,
-            State = location.State,
             StateRank = 0,
             AthleteRaceSeriesGoals = goals.ToList(),
             AthleteWellnessEntries = GetWellnessEntries(),

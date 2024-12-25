@@ -14,7 +14,8 @@ public abstract class GetBreadcrumbOrchestratorBase
         };
 
         var location = LocationHelper.Find(filterPredicate);
-        return new LocationInfoWithUrl(location);
+        //return new LocationInfoWithUrl(location);
+        return null;
     }
 }
 

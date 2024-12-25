@@ -61,9 +61,6 @@ public class IrpDtoTests
             LastName = "LA",
             FullName = "FA LA",
             Gender = Gender.Male,
-            City = "CA",
-            State = "SA",
-            Area = "AA",
             OverallRank = 4,
             StateRank = 3,
             AreaRank = 2,
@@ -95,10 +92,7 @@ public class IrpDtoTests
                 RaceSeries = new()
                 {
                     RaceSeriesType = RaceSeriesType.Triathalon,
-                    State = "SA",
-                    City = "CA",
                     Description = "DA",
-                    Area = "",
                     AreaRank = 0,
                     CityRank = 0,
                     Name = "",

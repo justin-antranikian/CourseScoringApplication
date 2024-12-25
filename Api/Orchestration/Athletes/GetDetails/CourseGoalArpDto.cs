@@ -15,8 +15,8 @@ public static class CourseGoalArpDtoMapper
             CourseName = course.Name,
             RaceId = race.Id,
             RaceName = race.Name,
-            RaceSeriesState = raceSeries.State,
-            RaceSeriesCity = raceSeries.City,
+            RaceSeriesCity = raceSeries.CityLocation!.Name,
+            RaceSeriesState = raceSeries.StateLocation!.Name,
             RaceSeriesDescription = raceSeries.Description
         };
     }
@@ -28,7 +28,7 @@ public record CourseGoalArpDto
     public required string CourseName { get; init; }
     public required int RaceId { get; init; }
     public required string RaceName { get; init; }
-    public required string RaceSeriesState { get; init; }
     public required string RaceSeriesCity { get; init; }
+    public required string RaceSeriesState { get; init; }
     public required string RaceSeriesDescription { get; init; }
 }

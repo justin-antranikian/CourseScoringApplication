@@ -16,6 +16,7 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
     public DbSet<Course> Courses { get; set; }
     public DbSet<CourseInformationEntry> CourseInformationEntries { get; set; }
     public DbSet<Interval> Intervals { get; set; }
+    public DbSet<Location> Locations { get; set; }
     public DbSet<Race> Races { get; set; }
     public DbSet<RaceSeries> RaceSeries { get; set; }
     public DbSet<Result> Results { get; set; }
@@ -34,6 +35,7 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
         CourseConfiguration.Configure(modelBuilder.Entity<Course>());
         CourseInformationEntryConfiguration.Configure(modelBuilder.Entity<CourseInformationEntry>());
         IntervalConfiguration.Configure(modelBuilder.Entity<Interval>());
+        LocationConfiguration.Configure(modelBuilder.Entity<Location>());
         RaceConfiguration.Configure(modelBuilder.Entity<Race>());
         RaceSeriesConfiguration.Configure(modelBuilder.Entity<RaceSeries>());
         ResultConfiguration.Configure(modelBuilder.Entity<Result>());

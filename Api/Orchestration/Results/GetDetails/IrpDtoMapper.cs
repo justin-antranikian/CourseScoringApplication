@@ -22,7 +22,7 @@ public static class IrpDtoMapper
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
             IntervalResults = intervalResults,
-            LocationInfoWithRank = new LocationInfoWithRank(athlete),
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             PaceWithTimeCumulative = paceWithTime,
             PersonalGoalDescription = athleteCourse.PersonalGoalDescription,
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),

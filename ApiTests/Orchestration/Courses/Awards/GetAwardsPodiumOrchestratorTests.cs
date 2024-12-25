@@ -38,9 +38,6 @@ public class GetAwardsOrchestratorTests
             {
                 Id = index,
                 FullName = $"JA{index}",
-                Area = "",
-                City = "",
-                State = "",
                 FirstName = "",
                 LastName = "",
                 AreaRank = 0,

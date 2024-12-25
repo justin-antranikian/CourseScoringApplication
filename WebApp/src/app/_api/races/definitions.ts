@@ -22,14 +22,10 @@ export interface DisplayNameWithId {
 }
 
 export interface EventSearchResultDto {
-  courses: DisplayNameWithId[]
-  description: string
-  kickOffDate: string
-  kickOffTime: string
   id: number
   locationInfoWithRank: LocationInfoWithRank
   name: string
   raceSeriesTypeName: string
-  rating: number
   upcomingRaceId: number
+  courses: DisplayNameWithId[]
 }

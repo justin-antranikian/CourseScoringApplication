@@ -16,7 +16,7 @@ public static class CourseLeaderboardDtoMapper
             CourseName = course.Name,
             CourseTime = timeFormatted,
             Leaderboards = leaderboards,
-            LocationInfoWithRank = new LocationInfoWithRank(raceSeries),
+            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             RaceId = race.Id,
             RaceName = race.Name,
             RaceSeriesDescription = raceSeries.Description,

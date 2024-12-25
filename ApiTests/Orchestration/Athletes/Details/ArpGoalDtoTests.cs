@@ -63,10 +63,7 @@ public class ArpGoalDtoTests
                     Name = "RA",
                     RaceSeries = new()
                     {
-                        State = "SA",
-                        City = "CA",
                         Description = "DA",
-                        Area = "null",
                         AreaRank = 0,
                         CityRank = 0,
                         Name = "null",

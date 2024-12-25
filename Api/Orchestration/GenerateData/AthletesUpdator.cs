@@ -8,18 +8,18 @@ public static class AthletesUpdator
     {
         var sortedAthletes = athletes.OrderByDescending(oo => oo.AthleteCourses.Count).ToList();
 
-        var stateRankings = GetRankingDictionary(sortedAthletes, oo => oo.State);
-        var areaRankings = GetRankingDictionary(sortedAthletes, oo => oo.Area);
-        var cityRankings = GetRankingDictionary(sortedAthletes, oo => oo.City);
+        //var stateRankings = GetRankingDictionary(sortedAthletes, oo => oo.State);
+        //var areaRankings = GetRankingDictionary(sortedAthletes, oo => oo.Area);
+        //var cityRankings = GetRankingDictionary(sortedAthletes, oo => oo.City);
 
         var overallRank = 1;
         foreach (var athlete in sortedAthletes)
         {
             var id = athlete.Id;
             athlete.OverallRank = overallRank;
-            athlete.StateRank = stateRankings[id];
-            athlete.AreaRank = areaRankings[id];
-            athlete.CityRank = cityRankings[id];
+            //athlete.StateRank = stateRankings[id];
+            //athlete.AreaRank = areaRankings[id];
+            //athlete.CityRank = cityRankings[id];
 
             overallRank++;
         }

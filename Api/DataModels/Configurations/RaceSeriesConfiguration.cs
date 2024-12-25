@@ -13,10 +13,11 @@ public static class RaceSeriesConfiguration
         builder.HasKey(oo => oo.Id);
 
         builder.Property(oo => oo.Id).IsRequired();
+        builder.Property(oo => oo.AreaLocationId).IsRequired();
+        builder.Property(oo => oo.CityLocationId).IsRequired();
+        builder.Property(oo => oo.StateLocationId).IsRequired();
 
-        builder.Property(oo => oo.Area).HasColumnType("VARCHAR(50)").IsRequired();
         builder.Property(oo => oo.AreaRank).IsRequired();
-        builder.Property(oo => oo.City).HasColumnType("VARCHAR(50)").IsRequired();
         builder.Property(oo => oo.CityRank).IsRequired();
         builder.Property(oo => oo.Description).HasColumnType("VARCHAR(250)").IsRequired();
         builder.Property(oo => oo.Name).HasColumnType("VARCHAR(100)").IsRequired();
@@ -28,7 +29,21 @@ public static class RaceSeriesConfiguration
             .IsRequired();
 
         builder.Property(oo => oo.Rating).IsRequired();
-        builder.Property(oo => oo.State).HasColumnType("VARCHAR(50)").IsRequired();
         builder.Property(oo => oo.StateRank).IsRequired();
+
+        builder.HasOne(oo => oo.AreaLocation)
+            .WithMany(oo => oo.AreaRaceSeries)
+            .HasForeignKey(oo => oo.AreaLocationId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(oo => oo.CityLocation)
+            .WithMany(oo => oo.CityRaceSeries)
+            .HasForeignKey(oo => oo.CityLocationId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(oo => oo.StateLocation)
+            .WithMany(oo => oo.StateRaceSeries)
+            .HasForeignKey(oo => oo.StateLocationId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

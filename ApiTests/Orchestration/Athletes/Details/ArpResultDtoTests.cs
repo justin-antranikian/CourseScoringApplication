@@ -69,9 +69,6 @@ public class ArpResultDtoTests
                 {
                     Id = 1,
                     RaceSeriesType = RaceSeriesType.RoadBiking,
-                    State = "SA",
-                    City = "CA",
-                    Area = "",
                     AreaRank = 0,
                     CityRank = 0,
                     Description = "",

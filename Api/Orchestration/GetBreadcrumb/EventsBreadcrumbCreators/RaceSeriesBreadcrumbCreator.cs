@@ -11,7 +11,7 @@ internal class RaceSeriesBreadcrumbCreator : EventsBreadcrumbCreatorBase
         var raceSeries = await scoringDbContext.RaceSeries.SingleAsync(oo => oo.Id == raceSeriesId);
 
         var raceSeriesDisplay = GetRaceSeriesDisplayName(raceSeries);
-        var locationInfoWithUrl = new LocationInfoWithUrl(raceSeries);
-        return new EventsBreadcrumbResultDto(locationInfoWithUrl, raceSeriesDisplay);
+        //var locationInfoWithUrl = new LocationInfoWithUrl(raceSeries);
+        return new EventsBreadcrumbResultDto(null, raceSeriesDisplay);
     }
 }

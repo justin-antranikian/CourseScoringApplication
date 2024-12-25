@@ -6,7 +6,7 @@ public static class ArpDtoMapper
 {
     public static ArpDto GetArpDto(Athlete athlete, List<ArpResultDto> results, List<ArpGoalDto> goals, ArpGoalDto allEventsGoal)
     {
-        var combinedGoals = new List<ArpGoalDto>() { allEventsGoal }.Concat(goals).ToList();
+        var combinedGoals = new List<ArpGoalDto> { allEventsGoal }.Concat(goals).ToList();
         var wellnessEntries = athlete.AthleteWellnessEntries.ToList();
 
         var arpDto = new ArpDto
@@ -17,7 +17,7 @@ public static class ArpDtoMapper
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
             Goals = combinedGoals,
-            LocationInfoWithRank = new LocationInfoWithRank(athlete),
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             Results = results,
             Tags = athlete.GetTags(),
             WellnessGearList = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Gear),

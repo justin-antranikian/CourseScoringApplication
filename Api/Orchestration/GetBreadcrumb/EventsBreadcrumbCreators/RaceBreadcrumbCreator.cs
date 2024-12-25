@@ -13,7 +13,7 @@ internal class RaceBreadcrumbCreator : EventsBreadcrumbCreatorBase
         var raceSeries = race.RaceSeries;
         var raceDisplay = GetRaceDisplayName(race);
         var raceSeriesDisplay = GetRaceSeriesDisplayName(raceSeries);
-        var locationInfoWithUrl = new LocationInfoWithUrl(raceSeries);
-        return new EventsBreadcrumbResultDto(locationInfoWithUrl, raceSeriesDisplay, raceDisplay);
+        //var locationInfoWithUrl = new LocationInfoWithUrl(raceSeries);
+        return new EventsBreadcrumbResultDto(null, raceSeriesDisplay, raceDisplay);
     }
 }

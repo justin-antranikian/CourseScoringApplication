@@ -13,27 +13,67 @@ namespace Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ParentLocationId = table.Column<int>(type: "int", nullable: true),
+                    LocationType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    Name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Slug = table.Column<string>(type: "VARCHAR(500)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locations_Locations_ParentLocationId",
+                        column: x => x.ParentLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Athletes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Area = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    AreaLocationId = table.Column<int>(type: "int", nullable: false),
+                    CityLocationId = table.Column<int>(type: "int", nullable: false),
+                    StateLocationId = table.Column<int>(type: "int", nullable: false),
                     AreaRank = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     CityRank = table.Column<int>(type: "int", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     FirstName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     FullName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    Gender = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     LastName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
-                    State = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     StateRank = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Athletes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Athletes_Locations_AreaLocationId",
+                        column: x => x.AreaLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Athletes_Locations_CityLocationId",
+                        column: x => x.CityLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Athletes_Locations_StateLocationId",
+                        column: x => x.StateLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,22 +82,39 @@ namespace Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Area = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    AreaLocationId = table.Column<int>(type: "int", nullable: false),
+                    CityLocationId = table.Column<int>(type: "int", nullable: false),
+                    StateLocationId = table.Column<int>(type: "int", nullable: false),
                     AreaRank = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     CityRank = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "VARCHAR(250)", nullable: false),
-                    IsUpcoming = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
                     RaceSeriesType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    State = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     StateRank = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RaceSeries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RaceSeries_Locations_AreaLocationId",
+                        column: x => x.AreaLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RaceSeries_Locations_CityLocationId",
+                        column: x => x.CityLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RaceSeries_Locations_StateLocationId",
+                        column: x => x.StateLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -229,7 +286,6 @@ namespace Api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "VARCHAR(250)", nullable: true),
                     Distance = table.Column<double>(type: "float", nullable: false),
                     DistanceFromStart = table.Column<double>(type: "float", nullable: false),
                     IntervalType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
@@ -342,14 +398,14 @@ namespace Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DivisionRank = table.Column<int>(type: "int", nullable: false),
-                    GenderRank = table.Column<int>(type: "int", nullable: false),
-                    IsHighestIntervalCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    OverallRank = table.Column<int>(type: "int", nullable: false),
                     AthleteCourseId = table.Column<int>(type: "int", nullable: false),
                     BracketId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
+                    DivisionRank = table.Column<int>(type: "int", nullable: false),
+                    GenderRank = table.Column<int>(type: "int", nullable: false),
                     IntervalId = table.Column<int>(type: "int", nullable: false),
+                    IsHighestIntervalCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    OverallRank = table.Column<int>(type: "int", nullable: false),
                     Rank = table.Column<int>(type: "int", nullable: false),
                     TimeOnInterval = table.Column<int>(type: "int", nullable: false),
                     TimeOnCourse = table.Column<int>(type: "int", nullable: false)
@@ -389,11 +445,11 @@ namespace Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
                     AthleteCourseId = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
                     IntervalId = table.Column<int>(type: "int", nullable: false),
-                    TimeOnCourse = table.Column<int>(type: "int", nullable: false),
-                    TimeOnInterval = table.Column<int>(type: "int", nullable: false)
+                    TimeOnInterval = table.Column<int>(type: "int", nullable: false),
+                    TimeOnCourse = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -454,6 +510,21 @@ namespace Api.Migrations
                 column: "AthleteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Athletes_AreaLocationId",
+                table: "Athletes",
+                column: "AreaLocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Athletes_CityLocationId",
+                table: "Athletes",
+                column: "CityLocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Athletes_StateLocationId",
+                table: "Athletes",
+                column: "StateLocationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AthleteWellnessEntries_AthleteId",
                 table: "AthleteWellnessEntries",
                 column: "AthleteId");
@@ -494,9 +565,29 @@ namespace Api.Migrations
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Locations_ParentLocationId",
+                table: "Locations",
+                column: "ParentLocationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Races_RaceSeriesId",
                 table: "Races",
                 column: "RaceSeriesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RaceSeries_AreaLocationId",
+                table: "RaceSeries",
+                column: "AreaLocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RaceSeries_CityLocationId",
+                table: "RaceSeries",
+                column: "CityLocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RaceSeries_StateLocationId",
+                table: "RaceSeries",
+                column: "StateLocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Results_AthleteCourseId",
@@ -581,6 +672,9 @@ namespace Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "RaceSeries");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

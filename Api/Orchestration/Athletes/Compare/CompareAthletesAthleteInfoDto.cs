@@ -6,7 +6,6 @@ public static class CompareAthletesAthleteInfoDtoMapper
 {
     public static CompareAthletesAthleteInfoDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<Result> resultsForAthlete, List<AthleteRaceSeriesGoal> goals)
     {
-        var locationInfoWithRank = new LocationInfoWithRank(athlete);
         var coursesForAthlete = GetCoursesForAthlete(courses, resultsForAthlete);
 
         CompareAthletesStat GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
@@ -35,7 +34,7 @@ public static class CompareAthletesAthleteInfoDtoMapper
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
-            LocationInfoWithRank = locationInfoWithRank,
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             Stats = stats
         };
     }

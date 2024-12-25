@@ -22,7 +22,7 @@ public partial class GetDashboardInfoOrchestrator
 
         lock (_athletesLock)
         {
-            _locationsByAthletes ??= scoringDbContext.Athletes.Select(oo => new Location(oo.State, oo.Area, oo.City)).ToList();
+            //_locationsByAthletes ??= scoringDbContext.Athletes.Select(oo => new Location(oo.State, oo.Area, oo.City)).ToList();
             return _locationsByAthletes;
         }
     }
@@ -36,7 +36,7 @@ public partial class GetDashboardInfoOrchestrator
 
         lock (_eventsLock)
         {
-            _locationsByEvents ??= scoringDbContext.RaceSeries.Select(oo => new Location(oo.State, oo.Area, oo.City)).ToList();
+            //_locationsByEvents ??= scoringDbContext.RaceSeries.Select(oo => new Location(oo.State, oo.Area, oo.City)).ToList();
             return _locationsByEvents;
         }
     }

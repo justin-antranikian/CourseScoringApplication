@@ -31,16 +31,14 @@ namespace Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Area")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
+                    b.Property<int>("AreaLocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("AreaRank")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
+                    b.Property<int>("CityLocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CityRank")
                         .HasColumnType("int");
@@ -67,14 +65,19 @@ namespace Api.Migrations
                     b.Property<int>("OverallRank")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                    b.Property<int>("StateLocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StateRank")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AreaLocationId");
+
+                    b.HasIndex("CityLocationId");
+
+                    b.HasIndex("StateLocationId");
 
                     b.ToTable("Athletes", (string)null);
                 });
@@ -353,9 +356,6 @@ namespace Api.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("VARCHAR(250)");
-
                     b.Property<double>("Distance")
                         .HasColumnType("float");
 
@@ -385,6 +385,36 @@ namespace Api.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Intervals", (string)null);
+                });
+
+            modelBuilder.Entity("Api.DataModels.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LocationType")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)");
+
+                    b.Property<int?>("ParentLocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentLocationId");
+
+                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("Api.DataModels.Race", b =>
@@ -424,16 +454,14 @@ namespace Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Area")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                    b.Property<int>("AreaLocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("AreaRank")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                    b.Property<int>("CityLocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CityRank")
                         .HasColumnType("int");
@@ -441,9 +469,6 @@ namespace Api.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("VARCHAR(250)");
-
-                    b.Property<bool>("IsUpcoming")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -459,14 +484,19 @@ namespace Api.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                    b.Property<int>("StateLocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StateRank")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AreaLocationId");
+
+                    b.HasIndex("CityLocationId");
+
+                    b.HasIndex("StateLocationId");
 
                     b.ToTable("RaceSeries", (string)null);
                 });
@@ -557,6 +587,33 @@ namespace Api.Migrations
                     b.HasIndex("IntervalId");
 
                     b.ToTable("TagReads", (string)null);
+                });
+
+            modelBuilder.Entity("Api.DataModels.Athlete", b =>
+                {
+                    b.HasOne("Api.DataModels.Location", "AreaLocation")
+                        .WithMany("AreaAthletes")
+                        .HasForeignKey("AreaLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.DataModels.Location", "CityLocation")
+                        .WithMany("CityAthletes")
+                        .HasForeignKey("CityLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.DataModels.Location", "StateLocation")
+                        .WithMany("StateAthletes")
+                        .HasForeignKey("StateLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AreaLocation");
+
+                    b.Navigation("CityLocation");
+
+                    b.Navigation("StateLocation");
                 });
 
             modelBuilder.Entity("Api.DataModels.AthleteCourse", b =>
@@ -708,6 +765,16 @@ namespace Api.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("Api.DataModels.Location", b =>
+                {
+                    b.HasOne("Api.DataModels.Location", "ParentLocation")
+                        .WithMany("ChildLocations")
+                        .HasForeignKey("ParentLocationId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ParentLocation");
+                });
+
             modelBuilder.Entity("Api.DataModels.Race", b =>
                 {
                     b.HasOne("Api.DataModels.RaceSeries", "RaceSeries")
@@ -717,6 +784,33 @@ namespace Api.Migrations
                         .IsRequired();
 
                     b.Navigation("RaceSeries");
+                });
+
+            modelBuilder.Entity("Api.DataModels.RaceSeries", b =>
+                {
+                    b.HasOne("Api.DataModels.Location", "AreaLocation")
+                        .WithMany("AreaRaceSeries")
+                        .HasForeignKey("AreaLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.DataModels.Location", "CityLocation")
+                        .WithMany("CityRaceSeries")
+                        .HasForeignKey("CityLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.DataModels.Location", "StateLocation")
+                        .WithMany("StateRaceSeries")
+                        .HasForeignKey("StateLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AreaLocation");
+
+                    b.Navigation("CityLocation");
+
+                    b.Navigation("StateLocation");
                 });
 
             modelBuilder.Entity("Api.DataModels.Result", b =>
@@ -836,6 +930,23 @@ namespace Api.Migrations
                     b.Navigation("Results");
 
                     b.Navigation("TagReads");
+                });
+
+            modelBuilder.Entity("Api.DataModels.Location", b =>
+                {
+                    b.Navigation("AreaAthletes");
+
+                    b.Navigation("AreaRaceSeries");
+
+                    b.Navigation("ChildLocations");
+
+                    b.Navigation("CityAthletes");
+
+                    b.Navigation("CityRaceSeries");
+
+                    b.Navigation("StateAthletes");
+
+                    b.Navigation("StateRaceSeries");
                 });
 
             modelBuilder.Entity("Api.DataModels.Race", b =>

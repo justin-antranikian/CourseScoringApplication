@@ -12,6 +12,12 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
         var athleteCourse = await scoringDbContext.AthleteCourses
                                 .Include(oo => oo.Athlete)
                                 .ThenInclude(oo => oo.AthleteRaceSeriesGoals)
+                                .Include(oo => oo.Athlete)
+                                .ThenInclude(oo => oo.AreaLocation)
+                                .Include(oo => oo.Athlete)
+                                .ThenInclude(oo => oo.CityLocation)
+                                .Include(oo => oo.Athlete)
+                                .ThenInclude(oo => oo.StateLocation)
                                 .Include(oo => oo.AthleteCourseBrackets)
                                 .Include(oo => oo.AthleteCourseTrainings)
                                 .SingleAsync(oo => oo.Id == athleteCourseId);

@@ -9,7 +9,7 @@ public static class RaceLeaderboardDtoMapper
         return new RaceLeaderboardDto
         {
             Leaderboards = leaderboards,
-            LocationInfoWithRank = new LocationInfoWithRank(race.RaceSeries),
+            LocationInfoWithRank = race.RaceSeries.ToLocationInfoWithRank(),
             RaceKickOffDate = race.KickOffDate.ToShortDateString(),
             RaceName = race.Name,
             RaceSeriesDescription = race.RaceSeries.Description,
@@ -21,11 +21,12 @@ public static class RaceLeaderboardDtoMapper
 
 public record RaceLeaderboardDto
 {
-    public required List<RaceLeaderboardByCourseDto> Leaderboards { get; init; }
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required string RaceKickOffDate { get; init; }
     public required string RaceName { get; init; }
     public required string RaceSeriesDescription { get; init; }
     public required RaceSeriesType RaceSeriesType { get; init; }
     public required string RaceSeriesTypeName { get; init; }
+
+    public required List<RaceLeaderboardByCourseDto> Leaderboards { get; init; }
 }

@@ -17,7 +17,7 @@ public static class AthleteSearchResultDtoMapper
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
-            LocationInfoWithRank = new LocationInfoWithRank(athlete),
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             Tags = athlete.GetTags()
         };
     }

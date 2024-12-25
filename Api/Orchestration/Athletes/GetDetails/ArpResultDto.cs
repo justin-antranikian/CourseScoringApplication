@@ -16,7 +16,7 @@ public static class ArpResultDtoMapper
         return new ArpResultDto
         {
             AthleteCourseId = result.AthleteCourseId,
-            City = raceSeries.City,
+            City = raceSeries.CityLocation!.Name,
             CourseId = course.Id,
             CourseName = course.Name,
             GenderCount = genderTotal,
@@ -29,7 +29,7 @@ public static class ArpResultDtoMapper
             RaceId = course.RaceId,
             RaceName = race.Name,
             RaceSeriesType = raceSeries.RaceSeriesType,
-            State = raceSeries.State
+            State = raceSeries.StateLocation!.Name
         };
     }
 }

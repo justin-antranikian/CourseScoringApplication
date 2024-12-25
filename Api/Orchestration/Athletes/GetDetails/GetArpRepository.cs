@@ -12,6 +12,9 @@ public class GetArpRepository(ScoringDbContext scoringDbContext)
         var athlete = await scoringDbContext.Athletes
                                 .Include(oo => oo.AthleteWellnessEntries)
                                 .Include(oo => oo.AthleteRaceSeriesGoals)
+                                .Include(oo => oo.AreaLocation)
+                                .Include(oo => oo.CityLocation)
+                                .Include(oo => oo.StateLocation)
                                 .AsSplitQuery()
                                 .SingleAsync(oo => oo.Id == athleteId);
 

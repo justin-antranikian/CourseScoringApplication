@@ -18,6 +18,9 @@ public class SearchAllEntitiesOrchestrator(ScoringDbContext scoringDbContext)
     {
         var query = scoringDbContext.Athletes
                         .Include(oo => oo.AthleteRaceSeriesGoals)
+                        .Include(oo => oo.AreaLocation)
+                        .Include(oo => oo.CityLocation)
+                        .Include(oo => oo.StateLocation)
                         .Where(oo => oo.FullName.StartsWith(searhTerm))
                         .OrderBy(oo => oo.OverallRank);
 

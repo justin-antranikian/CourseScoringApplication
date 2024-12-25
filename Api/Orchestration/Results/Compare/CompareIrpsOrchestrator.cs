@@ -45,11 +45,11 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
         return new CompareIrpsAthleteInfoDto
         {
             AthleteCourseId = athleteCourse.Id,
-            City = athlete.City,
+            City = athlete!.CityLocation!.Name,
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
-            State = athlete.State,
+            State = athlete.StateLocation!.Name,
             CompareIrpsIntervalDtos = GetIntervals().ToList()
         };
     }

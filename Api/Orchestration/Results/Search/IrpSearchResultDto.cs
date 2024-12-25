@@ -11,19 +11,19 @@ public static class IrpSearchResultDtoMapper
 
     public static IrpSearchResultDto GetIrpSearchResultDto(AthleteCourse athleteCourse)
     {
-        var athlete = athleteCourse.Athlete;
-        var course = athleteCourse.Course;
+        var athlete = athleteCourse.Athlete!;
+        var course = athleteCourse.Course!;
 
         return new IrpSearchResultDto
         {
             AthleteCourseId = athlete.Id,
             Bib = athleteCourse.Bib,
-            City = athlete.City,
+            City = athlete.CityLocation!.Name,
             CourseName = course.Name,
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
-            State = athlete.State,
+            State = athlete.StateLocation!.Name,
         };
     }
 }

@@ -17,7 +17,6 @@ public abstract class DashboardInfoCreatorBase(Location location)
         var locationsForState = locations.Where(oo => oo.State == _location.State).ToList();
         var states = GetStates(locations.GroupBy(oo => oo.State));
         var areas = GetAreas(locationsForState.GroupBy(oo => oo.Area));
-        var locationInfoWithUrl = new LocationInfoWithUrl(_location.State, _location.Area, _location.City);
         var (name, nameUrl, description) = GetUrlAndDescriptionProperties();
         return new DashboardInfoResponseDto(states, areas, stateNavItem, name, nameUrl, description);
     }
