@@ -10,8 +10,8 @@ public partial class GetDashboardInfoOrchestrator
     private static readonly object _eventsLock = new();
     private static readonly object _athletesLock = new();
 
-    private static List<Location> _locationsByAthletes;
-    private static List<Location> _locationsByEvents;
+    private static List<Location>? _locationsByAthletes;
+    private static List<Location>? _locationsByEvents;
 
     private static List<Location> GetLocationsByAthletesFromCache(ScoringDbContext scoringDbContext)
     {
