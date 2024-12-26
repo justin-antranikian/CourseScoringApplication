@@ -69,7 +69,6 @@ public class ArpGoalDtoTests
                         Name = "null",
                         OverallRank = 0,
                         RaceSeriesType = RaceSeriesType.Running,
-                        Rating = 0,
                         StateRank = 0
                     },
                     KickOffDate = default,

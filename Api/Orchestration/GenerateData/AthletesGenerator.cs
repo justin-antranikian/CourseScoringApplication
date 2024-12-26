@@ -45,7 +45,6 @@ public static class AthletesGenerator
         var possibleGoals = raceSeriesTypes.Select(oo => AthleteRaceSeriesGoal.Create(oo, totalEventsPossibleValues.GetRandomValue()));
         var goalsTakeAmount = new[] { 2, 3, 4, 5 }.GetRandomValue();
         var goals = possibleGoals.GetRandomValues(goalsTakeAmount);
-        var location = LocationHelper.GetRandomLocation();
 
         return new Athlete
         {

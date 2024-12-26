@@ -18,7 +18,6 @@ internal static class TestDataGenerator
                 StateRank = 3,
                 AreaRank = 2,
                 CityRank = 1,
-                Rating = 0
             }
         };
     }

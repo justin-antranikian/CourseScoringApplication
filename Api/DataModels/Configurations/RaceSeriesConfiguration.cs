@@ -28,7 +28,6 @@ public static class RaceSeriesConfiguration
             .HasConversion<EnumToStringConverter<RaceSeriesType>>()
             .IsRequired();
 
-        builder.Property(oo => oo.Rating).IsRequired();
         builder.Property(oo => oo.StateRank).IsRequired();
 
         builder.HasOne(oo => oo.AreaLocation)

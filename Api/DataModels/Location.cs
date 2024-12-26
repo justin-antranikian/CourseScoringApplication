@@ -10,7 +10,7 @@ public enum LocationType
 public class Location
 {
     public int Id { get; set; }
-    public required int? ParentLocationId { get; set; }
+    public int? ParentLocationId { get; set; }
 
     public required LocationType LocationType { get; set; }
     public required string Name { get; set; }

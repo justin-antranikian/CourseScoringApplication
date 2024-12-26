@@ -25,7 +25,6 @@ public class RaceSeries
     public required string Name { get; set; }
     public required int OverallRank { get; set; }
     public required RaceSeriesType RaceSeriesType { get; set; }
-    public required int Rating { get; set; }
     public required int StateRank { get; set; }
 
     public Location? AreaLocation { get; set; }

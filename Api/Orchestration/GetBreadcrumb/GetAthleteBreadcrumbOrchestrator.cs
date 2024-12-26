@@ -1,10 +1,10 @@
-﻿namespace Api.Orchestration.GetBreadcrumb;
+﻿//namespace Api.Orchestration.GetBreadcrumb;
 
-public class GetAthleteBreadcrumbOrchestrator : GetBreadcrumbOrchestratorBase
-{
-    public BreadcrumbResultDto GetResult(BreadcrumbRequestDto breadcrumbRequestDto)
-    {
-        var locationInfoWithUrl = GetLocationInfoWithUrl(breadcrumbRequestDto);
-        return new BreadcrumbResultDto(locationInfoWithUrl);
-    }
-}
+//public class GetAthleteBreadcrumbOrchestrator : GetBreadcrumbOrchestratorBase
+//{
+//    public BreadcrumbResultDto GetResult(BreadcrumbRequestDto breadcrumbRequestDto)
+//    {
+//        var locationInfoWithUrl = GetLocationInfoWithUrl(breadcrumbRequestDto);
+//        return new BreadcrumbResultDto(locationInfoWithUrl);
+//    }
+//}

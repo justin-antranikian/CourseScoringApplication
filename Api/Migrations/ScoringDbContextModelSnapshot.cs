@@ -481,9 +481,6 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(50)");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
                     b.Property<int>("StateLocationId")
                         .HasColumnType("int");
 

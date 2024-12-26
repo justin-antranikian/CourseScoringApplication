@@ -91,7 +91,6 @@ namespace Api.Migrations
                     Name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
                     RaceSeriesType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
                     StateRank = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

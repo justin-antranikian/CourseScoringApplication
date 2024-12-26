@@ -7,7 +7,7 @@ public class RaceSeriesGeneratorTests
     [Fact]
     public void RaceSeriesGenerator_ReturnsCorrectResults()
     {
-        var raceSeriesEntries = RaceSeriesGenerator.GetRaceSeries().ToArray();
+        var raceSeriesEntries = RaceSeriesGenerator.GetRaceSeries([]).ToArray();
 
         Assert.Collection(raceSeriesEntries[0..4], raceSeries =>
         {

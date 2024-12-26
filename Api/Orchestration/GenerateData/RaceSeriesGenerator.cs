@@ -3,41 +3,18 @@ using Bogus;
 
 namespace Api.Orchestration.GenerateData;
 
-internal class RaceSeriesFaker
+file class RaceSeriesFaker
 {
-    public Guid Identifier;
-    public string Name;
-    public RaceSeriesType RaceSeriesType;
-}
-
-internal class RaceSeriesBasic : RaceSeriesFaker
-{
-    public readonly int Rank;
-    public readonly string State;
-    public readonly string Area;
-    public readonly string City;
-
-    public RaceSeriesBasic(RaceSeriesFaker raceSeriesBasic, Location location, int rank)
-    {
-        Identifier = raceSeriesBasic.Identifier;
-        Name = raceSeriesBasic.Name;
-        RaceSeriesType = raceSeriesBasic.RaceSeriesType;
-        Rank = rank;
-        State = location.State;
-        Area = location.Area;
-        City = location.City;
-    }
+    public required string Name { get; set; }
 }
 
 public static class RaceSeriesGenerator
 {
-    public static List<RaceSeries> GetRaceSeries()
+    public static IEnumerable<RaceSeries> GetRaceSeries(List<Location> locations)
     {
-        var raceSeriesBasicEntries = GetRaceSeriesBasicEntries();
-
-        var stateDictionary = GetRankingDictionary(raceSeriesBasicEntries, oo => oo.State);
-        var areaDictionary = GetRankingDictionary(raceSeriesBasicEntries, oo => oo.Area);
-        var cityDictionary = GetRankingDictionary(raceSeriesBasicEntries, oo => oo.City);
+        var raceSeriesFaker = new Faker<RaceSeriesFaker>()
+            .RuleFor(oo => oo.Name, f => f.Address.City()
+        );
 
         var possibleDescriptions = new[]
         {
@@ -48,62 +25,85 @@ public static class RaceSeriesGenerator
             "A great event through the city. Brought to you by our sponsers.",
         };
 
-        var possibleRatings = Enumerable.Range(1, 10).ToList();
+        //var more;
 
-        RaceSeries MapToRaceSeries(RaceSeriesBasic raceSeriesBasic)
+        var cityLocations = locations.SelectMany(oo => oo.ChildLocations).SelectMany(oo => oo.ChildLocations).ToList();
+
+        var raceSeriesEntries = new List<RaceSeries>();
+
+        var stateRanks = new Dictionary<int, int>();
+        var areaRanks = new Dictionary<int, int>();
+        var cityRanks = new Dictionary<int, int>();
+
+        var overallRank = 1;
+        foreach (var seriesFaker in raceSeriesFaker.Generate(50))
         {
-            var id = raceSeriesBasic.Identifier;
+            var cityLocation = cityLocations.GetRandomValue();
+            var areaLocation = cityLocation.ParentLocation!;
+            var stateLocationId = areaLocation.ParentLocationId!.Value;
 
-            return new RaceSeries
+            var raceSeriesType = Enum.GetValues(typeof(RaceSeriesType)).OfType<RaceSeriesType>().GetRandomValue();
+
+            var stateRank = GetCount(stateRanks, stateLocationId);
+            var areaRank = GetCount(areaRanks, areaLocation.Id);
+            var cityRank = GetCount(cityRanks, cityLocation.Id);
+
+            raceSeriesEntries.Add(new RaceSeries
             {
-                Name = raceSeriesBasic.Name,
+                AreaLocationId = areaLocation.Id,
+                CityLocationId = cityLocation.Id,
+                StateLocationId = stateLocationId,
+                AreaRank = areaRank,
+                CityRank = cityRank,
                 Description = possibleDescriptions.GetRandomValue(),
-                RaceSeriesType = raceSeriesBasic.RaceSeriesType,
-                //State = raceSeriesBasic.State,
-                //Area = raceSeriesBasic.Area,
-                //City = raceSeriesBasic.City,
-                OverallRank = raceSeriesBasic.Rank,
-                StateRank = stateDictionary[id],
-                AreaRank = areaDictionary[id],
-                CityRank = cityDictionary[id],
-                Rating = possibleRatings.GetRandomValue()
-            };
+                Name = seriesFaker.Name,
+                OverallRank = overallRank,
+                RaceSeriesType = raceSeriesType,
+                StateRank = stateRank
+            });
+
+            overallRank++;
         }
 
-        return raceSeriesBasicEntries.Select(MapToRaceSeries).ToList();
+        //var stateRankings = GetRankingDictionary(raceSeriesEntries, oo => oo.StateLocationId);
+        //var areaRankings = GetRankingDictionary(raceSeriesEntries, oo => oo.AreaLocationId);
+        //var cityRankings = GetRankingDictionary(raceSeriesEntries, oo => oo.CityLocationId);
+
+        //foreach (var raceSeriesEntry in raceSeriesEntries)
+        //{
+        //    raceSeriesEntry.StateRank = stateRankings[raceSeriesEntry.Id];
+        //    raceSeriesEntry.AreaRank = areaRankings[raceSeriesEntry.Id];
+        //    raceSeriesEntry.CityRank = cityRankings[raceSeriesEntry.Id];
+        //}
+
+        return raceSeriesEntries;
     }
 
-    private static List<RaceSeriesBasic> GetRaceSeriesBasicEntries()
+    private static int GetCount(Dictionary<int, int> counts, int locationId)
     {
-        var raceSeriesFaker = new Faker<RaceSeriesFaker>()
-            .RuleFor(oo => oo.Identifier, f => Guid.NewGuid())
-            .RuleFor(oo => oo.Name, f => f.Address.City())
-            .RuleFor(oo => oo.RaceSeriesType, f => typeof(RaceSeriesType).GetRandomEnumValue()
-        );
-
-        var raceSeriesBasicEntries = raceSeriesFaker.Generate(50).Select((oo, index) =>
+        if (!counts.TryGetValue(locationId, out int currentCount))
         {
-            var possibleLocation = LocationHelper.GetRandomLocation();
-            var rank = index + 1;
-            return new RaceSeriesBasic(oo, possibleLocation, rank);
-        });
-
-        return raceSeriesBasicEntries.ToList();
-    }
-
-    private static Dictionary<Guid, int> GetRankingDictionary(List<RaceSeriesBasic> raceSeriesEntries, Func<RaceSeriesBasic, string> keySelector)
-    {
-        var rankingDictionary = new Dictionary<Guid, int>();
-        foreach (var grouping in raceSeriesEntries.GroupBy(keySelector))
-        {
-            var rank = 1;
-            foreach (var raceSeriesBasic in grouping)
-            {
-                rankingDictionary.Add(raceSeriesBasic.Identifier, rank);
-                rank++;
-            }
+            counts[locationId] = 1;
+            return 1;
         }
 
-        return rankingDictionary;
+        counts[locationId] = ++currentCount;
+        return currentCount;
     }
+
+    //private static Dictionary<int, int> GetRankingDictionary(List<RaceSeries> raceSeriesEntries, Func<RaceSeries, int> keySelector)
+    //{
+    //    var rankingDictionary = new Dictionary<int, int>();
+    //    foreach (var grouping in raceSeriesEntries.GroupBy(keySelector))
+    //    {
+    //        var rank = 1;
+    //        foreach (var raceSeriesBasic in grouping)
+    //        {
+    //            rankingDictionary.Add(raceSeriesBasic.Id, rank);
+    //            rank++;
+    //        }
+    //    }
+
+    //    return rankingDictionary;
+    //}
 }

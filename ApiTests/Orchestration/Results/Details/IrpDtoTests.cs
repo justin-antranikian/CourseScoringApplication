@@ -97,7 +97,6 @@ public class IrpDtoTests
                     CityRank = 0,
                     Name = "",
                     OverallRank = 0,
-                    Rating = 0,
                     StateRank = 0
                 },
                 TimeZoneId = "Pacific Standard Time",

@@ -74,7 +74,6 @@ public class ArpResultDtoTests
                     Description = "",
                     Name = "",
                     OverallRank = 0,
-                    Rating = 0,
                     StateRank = 0,
                 },
                 KickOffDate = default,
