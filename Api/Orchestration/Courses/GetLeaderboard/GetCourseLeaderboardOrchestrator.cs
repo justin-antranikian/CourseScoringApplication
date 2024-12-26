@@ -9,7 +9,12 @@ public class GetCourseLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
     {
         var course = await scoringDbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
 
-        var race = await scoringDbContext.Races.Include(oo => oo.RaceSeries).Include(oo => oo.Courses).SingleAsync(oo => oo.Id == course.RaceId);
+        var race = await scoringDbContext.Races
+            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.StateLocation)
+            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.AreaLocation)
+            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.CityLocation)
+            .Include(oo => oo.Courses)
+            .SingleAsync(oo => oo.Id == course.RaceId);
         var bracketToUse = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);
 
         var results = await GetResults(bracketToUse.Id, intervalId, startingRank, take);

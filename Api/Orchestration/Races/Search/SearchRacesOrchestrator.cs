@@ -9,14 +9,9 @@ public class SearchRacesOrchestrator(ScoringDbContext scoringDbContext)
     {
         var baseQuery = scoringDbContext.RaceSeries.AsQueryable();
 
-        if (raceSeriesRequest.SearchTerm is string searchTerm)
+        if (raceSeriesRequest.SearchTerm != null)
         {
-            baseQuery = baseQuery.Where(oo => oo.Name.StartsWith(searchTerm));
-        }
-
-        if (raceSeriesRequest.RaceSeriesTypes.Any())
-        {
-            baseQuery = baseQuery.Where(oo => raceSeriesRequest.RaceSeriesTypes.Contains(oo.RaceSeriesType));
+            baseQuery = baseQuery.Where(oo => oo.Name.StartsWith(raceSeriesRequest.SearchTerm));
         }
 
         //if (raceSeriesRequest.State is string stateUrl)
@@ -38,13 +33,15 @@ public class SearchRacesOrchestrator(ScoringDbContext scoringDbContext)
         //}
 
         var raceSeries = await baseQuery
+                            .Include(oo => oo.StateLocation)
+                            .Include(oo => oo.AreaLocation)
+                            .Include(oo => oo.CityLocation)
                             .Include(oo => oo.Races)
                             .ThenInclude(oo => oo.Courses)
                             .OrderBy(oo => oo.OverallRank)
                             .Take(28)
                             .ToListAsync();
 
-        var searchDtos = EventSearchResultDtoMapper.GetEventSearchResultDto(raceSeries);
-        return searchDtos;
+        return EventSearchResultDtoMapper.GetEventSearchResultDto(raceSeries);
     }
 }

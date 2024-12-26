@@ -3,63 +3,67 @@ using Bogus;
 
 namespace Api.Orchestration.GenerateData;
 
-internal class AthleteFaker
+file class AthleteFaker
 {
-    public readonly Guid Identifier;
-    public readonly string FirstName;
-    public readonly string LastName;
-    public readonly DateTime DateOfBirth;
-    public readonly Gender Gender;
+    public required string FirstName { get; init; }
+    public required string LastName { get; init; }
+    public required DateTime DateOfBirth { get; init; }
+    public required Gender Gender { get; init; }
 }
 
 public static class AthletesGenerator
 {
-    public static List<Athlete> GetAthletes()
+    public static IEnumerable<Athlete> GetAthletes(List<Location> locations)
     {
-        var athletesFaker = new Faker<AthleteFaker>()
-            .RuleFor(oo => oo.Identifier, _ => Guid.NewGuid())
+        var fakerRuleSet = new Faker<AthleteFaker>()
             .RuleFor(oo => oo.FirstName, f => f.Person.FirstName)
             .RuleFor(oo => oo.LastName, f => f.Person.LastName)
             .RuleFor(oo => oo.DateOfBirth, f => f.Person.DateOfBirth)
             .RuleFor(oo => oo.Gender, _ => typeof(Gender).GetRandomEnumValue()
         );
 
-        var athletes = athletesFaker.Generate(500).Select(MapToAthlete).ToList();
-        return athletes;
-    }
+        var cityLocations = locations.Where(oo => oo.LocationType == LocationType.City).ToList();
 
-    private static Athlete MapToAthlete(AthleteFaker athleteFaker)
-    {
-        var totalEventsPossibleValues = new[] { 1, 2, 4, 7, 10, 15 };
-
-        var raceSeriesTypes = new[]
+        foreach (var faker in fakerRuleSet.Generate(500))
         {
-            RaceSeriesType.Running,
-            RaceSeriesType.Triathalon,
-            RaceSeriesType.RoadBiking,
-            RaceSeriesType.MountainBiking,
-            RaceSeriesType.CrossCountrySkiing,
-            RaceSeriesType.Swim,
-        };
+            var cityLocation = cityLocations.GetRandomValue();
+            var areaLocation = cityLocation.ParentLocation!;
+            var stateLocationId = areaLocation.ParentLocationId!.Value;
 
-        var possibleGoals = raceSeriesTypes.Select(oo => AthleteRaceSeriesGoal.Create(oo, totalEventsPossibleValues.GetRandomValue()));
-        var goalsTakeAmount = new[] { 2, 3, 4, 5 }.GetRandomValue();
-        var goals = possibleGoals.GetRandomValues(goalsTakeAmount);
+            var totalEventsPossibleValues = new[] { 1, 2, 4, 7, 10, 15 };
 
-        return new Athlete
-        {
-            AreaRank = 0,
-            CityRank = 0,
-            DateOfBirth = athleteFaker.DateOfBirth,
-            FirstName = athleteFaker.FirstName,
-            FullName = athleteFaker.FirstName + " " + athleteFaker.LastName,
-            Gender = athleteFaker.Gender,
-            LastName = athleteFaker.LastName,
-            OverallRank = 0,
-            StateRank = 0,
-            AthleteRaceSeriesGoals = goals.ToList(),
-            AthleteWellnessEntries = GetWellnessEntries(),
-        };
+            var raceSeriesTypes = new[]
+            {
+                RaceSeriesType.Running,
+                RaceSeriesType.Triathalon,
+                RaceSeriesType.RoadBiking,
+                RaceSeriesType.MountainBiking,
+                RaceSeriesType.CrossCountrySkiing,
+                RaceSeriesType.Swim,
+            };
+
+            var possibleGoals = raceSeriesTypes.Select(oo => AthleteRaceSeriesGoal.Create(oo, totalEventsPossibleValues.GetRandomValue()));
+            var goalsTakeAmount = new[] { 2, 3, 4, 5 }.GetRandomValue();
+            var goals = possibleGoals.GetRandomValues(goalsTakeAmount);
+
+            yield return new Athlete
+            {
+                AreaLocationId = areaLocation.Id,
+                CityLocationId = cityLocation.Id,
+                StateLocationId = stateLocationId,
+                AreaRank = 0,
+                CityRank = 0,
+                DateOfBirth = faker.DateOfBirth,
+                FirstName = faker.FirstName,
+                FullName = faker.FirstName + " " + faker.LastName,
+                Gender = faker.Gender,
+                LastName = faker.LastName,
+                OverallRank = 0,
+                StateRank = 0,
+                AthleteRaceSeriesGoals = goals.ToList(),
+                AthleteWellnessEntries = GetWellnessEntries(),
+            };
+        }
     }
 
     private static List<AthleteWellnessEntry> GetWellnessEntries()
@@ -116,4 +120,3 @@ public static class AthletesGenerator
         return grouping.GetRandomValues(amountToTake);
     }
 }
-

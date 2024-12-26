@@ -79,6 +79,7 @@ public class CreateIntervalsOrchestrator(ScoringDbContext scoringDbContext)
 
         var fullCourse = new Interval
         {
+            CourseId = course.Id,
             Distance = cumulativeDistance,
             DistanceFromStart = cumulativeDistance,
             IntervalType = IntervalType.FullCourse,

@@ -5,9 +5,33 @@ namespace Api.Orchestration.GenerateData;
 
 public class GenerateDataOrchestrator(ScoringDbContext scoringDbContext)
 {
-    private async Task GenerateAthletes()
+    private async Task GenerateRaceSeriesThroughCourses(List<Location> locations)
     {
-        var athletes = AthletesGenerator.GetAthletes();
+        var raceSeries = RaceSeriesGenerator.GetRaceSeries(locations).ToList();
+        scoringDbContext.RaceSeries.AddRange(raceSeries);
+        await scoringDbContext.SaveChangesAsync();
+
+        var races = RaceGenerator.GetRaces(raceSeries).ToList();
+        await scoringDbContext.Races.AddRangeAsync(races);
+        await scoringDbContext.SaveChangesAsync();
+
+        var courses = CourseGenerator.GetCourses(races);
+        await scoringDbContext.Courses.AddRangeAsync(courses);
+        await scoringDbContext.SaveChangesAsync();
+    }
+
+    private async Task GenerateBrackets()
+    {
+        var courses = await scoringDbContext.Courses.ToListAsync();
+        var brackets = BracketsGenerator.GetBrackets(courses);
+
+        scoringDbContext.Brackets.AddRange(brackets);
+        await scoringDbContext.SaveChangesAsync();
+    }
+
+    private async Task GenerateAthletes(List<Location> locations)
+    {
+        var athletes = AthletesGenerator.GetAthletes(locations);
         await scoringDbContext.Athletes.AddRangeAsync(athletes);
         await scoringDbContext.SaveChangesAsync();
 
@@ -29,10 +53,10 @@ public class GenerateDataOrchestrator(ScoringDbContext scoringDbContext)
         await scoringDbContext.SaveChangesAsync();
     }
 
-    public async Task RankAthletes()
+    public async Task RankAthletes(List<Location> locations)
     {
         var athletes = await scoringDbContext.Athletes.Include(oo => oo.AthleteCourses).ToListAsync();
-        AthletesUpdator.RankAthletes(athletes);
+        AthletesUpdator.RankAthletes(athletes, locations);
         await scoringDbContext.SaveChangesAsync();
     }
 
@@ -48,36 +72,26 @@ public class GenerateDataOrchestrator(ScoringDbContext scoringDbContext)
 
     public async Task Generate()
     {
+        await GenerateLocations();
+        var locations = await scoringDbContext.Locations.ToListAsync();
+
+        await GenerateRaceSeriesThroughCourses(locations);
+        await GenerateBrackets();
+
+        await new CreateIntervalsOrchestrator(scoringDbContext).Create();
+
+        await GenerateAthletes(locations);
+        await GenerateAthleteCoursesAndCourseBrackets();
+        await RankAthletes(locations);
+
+        await GenerateTagReads();
+        await new ScoreCoursesOrchestrator(scoringDbContext).Score();
+    }
+
+    private async Task GenerateLocations()
+    {
         var locations = LocationGenerator.GenerateLocations().ToList();
         await scoringDbContext.Locations.AddRangeAsync(locations);
         await scoringDbContext.SaveChangesAsync();
-
-        var allLocations = await scoringDbContext.Locations.ToListAsync();
-        var raceSeries = RaceSeriesGenerator.GetRaceSeries(allLocations);
-        scoringDbContext.RaceSeries.AddRange(raceSeries);
-        await scoringDbContext.SaveChangesAsync();
-
-        //var races = RaceGenerator.GetRaces(raceSeries).ToList();
-        //await scoringDbContext.Races.AddRangeAsync(races);
-        //await scoringDbContext.SaveChangesAsync();
-
-        //var courses = CourseGenerator.GetCourses(races);
-        //await scoringDbContext.Courses.AddRangeAsync(courses);
-        //await scoringDbContext.SaveChangesAsync();
-
-        //var courses = await scoringDbContext.Courses.ToListAsync();
-        //var brackets = BracketsGenerator.GetBrackets(courses);
-
-        //scoringDbContext.Brackets.AddRange(brackets);
-        //await scoringDbContext.SaveChangesAsync();
-
-        //await new CreateIntervalsOrchestrator(scoringDbContext).Create();
-
-        //await GenerateAthletes();
-        //await GenerateAthleteCoursesAndCourseBrackets();
-        //await RankAthletes();
-
-        //await GenerateTagReads();
-        //await new ScoreCoursesOrchestrator(scoringDbContext).Score();
     }
 }

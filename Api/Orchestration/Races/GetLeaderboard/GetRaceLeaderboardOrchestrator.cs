@@ -11,7 +11,12 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext scoringDbContext)
     /// <param name="raceId"></param>
     public async Task<RaceLeaderboardDto> GetRaceLeaderboardDto(int raceId)
     {
-        var race = await scoringDbContext.Races.Include(oo => oo.RaceSeries).SingleAsync(oo => oo.Id == raceId);
+        var race = await scoringDbContext.Races
+            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.StateLocation)
+            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.AreaLocation)
+            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.CityLocation)
+            .SingleAsync(oo => oo.Id == raceId);
+
         var allCourses = await GetCourses(raceId);
         var overallBrackets = allCourses.SelectMany(oo => oo.Brackets).Where(oo => oo.BracketType == BracketType.Overall);
         var overallBracketIds = overallBrackets.Select(oo => oo.Id).ToList();

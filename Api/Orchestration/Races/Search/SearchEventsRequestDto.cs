@@ -1,26 +1,9 @@
-﻿using Api.DataModels;
+﻿namespace Api.Orchestration.Races.Search;
 
-namespace Api.Orchestration.Races.Search;
-
-public class SearchEventsRequestDto
+public record SearchEventsRequestDto
 {
-    public string? SearchTerm { get; set; }
-
-    public List<RaceSeriesType> RaceSeriesTypes { get; set; }
-
-    public string? State { get; set; }
-
-    public string? Area { get; set; }
-
-    public string? City { get; set; }
-
-    public SearchEventsRequestDto()
-    {
-        RaceSeriesTypes = new List<RaceSeriesType>();
-    }
-
-    public SearchEventsRequestDto(params RaceSeriesType[] raceSeriesTypes)
-    {
-        RaceSeriesTypes = raceSeriesTypes.ToList();
-    }
+    public string? SearchTerm { get; init; }
+    public string? State { get; init; }
+    public string? Area { get; init; }
+    public string? City { get; init; }
 }

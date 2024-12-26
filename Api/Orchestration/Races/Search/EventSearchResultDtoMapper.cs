@@ -18,7 +18,7 @@ public static class EventSearchResultDtoMapper
         {
             Courses = courses,
             Id = raceSeries.Id,
-            LocationInfoWithRank = null,
+            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             Name = raceSeries.Name,
             RaceSeriesTypeName = raceSeries.RaceSeriesType.ToFriendlyText(),
             UpcomingRaceId = upcomingRace.Id

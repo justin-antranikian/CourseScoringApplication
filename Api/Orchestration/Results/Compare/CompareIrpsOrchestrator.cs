@@ -87,7 +87,9 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
     {
         var query = scoringDbContext.AthleteCourses
                         .Include(oo => oo.Results)
-                        .Include(oo => oo.Athlete)
+                        .Include(oo => oo.Athlete).ThenInclude(oo => oo.StateLocation)
+                        .Include(oo => oo.Athlete).ThenInclude(oo => oo.AreaLocation)
+                        .Include(oo => oo.Athlete).ThenInclude(oo => oo.CityLocation)
                         .Where(oo => athleteCourseIds.Contains(oo.Id));
 
         return await query.ToListAsync();
