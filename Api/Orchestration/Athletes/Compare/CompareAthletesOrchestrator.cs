@@ -35,6 +35,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
             .Include(oo => oo.CityLocation)
             .Where(oo => athleteIds.Contains(oo.Id))
             .OrderBy(oo => oo.FullName);
+
         return await query.ToListAsync();
     }
 
