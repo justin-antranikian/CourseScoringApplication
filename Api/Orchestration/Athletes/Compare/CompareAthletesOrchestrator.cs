@@ -29,7 +29,12 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<Athlete>> GetAthletes(List<int> athleteIds)
     {
-        var query = scoringDbContext.Athletes.Where(oo => athleteIds.Contains(oo.Id)).OrderBy(oo => oo.FullName);
+        var query = scoringDbContext.Athletes
+            .Include(oo => oo.StateLocation)
+            .Include(oo => oo.AreaLocation)
+            .Include(oo => oo.CityLocation)
+            .Where(oo => athleteIds.Contains(oo.Id))
+            .OrderBy(oo => oo.FullName);
         return await query.ToListAsync();
     }
 

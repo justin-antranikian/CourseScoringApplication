@@ -29,11 +29,10 @@ public class AthletesController(ScoringDbContext scoringDbContext) : ControllerB
         return await orchestrator.GetCompareAthletesDto(compareIrpApiRequest.AthleteIds.Take(4).ToList());
     }
 
-    //[HttpGet("search")]
-    //public async Task<List<AthleteSearchResultDto>> Search([FromQuery] SearchAthletesRequestDto searchRequestDto)
-    //{
-    //    var orchestrator = new SearchAthletesOrchestrator(scoringDbContext);
-    //    var results = await orchestrator.GetSearchResults(searchRequestDto);
-    //    return results;
-    //}
+    [HttpGet("search")]
+    public async Task<List<AthleteSearchResultDto>> Search([FromQuery] SearchAthletesRequestDto searchRequestDto)
+    {
+        var orchestrator = new SearchAthletesOrchestrator(scoringDbContext);
+        return await orchestrator.GetSearchResults(searchRequestDto);
+    }
 }
