@@ -62,7 +62,7 @@ export default async function Page({ params: { slug } }: Props) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
+              <BreadcrumbLink href="/athletes">All Athletes</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             {slugEntries.map((slug) => {

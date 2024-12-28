@@ -3,6 +3,14 @@ import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import AthleteCard from "../_components/AthleteCard"
 import { raceSeriesNames } from "../definitions"
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 interface Props {
   searchParams: {
@@ -18,6 +26,19 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
+      <div className="mb-5">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/athletes">All Athletes</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Compare</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <div className="mb-8 text-purple-500 bold text-2xl">Athlete Compare</div>
       <div className="w-full border border-gray-200 rounded-md shadow-sm">
         <div className="bg-gray-100 text-sm font-medium text-gray-700">
