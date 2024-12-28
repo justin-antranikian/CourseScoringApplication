@@ -1,5 +1,4 @@
 ﻿using Api.DataModels;
-using Api.Orchestration.Athletes.Search;
 using Api.Orchestration.Races.GetLeaderboard;
 using Api.Orchestration.Races.Search;
 using Microsoft.AspNetCore.Mvc;

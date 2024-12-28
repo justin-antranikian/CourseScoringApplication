@@ -1,6 +1,6 @@
 import React from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
-import Content from "./_components/Content"
+import Content from "./Content"
 import { getImageNonFormatted } from "@/app/utils"
 import { getApi } from "@/app/_api/api"
 import {

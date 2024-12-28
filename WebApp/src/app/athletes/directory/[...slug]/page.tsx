@@ -12,7 +12,7 @@ import {
   BreadcrumbPage,
   BreadcrumbEllipsis,
 } from "@/components/ui/breadcrumb"
-import { TreeView } from "@/app/_components/TreeView"
+import { DirectoryTreeView } from "@/app/_components/DirectoryTreeView"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
 import {
   DropdownMenu,
@@ -93,7 +93,7 @@ export default async function Page({ params: { slug } }: Props) {
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
-          <TreeView nodes={directory} locationType={LocationType.athletes} />
+          <DirectoryTreeView locations={directory} locationType={LocationType.athletes} />
         </div>
         <div className="w-3/4">
           <div className="flex flex-wrap -mx-2">

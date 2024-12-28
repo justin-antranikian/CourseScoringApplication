@@ -2,7 +2,7 @@
 
 import { LocationDto } from "@/app/_api/locations/definitions"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
-import { TreeView } from "@/app/_components/TreeView"
+import { DirectoryTreeView } from "@/app/_components/DirectoryTreeView"
 import { BreadcrumbEllipsis } from "@/components/ui/breadcrumb"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import React, { useState } from "react"
@@ -27,7 +27,7 @@ export default function DirectorySheetView({
             <SheetTitle>Directory</SheetTitle>
           </SheetHeader>
           <div className="mt-3">
-            <TreeView nodes={locations} locationType={locationType} />
+            <DirectoryTreeView locations={locations} locationType={locationType} />
           </div>
         </SheetContent>
       </Sheet>
