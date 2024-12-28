@@ -1,4 +1,4 @@
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import IrpDetails from "@/app/_components/IrpDetails"
 import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
 import { RaceLeaderboardDto } from "@/app/_api/races/definitions"
@@ -36,7 +36,10 @@ export default function QuickViewDialogContent({ leaderboard }: { leaderboard: R
             </div>
             <div className="font-bold">{leaderboard.raceKickOffDate}</div>
             <div className="mt-3">
-              <LocationInfoRankings locationInfoWithRank={leaderboard.locationInfoWithRank} />
+              <LocationInfoRankings
+                locationInfoWithRank={leaderboard.locationInfoWithRank}
+                locationType={LocationType.races}
+              />
             </div>
           </div>
         </div>

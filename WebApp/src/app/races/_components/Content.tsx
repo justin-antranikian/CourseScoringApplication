@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { Dialog } from "@/components/ui/dialog"
 import { EventSearchResultDto, RaceLeaderboardDto } from "@/app/_api/races/definitions"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Card, CardContent } from "@/components/ui/card"
 import {
   DropdownMenu,
@@ -47,7 +47,10 @@ export default function Content({ events }: { events: EventSearchResultDto[] }) 
                   </div>
                   <div className="p-2">
                     <div className="my-3">
-                      <LocationInfoRankings locationInfoWithRank={event.locationInfoWithRank} />
+                      <LocationInfoRankings
+                        locationInfoWithRank={event.locationInfoWithRank}
+                        locationType={LocationType.races}
+                      />
                     </div>
                     <div>
                       <DropdownMenu>

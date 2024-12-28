@@ -1,6 +1,6 @@
 import { DialogContent } from "@/components/ui/dialog"
 import React, { useEffect, useState } from "react"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import { Info } from "lucide-react"
 import { BracketRank } from "@/app/_components/BracketRank"
@@ -38,7 +38,7 @@ export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
           <div className="mb-3 text-xs">
             {arp.genderAbbreviated} | {arp.age}
           </div>
-          <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} />
+          <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} locationType={LocationType.athletes} />
         </div>
         <div className="flex-[3]">
           <div className="mb-8 text-purple-500 bold text-2xl">Results</div>

@@ -14,4 +14,7 @@ export default (apiFetch: ApiFetch) => ({
     const response = await apiFetch(`${baseUrl}/search`)
     return await response.json()
   },
+  bySlug: async (slug: string): Promise<Response> => {
+    return await apiFetch(`${baseUrl}/by-slug?slug=${slug}`)
+  },
 })

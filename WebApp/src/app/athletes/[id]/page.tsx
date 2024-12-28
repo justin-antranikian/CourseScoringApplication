@@ -1,4 +1,4 @@
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { BracketRank } from "@/app/_components/BracketRank"
 import RankWithTime from "../_components/RankWithTime"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -30,7 +30,7 @@ export default async function Page({ params: { id } }: Props) {
         <div className="mb-3 text-xs">
           {arp.genderAbbreviated} | {arp.age}
         </div>
-        <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} />
+        <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} locationType={LocationType.athletes} />
         <hr className="my-5" />
         <div className="my-3">{arp.firstName}'s training and diet</div>
         <ul className="list-disc pl-5 text-xs">

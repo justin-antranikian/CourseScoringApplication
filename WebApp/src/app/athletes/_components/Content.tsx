@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useMemo, useState } from "react"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
 import { BadgePlus, ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -55,7 +55,10 @@ export default function Content({ athletes }: { athletes: AthleteSearchResultDto
                   </div>
                   <div className="p-2">
                     <div className="my-3">
-                      <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} />
+                      <LocationInfoRankings
+                        locationInfoWithRank={athlete.locationInfoWithRank}
+                        locationType={LocationType.athletes}
+                      />
                     </div>
                     <div>
                       <DropdownMenu>

@@ -38,13 +38,16 @@ public class Athlete
     {
         return new LocationInfoWithRank
         {
-            AreaRank = AreaRank,
-            CityRank = CityRank,
-            OverallRank = OverallRank,
-            StateRank = StateRank,
             Area = AreaLocation!.Name,
+            AreaRank = AreaRank,
+            AreaUrl = AreaLocation.Slug,
             City = CityLocation!.Name,
-            State = StateLocation!.Name
+            CityRank = CityRank,
+            CityUrl = CityLocation.Slug,
+            OverallRank = OverallRank,
+            State = StateLocation!.Name,
+            StateRank = StateRank,
+            StateUrl = StateLocation.Slug,
         };
     }
 

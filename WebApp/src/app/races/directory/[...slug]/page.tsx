@@ -1,5 +1,5 @@
 import { getApi } from "@/app/_api/api"
-import { AthleteSearchResultDto } from "@/app/_api/athletes/definitions"
+import { EventSearchResultDto } from "@/app/_api/races/definitions"
 import React from "react"
 import Content from "../../_components/Content"
 
@@ -13,20 +13,20 @@ const api = getApi()
 
 export default async function Page({ params: { slug } }: Props) {
   const routeSegment = slug.join("/")
-  const response = await api.athletes.bySlug(routeSegment)
+  const response = await api.races.bySlug(routeSegment)
 
   if (response.status === 404) {
     return <div>Could not find directory by {routeSegment}</div>
   }
 
-  const athletes = (await response.json()) as AthleteSearchResultDto[]
+  const races = (await response.json()) as EventSearchResultDto[]
 
   return (
     <div className="flex gap-1">
       <div className="w-1/4">Directory</div>
       <div className="w-3/4">
         <div className="flex flex-wrap -mx-2">
-          <Content athletes={athletes} />
+          <Content events={races} />
         </div>
       </div>
     </div>

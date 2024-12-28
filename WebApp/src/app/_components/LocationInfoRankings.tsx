@@ -1,5 +1,10 @@
 import React from "react"
 
+export enum LocationType {
+  athletes = "athletes",
+  races = "races",
+}
+
 export interface LocationInfoWithRank {
   area: string
   areaRank: number
@@ -13,30 +18,62 @@ export interface LocationInfoWithRank {
   stateUrl: string
 }
 
-export default function LocationInfoRankings({ locationInfoWithRank }: { locationInfoWithRank: LocationInfoWithRank }) {
+export default function LocationInfoRankings({
+  locationInfoWithRank,
+  locationType,
+}: {
+  locationInfoWithRank: LocationInfoWithRank
+  locationType: LocationType
+}) {
   return (
     <div className="text-xs">
       <div>
-        <strong>#{locationInfoWithRank.overallRank}</strong>
-        <a> Overall</a>
+        <a href={`/${locationType}`}>
+          <strong>#{locationInfoWithRank.overallRank}</strong> <span className="text-green-700 underline">Overall</span>
+        </a>
       </div>
       <div>
-        <RankLink rank={locationInfoWithRank.stateRank} display={locationInfoWithRank.state} />
+        <RankLink
+          rank={locationInfoWithRank.stateRank}
+          display={locationInfoWithRank.state}
+          url={locationInfoWithRank.stateUrl}
+          locationType={locationType}
+        />
       </div>
       <div>
-        <RankLink rank={locationInfoWithRank.areaRank} display={locationInfoWithRank.area} />
+        <RankLink
+          rank={locationInfoWithRank.areaRank}
+          display={locationInfoWithRank.area}
+          url={locationInfoWithRank.areaUrl}
+          locationType={locationType}
+        />
       </div>
       <div>
-        <RankLink rank={locationInfoWithRank.cityRank} display={locationInfoWithRank.city} />
+        <RankLink
+          rank={locationInfoWithRank.cityRank}
+          display={locationInfoWithRank.city}
+          url={locationInfoWithRank.cityUrl}
+          locationType={locationType}
+        />
       </div>
     </div>
   )
 }
 
-const RankLink = ({ rank, display }: { rank: number; display: string }) => {
+const RankLink = ({
+  rank,
+  display,
+  url,
+  locationType,
+}: {
+  rank: number
+  display: string
+  url: string
+  locationType: LocationType
+}) => {
   return (
-    <>
-      <strong>#{rank}</strong> from {display}
-    </>
+    <a href={`/${locationType}/directory/${url}`}>
+      <strong>#{rank}</strong> from <span className="text-green-700 underline">{display}</span>
+    </a>
   )
 }

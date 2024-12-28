@@ -1,5 +1,5 @@
 import React from "react"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
 import { getImageNonFormatted } from "@/app/utils"
 import { getApi } from "@/app/_api/api"
@@ -32,7 +32,10 @@ export default async function Page({ params: { id } }: Props) {
           </div>
           <div className="font-bold">{raceLeaderboard.raceKickOffDate}</div>
         </div>
-        <LocationInfoRankings locationInfoWithRank={raceLeaderboard.locationInfoWithRank} />
+        <LocationInfoRankings
+          locationInfoWithRank={raceLeaderboard.locationInfoWithRank}
+          locationType={LocationType.races}
+        />
       </div>
       <div className="w-3/4">
         <Content raceLeaderboard={raceLeaderboard} />

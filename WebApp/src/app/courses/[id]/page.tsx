@@ -1,5 +1,5 @@
 import React from "react"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Content from "./_components/Content"
 import { getImageNonFormatted } from "@/app/utils"
 import { Button } from "@/components/ui/button"
@@ -35,7 +35,10 @@ export default async function Page({ params: { id } }: Props) {
             {courseLeaderboard.courseDate} at <strong>{courseLeaderboard.courseTime}</strong>
           </div>
         </div>
-        <LocationInfoRankings locationInfoWithRank={courseLeaderboard.locationInfoWithRank} />
+        <LocationInfoRankings
+          locationInfoWithRank={courseLeaderboard.locationInfoWithRank}
+          locationType={LocationType.races}
+        />
         <div className="mt-5">
           <a href={`/courses/${id}/awards`}>
             <Button>Awards</Button>

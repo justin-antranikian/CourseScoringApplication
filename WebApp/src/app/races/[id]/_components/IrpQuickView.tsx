@@ -1,4 +1,4 @@
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Intervals from "@/app/_components/Intervals"
 import { DialogContent } from "@/components/ui/dialog"
 import React from "react"
@@ -16,7 +16,7 @@ export default function IrpQuickView({ irp }: { irp: Irp }) {
           <div className="mb-3 text-xs">
             {irp.genderAbbreviated} | {irp.raceAge}
           </div>
-          <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} />
+          <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} locationType={LocationType.races} />
         </div>
         <div className="flex-[3]">
           <div className="mb-8 text-purple-500 bold text-2xl">Results</div>

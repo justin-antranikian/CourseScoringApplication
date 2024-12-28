@@ -1,7 +1,7 @@
 "use client"
 
 import { CompareAthletesAthleteInfoDto, CompareAthletesStat } from "@/app/_api/athletes/definitions"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
 import React, { useState } from "react"
@@ -15,7 +15,7 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
       <div className="text-2xl">
         {athlete.age} | {athlete.genderAbbreviated}
       </div>
-      <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} />
+      <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} locationType={LocationType.athletes} />
     </div>,
     <div>
       {raceSeriesNames.map((seriesName) => {

@@ -1,5 +1,5 @@
 import React from "react"
-import LocationInfoRankings from "@/app/_components/LocationInfoRankings"
+import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Intervals from "../../_components/Intervals"
 import { getApi } from "@/app/_api/api"
@@ -32,7 +32,7 @@ export default async function Page({ params: { id } }: Props) {
         <div className="mb-3 text-xs">
           {irp.genderAbbreviated} | {irp.raceAge}
         </div>
-        <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} />
+        <LocationInfoRankings locationInfoWithRank={irp.locationInfoWithRank} locationType={LocationType.athletes} />
         <hr className="mt-5" />
         <div className="mt-5">
           {irp.tags.map((tag, index) => (

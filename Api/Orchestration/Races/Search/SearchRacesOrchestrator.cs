@@ -9,29 +9,6 @@ public class SearchRacesOrchestrator(ScoringDbContext scoringDbContext)
     {
         var baseQuery = scoringDbContext.RaceSeries.AsQueryable();
 
-        if (raceSeriesRequest.SearchTerm != null)
-        {
-            baseQuery = baseQuery.Where(oo => oo.Name.StartsWith(raceSeriesRequest.SearchTerm));
-        }
-
-        //if (raceSeriesRequest.State is string stateUrl)
-        //{
-        //    var location = LocationHelper.Find(oo => oo.StateUrlFriendly == stateUrl);
-        //    baseQuery = baseQuery.Where(oo => oo.State == location.State);
-        //}
-
-        //if (raceSeriesRequest.Area is string areaUrl)
-        //{
-        //    var location = LocationHelper.Find(oo => oo.AreaUrlFriendly == areaUrl);
-        //    baseQuery = baseQuery.Where(oo => oo.Area == location.Area);
-        //}
-
-        //if (raceSeriesRequest.City is string cityUrl)
-        //{
-        //    var location = LocationHelper.Find(oo => oo.CityUrlFriendly == cityUrl);
-        //    baseQuery = baseQuery.Where(oo => oo.City == location.City);
-        //}
-
         var raceSeries = await baseQuery
                             .Include(oo => oo.StateLocation)
                             .Include(oo => oo.AreaLocation)
