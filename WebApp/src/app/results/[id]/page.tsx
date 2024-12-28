@@ -11,6 +11,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import SheetView from "./SheetView"
+import DirectorySheetView from "@/app/_components/DirectorySheetView"
 
 export const dynamic = "force-dynamic"
 
@@ -24,6 +27,9 @@ const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
   const irp = await api.results.details(id)
+  const courseDetails = await api.courses.details(irp.courseId)
+  const directory = await api.locations.directory()
+
   const { raceSeriesLocationInfoWithRank: locationInfoWithRank } = irp
 
   return (
@@ -31,6 +37,13 @@ export default async function Page({ params: { id } }: Props) {
       <div className="mb-5">
         <Breadcrumb>
           <BreadcrumbList>
+            <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  <DirectorySheetView locations={directory} locationType={LocationType.races} />
+                </DropdownMenuTrigger>
+              </DropdownMenu>
+            </BreadcrumbItem>
             <BreadcrumbItem>
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>
@@ -63,6 +76,14 @@ export default async function Page({ params: { id } }: Props) {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage>{irp.bib}</BreadcrumbPage>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  <SheetView course={courseDetails} />
+                </DropdownMenuTrigger>
+              </DropdownMenu>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

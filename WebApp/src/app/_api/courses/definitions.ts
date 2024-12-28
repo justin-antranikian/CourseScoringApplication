@@ -53,14 +53,18 @@ export interface AwardWinnerDto {
 
 export interface CourseDetailsDto {
   courseId: number
+  courseDate: string
+  courseDistance: number
   courseName: string
-  raceId: number
-  raceName: string
+  courseTime: string
   courseType: string
   distance: number
+  locationInfoWithRank: LocationInfoWithRank
   name: string
   paceType: string
-  preferredMetric: string
+  preferedMetric: string
+  raceId: number
+  raceName: string
+  raceSeriesTypeName: string
   sortOrder: number
-  locationInfoWithRank: LocationInfoWithRank
 }

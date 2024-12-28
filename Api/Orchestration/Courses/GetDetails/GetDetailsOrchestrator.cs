@@ -21,19 +21,25 @@ public class GetDetailsOrchestrator(ScoringDbContext dbContext)
 
     private static CourseDetailsDto MapToDto(Course course, RaceSeries raceSeries)
     {
+        var (dateFormatted, timeFormatted) = DateTimeHelper.GetFormattedFields(course.StartDate);
+
         return new CourseDetailsDto
         {
+            CourseDate = dateFormatted,
+            CourseDistance = course.Distance,
             CourseId = course.Id,
             CourseName = course.Name,
+            CourseTime = timeFormatted,
             CourseType = course.CourseType.ToString(),
             Distance = course.Distance,
+            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             Name = course.Name,
             PaceType = course.PaceType.ToString(),
             PreferedMetric = course.PreferedMetric.ToString(),
-            SortOrder = course.SortOrder,
             RaceId = course.RaceId,
             RaceName = course.Race.Name,
-            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank()
+            RaceSeriesTypeName = raceSeries.RaceSeriesType.ToString(),
+            SortOrder = course.SortOrder
         };
     }
 }
