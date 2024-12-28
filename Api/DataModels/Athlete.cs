@@ -47,6 +47,11 @@ public class Athlete
             State = StateLocation!.Name
         };
     }
+
+    public List<string> GetTags()
+    {
+        return AthleteRaceSeriesGoals.Select(oo => oo.RaceSeriesType.ToAthleteText()).ToList();
+    }
 }
 
 public static class GenderExtensions

@@ -1,6 +1,6 @@
-﻿using Api.Orchestration.Athletes.Search;
-using Api.Orchestration.Races.Search;
+﻿//using Api.Orchestration.Athletes.Search;
+//using Api.Orchestration.Races.Search;
 
-namespace Api.Orchestration.SearchAllEntities;
+//namespace Api.Orchestration.SearchAllEntities;
 
-public record AllEntitiesSearchResultDto(List<AthleteSearchResultDto> Athletes, List<EventSearchResultDto> RaceSeries);
+//public record AllEntitiesSearchResultDto(List<AthleteSearchResultDto> Athletes, List<EventSearchResultDto> RaceSeries);

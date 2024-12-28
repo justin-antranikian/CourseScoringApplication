@@ -4,11 +4,6 @@ namespace Api.Orchestration.Athletes.Search;
 
 public static class AthleteSearchResultDtoMapper
 {
-    public static List<AthleteSearchResultDto> GetAthleteSearchResultDto(IEnumerable<Athlete> athletes)
-    {
-        return athletes.Select(GetAthleteSearchResultDto).ToList();
-    }
-
     public static AthleteSearchResultDto GetAthleteSearchResultDto(Athlete athlete)
     {
         return new AthleteSearchResultDto

@@ -8,7 +8,7 @@ public static class IrpDtoMapper
     {
         var athlete = athleteCourse.Athlete;
         var race = course.Race;
-        var trainingList = athleteCourse.GetTrainingList();
+        var trainingList = athleteCourse.AthleteCourseTrainings.Select(oo => oo.Description).ToList();
         var finishTime = intervalResults.Single(oo => oo.IsFullCourse).CrossingTime;
 
         return new IrpDto
