@@ -55,7 +55,7 @@ export default async function Page({ params: { slug } }: Props) {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1">
-                  <BreadcrumbEllipsis className="h-4 w-4" />
+                  <BreadcrumbEllipsis title="Athlete Quick Navigation" className="h-4 w-4" />
                   <span className="sr-only">Toggle menu</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
