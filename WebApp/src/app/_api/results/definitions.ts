@@ -50,6 +50,7 @@ export interface IrpResultByIntervalDto {
 }
 
 export interface CompareIrpsAthleteInfoDto {
+  courseId: number
   athleteCourseId: number
   city: string
   fullName: string

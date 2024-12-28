@@ -50,3 +50,17 @@ export interface AwardWinnerDto {
   finishTime: string
   paceWithTime: PaceWithTime
 }
+
+export interface CourseDetailsDto {
+  courseId: number
+  courseName: string
+  raceId: number
+  raceName: string
+  courseType: string
+  distance: number
+  name: string
+  paceType: string
+  preferredMetric: string
+  sortOrder: number
+  locationInfoWithRank: LocationInfoWithRank
+}

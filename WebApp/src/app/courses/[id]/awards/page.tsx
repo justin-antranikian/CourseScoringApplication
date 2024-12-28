@@ -2,6 +2,14 @@ import React from "react"
 import { getApi } from "@/app/_api/api"
 import { AwardWinnerDto } from "@/app/_api/courses/definitions"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb"
 
 interface Props {
   params: {
@@ -12,9 +20,51 @@ const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
   const awards = await api.courses.awards(id)
+  const courseDetails = await api.courses.details(id)
+
+  const { locationInfoWithRank } = courseDetails
 
   return (
     <>
+      <div className="mb-5">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.stateUrl}`}>
+                {locationInfoWithRank.state}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.areaUrl}`}>
+                {locationInfoWithRank.area}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.cityUrl}`}>
+                {locationInfoWithRank.city}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/${courseDetails.raceId}`}>{courseDetails.raceName}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/courses/${courseDetails.courseId}`}>{courseDetails.courseName}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Awards</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <div className="mb-8 text-purple-500 bold text-2xl">Awards</div>
       <Table>
         <TableHeader>

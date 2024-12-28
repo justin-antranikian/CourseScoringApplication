@@ -6,6 +6,14 @@ import { getApi } from "@/app/_api/api"
 import { CompareIrpsIntervalDto } from "@/app/_api/results/definitions"
 import { BracketRank } from "@/app/_components/BracketRank"
 import { PaceWithTime } from "@/app/_components/IntervalTime"
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb"
 
 interface Props {
   searchParams: {
@@ -19,9 +27,52 @@ export default async function Page({ searchParams }: Props) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const irpsToCompare = await api.results.compare(ids)
   const intervalNames = irpsToCompare[0].compareIrpsIntervalDtos.map((inteval) => inteval.intervalName)
+  const courseId = irpsToCompare[0].courseId
+
+  const courseDetails = await api.courses.details(courseId)
+  const { locationInfoWithRank } = courseDetails
 
   return (
     <>
+      <div className="mb-5">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.stateUrl}`}>
+                {locationInfoWithRank.state}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.areaUrl}`}>
+                {locationInfoWithRank.area}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.cityUrl}`}>
+                {locationInfoWithRank.city}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/races/${courseDetails.raceId}`}>{courseDetails.raceName}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/courses/${courseDetails.courseId}`}>{courseDetails.courseName}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Compare</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <div className="mb-8 text-purple-500 bold text-2xl">Result Compare</div>
       <Table>
         <TableHeader>

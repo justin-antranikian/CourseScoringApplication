@@ -24,7 +24,7 @@ interface Props {
 const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
-  const courseLeaderboard = await api.courses.details(id)
+  const courseLeaderboard = await api.courses.leaderboard(id)
   const { locationInfoWithRank } = courseLeaderboard
 
   return (

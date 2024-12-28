@@ -44,6 +44,7 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
 
         return new CompareIrpsAthleteInfoDto
         {
+            CourseId = athleteCourse.CourseId,
             AthleteCourseId = athleteCourse.Id,
             City = athlete!.CityLocation!.Name,
             FullName = athlete.FullName,

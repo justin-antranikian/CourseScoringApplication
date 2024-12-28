@@ -22,7 +22,7 @@ public class Course
     public List<BracketMetadata> BracketMetadatas { get; init; } = [];
     public List<CourseInformationEntry> CourseInformationEntries { get; init; } = [];
     public List<Interval> Intervals { get; init; } = [];
-    public Race? Race { get; set; }
+    public Race Race { get; set; }
     public List<Result> Results { get; init; } = [];
     public List<TagRead> TagReads { get; init; } = [];
 }
