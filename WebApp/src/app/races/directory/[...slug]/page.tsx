@@ -20,12 +20,16 @@ interface Props {
   }
 }
 
-const api = getApi()
-
 interface SlugEntry {
   slug: string
   name: string
 }
+
+const formatName = (slugPart: string): string => {
+  return slugPart.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
+const api = getApi()
 
 export default async function Page({ params: { slug } }: Props) {
   const routeSegment = slug.join("/")
@@ -36,7 +40,6 @@ export default async function Page({ params: { slug } }: Props) {
   }
 
   const location = (await locationResponse.json()) as LocationDto
-
   const response = await api.races.bySlug(routeSegment)
   const races = (await response.json()) as EventSearchResultDto[]
 
@@ -44,12 +47,6 @@ export default async function Page({ params: { slug } }: Props) {
   const accumulatedSlug = []
 
   const directory = await api.locations.directory()
-
-  // Helper function to format names
-  const formatName = (slugPart: string): string =>
-    slugPart
-      .replace(/-/g, " ") // Replace hyphens with spaces
-      .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitalize each word
 
   for (let i = 0; i < slug.length - 1; i++) {
     accumulatedSlug.push(slug[i])
