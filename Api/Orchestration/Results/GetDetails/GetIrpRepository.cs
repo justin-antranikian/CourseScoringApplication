@@ -29,6 +29,14 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
                             .ThenInclude(oo => oo.RaceSeries)
                             .SingleAsync(oo => oo.Id == athleteCourse.CourseId);
 
+        var raceSeriesId = course.Race!.RaceSeriesId;
+
+        var more = await scoringDbContext.RaceSeries
+            .Include(oo => oo.StateLocation)
+            .Include(oo => oo.AreaLocation)
+            .Include(oo => oo.CityLocation)
+            .SingleAsync(oo => oo.Id == raceSeriesId);
+
         var bracketIdsForAthlete = athleteCourse.AthleteCourseBrackets.Select(oo => oo.BracketId).ToList();
         var metadataEntries = await scoringDbContext.BracketMetadataEntries.Where(oo => oo.IntervalId == null && bracketIdsForAthlete.Contains(oo.BracketId)).ToListAsync();
         var results = await GetResults(athleteCourse, course, athleteCourseId);

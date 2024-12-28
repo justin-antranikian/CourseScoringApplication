@@ -16,6 +16,8 @@ public static class IrpDtoMapper
             AthleteId = athlete.Id,
             Bib = athleteCourse.Bib,
             BracketResults = bracketResults,
+            CourseId = course.Id,
+            CourseName = course.Name,
             CourseGoalDescription = athleteCourse.CourseGoalDescription,
             FinishTime = finishTime,
             FirstName = athlete.FirstName,
@@ -26,6 +28,9 @@ public static class IrpDtoMapper
             PaceWithTimeCumulative = paceWithTime,
             PersonalGoalDescription = athleteCourse.PersonalGoalDescription,
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
+            RaceId = race.Id,
+            RaceName = race.Name,
+            RaceSeriesLocationInfoWithRank = race!.RaceSeries!.ToLocationInfoWithRank(),
             Tags = athlete.GetTags(),
             TimeZoneAbbreviated = race.TimeZoneId.ToAbbreviation(),
             TrainingList = trainingList

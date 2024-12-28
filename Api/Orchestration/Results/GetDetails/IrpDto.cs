@@ -5,6 +5,8 @@ public class IrpDto
     public required int AthleteId { get; init; }
     public required string Bib { get; init; }
     public required List<IrpResultByBracketDto> BracketResults { get; init; }
+    public required int CourseId { get; init; }
+    public required string CourseName { get; init; }
     public required string CourseGoalDescription { get; init; }
     public required string? FinishTime { get; init; }
     public required string FirstName { get; init; }
@@ -15,6 +17,9 @@ public class IrpDto
     public required PaceWithTime PaceWithTimeCumulative { get; init; }
     public required string PersonalGoalDescription { get; init; }
     public required int RaceAge { get; init; }
+    public required int RaceId { get; init; }
+    public required string RaceName { get; init; }
+    public required LocationInfoWithRank RaceSeriesLocationInfoWithRank { get; init; }
     public required List<string> Tags { get; init; }
     public required string TimeZoneAbbreviated { get; init; }
     public required List<string> TrainingList { get; init; }

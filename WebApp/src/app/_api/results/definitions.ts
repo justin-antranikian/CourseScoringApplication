@@ -5,6 +5,8 @@ export interface Irp {
   athleteId: number
   bib: string
   bracketResults: IrpResultByBracketDto[]
+  courseId: number
+  courseName: string
   courseGoalDescription: string
   finishTime: string | null
   firstName: string
@@ -15,6 +17,9 @@ export interface Irp {
   paceWithTimeCumulative: PaceWithTime
   personalGoalDescription: string
   raceAge: number
+  raceId: number
+  raceName: string
+  raceSeriesLocationInfoWithRank: LocationInfoWithRank
   tags: string[]
   timeZoneAbbreviated: string
   trainingList: string[]
