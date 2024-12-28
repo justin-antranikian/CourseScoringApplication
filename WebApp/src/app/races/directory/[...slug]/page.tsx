@@ -11,6 +11,8 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb"
 import { LocationDto } from "@/app/_api/locations/definitions"
+import { TreeView } from "../../../_components/TreeView"
+import { LocationType } from "@/app/_components/LocationInfoRankings"
 
 interface Props {
   params: {
@@ -40,6 +42,8 @@ export default async function Page({ params: { slug } }: Props) {
 
   const slugEntries: SlugEntry[] = []
   const accumulatedSlug = []
+
+  const directory = await api.locations.directory()
 
   // Helper function to format names
   const formatName = (slugPart: string): string =>
@@ -84,19 +88,7 @@ export default async function Page({ params: { slug } }: Props) {
         <div className="w-1/4">
           <div className="max-w-md mx-auto">
             <ul className="list-none">
-              <li>
-                <span className="text-gray-700 font-bold">Colorado</span>
-                <ul className="pl-4 border-l-2 border-gray-300 ml-2">
-                  <li>
-                    <span className="text-gray-600 font-semibold">Greater Colorado Springs Area</span>
-                    <ul className="pl-4 border-l-2 border-gray-300 ml-2">
-                      <li>
-                        <span className="text-gray-500">Colorado Springs</span>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
+              <TreeView nodes={directory} locationType={LocationType.races} />
             </ul>
           </div>
         </div>
