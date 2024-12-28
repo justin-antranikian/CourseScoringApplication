@@ -5,6 +5,7 @@ import athletes from "./athletes/api"
 import results from "./results/api"
 import races from "./races/api"
 import courses from "./courses/api"
+import locations from "./locations/api"
 
 export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Response>
 
@@ -35,5 +36,6 @@ export const getApi = () => {
     results: results(apiFetch),
     races: races(apiFetch),
     courses: courses(apiFetch),
+    locations: locations(apiFetch),
   }
 }
