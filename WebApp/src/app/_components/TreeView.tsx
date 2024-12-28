@@ -29,10 +29,9 @@ export const TreeNodeComponent: React.FC<{ node: LocationDto; locationType: Loca
         <a href={`/${locationType}/directory/${node.slug}`}>
           <span
             className={twMerge(
-              "text-gray-700",
+              "text-gray-700 hover:underline",
               hasChildren && "font-bold",
               node.isSelected && "bg-gray-700 text-white px-1",
-              "hover:underline",
             )}
           >
             {node.name}

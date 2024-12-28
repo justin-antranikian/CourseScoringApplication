@@ -13,6 +13,8 @@ import {
 import { LocationDto } from "@/app/_api/locations/definitions"
 import { TreeView } from "../../../_components/TreeView"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { ChevronDownIcon } from "lucide-react"
 
 interface Props {
   params: {
@@ -47,7 +49,7 @@ export default async function Page({ params: { slug } }: Props) {
   const slugEntries: SlugEntry[] = []
   const accumulatedSlug = []
 
-  for (let i = 0; i < slug.length - 1; i++) {
+  for (let i = 0; i < slug.length; i++) {
     accumulatedSlug.push(slug[i])
     slugEntries.push({
       slug: accumulatedSlug.join("/"),
@@ -61,10 +63,28 @@ export default async function Page({ params: { slug } }: Props) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  View Athletes
+                  <ChevronDownIcon />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  {slugEntries.map((slug) => {
+                    return (
+                      <DropdownMenuItem>
+                        <a href={`/athletes/directory/${slug.slug}`}>{slug.name}</a>
+                      </DropdownMenuItem>
+                    )
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            {slugEntries.map((slug) => {
+            {slugEntries.slice(0, slugEntries.length - 1).map((slug) => {
               return (
                 <>
                   <BreadcrumbItem>
