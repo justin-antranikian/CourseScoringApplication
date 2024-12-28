@@ -31,9 +31,7 @@ export default async function Page() {
           </div>
         </div>
         <div className="w-3/4">
-          <div className="flex flex-wrap -mx-2">
-            <Content events={events} />
-          </div>
+          <Content events={events} />
         </div>
       </div>
     </>

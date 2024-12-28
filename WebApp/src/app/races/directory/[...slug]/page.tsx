@@ -9,26 +9,25 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
   BreadcrumbPage,
+  BreadcrumbEllipsis,
 } from "@/components/ui/breadcrumb"
 import { LocationDto } from "@/app/_api/locations/definitions"
 import { TreeView } from "../../../_components/TreeView"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ChevronDownIcon } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { getSlugEntries } from "@/utils"
 
 interface Props {
   params: {
     slug: string[]
   }
-}
-
-interface SlugEntry {
-  slug: string
-  name: string
-}
-
-const formatName = (slugPart: string): string => {
-  return slugPart.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
 }
 
 const api = getApi()
@@ -46,16 +45,7 @@ export default async function Page({ params: { slug } }: Props) {
   const races = (await response.json()) as EventSearchResultDto[]
   const directory = await api.locations.directory(location.id)
 
-  const slugEntries: SlugEntry[] = []
-  const accumulatedSlug = []
-
-  for (let i = 0; i < slug.length; i++) {
-    accumulatedSlug.push(slug[i])
-    slugEntries.push({
-      slug: accumulatedSlug.join("/"),
-      name: formatName(slug[i]),
-    })
-  }
+  const slugEntries = getSlugEntries(slug)
 
   return (
     <>
@@ -65,10 +55,12 @@ export default async function Page({ params: { slug } }: Props) {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1">
-                  View Athletes
-                  <ChevronDownIcon />
+                  <BreadcrumbEllipsis className="h-4 w-4" />
+                  <span className="sr-only">Toggle menu</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
+                  <DropdownMenuLabel>View Athletes</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
                   {slugEntries.map((slug) => {
                     return (
                       <DropdownMenuItem>
@@ -79,7 +71,6 @@ export default async function Page({ params: { slug } }: Props) {
                 </DropdownMenuContent>
               </DropdownMenu>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>
@@ -109,9 +100,7 @@ export default async function Page({ params: { slug } }: Props) {
           </div>
         </div>
         <div className="w-3/4">
-          <div className="flex flex-wrap -mx-2">
-            <Content events={races} />
-          </div>
+          <Content events={races} />
         </div>
       </div>
     </>
