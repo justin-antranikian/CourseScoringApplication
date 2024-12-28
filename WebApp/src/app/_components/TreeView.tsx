@@ -7,7 +7,14 @@ import { LocationType } from "./LocationInfoRankings"
 import { twMerge } from "tailwind-merge"
 
 export const TreeView: React.FC<{ nodes: LocationDto[]; locationType: LocationType }> = ({ nodes, locationType }) => {
-  return nodes.map((node) => <TreeNodeComponent node={node} locationType={locationType} />)
+  return (
+    <ul className="list-none">
+      {nodes.map((node) => (
+        <TreeNodeComponent node={node} locationType={locationType} />
+      ))}
+    </ul>
+  )
+  // return nodes.map((node) => <TreeNodeComponent node={node} locationType={locationType} />)
 }
 
 export const TreeNodeComponent: React.FC<{ node: LocationDto; locationType: LocationType }> = ({

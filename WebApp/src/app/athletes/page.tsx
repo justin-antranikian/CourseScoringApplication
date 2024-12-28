@@ -24,11 +24,7 @@ export default async function Page() {
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
-          <div className="max-w-md mx-auto">
-            <ul className="list-none">
-              <TreeView nodes={directory} locationType={LocationType.athletes} />
-            </ul>
-          </div>
+          <TreeView nodes={directory} locationType={LocationType.athletes} />
         </div>
         <div className="w-3/4">
           <div className="flex flex-wrap -mx-2">

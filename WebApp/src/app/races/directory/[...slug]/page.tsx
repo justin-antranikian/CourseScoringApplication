@@ -93,11 +93,7 @@ export default async function Page({ params: { slug } }: Props) {
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
-          <div className="max-w-md mx-auto">
-            <ul className="list-none">
-              <TreeView nodes={directory} locationType={LocationType.races} />
-            </ul>
-          </div>
+          <TreeView nodes={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
           <Content events={races} />

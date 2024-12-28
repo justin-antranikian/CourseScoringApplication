@@ -26,9 +26,9 @@ export default function DirectorySheetView({
           <SheetHeader>
             <SheetTitle>Directory</SheetTitle>
           </SheetHeader>
-          <ul className="list-none mt-3">
+          <div className="mt-3">
             <TreeView nodes={locations} locationType={locationType} />
-          </ul>
+          </div>
         </SheetContent>
       </Sheet>
     </>
