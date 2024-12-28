@@ -14,7 +14,7 @@ export const TreeNodeComponent: React.FC<{ node: LocationDto; locationType: Loca
   node,
   locationType,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(node.isExpanded)
 
   const hasChildren = node.childLocations.length > 0
 
@@ -27,7 +27,16 @@ export const TreeNodeComponent: React.FC<{ node: LocationDto; locationType: Loca
           </button>
         )}
         <a href={`/${locationType}/directory/${node.slug}`}>
-          <span className={twMerge("text-gray-700", hasChildren && "font-bold")}>{node.name}</span>
+          <span
+            className={twMerge(
+              "text-gray-700",
+              hasChildren && "font-bold",
+              node.isSelected && "bg-gray-700 text-white px-1",
+              "hover:underline",
+            )}
+          >
+            {node.name}
+          </span>
         </a>
       </div>
       {hasChildren && isExpanded && (

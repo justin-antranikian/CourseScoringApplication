@@ -42,11 +42,10 @@ export default async function Page({ params: { slug } }: Props) {
   const location = (await locationResponse.json()) as LocationDto
   const response = await api.athletes.bySlug(routeSegment)
   const athletes = (await response.json()) as AthleteSearchResultDto[]
+  const directory = await api.locations.directory(location.id)
 
   const slugEntries: SlugEntry[] = []
   const accumulatedSlug = []
-
-  const directory = await api.locations.directory()
 
   for (let i = 0; i < slug.length - 1; i++) {
     accumulatedSlug.push(slug[i])

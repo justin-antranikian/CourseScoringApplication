@@ -6,17 +6,20 @@ namespace Api.Controllers;
 
 public record LocationDto
 {
+    public required int Id { get; init; }
+    public bool IsSelected { get; init; }
     public required string Name { get; init; }
     public required string Slug { get; init; }
     public List<LocationDto> ChildLocations { get; init; } = [];
+    public bool IsExpanded { get; set; }
 }
 
 [ApiController]
 [Route("locations")]
 public class LocationsController(ScoringDbContext scoringDbContext) : ControllerBase
 {
-    [HttpGet]
-    public async Task<List<LocationDto>> Get()
+    [HttpGet("directory")]
+    public async Task<List<LocationDto>> Get([FromQuery] int? locationId)
     {
         var locations = await scoringDbContext.Locations.Include(oo => oo.ChildLocations).ThenInclude(oo => oo.ChildLocations).Where(oo => oo.LocationType == LocationType.State).ToListAsync();
 
@@ -26,7 +29,9 @@ public class LocationsController(ScoringDbContext scoringDbContext) : Controller
             var stateLocation = new LocationDto
             {
                 Name = location.Name,
-                Slug = location.Slug
+                Slug = location.Slug,
+                Id = location.Id,
+                IsSelected = location.Id == locationId
             };
 
             foreach (var areaLocation in location.ChildLocations)
@@ -34,7 +39,9 @@ public class LocationsController(ScoringDbContext scoringDbContext) : Controller
                 var areaLocationDto = new LocationDto
                 {
                     Name = areaLocation.Name,
-                    Slug = areaLocation.Slug
+                    Slug = areaLocation.Slug,
+                    Id = areaLocation.Id,
+                    IsSelected = areaLocation.Id == locationId
                 };
 
                 foreach (var cityLocation in areaLocation.ChildLocations)
@@ -42,13 +49,18 @@ public class LocationsController(ScoringDbContext scoringDbContext) : Controller
                     areaLocationDto.ChildLocations.Add(new LocationDto
                     {
                         Name = cityLocation.Name,
-                        Slug = cityLocation.Slug
+                        Slug = cityLocation.Slug,
+                        Id = cityLocation.Id,
+                        IsSelected = cityLocation.Id == locationId,
+                        IsExpanded = cityLocation.Id == locationId
                     });
                 }
 
+                areaLocationDto.IsExpanded = areaLocationDto.ChildLocations.Any(oo => oo.IsExpanded) || areaLocationDto.IsSelected;
                 stateLocation.ChildLocations.Add(areaLocationDto);
             }
 
+            stateLocation.IsExpanded = stateLocation.ChildLocations.Any(oo => oo.IsExpanded) || stateLocation.IsSelected;
             locationDtos.Add(stateLocation);
         }
 
@@ -68,7 +80,8 @@ public class LocationsController(ScoringDbContext scoringDbContext) : Controller
         return Ok(new LocationDto
         {
             Name = location.Name,
-            Slug = location.Slug
+            Slug = location.Slug,
+            Id = location.Id
         });
     }
 }
