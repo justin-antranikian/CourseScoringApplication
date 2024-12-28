@@ -10,10 +10,10 @@ public class AthleteCourse
     public required string CourseGoalDescription { get; set; }
     public required string PersonalGoalDescription { get; set; }
 
-    public Athlete? Athlete { get; set; }
+    public Athlete Athlete { get; set; }
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];
     public List<AthleteCourseTraining> AthleteCourseTrainings { get; init; } = [];
-    public Course? Course { get; set; }
+    public Course Course { get; set; }
     public List<Result> Results { get; init; } = [];
     public List<TagRead> TagReads { get; init; } = [];
 }

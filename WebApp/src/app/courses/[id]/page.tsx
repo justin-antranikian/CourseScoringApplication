@@ -104,7 +104,7 @@ export default async function Page({ params: { id } }: Props) {
           </div>
         </div>
         <div className="w-3/4">
-          <Content courseLeaderboard={courseLeaderboard} />
+          <Content courseLeaderboard={courseLeaderboard} courseId={id} />
         </div>
       </div>
     </>

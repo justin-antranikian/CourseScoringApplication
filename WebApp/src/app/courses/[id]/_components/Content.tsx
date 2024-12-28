@@ -8,10 +8,16 @@ import IrpQuickView from "@/app/races/[id]/IrpQuickView"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "@/app/_api/serverActions"
-import { Irp } from "@/app/_api/results/definitions"
+import { getIrp, getResultSearchResults } from "@/app/_api/serverActions"
+import { Irp, ResultSearchResponse } from "@/app/_api/results/definitions"
 
-export default function Content({ courseLeaderboard }: { courseLeaderboard: CourseLeaderboardDto }) {
+export default function Content({
+  courseLeaderboard,
+  courseId,
+}: {
+  courseLeaderboard: CourseLeaderboardDto
+  courseId: string | number
+}) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
@@ -37,6 +43,7 @@ export default function Content({ courseLeaderboard }: { courseLeaderboard: Cour
 
   return (
     <>
+      <InputTracker courseLeaderboard={courseLeaderboard} courseId={courseId} />
       {courseLeaderboard.leaderboards.map((leaderboard, index) => (
         <div key={index}>
           <div className="mb-8 text-purple-500 bold text-2xl">{leaderboard.intervalName}</div>
@@ -121,5 +128,67 @@ export default function Content({ courseLeaderboard }: { courseLeaderboard: Cour
         {irp ? <IrpQuickView irp={irp} /> : null}
       </Dialog>
     </>
+  )
+}
+
+const InputTracker = ({
+  courseLeaderboard,
+  courseId,
+}: {
+  courseLeaderboard: CourseLeaderboardDto
+  courseId: string | number
+}) => {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [results, setResults] = useState<ResultSearchResponse[] | null>(null)
+
+  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = event.target.value
+    setSearchTerm(searchTerm)
+
+    const results = await getResultSearchResults({
+      raceId: courseLeaderboard.raceId,
+      courseId,
+      searchTerm,
+    })
+
+    setResults(results)
+  }
+
+  const Results = ({ results }: { results: ResultSearchResponse[] }) => {
+    if (results.length === 0) {
+      return <div>There were no results for {searchTerm}</div>
+    }
+
+    return results.map((result) => (
+      <div className="mb-2" key={result.id}>
+        <div>
+          <a className="hover:underline" href={`/athletes/${result.athleteId}`}>
+            {result.firstName} {result.lastName}
+          </a>
+        </div>
+        <div>
+          <a className="hover:underline" href={`/results/${result.id}`}>
+            {result.bib}
+          </a>
+        </div>
+      </div>
+    ))
+  }
+
+  return (
+    <div className="relative flex flex-col items-end group">
+      <input
+        type="text"
+        placeholder="Search on bib, or first/last name"
+        className="shad-cn p-2 border rounded shadow-md w-[300px]"
+        value={searchTerm}
+        onChange={handleInputChange}
+      />
+      {searchTerm.length > 0 && (
+        <div className="absolute top-full mt-2 bg-white border border-gray-300 rounded shadow-lg z-50 p-4 min-w-[350px] opacity-0 group-hover:opacity-100 transition-opacity">
+          {results ? <Results results={results} /> : <>... Waiting for results</>}
+        </div>
+      )}
+    </div>
   )
 }
