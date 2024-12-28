@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body className="antialiased flex flex-col min-h-screen">
         <nav className="p-4 bg-[#24325a]">
           <div className="container mx-auto flex justify-between items-center">
             <div className="text-white font-bold text-xl">
@@ -34,7 +34,10 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-        <div className="p-3">{children}</div>
+        <div className="p-3 flex-grow">{children}</div>
+        <div className="p-2 bg-[#24325a] flex items-center justify-center text-white text-xs">
+          Copyright: © 2025 Course Scorting. All rights reserved.
+        </div>
       </body>
     </html>
   )
