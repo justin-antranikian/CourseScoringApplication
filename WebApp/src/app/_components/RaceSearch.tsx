@@ -33,9 +33,7 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
             {result.name}
           </a>
         </div>
-        <div>
-          <div className="text-green-500 text-sm">{result.courses[0].displayName}</div>
-        </div>
+        <div className="text-green-500 text-sm">{result.courses[0].displayName}</div>
       </div>
     ))
   }

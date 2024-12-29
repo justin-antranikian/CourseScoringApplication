@@ -34,9 +34,10 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
           </a>
         </div>
         <div>
-          <div className="text-green-500 text-sm">
-            {result.genderAbbreviated} | {result.age}
-          </div>
+          {result.genderAbbreviated} | {result.age}
+        </div>
+        <div className="text-green-500 text-sm">
+          {result.locationInfoWithRank.city}, {result.locationInfoWithRank.state}
         </div>
       </div>
     ))

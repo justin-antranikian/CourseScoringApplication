@@ -42,8 +42,8 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
           <a className="hover:underline" href={`/results/${result.id}`}>
             {result.gender} | {result.bib}
           </a>
-          <div className="text-green-500 text-sm">{result.courseName}</div>
         </div>
+        <div className="text-green-500 text-sm">{result.courseName}</div>
       </div>
     ))
   }
