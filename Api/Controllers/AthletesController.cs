@@ -7,11 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
-public class CompareAthletesApiRequest
-{
-    public int[] AthleteIds { get; set; }
-}
-
 [ApiController]
 [Route("athletes")]
 public class AthletesController(ScoringDbContext scoringDbContext) : ControllerBase
@@ -24,10 +19,10 @@ public class AthletesController(ScoringDbContext scoringDbContext) : ControllerB
     }
 
     [HttpPost("compare")]
-    public async Task<List<CompareAthletesAthleteInfoDto>> Compare([FromBody] CompareAthletesApiRequest compareIrpApiRequest)
+    public async Task<List<CompareAthletesAthleteInfoDto>> Compare([FromBody] int[] athleteIds)
     {
         var orchestrator = new CompareAthletesOrchestrator(scoringDbContext);
-        return await orchestrator.GetCompareAthletesDto(compareIrpApiRequest.AthleteIds.Take(4).ToList());
+        return await orchestrator.GetCompareAthletesDto(athleteIds.Take(4).ToList());
     }
 
     [HttpGet("search")]

@@ -70,8 +70,8 @@ export interface CompareIrpsIntervalDto {
 }
 
 export interface IrpSearchRequest {
-  raceId: string | number
   courseId?: string | number
+  raceId: string | number
   searchTerm: string
 }
 

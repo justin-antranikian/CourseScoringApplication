@@ -3,14 +3,8 @@ using Api.Orchestration.Results.Compare;
 using Api.Orchestration.Results.GetDetails;
 using Api.Orchestration.Results.Search;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
-
-public record CompareIrpApiRequest
-{
-    public required List<int> AthleteCourseIds { get; init; }
-}
 
 [ApiController]
 [Route("results")]
@@ -24,10 +18,10 @@ public class ResultsController(ScoringDbContext dbContext) : ControllerBase
     }
 
     [HttpPost("compare")]
-    public async Task<List<CompareIrpsAthleteInfoDto>> Post([FromBody] CompareIrpApiRequest compareIrpApiRequest)
+    public async Task<List<CompareIrpsAthleteInfoDto>> Post([FromBody] List<int> athleteCourseIds)
     {
         var orchestrator = new CompareIrpsOrchestrator(dbContext);
-        return await orchestrator.GetCompareIrpsDto(compareIrpApiRequest.AthleteCourseIds.Take(4).ToList());
+        return await orchestrator.GetCompareIrpsDto(athleteCourseIds.Take(4).ToList());
     }
 
     [HttpPost("search")]

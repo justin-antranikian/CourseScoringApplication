@@ -11,7 +11,7 @@ export default (apiFetch: ApiFetch) => ({
     return await response.json()
   },
   compare: async (athleteIds: string[]): Promise<CompareAthletesAthleteInfoDto[]> => {
-    const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit({ athleteIds }))
+    const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit(athleteIds))
     return await response.json()
   },
   search: async (): Promise<AthleteSearchResultDto[]> => {

@@ -11,7 +11,7 @@ export default (apiFetch: ApiFetch) => ({
     return await response.json()
   },
   compare: async (athleteCourseIds: string[]): Promise<CompareIrpsAthleteInfoDto[]> => {
-    const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit({ athleteCourseIds }))
+    const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit(athleteCourseIds))
     return await response.json()
   },
   search: async (request: IrpSearchRequest): Promise<IrpSearchResult[]> => {
