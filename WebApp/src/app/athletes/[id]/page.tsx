@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import DirectorySheet from "@/app/_components/DirectorySheet"
+import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 
 export const dynamic = "force-dynamic"
 
@@ -45,24 +46,7 @@ export default async function Page({ params: { id } }: Props) {
               <BreadcrumbLink href="/athletes">All Athletes</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/athletes/directory/${locationInfoWithRank.stateUrl}`}>
-                {locationInfoWithRank.state}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/athletes/directory/${locationInfoWithRank.areaUrl}`}>
-                {locationInfoWithRank.area}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/athletes/directory/${locationInfoWithRank.cityUrl}`}>
-                {locationInfoWithRank.city}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.athletes} />
             <BreadcrumbItem>
               <BreadcrumbPage>{arp.fullName}</BreadcrumbPage>
             </BreadcrumbItem>

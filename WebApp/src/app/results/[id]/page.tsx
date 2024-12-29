@@ -14,6 +14,7 @@ import {
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import SheetView from "./SheetView"
 import DirectorySheet from "@/app/_components/DirectorySheet"
+import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 
 export const dynamic = "force-dynamic"
 
@@ -48,24 +49,7 @@ export default async function Page({ params: { id } }: Props) {
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.stateUrl}`}>
-                {locationInfoWithRank.state}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.areaUrl}`}>
-                {locationInfoWithRank.area}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.cityUrl}`}>
-                {locationInfoWithRank.city}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
             <BreadcrumbItem>
               <BreadcrumbLink href={`/races/${irp.raceId}`}>{irp.raceName}</BreadcrumbLink>
             </BreadcrumbItem>
