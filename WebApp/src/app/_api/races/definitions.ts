@@ -25,6 +25,7 @@ export interface EventSearchResultDto {
   id: number
   locationInfoWithRank: LocationInfoWithRank
   name: string
+  raceKickOffDate: string
   raceSeriesTypeName: string
   upcomingRaceId: number
   courses: DisplayNameWithId[]

@@ -45,7 +45,7 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
                   {race.name}
                 </a>
               </div>
-              <div>{race.courses[0].displayName}</div>
+              <div>{race.raceKickOffDate}</div>
               <div className="text-green-500 text-sm">
                 {race.locationInfoWithRank.city}, {race.locationInfoWithRank.state}
               </div>
