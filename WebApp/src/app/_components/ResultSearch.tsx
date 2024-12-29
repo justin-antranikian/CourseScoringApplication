@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { ResultSearchResponse } from "../_api/results/definitions"
 import { getResultSearchResults } from "../_api/serverActions"
+import { IrpSearchResult } from "../_api/results/definitions"
 
 export default function ResultSearch({ raceId, courseId }: { raceId: string | number; courseId?: string | number }) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [results, setResults] = useState<ResultSearchResponse[] | null>(null)
+  const [results, setResults] = useState<IrpSearchResult[] | null>(null)
   const [isFocus, setIsFocus] = useState<boolean>(false)
 
   const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
     setResults(results)
   }
 
-  const Results = ({ results }: { results: ResultSearchResponse[] }) => {
+  const Results = ({ results }: { results: IrpSearchResult[] }) => {
     if (results.length === 0) {
       return <div>There were no results for {searchTerm}</div>
     }
@@ -48,7 +48,7 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
     <div className="relative flex flex-col items-end group">
       <input
         type="text"
-        placeholder="Search on bib, or first/last name"
+        placeholder="bib or name"
         className="shad-cn p-2 border rounded shadow-md w-[300px]"
         value={searchTerm}
         onChange={handleInputChange}

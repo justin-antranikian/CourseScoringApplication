@@ -69,18 +69,18 @@ export interface CompareIrpsIntervalDto {
   primaryDivisionRank: number | null
 }
 
-export interface ResultSearchRequest {
+export interface IrpSearchRequest {
   raceId: string | number
   courseId?: string | number
   searchTerm: string
 }
 
-export interface ResultSearchResponse {
+export interface IrpSearchResult {
   id: number
   athleteId: number
   courseId: number
-  courseName: number
   bib: string
+  courseName: number
   firstName: string
   lastName: string
 }

@@ -5,41 +5,37 @@ namespace Api.Orchestration.Results.Search;
 
 public class SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
 {
-    public async Task<List<IrpSearchResultDto>> GetSearchResults(SearchIrpsRequestDto searchRequestDto)
+    public async Task<List<IrpSearchResult>> Get(IrpSearchRequest request)
     {
-        var baseQuery = GetBaseQuery(searchRequestDto);
-        var filterQuery = GetFilterQuery(baseQuery, searchRequestDto.SearchOn, searchRequestDto.SearchTerm);
-        var athleteCourses = await filterQuery.OrderBy(oo => oo.Athlete.LastName).ToListAsync();
-        return IrpSearchResultDtoMapper.GetIrpSearchResultDto(athleteCourses);
-    }
+        var searchTerm = request.SearchTerm.ToLower();
 
-    private IQueryable<AthleteCourse> GetBaseQuery(SearchIrpsRequestDto searchRequestDto)
-    {
-        var baseQuery = scoringDbContext.AthleteCourses.Include(oo => oo.Athlete).Include(oo => oo.Course).AsQueryable();
+        var query = scoringDbContext.AthleteCourses
+            .Include(oo => oo.Athlete)
+            .Include(oo => oo.Course)
+            .Where(oo => oo.Course.RaceId == request.RaceId);
 
-        if (searchRequestDto.RaceId is int raceId)
+        query = query.Where(oo => oo.Bib.Contains(searchTerm) || oo.Athlete.FirstName.Contains(searchTerm) || oo.Athlete.LastName.Contains(searchTerm));
+
+        if (request.CourseId.HasValue)
         {
-            return baseQuery.Where(oo => oo.Course.RaceId == raceId);
+            query = query.Where(oo => oo.CourseId == request.CourseId);
         }
 
-        if (searchRequestDto.CourseId is int courseId)
-        {
-            return baseQuery.Where(oo => oo.CourseId == courseId);
-        }
-
-        var errorMessage = $"'{nameof(searchRequestDto.RaceId)}' or '{nameof(searchRequestDto.CourseId)}' must be set.";
-        throw new NotImplementedException(errorMessage);
+        var results = await query.ToListAsync();
+        return results.Select(MapToDto).ToList();
     }
 
-    private IQueryable<AthleteCourse> GetFilterQuery(IQueryable<AthleteCourse> baseQuery, SearchOnField searchOn, string searchTerm)
+    private static IrpSearchResult MapToDto(AthleteCourse oo)
     {
-        return searchOn switch
+        return new IrpSearchResult
         {
-            SearchOnField.Bib => baseQuery.Where(oo => oo.Bib.StartsWith(searchTerm)),
-            SearchOnField.FirstName => baseQuery.Where(oo => oo.Athlete.FirstName.StartsWith(searchTerm)),
-            SearchOnField.LastName => baseQuery.Where(oo => oo.Athlete.LastName.StartsWith(searchTerm)),
-            SearchOnField.FullName => baseQuery.Where(oo => oo.Athlete.FullName.StartsWith(searchTerm)),
-            _ => baseQuery
+            Id = oo.Id,
+            AthleteId = oo.AthleteId,
+            CourseId = oo.Course.Id,
+            Bib = oo.Bib,
+            CourseName = oo.Course.Name,
+            FirstName = oo.Athlete.FirstName,
+            LastName = oo.Athlete.LastName,
         };
     }
 }

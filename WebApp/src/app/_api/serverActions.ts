@@ -1,7 +1,7 @@
 "use server"
 
 import { getApi } from "./api"
-import { ResultSearchRequest } from "./results/definitions"
+import { IrpSearchRequest } from "./results/definitions"
 
 const api = getApi()
 
@@ -11,4 +11,4 @@ export const getRaceLeaderboard = (raceId: string | number) => api.races.details
 
 export const getAthleteDetails = (athleteId: string | number) => api.athletes.details(athleteId)
 
-export const getResultSearchResults = (request: ResultSearchRequest) => api.results.search(request)
+export const getResultSearchResults = (request: IrpSearchRequest) => api.results.search(request)
