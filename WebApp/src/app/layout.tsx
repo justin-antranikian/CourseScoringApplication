@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import Link from "next/link"
-import { Input } from "@/components/ui/input"
 import NavSearch from "./_components/NavSearch"
 
 export const metadata: Metadata = {
@@ -16,15 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen">
         <nav className="p-4 bg-[#24325a]">
-          <div className="container mx-auto flex justify-between items-center">
-            <div className="text-white font-bold text-xl">
-              <span>
-                <a href="/">
-                  <img src="/CourseScoring9.png" />
-                </a>
-              </span>
+          <div className="container mx-auto flex justify-between">
+            <div>
+              <a href="/">
+                <img src="/CourseScoring9.png" />
+              </a>
             </div>
             <div className="flex items-center space-x-4">
               <NavSearch />
@@ -37,10 +34,9 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-
         <div className="p-3 flex-grow">{children}</div>
-        <div className="p-2 bg-[#24325a] flex items-center justify-center text-white text-xs">
-          Copyright: © 2025 Course Scorting. All rights reserved.
+        <div className="p-2 bg-[#24325a] flex justify-center text-white text-xs">
+          Copyright: © 2025 Course Scoring. All rights reserved.
         </div>
       </body>
     </html>

@@ -37,6 +37,7 @@ export default async function Page({ params: { id } }: Props) {
             <BreadcrumbItem>
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>
+            <BreadcrumbSeparator />
             <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
             <BreadcrumbItem>
               <BreadcrumbLink href={`/races/${courseDetails.raceId}`}>{courseDetails.raceName}</BreadcrumbLink>
