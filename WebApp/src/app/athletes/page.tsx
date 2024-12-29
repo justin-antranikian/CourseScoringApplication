@@ -15,22 +15,24 @@ export default async function Page() {
   return (
     <>
       <div className="mb-5">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbPage>All Athletes</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <div className="flex justify-between">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbPage>All Athletes</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div>
+            <AthleteSearch />
+          </div>
+        </div>
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
           <DirectoryTreeView locations={directory} locationType={LocationType.athletes} />
         </div>
         <div className="w-3/4">
-          <div className="mb-3">
-            <AthleteSearch />
-          </div>
           <Content athletes={athletes} />
         </div>
       </div>

@@ -15,22 +15,26 @@ export default async function Page() {
   return (
     <>
       <div className="mb-5">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbPage>All Races</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <div className="flex justify-between">
+          {/* <div> */}
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbPage>All Races</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          {/* </div> */}
+          <div>
+            <RaceSearch />
+          </div>
+        </div>
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
           <DirectoryTreeView locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
-          <div className="mb-3">
-            <RaceSearch />
-          </div>
           <Content events={events} />
         </div>
       </div>

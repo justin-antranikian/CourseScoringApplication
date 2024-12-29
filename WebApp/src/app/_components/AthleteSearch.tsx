@@ -59,15 +59,13 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
   }
 
   return (
-    <div className="grid justify-items-end">
-      <div className="relative group w-80">
-        <Input placeholder="name" value={searchTerm} onChange={handleInputChange} />
-        {searchTerm === "" ? null : (
-          <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
-            <Results />
-          </div>
-        )}
-      </div>
+    <div className="relative group w-80">
+      <Input placeholder="name" value={searchTerm} onChange={handleInputChange} />
+      {searchTerm === "" ? null : (
+        <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
+          <Results />
+        </div>
+      )}
     </div>
   )
 }

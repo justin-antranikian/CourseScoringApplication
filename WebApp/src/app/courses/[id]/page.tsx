@@ -34,46 +34,53 @@ export default async function Page({ params: { id } }: Props) {
   return (
     <>
       <div className="mb-5">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1">
-                  <DirectorySheetView locations={directory} locationType={LocationType.races} />
-                </DropdownMenuTrigger>
-              </DropdownMenu>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.stateUrl}`}>
-                {locationInfoWithRank.state}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.areaUrl}`}>
-                {locationInfoWithRank.area}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.cityUrl}`}>
-                {locationInfoWithRank.city}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/${courseLeaderboard.raceId}`}>{courseLeaderboard.raceName}</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{courseLeaderboard.courseName}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <div className="flex justify-between">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center gap-1">
+                    <DirectorySheetView locations={directory} locationType={LocationType.races} />
+                  </DropdownMenuTrigger>
+                </DropdownMenu>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.stateUrl}`}>
+                  {locationInfoWithRank.state}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.areaUrl}`}>
+                  {locationInfoWithRank.area}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.cityUrl}`}>
+                  {locationInfoWithRank.city}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/races/${courseLeaderboard.raceId}`}>
+                  {courseLeaderboard.raceName}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{courseLeaderboard.courseName}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div>
+            <ResultSearch raceId={courseLeaderboard.raceId} courseId={id} />
+          </div>
+        </div>
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
@@ -105,7 +112,6 @@ export default async function Page({ params: { id } }: Props) {
           </div>
         </div>
         <div className="w-3/4">
-          <ResultSearch raceId={courseLeaderboard.raceId} courseId={id} />
           <Content courseLeaderboard={courseLeaderboard} />
         </div>
       </div>

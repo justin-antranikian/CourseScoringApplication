@@ -49,55 +49,57 @@ export default async function Page({ params: { slug } }: Props) {
   return (
     <>
       <div className="mb-5">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1">
-                  <BreadcrumbEllipsis title="Athlete Quick Navigation" className="h-4 w-4" />
-                  <span className="sr-only">Toggle menu</span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                  <DropdownMenuLabel>View Athletes</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {slugEntries.map((slug) => {
-                    return (
-                      <DropdownMenuItem>
-                        <a href={`/athletes/directory/${slug.slug}`}>{slug.name}</a>
-                      </DropdownMenuItem>
-                    )
-                  })}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            {slugEntries.slice(0, slugEntries.length - 1).map((slug) => {
-              return (
-                <>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href={`/races/directory/${slug.slug}`}>{slug.name}</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                </>
-              )
-            })}
-            <BreadcrumbItem>
-              <BreadcrumbPage>{location.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <div className="flex justify-between">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center gap-1">
+                    <BreadcrumbEllipsis title="Athlete Quick Navigation" className="h-4 w-4" />
+                    <span className="sr-only">Toggle menu</span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuLabel>View Athletes</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {slugEntries.map((slug) => {
+                      return (
+                        <DropdownMenuItem>
+                          <a href={`/athletes/directory/${slug.slug}`}>{slug.name}</a>
+                        </DropdownMenuItem>
+                      )
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              {slugEntries.slice(0, slugEntries.length - 1).map((slug) => {
+                return (
+                  <>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink href={`/races/directory/${slug.slug}`}>{slug.name}</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                  </>
+                )
+              })}
+              <BreadcrumbItem>
+                <BreadcrumbPage>{location.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div>
+            <RaceSearch locationId={location.id} locationType={location.locationType} />
+          </div>
+        </div>
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
           <DirectoryTreeView locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
-          <div className="mb-3">
-            <RaceSearch locationId={location.id} locationType={location.locationType} />
-          </div>
           <Content events={races} />
         </div>
       </div>
