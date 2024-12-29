@@ -13,7 +13,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb"
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import DirectorySheetView from "@/app/_components/DirectorySheetView"
+import DirectorySheet from "@/app/_components/DirectorySheet"
 import ResultSearch from "@/app/_components/ResultSearch"
 
 export const dynamic = "force-dynamic"
@@ -40,7 +40,7 @@ export default async function Page({ params: { id } }: Props) {
               <BreadcrumbItem>
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex items-center gap-1">
-                    <DirectorySheetView locations={directory} locationType={LocationType.races} />
+                    <DirectorySheet locations={directory} locationType={LocationType.races} />
                   </DropdownMenuTrigger>
                 </DropdownMenu>
               </BreadcrumbItem>

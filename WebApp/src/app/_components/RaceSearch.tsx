@@ -57,7 +57,6 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
   }
 
   return (
-    // <div className="grid justify-items-end">
     <div className="relative group w-80">
       <Input placeholder="name" value={searchTerm} onChange={handleInputChange} />
       {searchTerm === "" ? null : (
@@ -66,6 +65,5 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
         </div>
       )}
     </div>
-    // </div>
   )
 }

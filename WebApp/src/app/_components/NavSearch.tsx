@@ -87,20 +87,16 @@ export default function NavSearch() {
         </div>
       </div>
     )
-
-    return
   }
 
   return (
-    <div className="grid justify-items-end">
-      <div className="relative group">
-        <Input placeholder="athlete or race" className="h-7 w-60" value={searchTerm} onChange={handleInputChange} />
-        {searchTerm === "" ? null : (
-          <div className="absolute top-full right-0 z-50 w-96 p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
-            <Results />
-          </div>
-        )}
-      </div>
+    <div className="relative group">
+      <Input placeholder="athlete or race" className="h-7 w-60" value={searchTerm} onChange={handleInputChange} />
+      {searchTerm === "" ? null : (
+        <div className="absolute top-full right-0 z-50 w-96 p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
+          <Results />
+        </div>
+      )}
     </div>
   )
 }

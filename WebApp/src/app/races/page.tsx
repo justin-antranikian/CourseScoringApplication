@@ -2,7 +2,7 @@ import React from "react"
 import { getApi } from "../_api/api"
 import Content from "./_components/Content"
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage } from "@/components/ui/breadcrumb"
-import { DirectoryTreeView } from "../_components/DirectoryTreeView"
+import { DirectoryTree } from "../_components/DirectoryTree"
 import { LocationType } from "../_components/LocationInfoRankings"
 import RaceSearch from "../_components/RaceSearch"
 
@@ -32,7 +32,7 @@ export default async function Page() {
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
-          <DirectoryTreeView locations={directory} locationType={LocationType.races} />
+          <DirectoryTree locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
           <Content events={events} />

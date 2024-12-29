@@ -26,7 +26,7 @@ export default function RootLayout({
                 </a>
               </span>
             </div>
-            <div className="flex items-center space-x-4 ml-auto">
+            <div className="flex items-center space-x-4">
               <NavSearch />
               <Link href="/athletes" className="text-white hover:text-gray-300">
                 Athletes

@@ -6,7 +6,7 @@ import { useState } from "react"
 import { LocationType } from "./LocationInfoRankings"
 import { twMerge } from "tailwind-merge"
 
-export const DirectoryTreeView: React.FC<{ locations: LocationDto[]; locationType: LocationType }> = ({
+export const DirectoryTree: React.FC<{ locations: LocationDto[]; locationType: LocationType }> = ({
   locations,
   locationType,
 }) => {
