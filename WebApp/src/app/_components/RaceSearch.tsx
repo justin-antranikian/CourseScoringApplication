@@ -42,9 +42,11 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
     <div className="grid justify-items-end">
       <div className="relative group w-80">
         <Input placeholder="name" value={searchTerm} onChange={handleInputChange} />
-        <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
-          {searchTerm === "" ? "Please enter the search term" : <Results results={results} />}
-        </div>
+        {searchTerm === "" ? null : (
+          <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
+            <Results results={results} />
+          </div>
+        )}
       </div>
     </div>
   )
