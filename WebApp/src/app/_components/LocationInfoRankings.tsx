@@ -25,6 +25,14 @@ export default function LocationInfoRankings({
   locationInfoWithRank: LocationInfoWithRank
   locationType: LocationType
 }) {
+  const RankLink = ({ rank, display, url }: { rank: number; display: string; url: string }) => {
+    return (
+      <a href={`/${locationType}/directory/${url}`}>
+        <strong>#{rank}</strong> from <span className="text-green-700 underline">{display}</span>
+      </a>
+    )
+  }
+
   return (
     <div className="text-xs">
       <div>
@@ -37,7 +45,6 @@ export default function LocationInfoRankings({
           rank={locationInfoWithRank.stateRank}
           display={locationInfoWithRank.state}
           url={locationInfoWithRank.stateUrl}
-          locationType={locationType}
         />
       </div>
       <div>
@@ -45,7 +52,6 @@ export default function LocationInfoRankings({
           rank={locationInfoWithRank.areaRank}
           display={locationInfoWithRank.area}
           url={locationInfoWithRank.areaUrl}
-          locationType={locationType}
         />
       </div>
       <div>
@@ -53,27 +59,8 @@ export default function LocationInfoRankings({
           rank={locationInfoWithRank.cityRank}
           display={locationInfoWithRank.city}
           url={locationInfoWithRank.cityUrl}
-          locationType={locationType}
         />
       </div>
     </div>
-  )
-}
-
-const RankLink = ({
-  rank,
-  display,
-  url,
-  locationType,
-}: {
-  rank: number
-  display: string
-  url: string
-  locationType: LocationType
-}) => {
-  return (
-    <a href={`/${locationType}/directory/${url}`}>
-      <strong>#{rank}</strong> from <span className="text-green-700 underline">{display}</span>
-    </a>
   )
 }
