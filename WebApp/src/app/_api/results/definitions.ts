@@ -82,5 +82,6 @@ export interface IrpSearchResult {
   bib: string
   courseName: number
   firstName: string
+  gender: string
   lastName: string
 }

@@ -1,5 +1,4 @@
 import { getApi } from "@/app/_api/api"
-import { EventSearchResultDto } from "@/app/_api/races/definitions"
 import React from "react"
 import Content from "../../_components/Content"
 import {
@@ -23,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { getSlugEntries } from "@/utils"
-import ResultSearch from "@/app/_components/ResultSearch"
+import RaceSearch from "@/app/_components/RaceSearch"
 
 interface Props {
   params: {
@@ -42,8 +41,7 @@ export default async function Page({ params: { slug } }: Props) {
   }
 
   const location = (await locationResponse.json()) as LocationDto
-  const response = await api.races.bySlug(routeSegment)
-  const races = (await response.json()) as EventSearchResultDto[]
+  const races = await api.races.search(location.id, location.locationType)
   const directory = await api.locations.directory(location.id)
 
   const slugEntries = getSlugEntries(slug)
@@ -98,7 +96,7 @@ export default async function Page({ params: { slug } }: Props) {
         </div>
         <div className="w-3/4">
           <div className="mb-3">
-            <ResultSearch raceId={1} />
+            <RaceSearch locationId={location.id} locationType={location.locationType} />
           </div>
           <Content events={races} />
         </div>

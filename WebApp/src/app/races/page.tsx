@@ -4,6 +4,7 @@ import Content from "./_components/Content"
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage } from "@/components/ui/breadcrumb"
 import { DirectoryTreeView } from "../_components/DirectoryTreeView"
 import { LocationType } from "../_components/LocationInfoRankings"
+import RaceSearch from "../_components/RaceSearch"
 
 const api = getApi()
 
@@ -27,6 +28,9 @@ export default async function Page() {
           <DirectoryTreeView locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
+          <div className="mb-3">
+            <RaceSearch />
+          </div>
           <Content events={events} />
         </div>
       </div>

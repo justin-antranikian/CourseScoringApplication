@@ -14,6 +14,7 @@ public class GetDirectoryOrchestrator(ScoringDbContext dbContext)
         {
             var stateLocation = new LocationDto
             {
+                LocationType = location.LocationType.ToString(),
                 Name = location.Name,
                 Slug = location.Slug,
                 Id = location.Id,
@@ -24,6 +25,7 @@ public class GetDirectoryOrchestrator(ScoringDbContext dbContext)
             {
                 var areaLocationDto = new LocationDto
                 {
+                    LocationType = areaLocation.LocationType.ToString(),
                     Name = areaLocation.Name,
                     Slug = areaLocation.Slug,
                     Id = areaLocation.Id,
@@ -34,6 +36,7 @@ public class GetDirectoryOrchestrator(ScoringDbContext dbContext)
                 {
                     areaLocationDto.ChildLocations.Add(new LocationDto
                     {
+                        LocationType = cityLocation.LocationType.ToString(),
                         Name = cityLocation.Name,
                         Slug = cityLocation.Slug,
                         Id = cityLocation.Id,

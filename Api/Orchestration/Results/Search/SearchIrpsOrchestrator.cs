@@ -14,7 +14,7 @@ public class SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
             .Include(oo => oo.Course)
             .Where(oo => oo.Course.RaceId == request.RaceId);
 
-        query = query.Where(oo => oo.Bib.Contains(searchTerm) || oo.Athlete.FirstName.Contains(searchTerm) || oo.Athlete.LastName.Contains(searchTerm));
+        query = query.Where(oo => oo.Bib.Contains(searchTerm) || oo.Athlete.FullName.Contains(searchTerm));
 
         if (request.CourseId.HasValue)
         {
@@ -25,17 +25,19 @@ public class SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
         return results.Select(MapToDto).ToList();
     }
 
-    private static IrpSearchResult MapToDto(AthleteCourse oo)
+    private static IrpSearchResult MapToDto(AthleteCourse athleteCourse)
     {
+        var athlete = athleteCourse.Athlete;
         return new IrpSearchResult
         {
-            Id = oo.Id,
-            AthleteId = oo.AthleteId,
-            CourseId = oo.Course.Id,
-            Bib = oo.Bib,
-            CourseName = oo.Course.Name,
-            FirstName = oo.Athlete.FirstName,
-            LastName = oo.Athlete.LastName,
+            Id = athleteCourse.Id,
+            AthleteId = athleteCourse.AthleteId,
+            CourseId = athleteCourse.Course.Id,
+            Bib = athleteCourse.Bib,
+            CourseName = athleteCourse.Course.Name,
+            FirstName = athlete.FirstName,
+            Gender = athlete.Gender.ToAbbreviation(),
+            LastName = athlete.LastName,
         };
     }
 }

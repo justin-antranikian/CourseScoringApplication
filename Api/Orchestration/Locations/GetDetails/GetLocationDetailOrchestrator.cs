@@ -17,6 +17,7 @@ public class GetLocationDetailOrchestrator(ScoringDbContext dbContext)
 
         return new OkObjectResult(new LocationDto
         {
+            LocationType = location.LocationType.ToString(),
             Name = location.Name,
             Slug = location.Slug,
             Id = location.Id

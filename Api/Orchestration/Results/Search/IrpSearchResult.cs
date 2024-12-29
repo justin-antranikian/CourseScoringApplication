@@ -8,5 +8,6 @@ public record IrpSearchResult
     public required string Bib { get; init; }
     public required string CourseName { get; init; }
     public required string FirstName { get; init; }
+    public required string Gender { get; init; }
     public required string LastName { get; init; }
 }
