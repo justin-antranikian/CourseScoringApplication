@@ -7,6 +7,7 @@ import { getResultSearchResults } from "../_api/serverActions"
 export default function ResultSearch({ raceId, courseId }: { raceId: string | number; courseId?: string | number }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [results, setResults] = useState<ResultSearchResponse[] | null>(null)
+  const [isFocus, setIsFocus] = useState<boolean>(false)
 
   const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value
@@ -51,8 +52,10 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
         className="shad-cn p-2 border rounded shadow-md w-[300px]"
         value={searchTerm}
         onChange={handleInputChange}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
       />
-      {searchTerm.length > 0 && (
+      {searchTerm.length > 0 && isFocus && (
         <div className="absolute top-full mt-2 bg-white border border-gray-300 rounded shadow-lg z-50 p-4 min-w-[350px] opacity-0 group-hover:opacity-100 transition-opacity">
           {results ? <Results results={results} /> : <>... Waiting for results</>}
         </div>
