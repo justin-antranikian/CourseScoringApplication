@@ -7,7 +7,7 @@ public static class CourseGoalArpDtoMapper
     public static CourseGoalArpDto GetCourseGoalArpDto(Course course)
     {
         var race = course.Race;
-        var raceSeries = race!.RaceSeries!;
+        var raceSeries = race.RaceSeries!;
 
         return new CourseGoalArpDto
         {

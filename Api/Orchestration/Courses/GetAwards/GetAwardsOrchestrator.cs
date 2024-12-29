@@ -49,7 +49,7 @@ public class GetAwardsOrchestrator(ScoringDbContext scoringDbContext)
         }
     }
 
-    private AwardsDto MapToDto(Bracket bracket, List<Result> results, Course course)
+    private static AwardsDto MapToDto(Bracket bracket, List<Result> results, Course course)
     {
         AwardWinnerDto MapToAwardWinnerDto(Result result)
         {

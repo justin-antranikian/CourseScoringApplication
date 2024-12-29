@@ -30,7 +30,7 @@ public static class IrpDtoMapper
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
             RaceId = race.Id,
             RaceName = race.Name,
-            RaceSeriesLocationInfoWithRank = race!.RaceSeries!.ToLocationInfoWithRank(),
+            RaceSeriesLocationInfoWithRank = race.RaceSeries!.ToLocationInfoWithRank(),
             Tags = athlete.GetTags(),
             TimeZoneAbbreviated = race.TimeZoneId.ToAbbreviation(),
             TrainingList = trainingList
