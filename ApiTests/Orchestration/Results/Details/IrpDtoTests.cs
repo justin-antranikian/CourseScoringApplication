@@ -81,9 +81,7 @@ public class IrpDtoTests
         {
             Id = 1,
             Name = "CA",
-            StartDate = new DateTime(2010,
-                1,
-                1),
+            StartDate = new DateTime(2010, 1, 1),
             Distance = 1000,
             RaceId = 1,
             Race = new()
@@ -94,6 +92,12 @@ public class IrpDtoTests
                     RaceSeriesType = RaceSeriesType.Triathalon,
                     Description = "DA",
                     AreaRank = 0,
+                    AreaLocation = new Location
+                    {
+                        LocationType = LocationType.Area,
+                        Name = "A",
+                        Slug = "a"
+                    },
                     CityRank = 0,
                     Name = "",
                     OverallRank = 0,

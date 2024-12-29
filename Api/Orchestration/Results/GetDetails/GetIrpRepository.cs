@@ -10,14 +10,10 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
     public async Task<QueryResult> GetQueryResult(int athleteCourseId)
     {
         var athleteCourse = await scoringDbContext.AthleteCourses
-                                .Include(oo => oo.Athlete)
-                                .ThenInclude(oo => oo.AthleteRaceSeriesGoals)
-                                .Include(oo => oo.Athlete)
-                                .ThenInclude(oo => oo.AreaLocation)
-                                .Include(oo => oo.Athlete)
-                                .ThenInclude(oo => oo.CityLocation)
-                                .Include(oo => oo.Athlete)
-                                .ThenInclude(oo => oo.StateLocation)
+                                .Include(oo => oo.Athlete).ThenInclude(oo => oo.AthleteRaceSeriesGoals)
+                                .Include(oo => oo.Athlete).ThenInclude(oo => oo.AreaLocation)
+                                .Include(oo => oo.Athlete).ThenInclude(oo => oo.CityLocation)
+                                .Include(oo => oo.Athlete).ThenInclude(oo => oo.StateLocation)
                                 .Include(oo => oo.AthleteCourseBrackets)
                                 .Include(oo => oo.AthleteCourseTrainings)
                                 .SingleAsync(oo => oo.Id == athleteCourseId);
@@ -29,9 +25,9 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
                             .ThenInclude(oo => oo.RaceSeries)
                             .SingleAsync(oo => oo.Id == athleteCourse.CourseId);
 
-        var raceSeriesId = course.Race!.RaceSeriesId;
+        var raceSeriesId = course.Race.RaceSeriesId;
 
-        var more = await scoringDbContext.RaceSeries
+        var raceSeries = await scoringDbContext.RaceSeries
             .Include(oo => oo.StateLocation)
             .Include(oo => oo.AreaLocation)
             .Include(oo => oo.CityLocation)
