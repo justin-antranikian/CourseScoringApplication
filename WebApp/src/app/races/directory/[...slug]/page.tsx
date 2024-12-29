@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { getSlugEntries } from "@/utils"
+import ResultSearch from "@/app/_components/ResultSearch"
 
 interface Props {
   params: {
@@ -96,6 +97,9 @@ export default async function Page({ params: { slug } }: Props) {
           <DirectoryTreeView locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
+          <div className="mb-3">
+            <ResultSearch raceId={1} />
+          </div>
           <Content events={races} />
         </div>
       </div>
