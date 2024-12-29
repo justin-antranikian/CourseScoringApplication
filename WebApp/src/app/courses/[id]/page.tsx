@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import DirectorySheetView from "@/app/_components/DirectorySheetView"
+import ResultSearch from "@/app/_components/ResultSearch"
 
 export const dynamic = "force-dynamic"
 
@@ -104,7 +105,8 @@ export default async function Page({ params: { id } }: Props) {
           </div>
         </div>
         <div className="w-3/4">
-          <Content courseLeaderboard={courseLeaderboard} courseId={id} />
+          <ResultSearch raceId={courseLeaderboard.raceId} courseId={id} />
+          <Content courseLeaderboard={courseLeaderboard} />
         </div>
       </div>
     </>
