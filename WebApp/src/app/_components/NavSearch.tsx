@@ -15,10 +15,26 @@ export default function NavSearch() {
     const searchTerm = event.target.value
     setSearchTerm(searchTerm)
 
-    const athletes = await searchAthletes(undefined, undefined, searchTerm)
-    const races = await searchRaces(undefined, undefined, searchTerm)
+    const getAthletes = async () => {
+      if (searchTerm === "") {
+        return []
+      }
 
+      return await searchAthletes(undefined, undefined, searchTerm)
+    }
+
+    const getRaces = async () => {
+      if (searchTerm === "") {
+        return []
+      }
+
+      return await searchRaces(undefined, undefined, searchTerm)
+    }
+
+    const athletes = await getAthletes()
     setAthletes(athletes)
+
+    const races = await getRaces()
     setRaces(races)
   }
 
@@ -35,32 +51,35 @@ export default function NavSearch() {
       <div className="flex">
         <div className="flex-1">
           <div className="font-bold mb-2 underline">Races ({races.length})</div>
-          {races.map((result) => (
-            <div className="mb-2" key={result.id}>
+          {races.map((race) => (
+            <div className="mb-2" key={race.id}>
               <div className="font-bold">
-                <a className="hover:underline" href={`/races/${result.upcomingRaceId}`}>
-                  {result.name}
+                <a className="hover:underline" href={`/races/${race.upcomingRaceId}`}>
+                  {race.name}
                 </a>
               </div>
-              <div className="text-green-500 text-sm">{result.courses[0].displayName}</div>
+              <div>{race.courses[0].displayName}</div>
+              <div className="text-green-500 text-sm">
+                {race.locationInfoWithRank.city}, {race.locationInfoWithRank.state}
+              </div>
             </div>
           ))}
         </div>
         <div className="flex-1">
           <div className="font-bold mb-2 underline">Athletes ({athletes.length})</div>
-          {athletes.map((result) => {
+          {athletes.map((athlete) => {
             return (
-              <div className="mb-2" key={result.id}>
+              <div className="mb-2" key={athlete.id}>
                 <div className="font-bold">
-                  <a className="hover:underline" href={`/athletes/${result.id}`}>
-                    {result.fullName}
+                  <a className="hover:underline" href={`/athletes/${athlete.id}`}>
+                    {athlete.fullName}
                   </a>
                 </div>
                 <div>
-                  {result.genderAbbreviated} | {result.age}
+                  {athlete.genderAbbreviated} | {athlete.age}
                 </div>
                 <div className="text-green-500 text-sm">
-                  {result.locationInfoWithRank.city}, {result.locationInfoWithRank.state}
+                  {athlete.locationInfoWithRank.city}, {athlete.locationInfoWithRank.state}
                 </div>
               </div>
             )

@@ -13,12 +13,20 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
     const searchTerm = event.target.value
     setSearchTerm(searchTerm)
 
-    const athletes = await searchAthletes(locationId, locationType, searchTerm)
+    const getAthletes = async () => {
+      if (searchTerm === "") {
+        return []
+      }
+
+      return await searchAthletes(locationId, locationType, searchTerm)
+    }
+
+    const athletes = await getAthletes()
     setAthletes(athletes)
   }
 
-  const Results = ({ results }: { results: AthleteSearchResultDto[] }) => {
-    if (results.length === 0) {
+  const Results = () => {
+    if (athletes.length === 0) {
       return (
         <div>
           There were no results found for: <strong>{searchTerm}</strong>
@@ -29,24 +37,25 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
     return (
       <>
         <div className="font-bold mb-2 underline">Athletes ({athletes.length})</div>
+        {athletes.map((athlete) => {
+          return (
+            <div className="mb-2" key={athlete.id}>
+              <div className="font-bold">
+                <a className="hover:underline" href={`/athletes/${athlete.id}`}>
+                  {athlete.fullName}
+                </a>
+              </div>
+              <div>
+                {athlete.genderAbbreviated} | {athlete.age}
+              </div>
+              <div className="text-green-500 text-sm">
+                {athlete.locationInfoWithRank.city}, {athlete.locationInfoWithRank.state}
+              </div>
+            </div>
+          )
+        })}
       </>
     )
-
-    return results.map((result) => (
-      <div className="mb-2" key={result.id}>
-        <div className="font-bold">
-          <a className="hover:underline" href={`/athletes/${result.id}`}>
-            {result.fullName}
-          </a>
-        </div>
-        <div>
-          {result.genderAbbreviated} | {result.age}
-        </div>
-        <div className="text-green-500 text-sm">
-          {result.locationInfoWithRank.city}, {result.locationInfoWithRank.state}
-        </div>
-      </div>
-    ))
   }
 
   return (
@@ -55,7 +64,7 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
         <Input placeholder="name" value={searchTerm} onChange={handleInputChange} />
         {searchTerm === "" ? null : (
           <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
-            <Results results={athletes} />
+            <Results />
           </div>
         )}
       </div>
