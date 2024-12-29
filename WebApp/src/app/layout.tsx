@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import Link from "next/link"
+import { Input } from "@/components/ui/input"
+import NavSearch from "./_components/NavSearch"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +26,8 @@ export default function RootLayout({
                 </a>
               </span>
             </div>
-            <div className="space-x-4">
+            <div className="flex items-center space-x-4 ml-auto">
+              <NavSearch />
               <Link href="/athletes" className="text-white hover:text-gray-300">
                 Athletes
               </Link>
@@ -34,6 +37,7 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
+
         <div className="p-3 flex-grow">{children}</div>
         <div className="p-2 bg-[#24325a] flex items-center justify-center text-white text-xs">
           Copyright: © 2025 Course Scorting. All rights reserved.
