@@ -31,7 +31,7 @@ export default function Content({ events }: { events: EventSearchResultDto[] }) 
 
   return (
     <>
-      <div className="flex flex-wrap -mx-2">
+      <div className="flex flex-wrap">
         {events.map((event, index) => (
           <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
             <Card className="rounded shadow">

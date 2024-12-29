@@ -38,7 +38,7 @@ export default function Content({ athletes }: { athletes: AthleteSearchResultDto
   }, [selectedIds])
 
   return (
-    <div className="flex flex-wrap -mx-2">
+    <div className="flex flex-wrap">
       {athletes.map((athlete, index) => (
         <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
           <Card className="rounded shadow">
