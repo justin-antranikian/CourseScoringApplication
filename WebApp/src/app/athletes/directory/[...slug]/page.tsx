@@ -1,5 +1,4 @@
 import { getApi } from "@/app/_api/api"
-import { AthleteSearchResultDto } from "@/app/_api/athletes/definitions"
 import React from "react"
 import Content from "../../_components/Content"
 import { LocationDto } from "@/app/_api/locations/definitions"
@@ -23,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { getSlugEntries } from "@/utils"
+import AthleteSearch from "@/app/_components/AthleteSearch"
 
 interface Props {
   params: {
@@ -41,8 +41,7 @@ export default async function Page({ params: { slug } }: Props) {
   }
 
   const location = (await locationResponse.json()) as LocationDto
-  const response = await api.athletes.bySlug(routeSegment)
-  const athletes = (await response.json()) as AthleteSearchResultDto[]
+  const athletes = await api.athletes.search(location.id, location.locationType)
   const directory = await api.locations.directory(location.id)
 
   const slugEntries = getSlugEntries(slug)
@@ -96,9 +95,10 @@ export default async function Page({ params: { slug } }: Props) {
           <DirectoryTreeView locations={directory} locationType={LocationType.athletes} />
         </div>
         <div className="w-3/4">
-          <div className="flex flex-wrap -mx-2">
-            <Content athletes={athletes} />
+          <div className="mb-3">
+            <AthleteSearch locationId={location.id} locationType={location.locationType} />
           </div>
+          <Content athletes={athletes} />
         </div>
       </div>
     </>

@@ -14,11 +14,25 @@ export default (apiFetch: ApiFetch) => ({
     const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit(athleteIds))
     return await response.json()
   },
-  search: async (): Promise<AthleteSearchResultDto[]> => {
-    const response = await apiFetch(`${baseUrl}/search`)
+  search: async (
+    locationId?: number,
+    locationType?: string,
+    searchTerm?: string,
+  ): Promise<AthleteSearchResultDto[]> => {
+    const params = new URLSearchParams()
+
+    if (locationId) {
+      params.append("locationId", locationId.toString())
+    }
+    if (locationType) {
+      params.append("locationType", locationType)
+    }
+    if (searchTerm) {
+      params.append("searchTerm", searchTerm)
+    }
+
+    const url = `${baseUrl}/search?${params.toString()}`
+    const response = await apiFetch(url)
     return await response.json()
-  },
-  bySlug: async (slug: string): Promise<Response> => {
-    return await apiFetch(`${baseUrl}/by-slug?slug=${slug}`)
   },
 })

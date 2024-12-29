@@ -5,7 +5,7 @@ namespace Api.Orchestration.Athletes.Search;
 
 public class SearchAthletesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    public async Task<List<AthleteSearchResultDto>> GetSearchResults(SearchAthletesRequestDto searchRequestDto)
+    public async Task<List<AthleteSearchResultDto>> Get(int? locationId, string? locationType, string? searchTerm)
     {
         var baseQuery = scoringDbContext.Athletes
             .Include(oo => oo.StateLocation)
@@ -14,7 +14,30 @@ public class SearchAthletesOrchestrator(ScoringDbContext scoringDbContext)
             .Include(oo => oo.AthleteRaceSeriesGoals)
             .AsQueryable();
 
-        var athletes = await baseQuery.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();
-        return athletes.Select(AthleteSearchResultDtoMapper.GetAthleteSearchResultDto).ToList();
+        if (searchTerm != null)
+        {
+            baseQuery = baseQuery.Where(oo => oo.FullName.Contains(searchTerm));
+        }
+
+        if (locationId.HasValue && locationType != null)
+        {
+            var type = Enum.Parse<LocationType>(locationType);
+            var locationIdValue = locationId.Value;
+
+            IQueryable<Athlete> GetQuery()
+            {
+                return type switch
+                {
+                    LocationType.State => baseQuery.Where(oo => oo.StateLocationId == locationIdValue),
+                    LocationType.Area => baseQuery.Where(oo => oo.AreaLocationId == locationIdValue),
+                    LocationType.City => baseQuery.Where(oo => oo.CityLocationId == locationIdValue),
+                };
+            }
+
+            baseQuery = GetQuery();
+        }
+
+        var results = await baseQuery.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();
+        return results.Select(AthleteSearchResultDtoMapper.GetAthleteSearchResultDto).ToList();
     }
 }

@@ -16,3 +16,7 @@ export const getResultSearchResults = (request: IrpSearchRequest) => api.results
 export const searchRaces = (locationId?: number, locationType?: string, searchTerm?: string) => {
   return api.races.search(locationId, locationType, searchTerm)
 }
+
+export const searchAthletes = (locationId?: number, locationType?: string, searchTerm?: string) => {
+  return api.athletes.search(locationId, locationType, searchTerm)
+}
