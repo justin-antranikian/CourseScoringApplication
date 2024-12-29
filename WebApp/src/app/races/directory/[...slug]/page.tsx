@@ -1,6 +1,5 @@
 import { getApi } from "@/app/_api/api"
 import React from "react"
-import Content from "../../_components/Content"
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -23,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { getSlugEntries } from "@/utils"
 import RaceSearch from "@/app/_components/RaceSearch"
+import RacesContent from "../../RacesContent"
 
 interface Props {
   params: {
@@ -100,7 +100,7 @@ export default async function Page({ params: { slug } }: Props) {
           <DirectoryTree locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
-          <Content events={races} />
+          <RacesContent events={races} />
         </div>
       </div>
     </>

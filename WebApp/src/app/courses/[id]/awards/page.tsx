@@ -13,12 +13,15 @@ import {
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
 
+export const dynamic = "force-dynamic"
+
+const api = getApi()
+
 interface Props {
   params: {
     id: string
   }
 }
-const api = getApi()
 
 export default async function Page({ params: { id } }: Props) {
   const awards = await api.courses.awards(id)
@@ -66,13 +69,13 @@ export default async function Page({ params: { id } }: Props) {
                 <strong>{awardPodium.bracketName}</strong>
               </TableCell>
               <TableCell>
-                <AthleteTemplate athlete={awardPodium.firstPlaceAthlete} />
+                <Athlete athlete={awardPodium.firstPlaceAthlete} />
               </TableCell>
               <TableCell>
-                <AthleteTemplate athlete={awardPodium.secondPlaceAthlete} />
+                <Athlete athlete={awardPodium.secondPlaceAthlete} />
               </TableCell>
               <TableCell>
-                <AthleteTemplate athlete={awardPodium.thirdPlaceAthlete} />
+                <Athlete athlete={awardPodium.thirdPlaceAthlete} />
               </TableCell>
             </TableRow>
           ))}
@@ -82,7 +85,7 @@ export default async function Page({ params: { id } }: Props) {
   )
 }
 
-const AthleteTemplate = ({ athlete }: { athlete: AwardWinnerDto | null }) => {
+const Athlete = ({ athlete }: { athlete: AwardWinnerDto | null }) => {
   if (!athlete) {
     return <div>--</div>
   }

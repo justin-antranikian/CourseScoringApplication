@@ -1,7 +1,7 @@
 import React from "react"
 import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
-import AthleteCard from "../_components/AthleteCard"
+import AthleteCard from "../AthleteCard"
 import { raceSeriesNames } from "../definitions"
 import {
   Breadcrumb,
@@ -17,6 +17,8 @@ interface Props {
     ids: string
   }
 }
+
+export const dynamic = "force-dynamic"
 
 const api = getApi()
 

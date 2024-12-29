@@ -7,7 +7,7 @@ import { BreadcrumbEllipsis } from "@/components/ui/breadcrumb"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import React, { useState } from "react"
 
-export default function SheetView({ course }: { course: CourseDetailsDto }) {
+export default function CourseDetailsSheetView({ course }: { course: CourseDetailsDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
 
   return (

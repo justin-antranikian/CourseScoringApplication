@@ -1,10 +1,12 @@
 import React from "react"
 import { getApi } from "../_api/api"
-import Content from "./_components/Content"
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage } from "@/components/ui/breadcrumb"
 import { DirectoryTree } from "../_components/DirectoryTree"
 import { LocationType } from "../_components/LocationInfoRankings"
 import RaceSearch from "../_components/RaceSearch"
+import RacesContent from "./RacesContent"
+
+export const dynamic = "force-dynamic"
 
 const api = getApi()
 
@@ -16,7 +18,6 @@ export default async function Page() {
     <>
       <div className="mb-5">
         <div className="flex justify-between">
-          {/* <div> */}
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -24,7 +25,6 @@ export default async function Page() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          {/* </div> */}
           <div>
             <RaceSearch />
           </div>
@@ -35,7 +35,7 @@ export default async function Page() {
           <DirectoryTree locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
-          <Content events={events} />
+          <RacesContent events={events} />
         </div>
       </div>
     </>

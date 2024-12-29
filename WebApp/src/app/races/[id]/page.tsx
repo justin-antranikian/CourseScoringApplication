@@ -1,6 +1,6 @@
 import React from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
-import Content from "./Content"
+import RaceContent from "./RaceContent"
 import { getImageNonFormatted } from "@/app/utils"
 import { getApi } from "@/app/_api/api"
 import {
@@ -79,7 +79,7 @@ export default async function Page({ params: { id } }: Props) {
           />
         </div>
         <div className="w-3/4">
-          <Content raceLeaderboard={raceLeaderboard} />
+          <RaceContent raceLeaderboard={raceLeaderboard} />
         </div>
       </div>
     </>

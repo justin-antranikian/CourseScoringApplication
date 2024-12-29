@@ -13,7 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
 import { getAthleteDetails } from "@/app/_api/serverActions"
 
-export default function Content({ athletes }: { athletes: AthleteSearchResultDto[] }) {
+export default function AthletesContent({ athletes }: { athletes: AthleteSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [arp, setArp] = useState<ArpDto | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])

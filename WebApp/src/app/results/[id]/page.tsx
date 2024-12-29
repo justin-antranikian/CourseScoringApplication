@@ -12,7 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import SheetView from "./SheetView"
+import CourseDetailsSheetView from "./CourseDetailsSheetView"
 import DirectorySheet from "@/app/_components/DirectorySheet"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 
@@ -65,7 +65,7 @@ export default async function Page({ params: { id } }: Props) {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1">
-                  <SheetView course={courseDetails} />
+                  <CourseDetailsSheetView course={courseDetails} />
                 </DropdownMenuTrigger>
               </DropdownMenu>
             </BreadcrumbItem>

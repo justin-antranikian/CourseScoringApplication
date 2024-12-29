@@ -5,7 +5,7 @@ import LocationInfoRankings, { LocationType } from "@/app/_components/LocationIn
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
 import React, { useState } from "react"
-import { raceSeriesNames } from "../definitions"
+import { raceSeriesNames } from "./definitions"
 
 export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthleteInfoDto }) {
   const [slideNumber, setSlideNumber] = useState(1)

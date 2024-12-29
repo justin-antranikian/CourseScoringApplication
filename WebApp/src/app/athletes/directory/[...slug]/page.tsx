@@ -1,6 +1,6 @@
 import { getApi } from "@/app/_api/api"
 import React from "react"
-import Content from "../../_components/Content"
+import AthletesContent from "../../AthletesContent"
 import { LocationDto } from "@/app/_api/locations/definitions"
 import {
   Breadcrumb,
@@ -29,6 +29,8 @@ interface Props {
     slug: string[]
   }
 }
+
+export const dynamic = "force-dynamic"
 
 const api = getApi()
 
@@ -100,7 +102,7 @@ export default async function Page({ params: { slug } }: Props) {
           <DirectoryTree locations={directory} locationType={LocationType.athletes} />
         </div>
         <div className="w-3/4">
-          <Content athletes={athletes} />
+          <AthletesContent athletes={athletes} />
         </div>
       </div>
     </>

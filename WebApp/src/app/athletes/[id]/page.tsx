@@ -1,6 +1,6 @@
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { BracketRank } from "@/app/_components/BracketRank"
-import RankWithTime from "../_components/RankWithTime"
+import RankWithTime from "../RankWithTime"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getApi } from "@/app/_api/api"
 import {
@@ -15,13 +15,13 @@ import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu
 import DirectorySheet from "@/app/_components/DirectorySheet"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 
-export const dynamic = "force-dynamic"
-
 interface Props {
   params: {
     id: string
   }
 }
+
+export const dynamic = "force-dynamic"
 
 const api = getApi()
 

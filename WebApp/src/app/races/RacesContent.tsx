@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Dialog } from "@/components/ui/dialog"
 import { EventSearchResultDto, RaceLeaderboardDto } from "@/app/_api/races/definitions"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis, BadgePlus } from "lucide-react"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
-import QuickViewDialogContent from "./QuickViewDialogContent"
 import { getImage } from "@/app/utils"
 import { getRaceLeaderboard } from "@/app/_api/serverActions"
+import QuickViewDialogContent from "./QuickViewDialogContent"
 
-export default function Content({ events }: { events: EventSearchResultDto[] }) {
+export default function RacesContent({ events }: { events: EventSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [leaderboard, setLeaderboard] = useState<RaceLeaderboardDto | null>(null)
 
@@ -95,58 +95,3 @@ export default function Content({ events }: { events: EventSearchResultDto[] }) 
     </>
   )
 }
-
-// const SearchComponent = () => {
-//   const [query, setQuery] = useState("")
-//   const [results, setResults] = useState([])
-//   const [isSearching, setIsSearching] = useState(false)
-
-//   // Debounce the search input
-//   useEffect(() => {
-//     const debounceTimeout = setTimeout(() => {
-//       if (query.trim()) {
-//         setIsSearching(true)
-//         fetchSearchResults(query).then((data) => {
-//           setResults(data as any)
-//           setIsSearching(false)
-//         })
-//       } else {
-//         setResults([])
-//       }
-//     }, 2000) // 2 seconds debounce time
-
-//     return () => clearTimeout(debounceTimeout) // Clean up on component unmount or query change
-//   }, [query])
-
-//   // Simulate a search result fetch
-//   const fetchSearchResults = async (query: any) => {
-//     // Simulate an API call with a delay
-//     await new Promise((resolve) => setTimeout(resolve, 500)) // Simulating delay
-//     return [`Result for ${query} 1`, `Result for ${query} 2`, `Result for ${query} 3`]
-//   }
-
-//   return (
-//     <div className="relative">
-//       <input
-//         type="text"
-//         value={query}
-//         onChange={(e) => setQuery(e.target.value)}
-//         placeholder="Search..."
-//         className="w-full p-2 border border-gray-300 rounded"
-//       />
-//       {results.length > 0 && (
-//         <div className="absolute top-full left-0 w-full max-h-48 overflow-y-auto bg-white border border-gray-300 z-10 mt-1">
-//           {isSearching ? (
-//             <div className="p-2 text-gray-500">Loading...</div>
-//           ) : (
-//             results.map((result, index) => (
-//               <div key={index} className="p-2 hover:bg-gray-100">
-//                 {result}
-//               </div>
-//             ))
-//           )}
-//         </div>
-//       )}
-//     </div>
-//   )
-// }

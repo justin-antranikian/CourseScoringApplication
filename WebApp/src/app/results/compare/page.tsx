@@ -15,6 +15,8 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb"
 
+export const dynamic = "force-dynamic"
+
 interface Props {
   searchParams: {
     ids: string
