@@ -13,7 +13,6 @@ public static class AthleteSearchResultDtoMapper
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
             LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
-            Tags = athlete.GetTags()
         };
     }
 }
@@ -25,5 +24,4 @@ public record AthleteSearchResultDto
     public required string FullName { get; init; }
     public required string GenderAbbreviated { get; init; }
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
-    public required List<string> Tags { get; init; }
 }

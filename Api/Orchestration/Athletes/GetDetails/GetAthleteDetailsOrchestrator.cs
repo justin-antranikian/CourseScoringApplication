@@ -9,28 +9,7 @@ public class GetAthleteDetailsOrchestrator(ScoringDbContext scoringDbContext)
         var getArpRepository = new GetArpRepository(scoringDbContext);
         var (results, courses, metadataEntries, athlete) = await getArpRepository.GetQueryResults(athleteId);
         var arpResults = GetResults(results, courses, metadataEntries).ToList();
-        var raceSeriesTypes = Enum.GetValues<RaceSeriesType>();
-
-        ArpGoalDto MapToGoal(RaceSeriesType seriesType)
-        {
-            var goal = athlete.AthleteRaceSeriesGoals.FirstOrDefault(oo => oo.RaceSeriesType == seriesType);
-            var coursesByType = courses.Where(oo => oo.Race!.RaceSeries!.RaceSeriesType == seriesType).ToList();
-            var totalDistance = coursesByType.Sum(oo => oo.Distance);
-            var resultsByType = arpResults.Where(oo => oo.RaceSeriesType == seriesType).ToArray();
-            return ArpGoalDtoMapper.GetArpGoalDto(seriesType, goal?.TotalEvents ?? 0, resultsByType.Length, totalDistance, coursesByType);
-        }
-
-        var goals = raceSeriesTypes.Select(MapToGoal).ToList();
-        var allEventsGoal = GetAllEventsGoal(goals, arpResults, courses);
-        var arpDto = ArpDtoMapper.GetArpDto(athlete, arpResults, goals, allEventsGoal);
-        return arpDto;
-    }
-
-    private static ArpGoalDto GetAllEventsGoal(List<ArpGoalDto> goals, List<ArpResultDto> arpResults, List<Course> courses)
-    {
-        var goalTotal = goals.Sum(oo => oo.GoalTotal);
-        var distance = courses.Sum(oo => oo.Distance);
-        return ArpGoalDtoMapper.GetArpGoalDto(null, goalTotal, arpResults.Count, distance, courses);
+        return ArpDtoMapper.GetArpDto(athlete, arpResults);
     }
 
     /// <summary>

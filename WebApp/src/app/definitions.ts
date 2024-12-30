@@ -15,3 +15,12 @@ export const RaceSeriesTypeNames: Record<RaceSeriesType, string> = {
   [RaceSeriesType.CrossCountrySkiing]: "Cross Country Skiing",
   [RaceSeriesType.Swim]: "Swimming",
 } as const
+
+export const RaceSeriesTypeForAthleteNames: Record<RaceSeriesType, string> = {
+  [RaceSeriesType.Running]: "Runner",
+  [RaceSeriesType.Triathalon]: "Triathlete",
+  [RaceSeriesType.RoadBiking]: "Cyclist",
+  [RaceSeriesType.MountainBiking]: "Mountain Biker",
+  [RaceSeriesType.CrossCountrySkiing]: "Cross Country Skier",
+  [RaceSeriesType.Swim]: "Swimmer",
+}

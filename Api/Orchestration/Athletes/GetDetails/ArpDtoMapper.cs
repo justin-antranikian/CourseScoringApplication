@@ -4,19 +4,16 @@ namespace Api.Orchestration.Athletes.GetDetails;
 
 public static class ArpDtoMapper
 {
-    public static ArpDto GetArpDto(Athlete athlete, List<ArpResultDto> results, List<ArpGoalDto> goals, ArpGoalDto allEventsGoal)
+    public static ArpDto GetArpDto(Athlete athlete, List<ArpResultDto> results)
     {
-        var combinedGoals = new List<ArpGoalDto> { allEventsGoal }.Concat(goals).ToList();
         var wellnessEntries = athlete.AthleteWellnessEntries.ToList();
 
         var arpDto = new ArpDto
         {
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
-            AllEventsGoal = allEventsGoal,
             FirstName = athlete.FirstName,
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.Gender.ToAbbreviation(),
-            Goals = combinedGoals,
             LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             Results = results,
             Tags = athlete.GetTags(),

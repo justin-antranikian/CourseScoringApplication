@@ -6,7 +6,6 @@ public static class ArpGoalDtoMapper
 {
     public static ArpGoalDto GetArpGoalDto(RaceSeriesType? raceSeriesType, int goalTotal, int actualTotal, double totalDistance, List<Course> courses)
     {
-        var raceSeriesTypeName = raceSeriesType?.ToFriendlyText() ?? "All Events";
         var percentComplete = GetPercentComplete(actualTotal, goalTotal);
 
         return new ArpGoalDto
@@ -14,7 +13,7 @@ public static class ArpGoalDtoMapper
             ActualTotal = actualTotal,
             GoalTotal = goalTotal,
             PercentComplete = percentComplete,
-            RaceSeriesTypeName = raceSeriesTypeName,
+            RaceSeriesTypeName = raceSeriesType?.ToString() ?? "All Events",
             TotalDistance = totalDistance,
             Courses = courses.Select(CourseGoalArpDtoMapper.GetCourseGoalArpDto).ToList()
         };

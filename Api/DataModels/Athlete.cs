@@ -53,7 +53,7 @@ public class Athlete
 
     public List<string> GetTags()
     {
-        return AthleteRaceSeriesGoals.Select(oo => oo.RaceSeriesType.ToAthleteText()).ToList();
+        return AthleteRaceSeriesGoals.Select(oo => oo.RaceSeriesType.ToString()).ToList();
     }
 }
 

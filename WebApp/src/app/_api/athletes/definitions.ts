@@ -8,7 +8,6 @@ export interface AthleteSearchResultDto {
   age: number
   genderAbbreviated: string
   locationInfoWithRank: LocationInfoWithRank
-  tags: string[]
 }
 
 export interface CompareAthletesAthleteInfoDto {
@@ -28,11 +27,9 @@ export interface CompareAthletesStat {
 
 export interface ArpDto {
   age: number
-  allEventsGoal: any
   firstName: string
   fullName: string
   genderAbbreviated: string
-  goals: any[]
   locationInfoWithRank: LocationInfoWithRank
   results: ArpResultDto[]
   tags: string[]

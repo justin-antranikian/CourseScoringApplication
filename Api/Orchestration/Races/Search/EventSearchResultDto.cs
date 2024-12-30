@@ -17,7 +17,7 @@ public static class EventSearchResultDtoMapper
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             Name = raceSeries.Name,
             RaceKickOffDate = upcomingRace.KickOffDate.ToShortDateString(),
-            RaceSeriesTypeName = raceSeries.RaceSeriesType.ToFriendlyText(),
+            RaceSeriesTypeName = raceSeries.RaceSeriesType.ToString(),
             UpcomingRaceId = upcomingRace.Id
         };
     }
