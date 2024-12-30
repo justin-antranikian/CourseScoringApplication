@@ -5,6 +5,7 @@ import { searchAthletes, searchRaces } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
 import { EventSearchResultDto } from "../_api/races/definitions"
+import SearchResults from "./SearchResults"
 
 export default function NavSearch() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -90,13 +91,14 @@ export default function NavSearch() {
   }
 
   return (
-    <div className="relative group">
-      <Input placeholder="athlete or race" className="h-7 w-60" value={searchTerm} onChange={handleInputChange} />
-      {searchTerm === "" ? null : (
-        <div className="absolute top-full right-0 z-50 w-96 p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
-          <Results />
-        </div>
-      )}
-    </div>
+    <SearchResults
+      searchTerm={searchTerm}
+      className="w-96 right-0"
+      inputComponent={
+        <Input placeholder="athlete or race" className="h-7 w-60" value={searchTerm} onChange={handleInputChange} />
+      }
+    >
+      <Results />
+    </SearchResults>
   )
 }

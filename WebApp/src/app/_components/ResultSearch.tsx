@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { getResultSearchResults } from "../_api/serverActions"
+import { searchResults } from "../_api/serverActions"
 import { IrpSearchResult } from "../_api/results/definitions"
 import { Input } from "@/components/ui/input"
+import SearchResults from "./SearchResults"
 
 export default function ResultSearch({ raceId, courseId }: { raceId: string | number; courseId?: string | number }) {
   const [searchTerm, setSearchTerm] = useState("")
@@ -18,7 +19,7 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
         return []
       }
 
-      return await getResultSearchResults({
+      return await searchResults({
         raceId,
         courseId,
         searchTerm,
@@ -61,13 +62,13 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
   }
 
   return (
-    <div className="relative group w-80">
-      <Input placeholder="bib or name" value={searchTerm} onChange={handleInputChange} />
-      {searchTerm === "" ? null : (
-        <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
-          <Results />
-        </div>
-      )}
+    <div className="w-80">
+      <SearchResults
+        searchTerm={searchTerm}
+        inputComponent={<Input placeholder="bib or name" value={searchTerm} onChange={handleInputChange} />}
+      >
+        <Results />
+      </SearchResults>
     </div>
   )
 }

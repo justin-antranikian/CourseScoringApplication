@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { searchAthletes } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
+import SearchResults from "./SearchResults"
 
 export default function AthleteSearch({ locationId, locationType }: { locationId?: number; locationType?: string }) {
   const [searchTerm, setSearchTerm] = useState("")
@@ -59,13 +60,13 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
   }
 
   return (
-    <div className="relative group w-80">
-      <Input placeholder="name" value={searchTerm} onChange={handleInputChange} />
-      {searchTerm === "" ? null : (
-        <div className="absolute top-full left-0 z-50 w-full p-2 bg-white border border-gray-300 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 max-h-[400px] overflow-y-auto">
-          <Results />
-        </div>
-      )}
+    <div className="w-80">
+      <SearchResults
+        searchTerm={searchTerm}
+        inputComponent={<Input placeholder="name" value={searchTerm} onChange={handleInputChange} />}
+      >
+        <Results />
+      </SearchResults>
     </div>
   )
 }
