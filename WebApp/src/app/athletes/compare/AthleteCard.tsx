@@ -5,7 +5,8 @@ import LocationInfoRankings, { LocationType } from "@/app/_components/LocationIn
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
 import React, { useState } from "react"
-import { RaceSeriesTypeNames } from "../definitions"
+import { RaceSeriesTypeNames } from "../../definitions"
+import AthleteImage from "../../_components/AthleteImage"
 
 export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthleteInfoDto }) {
   const [slideNumber, setSlideNumber] = useState(1)
@@ -38,7 +39,7 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
   return (
     <ContextMenuContent className="w-[400px] min-w-[400px] p-3">
       <div>
-        <img style={{ width: "50%", height: 125 }} src="/Athlete.png" />
+        <AthleteImage width="65%" />
       </div>
       <div className="bg-purple-200 text-center text-base py-2 mb-3">
         <a href={`/athletes/${athlete.id}`}>

@@ -12,6 +12,7 @@ import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
 import { getAthleteDetails } from "@/app/_api/serverActions"
+import AthleteImage from "../_components/AthleteImage"
 
 export default function AthletesContent({ athletes }: { athletes: AthleteSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -46,7 +47,7 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
               <ContextMenuTrigger>
                 <CardContent className="p-0">
                   <div>
-                    <img style={{ width: "100%", height: 125 }} src="/Athlete.png" />
+                    <AthleteImage width="100%" />
                   </div>
                   <div className="bg-purple-200 text-center text-base py-2">
                     <a href={`/athletes/${athlete.id}`}>

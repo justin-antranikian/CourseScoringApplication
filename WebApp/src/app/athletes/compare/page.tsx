@@ -1,7 +1,7 @@
 import React from "react"
 import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
-import AthleteCard from "../AthleteCard"
+import AthleteCard from "./AthleteCard"
 import { RaceSeriesTypeNames } from "../../definitions"
 import {
   Breadcrumb,
