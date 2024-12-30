@@ -38,7 +38,7 @@ public class GetDetailsOrchestrator(ScoringDbContext dbContext)
             PreferedMetric = course.PreferedMetric.ToString(),
             RaceId = course.RaceId,
             RaceName = course.Race.Name,
-            RaceSeriesTypeName = raceSeries.RaceSeriesType.ToString(),
+            RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
             SortOrder = course.SortOrder
         };
     }

@@ -50,11 +50,6 @@ public class Athlete
             StateUrl = StateLocation.Slug,
         };
     }
-
-    public List<string> GetTags()
-    {
-        return AthleteRaceSeriesGoals.Select(oo => oo.RaceSeriesType.ToString()).ToList();
-    }
 }
 
 public static class GenderExtensions

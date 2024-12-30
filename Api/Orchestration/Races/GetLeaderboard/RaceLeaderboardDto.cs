@@ -6,15 +6,16 @@ public static class RaceLeaderboardDtoMapper
 {
     public static RaceLeaderboardDto GetRaceLeaderboardDto(Race race, List<RaceLeaderboardByCourseDto> leaderboards)
     {
+        var raceSeries = race.RaceSeries;
+
         return new RaceLeaderboardDto
         {
             Leaderboards = leaderboards,
-            LocationInfoWithRank = race.RaceSeries.ToLocationInfoWithRank(),
+            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             RaceKickOffDate = race.KickOffDate.ToShortDateString(),
             RaceName = race.Name,
-            RaceSeriesDescription = race.RaceSeries.Description,
-            RaceSeriesType = race.RaceSeries.RaceSeriesType,
-            RaceSeriesTypeName = race.RaceSeries.RaceSeriesType.ToString()
+            RaceSeriesDescription = raceSeries.Description,
+            RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
         };
     }
 }
@@ -25,8 +26,7 @@ public record RaceLeaderboardDto
     public required string RaceKickOffDate { get; init; }
     public required string RaceName { get; init; }
     public required string RaceSeriesDescription { get; init; }
-    public required RaceSeriesType RaceSeriesType { get; init; }
-    public required string RaceSeriesTypeName { get; init; }
+    public required string RaceSeriesType { get; init; }
 
     public required List<RaceLeaderboardByCourseDto> Leaderboards { get; init; }
 }

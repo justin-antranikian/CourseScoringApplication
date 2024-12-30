@@ -31,7 +31,7 @@ public static class IrpDtoMapper
             RaceId = race.Id,
             RaceName = race.Name,
             RaceSeriesLocationInfoWithRank = race.RaceSeries!.ToLocationInfoWithRank(),
-            Tags = athlete.GetTags(),
+            Tags = athlete.AthleteRaceSeriesGoals.Select(oo => oo.RaceSeriesType.ToString()).ToList(),
             TimeZoneAbbreviated = race.TimeZoneId.ToAbbreviation(),
             TrainingList = trainingList
         };

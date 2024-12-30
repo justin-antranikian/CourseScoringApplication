@@ -15,6 +15,7 @@ import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu
 import CourseDetailsSheetView from "./CourseDetailsSheetView"
 import DirectorySheet from "@/app/_components/DirectorySheet"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
+import { RaceSeriesTypeForAthleteNames } from "@/app/definitions"
 
 export const dynamic = "force-dynamic"
 
@@ -91,7 +92,7 @@ export default async function Page({ params: { id } }: Props) {
           <div className="mt-5">
             {irp.tags.map((tag, index) => (
               <span key={index} className="text-lg bg-blue-500 text-white py-1 px-3 rounded-lg mr-2 mb-2 inline-block">
-                {tag}
+                {RaceSeriesTypeForAthleteNames[tag]}
               </span>
             ))}
           </div>

@@ -20,7 +20,7 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
     <div>
       {Object.entries(RaceSeriesTypeNames).map(([raceSeriesType, seriesName]) => {
         const stat = athlete.stats.find((stat) => stat.raceSeriesType === raceSeriesType)
-        return <StatLine key={raceSeriesType} raceSeriesTypeName={seriesName} stat={stat} />
+        return <StatLine key={raceSeriesType} raceSeriesType={seriesName} stat={stat} />
       })}
     </div>,
   ]
@@ -58,13 +58,7 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
   )
 }
 
-const StatLine = ({
-  raceSeriesTypeName,
-  stat,
-}: {
-  raceSeriesTypeName: string
-  stat: CompareAthletesStat | undefined
-}) => {
+const StatLine = ({ raceSeriesType, stat }: { raceSeriesType: string; stat: CompareAthletesStat | undefined }) => {
   const Content = () => {
     if (!stat) {
       return <>No stats available</>
@@ -82,8 +76,8 @@ const StatLine = ({
   }
 
   return (
-    <div key={raceSeriesTypeName}>
-      <strong>{raceSeriesTypeName}</strong>: <Content />
+    <div key={raceSeriesType}>
+      <strong>{raceSeriesType}</strong>: <Content />
     </div>
   )
 }

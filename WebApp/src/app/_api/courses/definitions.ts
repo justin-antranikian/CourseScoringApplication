@@ -1,5 +1,6 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
 import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
+import { RaceSeriesType } from "@/app/definitions"
 
 export interface CourseLeaderboardDto {
   courseDate: string
@@ -12,8 +13,7 @@ export interface CourseLeaderboardDto {
   raceName: string
   raceSeriesId: number
   raceSeriesDescription: string
-  raceSeriesType: number
-  raceSeriesTypeName: string
+  raceSeriesType: RaceSeriesType
 }
 
 export interface CourseLeaderboardByIntervalDto {
@@ -65,6 +65,6 @@ export interface CourseDetailsDto {
   preferedMetric: string
   raceId: number
   raceName: string
-  raceSeriesTypeName: string
+  raceSeriesType: RaceSeriesType
   sortOrder: number
 }

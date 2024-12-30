@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis, BadgePlus } from "lucide-react"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
-import { getImage } from "@/app/utils"
 import { getRaceLeaderboard } from "@/app/_api/serverActions"
 import QuickViewDialogContent from "./QuickViewDialogContent"
+import RaceSeriesImage from "../_components/RaceSeriesImage"
 
 export default function RacesContent({ events }: { events: EventSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -39,7 +39,7 @@ export default function RacesContent({ events }: { events: EventSearchResultDto[
                 <ContextMenuTrigger>
                   <CardContent className="p-0">
                     <div>
-                      <img style={{ width: "100%", height: 125 }} src={getImage(event.raceSeriesTypeName)} />
+                      <RaceSeriesImage raceSeriesType={event.raceSeriesType} />
                     </div>
                     <div className="bg-purple-200 text-center text-base py-2">
                       <a href={`/races/${event.upcomingRaceId}`}>

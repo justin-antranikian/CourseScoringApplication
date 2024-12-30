@@ -10,5 +10,5 @@ public record Race
     public required string TimeZoneId { get; set; }
 
     public List<Course> Courses { get; init; } = [];
-    public RaceSeries? RaceSeries { get; set; }
+    public RaceSeries RaceSeries { get; set; }
 }

@@ -1,5 +1,6 @@
 import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
 import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
+import { RaceSeriesType } from "@/app/definitions"
 
 export interface RaceLeaderboardDto {
   leaderboards: RaceLeaderboardByCourseDto[]
@@ -7,7 +8,7 @@ export interface RaceLeaderboardDto {
   raceKickOffDate: string
   raceName: string
   raceSeriesDescription: string
-  raceSeriesTypeName: string
+  raceSeriesType: RaceSeriesType
 }
 
 export interface RaceLeaderboardByCourseDto {
@@ -26,7 +27,7 @@ export interface EventSearchResultDto {
   locationInfoWithRank: LocationInfoWithRank
   name: string
   raceKickOffDate: string
-  raceSeriesTypeName: string
+  raceSeriesType: RaceSeriesType
   upcomingRaceId: number
   courses: DisplayNameWithId[]
 }

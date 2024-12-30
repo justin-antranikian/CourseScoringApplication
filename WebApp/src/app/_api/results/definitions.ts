@@ -1,5 +1,6 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
 import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
+import { RaceSeriesType } from "@/app/definitions"
 
 export interface Irp {
   athleteId: number
@@ -20,7 +21,7 @@ export interface Irp {
   raceId: number
   raceName: string
   raceSeriesLocationInfoWithRank: LocationInfoWithRank
-  tags: string[]
+  tags: RaceSeriesType[]
   timeZoneAbbreviated: string
   trainingList: string[]
 }

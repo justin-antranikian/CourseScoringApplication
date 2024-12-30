@@ -1,7 +1,6 @@
 import React from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import CourseContent from "./CourseContent"
-import { getImageNonFormatted } from "@/app/utils"
 import { Button } from "@/components/ui/button"
 import { getApi } from "@/app/_api/api"
 import {
@@ -16,6 +15,7 @@ import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu
 import DirectorySheet from "@/app/_components/DirectorySheet"
 import ResultSearch from "@/app/_components/ResultSearch"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
+import RaceSeriesImage from "@/app/_components/RaceSeriesImage"
 
 export const dynamic = "force-dynamic"
 
@@ -69,10 +69,7 @@ export default async function Page({ params: { id } }: Props) {
       <div className="flex gap-1">
         <div className="w-1/4">
           <div>
-            <img
-              style={{ width: "75%", height: 125 }}
-              src={getImageNonFormatted(courseLeaderboard.raceSeriesTypeName)}
-            />
+            <RaceSeriesImage raceSeriesType={courseLeaderboard.raceSeriesType} width="75%" />
           </div>
           <div className="mt-2 text-2xl font-bold">{courseLeaderboard.raceName}</div>
           <div className="text-lg text-blue-500 font-bold">{courseLeaderboard.courseName}</div>

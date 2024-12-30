@@ -2,7 +2,7 @@
 
 import { CourseDetailsDto } from "@/app/_api/courses/definitions"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
-import { getImageNonFormatted } from "@/app/utils"
+import RaceSeriesImage from "@/app/_components/RaceSeriesImage"
 import { BreadcrumbEllipsis } from "@/components/ui/breadcrumb"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import React, { useState } from "react"
@@ -22,7 +22,7 @@ export default function CourseDetailsSheetView({ course }: { course: CourseDetai
           </SheetHeader>
           <div className="mt-3">
             <div>
-              <img style={{ width: "100%", height: 150 }} src={getImageNonFormatted(course.raceSeriesTypeName)} />
+              <RaceSeriesImage raceSeriesType={course.raceSeriesType} height={150} />
             </div>
             <div className="mt-2 text-2xl font-bold">{course.raceName}</div>
             <div className="text-lg text-blue-500 font-bold">{course.courseName}</div>

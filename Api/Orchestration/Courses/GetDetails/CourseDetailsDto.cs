@@ -15,6 +15,6 @@ public record CourseDetailsDto
     public required string PreferedMetric { get; init; }
     public required int RaceId { get; init; }
     public required string RaceName { get; init; }
-    public required string RaceSeriesTypeName { get; init; }
+    public required string RaceSeriesType { get; init; }
     public required int SortOrder { get; init; }
 }

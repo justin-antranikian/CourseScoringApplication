@@ -32,10 +32,8 @@ export interface ArpDto {
   genderAbbreviated: string
   locationInfoWithRank: LocationInfoWithRank
   results: ArpResultDto[]
-  tags: string[]
   wellnessTrainingAndDiet: AthleteWellnessEntryDto[]
   wellnessGoals: AthleteWellnessEntryDto[]
-  wellnessGearList: AthleteWellnessEntryDto[]
   wellnessMotivationalList: AthleteWellnessEntryDto[]
 }
 

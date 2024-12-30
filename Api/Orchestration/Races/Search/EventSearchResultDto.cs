@@ -17,7 +17,7 @@ public static class EventSearchResultDtoMapper
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             Name = raceSeries.Name,
             RaceKickOffDate = upcomingRace.KickOffDate.ToShortDateString(),
-            RaceSeriesTypeName = raceSeries.RaceSeriesType.ToString(),
+            RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
             UpcomingRaceId = upcomingRace.Id
         };
     }
@@ -29,7 +29,7 @@ public record EventSearchResultDto
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required string Name { get; init; }
     public required string RaceKickOffDate { get; init; }
-    public required string RaceSeriesTypeName { get; init; }
+    public required string RaceSeriesType { get; init; }
     public required int UpcomingRaceId { get; init; }
 
     public required List<DisplayNameWithIdDto> Courses { get; init; }
