@@ -1,6 +1,7 @@
 "server only"
 
 import { ApiFetch, getPostRequestInit } from "../api"
+import { getLocationBasedSearchParams } from "../utils"
 import { ArpDto, AthleteSearchResultDto, CompareAthletesAthleteInfoDto } from "./definitions"
 
 const baseUrl = "athletes"
@@ -19,19 +20,8 @@ export default (apiFetch: ApiFetch) => ({
     locationType?: string,
     searchTerm?: string,
   ): Promise<AthleteSearchResultDto[]> => {
-    const params = new URLSearchParams()
-
-    if (locationId) {
-      params.append("locationId", locationId.toString())
-    }
-    if (locationType) {
-      params.append("locationType", locationType)
-    }
-    if (searchTerm) {
-      params.append("searchTerm", searchTerm)
-    }
-
-    const url = `${baseUrl}/search?${params.toString()}`
+    const searchParams = getLocationBasedSearchParams(locationId, locationType, searchTerm)
+    const url = `${baseUrl}/search?${searchParams}`
     const response = await apiFetch(url)
     return await response.json()
   },

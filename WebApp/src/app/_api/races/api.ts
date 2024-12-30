@@ -1,6 +1,7 @@
 "server only"
 
 import { ApiFetch } from "../api"
+import { getLocationBasedSearchParams } from "../utils"
 import { RaceLeaderboardDto, EventSearchResultDto } from "./definitions"
 
 const baseUrl = "races"
@@ -11,19 +12,8 @@ export default (apiFetch: ApiFetch) => ({
     return await response.json()
   },
   search: async (locationId?: number, locationType?: string, searchTerm?: string): Promise<EventSearchResultDto[]> => {
-    const params = new URLSearchParams()
-
-    if (locationId) {
-      params.append("locationId", locationId.toString())
-    }
-    if (locationType) {
-      params.append("locationType", locationType)
-    }
-    if (searchTerm) {
-      params.append("searchTerm", searchTerm)
-    }
-
-    const url = `${baseUrl}/search?${params.toString()}`
+    const searchParams = getLocationBasedSearchParams(locationId, locationType, searchTerm)
+    const url = `${baseUrl}/search?${searchParams}`
     const response = await apiFetch(url)
     return await response.json()
   },
