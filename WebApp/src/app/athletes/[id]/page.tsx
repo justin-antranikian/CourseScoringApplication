@@ -71,18 +71,18 @@ export default async function Page({ params: { id } }: Props) {
           <div className="my-3">{arp.firstName}'s training and diet</div>
           <ul className="list-disc pl-5 text-xs">
             {arp.wellnessTrainingAndDiet.map((entry, index) => (
-              <li key={index}>{entry.description}</li>
+              <li key={index}>{entry}</li>
             ))}
           </ul>
           <div className="my-3">{arp.firstName}'s goals</div>
           <ul className="list-disc pl-5 text-xs">
             {arp.wellnessGoals.map((entry, index) => (
-              <li key={index}>{entry.description}</li>
+              <li key={index}>{entry}</li>
             ))}
           </ul>
           <div className="my-3">{arp.firstName}'s inspiration</div>
           {arp.wellnessMotivationalList.map((entry) => {
-            return <div className="pl-5 text-xs">{entry.description}</div>
+            return <div className="pl-5 text-xs">{entry}</div>
           })}
         </div>
         <div className="w-3/4">

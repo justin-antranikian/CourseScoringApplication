@@ -6,9 +6,9 @@ public static class ArpDtoMapper
 {
     public static ArpDto GetArpDto(Athlete athlete, List<ArpResultDto> results)
     {
-        var wellnessEntries = athlete.AthleteWellnessEntries.ToList();
+        var wellnessEntries = athlete.AthleteWellnessEntries;
 
-        var arpDto = new ArpDto
+        return new ArpDto
         {
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
             FirstName = athlete.FirstName,
@@ -20,20 +20,17 @@ public static class ArpDtoMapper
             WellnessMotivationalList = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Motivational),
             WellnessTrainingAndDiet = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Training, AthleteWellnessType.Diet),
         };
-
-        return arpDto;
     }
 
-    private static List<AthleteWellnessEntryDto> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
+    private static List<string> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
     {
-        var filteredList = wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType));
-        return filteredList.Select(oo => new AthleteWellnessEntryDto { AthleteWellnessType = oo.AthleteWellnessType, Description = oo.Description }).ToList();
+        return wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType)).Select(oo => oo.Description).ToList();
     }
 }
 
 
 /// <summary>
-/// Arp stands for athlete results page. The idea is to display the athlete information along with all the results.
+/// Results for the athlete. Athlete Results Page.
 /// </summary>
 public class ArpDto
 {
@@ -43,7 +40,7 @@ public class ArpDto
     public required string GenderAbbreviated { get; init; }
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required List<ArpResultDto> Results { get; init; }
-    public required List<AthleteWellnessEntryDto> WellnessTrainingAndDiet { get; init; }
-    public required List<AthleteWellnessEntryDto> WellnessGoals { get; init; }
-    public required List<AthleteWellnessEntryDto> WellnessMotivationalList { get; init; }
+    public required List<string> WellnessTrainingAndDiet { get; init; }
+    public required List<string> WellnessGoals { get; init; }
+    public required List<string> WellnessMotivationalList { get; init; }
 }

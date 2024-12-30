@@ -10,21 +10,6 @@ export interface AthleteSearchResultDto {
   locationInfoWithRank: LocationInfoWithRank
 }
 
-export interface CompareAthletesAthleteInfoDto {
-  id: number
-  age: number
-  fullName: string
-  genderAbbreviated: string
-  locationInfoWithRank: LocationInfoWithRank
-  stats: CompareAthletesStat[]
-}
-
-export interface CompareAthletesStat {
-  raceSeriesType: RaceSeriesType
-  actualTotal: number
-  goalTotal: number | null
-}
-
 export interface ArpDto {
   age: number
   firstName: string
@@ -32,9 +17,9 @@ export interface ArpDto {
   genderAbbreviated: string
   locationInfoWithRank: LocationInfoWithRank
   results: ArpResultDto[]
-  wellnessTrainingAndDiet: AthleteWellnessEntryDto[]
-  wellnessGoals: AthleteWellnessEntryDto[]
-  wellnessMotivationalList: AthleteWellnessEntryDto[]
+  wellnessTrainingAndDiet: string[]
+  wellnessGoals: string[]
+  wellnessMotivationalList: string[]
 }
 
 export interface ArpResultDto {
@@ -55,7 +40,17 @@ export interface ArpResultDto {
   paceWithTimeCumulative: PaceWithTime
 }
 
-export interface AthleteWellnessEntryDto {
-  athleteWellnessType: any
-  description: string
+export interface CompareAthletesAthleteInfoDto {
+  id: number
+  age: number
+  fullName: string
+  genderAbbreviated: string
+  locationInfoWithRank: LocationInfoWithRank
+  stats: CompareAthletesStat[]
+}
+
+export interface CompareAthletesStat {
+  raceSeriesType: RaceSeriesType
+  actualTotal: number
+  goalTotal: number | null
 }
