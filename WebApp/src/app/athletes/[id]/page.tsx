@@ -16,17 +16,17 @@ import DirectorySheet from "@/app/_components/DirectorySheet"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 import AthleteImage from "@/app/_components/AthleteImage"
 
-interface Props {
-  params: {
-    id: string
-  }
-}
-
 export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({ params: { id } }: Props) {
+export default async function Page({
+  params: { id },
+}: {
+  params: {
+    id: string
+  }
+}) {
   const arp = await api.athletes.details(id)
   const directory = await api.locations.directory()
   const { locationInfoWithRank } = arp

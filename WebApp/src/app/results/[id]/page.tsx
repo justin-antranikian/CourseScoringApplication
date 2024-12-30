@@ -20,15 +20,15 @@ import AthleteImage from "@/app/_components/AthleteImage"
 
 export const dynamic = "force-dynamic"
 
-interface Props {
+const api = getApi()
+
+export default async function Page({
+  params: { id },
+}: {
   params: {
     id: string
   }
-}
-
-const api = getApi()
-
-export default async function Page({ params: { id } }: Props) {
+}) {
   const irp = await api.results.details(id)
   const courseDetails = await api.courses.details(irp.courseId)
   const directory = await api.locations.directory()

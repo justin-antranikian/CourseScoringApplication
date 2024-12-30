@@ -28,3 +28,9 @@ export default function SearchResults({
     </div>
   )
 }
+
+export const NoResults = ({ searchTerm }: { searchTerm: string }) => (
+  <div>
+    There were no results found for: <strong>{searchTerm}</strong>
+  </div>
+)

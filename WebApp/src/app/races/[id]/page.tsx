@@ -18,15 +18,15 @@ import RaceSeriesImage from "@/app/_components/RaceSeriesImage"
 
 export const dynamic = "force-dynamic"
 
-interface Props {
+const api = getApi()
+
+export default async function Page({
+  params: { id },
+}: {
   params: {
     id: string
   }
-}
-
-const api = getApi()
-
-export default async function Page({ params: { id } }: Props) {
+}) {
   const raceLeaderboard = await api.races.details(id)
   const directory = await api.locations.directory()
   const { locationInfoWithRank } = raceLeaderboard

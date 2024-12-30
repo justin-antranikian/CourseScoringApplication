@@ -4,14 +4,13 @@ import { useState } from "react"
 import { searchRaces } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
 import { EventSearchResultDto } from "../_api/races/definitions"
-import SearchResults from "./SearchResults"
+import SearchResults, { NoResults } from "./SearchResults"
 
 export default function RaceSearch({ locationId, locationType }: { locationId?: number; locationType?: string }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [races, setRaces] = useState<EventSearchResultDto[]>([])
 
-  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value
+  const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
 
     const getRaces = async () => {
@@ -28,11 +27,7 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
 
   const Results = () => {
     if (races.length === 0) {
-      return (
-        <div>
-          There were no results found for: <strong>{searchTerm}</strong>
-        </div>
-      )
+      return <NoResults searchTerm={searchTerm} />
     }
 
     return (

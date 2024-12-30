@@ -1,7 +1,7 @@
 import React from "react"
 import { RaceSeriesType } from "../definitions"
 
-const raceSeriesTypeForImageNames: Record<RaceSeriesType, string> = {
+const RaceSeriesImageMapping: Record<RaceSeriesType, string> = {
   [RaceSeriesType.Running]: "/RunningClipArt.png",
   [RaceSeriesType.Triathalon]: "/Triathalon.jpg",
   [RaceSeriesType.RoadBiking]: "/RoadBiking.jpg",
@@ -19,5 +19,5 @@ export default function RaceSeriesImage({
   width?: string
   height?: number
 }) {
-  return <img style={{ width, height }} src={raceSeriesTypeForImageNames[raceSeriesType]} />
+  return <img style={{ width, height }} src={RaceSeriesImageMapping[raceSeriesType]} />
 }

@@ -16,17 +16,17 @@ import { LocationType } from "@/app/_components/LocationInfoRankings"
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import DirectorySheet from "@/app/_components/DirectorySheet"
 
-interface Props {
-  searchParams: {
-    ids: string
-  }
-}
-
 export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({ searchParams }: Props) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: {
+    ids: string
+  }
+}) {
   const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const irpsToCompare = await api.results.compare(ids)
   const intervalNames = irpsToCompare[0].compareIrpsIntervalDtos.map((inteval) => inteval.intervalName)

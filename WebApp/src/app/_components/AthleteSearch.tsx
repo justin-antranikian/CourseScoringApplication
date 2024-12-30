@@ -1,17 +1,16 @@
 "use client"
 
-import { ReactNode, useState } from "react"
+import { useState } from "react"
 import { searchAthletes } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
-import SearchResults from "./SearchResults"
+import SearchResults, { NoResults } from "./SearchResults"
 
 export default function AthleteSearch({ locationId, locationType }: { locationId?: number; locationType?: string }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [athletes, setAthletes] = useState<AthleteSearchResultDto[]>([])
 
-  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value
+  const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
 
     const getAthletes = async () => {
@@ -28,11 +27,7 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
 
   const Results = () => {
     if (athletes.length === 0) {
-      return (
-        <div>
-          There were no results found for: <strong>{searchTerm}</strong>
-        </div>
-      )
+      return <NoResults searchTerm={searchTerm} />
     }
 
     return (

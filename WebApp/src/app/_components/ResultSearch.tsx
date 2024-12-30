@@ -4,14 +4,13 @@ import { useState } from "react"
 import { searchResults } from "../_api/serverActions"
 import { IrpSearchResult } from "../_api/results/definitions"
 import { Input } from "@/components/ui/input"
-import SearchResults from "./SearchResults"
+import SearchResults, { NoResults } from "./SearchResults"
 
 export default function ResultSearch({ raceId, courseId }: { raceId: string | number; courseId?: string | number }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [results, setResults] = useState<IrpSearchResult[]>([])
 
-  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value
+  const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
 
     const getResults = async () => {
@@ -32,11 +31,7 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
 
   const Results = () => {
     if (results.length === 0) {
-      return (
-        <div>
-          There were no results found for: <strong>{searchTerm}</strong>
-        </div>
-      )
+      return <NoResults searchTerm={searchTerm} />
     }
 
     return (

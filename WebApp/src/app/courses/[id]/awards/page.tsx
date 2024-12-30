@@ -19,13 +19,13 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-interface Props {
+export default async function Page({
+  params: { id },
+}: {
   params: {
     id: string
   }
-}
-
-export default async function Page({ params: { id } }: Props) {
+}) {
   const awards = await api.courses.awards(id)
   const courseDetails = await api.courses.details(id)
   const directory = await api.locations.directory()

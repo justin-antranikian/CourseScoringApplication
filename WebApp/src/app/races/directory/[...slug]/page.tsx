@@ -24,15 +24,17 @@ import { getSlugEntries } from "@/utils"
 import RaceSearch from "@/app/_components/RaceSearch"
 import RacesContent from "../../RacesContent"
 
-interface Props {
-  params: {
-    slug: string[]
-  }
-}
+export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({ params: { slug } }: Props) {
+export default async function Page({
+  params: { slug },
+}: {
+  params: {
+    slug: string[]
+  }
+}) {
   const routeSegment = slug.join("/")
   const locationResponse = await api.locations.bySlug(routeSegment)
 

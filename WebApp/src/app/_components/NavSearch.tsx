@@ -5,15 +5,14 @@ import { searchAthletes, searchRaces } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
 import { EventSearchResultDto } from "../_api/races/definitions"
-import SearchResults from "./SearchResults"
+import SearchResults, { NoResults } from "./SearchResults"
 
 export default function NavSearch() {
   const [searchTerm, setSearchTerm] = useState("")
   const [athletes, setAthletes] = useState<AthleteSearchResultDto[]>([])
   const [races, setRaces] = useState<EventSearchResultDto[]>([])
 
-  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value
+  const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
 
     const getAthletes = async () => {
@@ -41,11 +40,7 @@ export default function NavSearch() {
 
   const Results = () => {
     if (athletes.length === 0 && races.length === 0) {
-      return (
-        <div>
-          There were no results found for: <strong>{searchTerm}</strong>
-        </div>
-      )
+      return <NoResults searchTerm={searchTerm} />
     }
 
     return (
