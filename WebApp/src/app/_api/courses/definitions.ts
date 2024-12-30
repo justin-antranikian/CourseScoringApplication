@@ -58,11 +58,8 @@ export interface CourseDetailsDto {
   courseName: string
   courseTime: string
   courseType: string
-  distance: number
   locationInfoWithRank: LocationInfoWithRank
   name: string
-  paceType: string
-  preferedMetric: string
   raceId: number
   raceName: string
   raceSeriesType: RaceSeriesType
