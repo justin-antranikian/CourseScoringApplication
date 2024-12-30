@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/breadcrumb"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
+import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import DirectorySheet from "@/app/_components/DirectorySheet"
 
 export const dynamic = "force-dynamic"
 
@@ -26,7 +28,7 @@ interface Props {
 export default async function Page({ params: { id } }: Props) {
   const awards = await api.courses.awards(id)
   const courseDetails = await api.courses.details(id)
-
+  const directory = await api.locations.directory()
   const { locationInfoWithRank } = courseDetails
 
   return (
@@ -34,6 +36,13 @@ export default async function Page({ params: { id } }: Props) {
       <div className="mb-5">
         <Breadcrumb>
           <BreadcrumbList>
+            <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  <DirectorySheet locations={directory} locationType={LocationType.races} />
+                </DropdownMenuTrigger>
+              </DropdownMenu>
+            </BreadcrumbItem>
             <BreadcrumbItem>
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>

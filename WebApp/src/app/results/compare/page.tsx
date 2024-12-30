@@ -1,10 +1,7 @@
 import React from "react"
-import { InfoIcon } from "lucide-react"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getApi } from "@/app/_api/api"
 import { CompareIrpsIntervalDto } from "@/app/_api/results/definitions"
-import { BracketRank } from "@/app/_components/BracketRank"
 import { PaceWithTime } from "@/app/_components/IntervalTime"
 import {
   Breadcrumb,
@@ -14,14 +11,18 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb"
-
-export const dynamic = "force-dynamic"
+import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
+import { LocationType } from "@/app/_components/LocationInfoRankings"
+import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import DirectorySheet from "@/app/_components/DirectorySheet"
 
 interface Props {
   searchParams: {
     ids: string
   }
 }
+
+export const dynamic = "force-dynamic"
 
 const api = getApi()
 
@@ -32,6 +33,7 @@ export default async function Page({ searchParams }: Props) {
   const courseId = irpsToCompare[0].courseId
 
   const courseDetails = await api.courses.details(courseId)
+  const directory = await api.locations.directory()
   const { locationInfoWithRank } = courseDetails
 
   return (
@@ -40,27 +42,17 @@ export default async function Page({ searchParams }: Props) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  <DirectorySheet locations={directory} locationType={LocationType.races} />
+                </DropdownMenuTrigger>
+              </DropdownMenu>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
               <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.stateUrl}`}>
-                {locationInfoWithRank.state}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.areaUrl}`}>
-                {locationInfoWithRank.area}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/directory/${locationInfoWithRank.cityUrl}`}>
-                {locationInfoWithRank.city}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
             <BreadcrumbItem>
               <BreadcrumbLink href={`/races/${courseDetails.raceId}`}>{courseDetails.raceName}</BreadcrumbLink>
             </BreadcrumbItem>
@@ -103,39 +95,6 @@ export default async function Page({ searchParams }: Props) {
                     <TableCell>
                       <div>{result.crossingTime ? result.crossingTime : "--"}</div>
                       <PaceContent result={result} />
-                      <div className="mt-1">
-                        <Popover>
-                          <PopoverTrigger>
-                            <span title="Bracket Details">
-                              <InfoIcon size={10} />
-                            </span>
-                          </PopoverTrigger>
-                          <PopoverContent>
-                            <table className="w-full">
-                              <thead>
-                                <tr className="border-b border-black">
-                                  <th className="w-[33%] text-left py-2">Overall</th>
-                                  <th className="w-[33%] text-left py-2">Gender</th>
-                                  <th className="w-[33%] text-left py-2">Division</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <BracketRank rank={result.overallRank} total={0} />
-                                  </td>
-                                  <td>
-                                    <BracketRank rank={result.genderRank} total={0} />
-                                  </td>
-                                  <td>
-                                    <BracketRank rank={result.primaryDivisionRank} total={0} />
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </PopoverContent>
-                        </Popover>
-                      </div>
                     </TableCell>
                   )
                 })}
