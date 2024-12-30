@@ -1,5 +1,6 @@
 import { PaceWithTime } from "@/app/_components/IntervalTime"
 import { LocationInfoWithRank } from "@/app/_components/LocationInfoRankings"
+import { RaceSeriesType } from "@/app/definitions"
 
 export interface AthleteSearchResultDto {
   id: number
@@ -20,7 +21,7 @@ export interface CompareAthletesAthleteInfoDto {
 }
 
 export interface CompareAthletesStat {
-  raceSeriesTypeName: string
+  raceSeriesType: RaceSeriesType
   actualTotal: number
   goalTotal: number | null
 }

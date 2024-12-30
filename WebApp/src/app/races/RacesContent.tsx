@@ -47,6 +47,7 @@ export default function RacesContent({ events }: { events: EventSearchResultDto[
                       </a>
                     </div>
                     <div className="p-2">
+                      <div>{event.raceKickOffDate}</div>
                       <div className="my-3">
                         <LocationInfoRankings
                           locationInfoWithRank={event.locationInfoWithRank}

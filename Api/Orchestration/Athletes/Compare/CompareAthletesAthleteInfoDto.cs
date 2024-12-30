@@ -11,21 +11,19 @@ public static class CompareAthletesAthleteInfoDtoMapper
         CompareAthletesStat GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
         {
             var raceSeriesType = raceSeriesTypeGrouping.Key;
-            var raceSeriesTypeName = raceSeriesType.ToFriendlyText();
             var goal = goals.SingleOrDefault(oo => oo.RaceSeriesType == raceSeriesType);
 
             return new CompareAthletesStat
             {
                 ActualTotal = raceSeriesTypeGrouping.Count(),
                 GoalTotal = goal?.TotalEvents,
-                RaceSeriesTypeName = raceSeriesTypeName,
+                RaceSeriesType = raceSeriesType.ToString(),
             };
         }
 
         var stats = coursesForAthlete
-            .GroupBy(oo => oo.Race!.RaceSeries!.RaceSeriesType)
+            .GroupBy(oo => oo.Race.RaceSeries!.RaceSeriesType)
             .Select(GetCompareAthletesStat)
-            .OrderBy(oo => oo.RaceSeriesTypeName)
             .ToList();
 
         return new CompareAthletesAthleteInfoDto

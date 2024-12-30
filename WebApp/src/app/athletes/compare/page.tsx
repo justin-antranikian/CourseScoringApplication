@@ -2,7 +2,7 @@ import React from "react"
 import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import AthleteCard from "../AthleteCard"
-import { raceSeriesNames } from "../definitions"
+import { RaceSeriesTypeNames } from "../../definitions"
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -46,7 +46,7 @@ export default async function Page({ searchParams }: Props) {
         <div className="bg-gray-100 text-sm font-medium text-gray-700">
           <div className="flex divide-x divide-gray-200">
             <div className="p-3 flex-1">Athlete Info</div>
-            {raceSeriesNames.map((seriesName) => (
+            {Object.values(RaceSeriesTypeNames).map((seriesName) => (
               <div key={seriesName} className="p-3 flex-1">
                 {seriesName}
               </div>
@@ -64,10 +64,10 @@ export default async function Page({ searchParams }: Props) {
                       {athlete.genderAbbreviated} | {athlete.age}
                     </div>
                   </div>
-                  {raceSeriesNames.map((seriesName) => {
-                    const stat = athlete.stats.find((stat) => stat.raceSeriesTypeName === seriesName)
+                  {Object.keys(RaceSeriesTypeNames).map((raceSeriesType: string) => {
+                    const stat = athlete.stats.find((stat) => stat.raceSeriesType === raceSeriesType)
                     return (
-                      <div key={seriesName} className="p-3 flex-1 text-center">
+                      <div key={raceSeriesType} className="p-3 flex-1 text-center">
                         {stat?.actualTotal ?? "--"}
                       </div>
                     )

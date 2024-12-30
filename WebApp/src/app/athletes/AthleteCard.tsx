@@ -5,7 +5,7 @@ import LocationInfoRankings, { LocationType } from "@/app/_components/LocationIn
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
 import React, { useState } from "react"
-import { raceSeriesNames } from "./definitions"
+import { RaceSeriesTypeNames } from "../definitions"
 
 export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthleteInfoDto }) {
   const [slideNumber, setSlideNumber] = useState(1)
@@ -18,9 +18,9 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
       <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} locationType={LocationType.athletes} />
     </div>,
     <div>
-      {raceSeriesNames.map((seriesName) => {
-        const stat = athlete.stats.find((stat) => stat.raceSeriesTypeName === seriesName)
-        return <StatLine key={seriesName} raceSeriesTypeName={seriesName} stat={stat} />
+      {Object.entries(RaceSeriesTypeNames).map(([raceSeriesType, seriesName]) => {
+        const stat = athlete.stats.find((stat) => stat.raceSeriesType === raceSeriesType)
+        return <StatLine key={raceSeriesType} raceSeriesTypeName={seriesName} stat={stat} />
       })}
     </div>,
   ]
