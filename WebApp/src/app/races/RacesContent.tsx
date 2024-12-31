@@ -72,8 +72,8 @@ export default function RacesContent({ events }: { events: EventSearchResultDto[
                               )
                             })}
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => handleViewMoreClicked(event)}>
-                              <BadgePlus className="cursor-pointer" size={10} color="black" strokeWidth={1.5} />
+                            <DropdownMenuItem className="cursor-pointer" onClick={() => handleViewMoreClicked(event)}>
+                              <BadgePlus size={10} color="black" strokeWidth={1.5} />
                               Quick View
                             </DropdownMenuItem>
                           </DropdownMenuContent>
