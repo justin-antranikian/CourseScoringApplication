@@ -25,18 +25,15 @@ public class GetDetailsOrchestrator(ScoringDbContext dbContext)
 
         return new CourseDetailsDto
         {
+            Id = course.Id,
             CourseDate = dateFormatted,
-            CourseDistance = course.Distance,
-            CourseId = course.Id,
-            CourseName = course.Name,
             CourseTime = timeFormatted,
-            CourseType = course.CourseType.ToString(),
+            Distance = course.Distance,
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             Name = course.Name,
             RaceId = course.RaceId,
             RaceName = course.Race.Name,
-            RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
-            SortOrder = course.SortOrder
+            RaceSeriesType = raceSeries.RaceSeriesType.ToString()
         };
     }
 }

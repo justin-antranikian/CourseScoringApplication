@@ -25,12 +25,12 @@ export default function CourseDetailsSheetView({ course }: { course: CourseDetai
               <RaceSeriesImage raceSeriesType={course.raceSeriesType} height={150} />
             </div>
             <div className="mt-2 text-2xl font-bold">{course.raceName}</div>
-            <div className="text-lg text-blue-500 font-bold">{course.courseName}</div>
+            <div className="text-lg text-blue-500 font-bold">{course.name}</div>
             <div className="text-sm mb-2">
               <div>
                 {course.locationInfoWithRank.city}, {course.locationInfoWithRank.state}
               </div>
-              <div>Distance: {course.courseDistance}</div>
+              <div>Distance: {course.distance}</div>
               <div>
                 {course.courseDate} at <strong>{course.courseTime}</strong>
               </div>

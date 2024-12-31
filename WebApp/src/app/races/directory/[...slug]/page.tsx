@@ -102,7 +102,11 @@ export default async function Page({
           <DirectoryTree locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4">
-          <RacesContent events={races} />
+          {races.length === 0 ? (
+            <div className="text-lg font-bold text-red-500">There are no races at this location</div>
+          ) : (
+            <RacesContent events={races} />
+          )}
         </div>
       </div>
     </>

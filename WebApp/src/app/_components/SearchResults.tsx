@@ -9,7 +9,7 @@ export default function SearchResults({
 }: {
   searchTerm: string
   className?: string
-  inputComponent: ReactNode
+  inputComponent: JSX.Element
   children: ReactNode
 }) {
   return (

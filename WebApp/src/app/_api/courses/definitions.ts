@@ -52,16 +52,13 @@ export interface AwardWinnerDto {
 }
 
 export interface CourseDetailsDto {
-  courseId: number
+  id: number
   courseDate: string
-  courseDistance: number
-  courseName: string
   courseTime: string
-  courseType: string
+  distance: number
   locationInfoWithRank: LocationInfoWithRank
   name: string
   raceId: number
   raceName: string
   raceSeriesType: RaceSeriesType
-  sortOrder: number
 }
