@@ -107,7 +107,6 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
           setHideComparePane={setHideComparePane}
           selectedIds={selectedIds}
           url={compareUrl}
-          thickOpactity={true}
         />
       ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
