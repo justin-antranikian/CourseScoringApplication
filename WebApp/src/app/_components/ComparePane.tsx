@@ -6,28 +6,14 @@ import { twMerge } from "tailwind-merge"
 interface Props {
   hideComparePane: boolean
   setHideComparePane: React.Dispatch<React.SetStateAction<boolean>>
-  idsEncoded: string
   selectedIds: number[]
   url: string
-  thickOpactity?: boolean
 }
 
-export default function ComparePane({
-  hideComparePane,
-  setHideComparePane,
-  idsEncoded,
-  selectedIds,
-  url,
-  thickOpactity,
-}: Props) {
+export default function ComparePane({ hideComparePane, setHideComparePane, selectedIds, url }: Props) {
   if (hideComparePane) {
     return (
-      <div
-        className={twMerge(
-          "fixed bottom-0 left-0 w-full bg-gray-200 text-black px-4 py-1 flex justify-end",
-          thickOpactity ? "bg-opacity-70" : "bg-opacity-30",
-        )}
-      >
+      <div className="fixed bottom-0 left-0 w-full bg-gray-200 text-black px-4 py-1 flex justify-end">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
@@ -45,14 +31,9 @@ export default function ComparePane({
   }
 
   return (
-    <div
-      className={twMerge(
-        "fixed bottom-0 left-0 py-3 w-full bg-gray-200 text-black flex items-center justify-between px-4",
-        thickOpactity ? "bg-opacity-70" : "bg-opacity-50",
-      )}
-    >
+    <div className="fixed bottom-0 left-0 py-3 w-full bg-gray-200 text-black flex items-center justify-between px-4">
       <div className="text-center flex-1">
-        <a href={`/${url}?ids=${idsEncoded}`}>Compare ({selectedIds.length})</a>
+        <a href={url}>Compare ({selectedIds.length})</a>
       </div>
       <div className="text-right">
         <TooltipProvider>

@@ -17,13 +17,12 @@ export const dynamic = "force-dynamic"
 const api = getApi()
 
 export default async function Page({
-  searchParams,
+  searchParams: { ids },
 }: {
   searchParams: {
-    ids: string
+    ids: string[]
   }
 }) {
-  const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const athletes = await api.athletes.compare(ids)
 
   return (

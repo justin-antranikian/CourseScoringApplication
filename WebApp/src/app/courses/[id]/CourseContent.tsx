@@ -25,8 +25,10 @@ export default function CourseContent({ courseLeaderboard }: { courseLeaderboard
     })
   }
 
-  const idsEncoded = useMemo(() => {
-    return encodeURIComponent(`[${selectedIds.join(",")}]`)
+  const compareUrl = useMemo(() => {
+    const queryParams = new URLSearchParams()
+    selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
+    return `/results/compare?${queryParams.toString()}`
   }, [selectedIds])
 
   const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto): Promise<void> => {
@@ -112,8 +114,7 @@ export default function CourseContent({ courseLeaderboard }: { courseLeaderboard
         <ComparePane
           hideComparePane={hideComparePane}
           setHideComparePane={setHideComparePane}
-          idsEncoded={idsEncoded}
-          url={"results/compare"}
+          url={compareUrl}
           selectedIds={selectedIds}
         />
       ) : null}

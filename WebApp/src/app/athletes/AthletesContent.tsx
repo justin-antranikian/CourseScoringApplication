@@ -33,8 +33,10 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
     })
   }
 
-  const idsEncoded = useMemo(() => {
-    return encodeURIComponent(`[${selectedIds.join(",")}]`)
+  const compareUrl = useMemo(() => {
+    const queryParams = new URLSearchParams()
+    selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
+    return `/athletes/compare?${queryParams.toString()}`
   }, [selectedIds])
 
   return (
@@ -103,9 +105,8 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
         <ComparePane
           hideComparePane={hideComparePane}
           setHideComparePane={setHideComparePane}
-          idsEncoded={idsEncoded}
           selectedIds={selectedIds}
-          url={"athletes/compare"}
+          url={compareUrl}
           thickOpactity={true}
         />
       ) : null}

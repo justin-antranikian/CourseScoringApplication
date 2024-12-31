@@ -21,13 +21,12 @@ export const dynamic = "force-dynamic"
 const api = getApi()
 
 export default async function Page({
-  searchParams,
+  searchParams: { ids },
 }: {
   searchParams: {
-    ids: string
+    ids: string[]
   }
 }) {
-  const ids = searchParams.ids ? JSON.parse(searchParams.ids) : []
   const irpsToCompare = await api.results.compare(ids)
   const intervalNames = irpsToCompare[0].compareIrpsIntervalDtos.map((inteval) => inteval.intervalName)
   const courseId = irpsToCompare[0].courseId
