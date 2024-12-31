@@ -10,11 +10,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import DirectorySheet from "../../_components/DirectorySheet"
 import ResultSearch from "@/app/_components/ResultSearch"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 import RaceSeriesImage from "@/app/_components/RaceSeriesImage"
+import { Ellipsis } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -51,6 +52,23 @@ export default async function Page({
               <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
               <BreadcrumbItem>
                 <BreadcrumbPage>{raceLeaderboard.raceName}</BreadcrumbPage>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <DropdownMenu>
+                  <DropdownMenuTrigger title="Courses">
+                    <Ellipsis />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    {raceLeaderboard.leaderboards.map((board) => {
+                      return (
+                        <DropdownMenuItem>
+                          <a href={`/courses/${board.courseId}`}>{board.courseName}</a>
+                        </DropdownMenuItem>
+                      )
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

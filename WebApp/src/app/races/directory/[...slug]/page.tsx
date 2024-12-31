@@ -23,6 +23,7 @@ import {
 import { getSlugEntries } from "@/utils"
 import RaceSearch from "@/app/_components/RaceSearch"
 import RacesContent from "../../RacesContent"
+import { Ellipsis } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 

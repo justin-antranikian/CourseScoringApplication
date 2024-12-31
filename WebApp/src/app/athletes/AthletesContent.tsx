@@ -3,10 +3,9 @@
 import React, { useMemo, useState } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
-import { BadgePlus, ChartBarStacked, Ellipsis } from "lucide-react"
+import { ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -62,17 +61,16 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
                       />
                     </div>
                     <div>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger>
-                          <Ellipsis />
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuItem onClick={() => handleViewMoreClicked(athlete)}>
-                            <BadgePlus className="cursor-pointer" size={10} color="black" strokeWidth={1.5} />
-                            Quick View
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Ellipsis onClick={() => handleViewMoreClicked(athlete)} />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Quick View</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                     <div>
                       <TooltipProvider>

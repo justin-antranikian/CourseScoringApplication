@@ -56,7 +56,7 @@ export default function RacesContent({ events }: { events: EventSearchResultDto[
                       </div>
                       <div>
                         <DropdownMenu>
-                          <DropdownMenuTrigger>
+                          <DropdownMenuTrigger title="Actions">
                             <Ellipsis />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent>
