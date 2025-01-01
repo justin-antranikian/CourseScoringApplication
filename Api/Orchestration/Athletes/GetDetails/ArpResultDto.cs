@@ -7,7 +7,6 @@ public static class ArpResultDtoMapper
     public static ArpResultDto GetArpResultDto(ResultWithBracketType result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
     {
         var race = course.Race;
-        var raceSeries = race!.RaceSeries!;
 
         var overallTotal = metadataGetTotalHelper.GetOverallTotal();
         var genderTotal = metadataGetTotalHelper.GetGenderTotal();
@@ -16,7 +15,6 @@ public static class ArpResultDtoMapper
         return new ArpResultDto
         {
             AthleteCourseId = result.AthleteCourseId,
-            City = raceSeries.CityLocation!.Name,
             CourseId = course.Id,
             CourseName = course.Name,
             GenderCount = genderTotal,
@@ -28,8 +26,6 @@ public static class ArpResultDtoMapper
             PrimaryDivisionRank = result.DivisionRank,
             RaceId = course.RaceId,
             RaceName = race.Name,
-            RaceSeriesType = raceSeries.RaceSeriesType,
-            State = raceSeries.StateLocation!.Name
         };
     }
 }
@@ -37,7 +33,6 @@ public static class ArpResultDtoMapper
 public record ArpResultDto
 {
     public required int AthleteCourseId { get; init; }
-    public required string City { get; init; }
     public required int CourseId { get; init; }
     public required string CourseName { get; init; }
     public required int GenderCount { get; init; }
@@ -49,6 +44,4 @@ public record ArpResultDto
     public required int PrimaryDivisionRank { get; init; }
     public required int RaceId { get; init; }
     public required string RaceName { get; init; }
-    public required RaceSeriesType RaceSeriesType { get; init; }
-    public required string State { get; init; }
 }

@@ -34,6 +34,8 @@ public class Athlete
 
     public int GetRaceAge(DateTime courseStartTime) => DateTimeHelper.GetRaceAge(DateOfBirth, courseStartTime);
 
+    public string GetGenderFormatted() => Gender.ToAbbreviation();
+
     public LocationInfoWithRank ToLocationInfoWithRank()
     {
         return new LocationInfoWithRank
@@ -60,7 +62,6 @@ public static class GenderExtensions
         {
             Gender.Femail => "F",
             Gender.Male => "M",
-            _ => throw new NotImplementedException()
         };
     }
 }

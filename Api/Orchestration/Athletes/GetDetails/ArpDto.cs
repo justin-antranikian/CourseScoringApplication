@@ -13,7 +13,7 @@ public static class ArpDtoMapper
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
             FirstName = athlete.FirstName,
             FullName = athlete.FullName,
-            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            GenderAbbreviated = athlete.GetGenderFormatted(),
             LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             Results = results,
             WellnessGoals = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Goal),

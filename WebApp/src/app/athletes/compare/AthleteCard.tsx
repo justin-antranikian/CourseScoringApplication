@@ -1,6 +1,6 @@
 "use client"
 
-import { CompareAthletesAthleteInfoDto, CompareAthletesStat } from "@/app/_api/athletes/definitions"
+import { AthleteCompareDto, AthleteCompareStatDto } from "@/app/_api/athletes/definitions"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
@@ -8,7 +8,7 @@ import React, { useState } from "react"
 import { RaceSeriesTypeNames } from "../../definitions"
 import AthleteImage from "../../_components/AthleteImage"
 
-export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthleteInfoDto }) {
+export default function AthleteCard({ athlete }: { athlete: AthleteCompareDto }) {
   const [slideNumber, setSlideNumber] = useState(1)
 
   const slides = [
@@ -59,7 +59,7 @@ export default function AthleteCard({ athlete }: { athlete: CompareAthletesAthle
   )
 }
 
-const StatLine = ({ raceSeriesType, stat }: { raceSeriesType: string; stat: CompareAthletesStat | undefined }) => {
+const StatLine = ({ raceSeriesType, stat }: { raceSeriesType: string; stat: AthleteCompareStatDto | undefined }) => {
   const Content = () => {
     if (!stat) {
       return <>No stats available</>

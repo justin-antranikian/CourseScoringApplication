@@ -2,7 +2,7 @@
 
 import { ApiFetch, getPostRequestInit } from "../api"
 import { getLocationBasedSearchParams } from "../utils"
-import { ArpDto, AthleteSearchResultDto, CompareAthletesAthleteInfoDto } from "./definitions"
+import { ArpDto, AthleteSearchResultDto, AthleteCompareDto } from "./definitions"
 
 const baseUrl = "athletes"
 
@@ -11,7 +11,7 @@ export default (apiFetch: ApiFetch) => ({
     const response = await apiFetch(`${baseUrl}/${id}`)
     return await response.json()
   },
-  compare: async (athleteIds: string[]): Promise<CompareAthletesAthleteInfoDto[]> => {
+  compare: async (athleteIds: string[]): Promise<AthleteCompareDto[]> => {
     const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit(athleteIds))
     return await response.json()
   },

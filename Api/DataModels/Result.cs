@@ -16,8 +16,8 @@ public record Result
     public required int TimeOnInterval { get; set; }
     public required int TimeOnCourse { get; set; }
 
-    public AthleteCourse? AthleteCourse { get; set; }
-    public Bracket? Bracket { get; set; }
-    public Course? Course { get; set; }
-    public Interval? Interval { get; set; }
+    public AthleteCourse AthleteCourse { get; set; }
+    public Bracket Bracket { get; set; }
+    public Course Course { get; set; }
+    public Interval Interval { get; set; }
 }

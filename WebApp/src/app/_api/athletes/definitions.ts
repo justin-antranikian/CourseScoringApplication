@@ -24,32 +24,29 @@ export interface ArpDto {
 
 export interface ArpResultDto {
   athleteCourseId: number
-  raceId: number
-  raceName: string
-  raceSeriesType: any
   courseId: number
   courseName: string
-  state: string
-  city: string
-  overallRank: number
-  genderRank: number
-  primaryDivisionRank: number
-  overallCount: number
   genderCount: number
-  primaryDivisionCount: number
+  genderRank: number
+  overallCount: number
+  overallRank: number
   paceWithTimeCumulative: PaceWithTime
+  primaryDivisionCount: number
+  primaryDivisionRank: number
+  raceId: number
+  raceName: string
 }
 
-export interface CompareAthletesAthleteInfoDto {
+export interface AthleteCompareDto {
   id: number
   age: number
   fullName: string
   genderAbbreviated: string
   locationInfoWithRank: LocationInfoWithRank
-  stats: CompareAthletesStat[]
+  stats: AthleteCompareStatDto[]
 }
 
-export interface CompareAthletesStat {
+export interface AthleteCompareStatDto {
   raceSeriesType: RaceSeriesType
   actualTotal: number
   goalTotal: number | null

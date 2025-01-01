@@ -4,16 +4,16 @@ namespace Api.Orchestration.Athletes.Compare;
 
 public static class CompareAthletesAthleteInfoDtoMapper
 {
-    public static CompareAthletesAthleteInfoDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<Result> resultsForAthlete, List<AthleteRaceSeriesGoal> goals)
+    public static AthleteCompareDto GetCompareAthletesAthleteInfoDto(Athlete athlete, List<Course> courses, List<Result> resultsForAthlete, List<AthleteRaceSeriesGoal> goals)
     {
         var coursesForAthlete = GetCoursesForAthlete(courses, resultsForAthlete);
 
-        CompareAthletesStat GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
+        AthleteCompareStatDto GetCompareAthletesStat(IGrouping<RaceSeriesType, Course> raceSeriesTypeGrouping)
         {
             var raceSeriesType = raceSeriesTypeGrouping.Key;
             var goal = goals.SingleOrDefault(oo => oo.RaceSeriesType == raceSeriesType);
 
-            return new CompareAthletesStat
+            return new AthleteCompareStatDto
             {
                 ActualTotal = raceSeriesTypeGrouping.Count(),
                 GoalTotal = goal?.TotalEvents,
@@ -22,11 +22,11 @@ public static class CompareAthletesAthleteInfoDtoMapper
         }
 
         var stats = coursesForAthlete
-            .GroupBy(oo => oo.Race.RaceSeries!.RaceSeriesType)
+            .GroupBy(oo => oo.Race.RaceSeries.RaceSeriesType)
             .Select(GetCompareAthletesStat)
             .ToList();
 
-        return new CompareAthletesAthleteInfoDto
+        return new AthleteCompareDto
         {
             Id = athlete.Id,
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
@@ -48,12 +48,12 @@ public static class CompareAthletesAthleteInfoDtoMapper
     }
 }
 
-public record CompareAthletesAthleteInfoDto
+public record AthleteCompareDto
 {
     public required int Id { get; set; }
     public required int Age { get; init; }
     public required string GenderAbbreviated { get; init; }
     public required string FullName { get; init; }
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
-    public required List<CompareAthletesStat> Stats { get; init; }
+    public required List<AthleteCompareStatDto> Stats { get; init; }
 }

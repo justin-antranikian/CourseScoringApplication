@@ -5,7 +5,7 @@ namespace Api.Orchestration.Athletes.Compare;
 
 public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 {
-    public async Task<List<CompareAthletesAthleteInfoDto>> GetCompareAthletesDto(List<int> athleteIds)
+    public async Task<List<AthleteCompareDto>> GetCompareAthletesDto(List<int> athleteIds)
     {
         var athletes = await GetAthletes(athleteIds);
         var results = await GetResults(athleteIds);
@@ -15,7 +15,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
         var distinctCourseIds = results.Select(oo => oo.CourseId).Distinct().ToArray();
         var courses = await GetCourses(distinctCourseIds);
 
-        var dtos = new List<CompareAthletesAthleteInfoDto>();
+        var dtos = new List<AthleteCompareDto>();
         foreach (var athlete in athletes)
         {
             var resultsForAthlete = results.Where(result => result.AthleteCourse.AthleteId == athlete.Id).ToList();
@@ -44,7 +44,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
         var query = scoringDbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .Where(oo => athleteIds.Contains(oo.AthleteCourse!.AthleteId))
-                        .Where(oo => oo.Bracket!.BracketType == BracketType.Overall && oo.IsHighestIntervalCompleted);
+                        .Where(oo => oo.Bracket.BracketType == BracketType.Overall && oo.IsHighestIntervalCompleted);
 
         return await query.ToListAsync();
     }
