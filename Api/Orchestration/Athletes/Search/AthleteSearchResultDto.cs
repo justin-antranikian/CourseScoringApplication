@@ -1,21 +1,4 @@
-﻿using Api.DataModels;
-
-namespace Api.Orchestration.Athletes.Search;
-
-public static class AthleteSearchResultDtoMapper
-{
-    public static AthleteSearchResultDto GetAthleteSearchResultDto(Athlete athlete)
-    {
-        return new AthleteSearchResultDto
-        {
-            Id = athlete.Id,
-            Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
-            FullName = athlete.FullName,
-            GenderAbbreviated = athlete.GetGenderFormatted(),
-            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
-        };
-    }
-}
+﻿namespace Api.Orchestration.Athletes.Search;
 
 public record AthleteSearchResultDto
 {

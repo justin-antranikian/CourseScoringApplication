@@ -21,6 +21,11 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
     public DbSet<Result> Results { get; set; }
     public DbSet<TagRead> TagReads { get; set; }
 
+    public IQueryable<Athlete> GetAthletesWithLocationInfo()
+    {
+        return Athletes.Include(oo => oo.AreaLocation).Include(oo => oo.CityLocation).Include(oo => oo.StateLocation).AsQueryable();
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         AthleteConfiguration.Configure(modelBuilder.Entity<Athlete>());

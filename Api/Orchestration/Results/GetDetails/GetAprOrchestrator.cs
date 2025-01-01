@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Results.GetDetails;
 
-public class GetIrpOrchestrator(ScoringDbContext dbContext)
+public class GetAprOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<IrpDto> Get(int athleteCourseId)
     {
         var athleteCourse = await dbContext.AthleteCourses.Include(oo => oo.AthleteCourseBrackets).Include(oo => oo.AthleteCourseTrainings).SingleAsync(oo => oo.Id == athleteCourseId);
 
         var course = await dbContext.Courses.Include(oo => oo.Brackets).Include(oo => oo.Intervals).Include(oo => oo.Race).SingleAsync(oo => oo.Id == athleteCourse.CourseId);
-        var athlete = await GetAthlete(athleteCourse);
+        var athlete = await dbContext.GetAthletesWithLocationInfo().Include(oo => oo.AthleteRaceSeriesGoals).SingleAsync(oo => oo.Id == athleteCourse.AthleteId);
 
         var bracketIdsForAthlete = athleteCourse.AthleteCourseBrackets.Select(oo => oo.BracketId).ToList();
         var metadataEntries = await dbContext.BracketMetadataEntries.Where(oo => oo.IntervalId == null && bracketIdsForAthlete.Contains(oo.BracketId)).ToListAsync();
@@ -24,16 +24,6 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
         var paceWithTimeCumulative = course.GetPaceWithTime(highestIntervalResult.TimeOnCourse, highestInterval.DistanceFromStart);
 
         return IrpDtoMapper.GetIrpDto(athlete, athleteCourse, course, paceWithTimeCumulative, bracketResults, intervalResults);
-    }
-
-    private async Task<Athlete> GetAthlete(AthleteCourse athleteCourse)
-    {
-        return await dbContext.Athletes
-            .Include(oo => oo.AreaLocation)
-            .Include(oo => oo.CityLocation)
-            .Include(oo => oo.StateLocation)
-            .Include(oo => oo.AthleteRaceSeriesGoals)
-            .SingleAsync(oo => oo.Id == athleteCourse.AthleteId);
     }
 
     private async Task<List<Result>> GetResults(AthleteCourse athleteCourse, Course course, int athleteCourseId)

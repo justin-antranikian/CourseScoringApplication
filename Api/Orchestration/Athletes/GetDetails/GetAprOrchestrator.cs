@@ -3,16 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Athletes.GetDetails;
 
-public class GetDetailsOrchestrator(ScoringDbContext dbContext)
+public class GetAprOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<ArpDto> Get(int athleteId)
     {
-        var athlete = await dbContext.Athletes
-            .Include(oo => oo.AthleteWellnessEntries)
-            .Include(oo => oo.StateLocation)
-            .Include(oo => oo.AreaLocation)
-            .Include(oo => oo.CityLocation)
-            .SingleAsync(oo => oo.Id == athleteId);
+        var athlete = await dbContext.GetAthletesWithLocationInfo().Include(oo => oo.AthleteWellnessEntries).SingleAsync(oo => oo.Id == athleteId);
 
         var results = await GetResults(athleteId);
         var courses = await GetCourses(results);

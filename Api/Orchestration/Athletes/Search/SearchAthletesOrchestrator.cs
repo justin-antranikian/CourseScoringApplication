@@ -7,12 +7,7 @@ public class SearchAthletesOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<AthleteSearchResultDto>> Get(int? locationId, string? locationType, string? searchTerm)
     {
-        var baseQuery = dbContext.Athletes
-            .Include(oo => oo.StateLocation)
-            .Include(oo => oo.AreaLocation)
-            .Include(oo => oo.CityLocation)
-            .Include(oo => oo.AthleteRaceSeriesGoals)
-            .AsQueryable();
+        var baseQuery = dbContext.GetAthletesWithLocationInfo();
 
         if (searchTerm != null)
         {
@@ -38,6 +33,18 @@ public class SearchAthletesOrchestrator(ScoringDbContext dbContext)
         }
 
         var results = await baseQuery.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();
-        return results.Select(AthleteSearchResultDtoMapper.GetAthleteSearchResultDto).ToList();
+        return results.Select(MapToDto).ToList();
+    }
+
+    private static AthleteSearchResultDto MapToDto(Athlete athlete)
+    {
+        return new AthleteSearchResultDto
+        {
+            Id = athlete.Id,
+            Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
+            FullName = athlete.FullName,
+            GenderAbbreviated = athlete.GetGenderFormatted(),
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
+        };
     }
 }
