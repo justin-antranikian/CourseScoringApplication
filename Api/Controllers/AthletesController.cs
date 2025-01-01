@@ -13,8 +13,8 @@ public class AthletesController(ScoringDbContext scoringDbContext) : ControllerB
     [HttpGet("{athleteId:int}")]
     public async Task<ArpDto> Details([FromRoute] int athleteId)
     {
-        var orchestrator = new GetAthleteDetailsOrchestrator(scoringDbContext);
-        return await orchestrator.GetArpDto(athleteId);
+        var orchestrator = new GetDetailsOrchestrator(scoringDbContext);
+        return await orchestrator.Get(athleteId);
     }
 
     [HttpPost("compare")]

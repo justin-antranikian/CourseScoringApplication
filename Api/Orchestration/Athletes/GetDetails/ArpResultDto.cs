@@ -6,26 +6,20 @@ public static class ArpResultDtoMapper
 {
     public static ArpResultDto GetArpResultDto(Result result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
     {
-        var race = course.Race;
-
-        var overallTotal = metadataGetTotalHelper.GetOverallTotal();
-        var genderTotal = metadataGetTotalHelper.GetGenderTotal();
-        var primaryTotal = metadataGetTotalHelper.GetPrimaryDivisionTotal();
-
         return new ArpResultDto
         {
             AthleteCourseId = result.AthleteCourseId,
             CourseId = course.Id,
             CourseName = course.Name,
-            GenderCount = genderTotal,
+            GenderCount = metadataGetTotalHelper.GetGenderTotal(),
             GenderRank = result.GenderRank,
-            OverallCount = overallTotal,
+            OverallCount = metadataGetTotalHelper.GetOverallTotal(),
             OverallRank = result.OverallRank,
             PaceWithTimeCumulative = paceWithTimeCumulative,
-            PrimaryDivisionCount = primaryTotal,
+            PrimaryDivisionCount = metadataGetTotalHelper.GetPrimaryDivisionTotal(),
             PrimaryDivisionRank = result.DivisionRank,
             RaceId = course.RaceId,
-            RaceName = race.Name,
+            RaceName = course.Race.Name,
         };
     }
 }
