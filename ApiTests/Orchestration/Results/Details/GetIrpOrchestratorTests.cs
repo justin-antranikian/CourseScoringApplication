@@ -9,7 +9,7 @@ public class GetIrpOrchestratorTests
     {
         var dbContext = ScoringDbContextCreator.GetScoringDbContext();
         var orchestrator = new GetIrpOrchestrator(dbContext);
-        var irpDto = await orchestrator.GetIrpDto(1);
+        var irpDto = await orchestrator.Get(1);
 
         Assert.Equal(1, irpDto.AthleteId);
         Assert.Equal("FA LA", irpDto.FullName);
@@ -179,7 +179,7 @@ public class GetIrpOrchestratorTests
         var dbContext = ScoringDbContextCreator.GetScoringDbContext();
 
         var orchestrator = new GetIrpOrchestrator(dbContext);
-        var irpDto = await orchestrator.GetIrpDto(6);
+        var irpDto = await orchestrator.Get(6);
 
         Assert.Equal("46:44", irpDto.PaceWithTimeCumulative.TimeFormatted);
         Assert.True(irpDto.PaceWithTimeCumulative.HasPace);

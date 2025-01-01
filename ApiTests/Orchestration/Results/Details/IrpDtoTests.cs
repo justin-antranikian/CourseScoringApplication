@@ -135,7 +135,7 @@ public class IrpDtoTests
             }
         };
 
-        return IrpDtoMapper.GetIrpDto(athleteCourse, course, paceWithTime, [], intervalResults.ToList());
+        return IrpDtoMapper.GetIrpDto(athleteCourse.Athlete, athleteCourse, course, paceWithTime, [], intervalResults.ToList());
     }
 
     #endregion

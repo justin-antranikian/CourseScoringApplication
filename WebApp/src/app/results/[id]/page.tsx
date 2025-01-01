@@ -30,10 +30,9 @@ export default async function Page({
   }
 }) {
   const irp = await api.results.details(id)
-  const courseDetails = await api.courses.details(irp.courseId)
-  const directory = await api.locations.directory()
+  const [courseDetails, directory] = await Promise.all([api.courses.details(irp.courseId), api.locations.directory()])
 
-  const { raceSeriesLocationInfoWithRank: locationInfoWithRank } = irp
+  const { locationInfoWithRank } = courseDetails
 
   return (
     <>
@@ -53,11 +52,11 @@ export default async function Page({
             <BreadcrumbSeparator />
             <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/races/${irp.raceId}`}>{irp.raceName}</BreadcrumbLink>
+              <BreadcrumbLink href={`/races/${courseDetails.raceId}`}>{courseDetails.raceName}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/courses/${irp.courseId}`}>{irp.courseName}</BreadcrumbLink>
+              <BreadcrumbLink href={`/courses/${courseDetails.id}`}>{courseDetails.name}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

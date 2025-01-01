@@ -14,7 +14,7 @@ public class ResultsController(ScoringDbContext dbContext) : ControllerBase
     public async Task<IrpDto> Get([FromRoute] int athleteCourseId)
     {
         var orchestrator = new GetIrpOrchestrator(dbContext);
-        return await orchestrator.GetIrpDto(athleteCourseId);
+        return await orchestrator.Get(athleteCourseId);
     }
 
     [HttpPost("compare")]

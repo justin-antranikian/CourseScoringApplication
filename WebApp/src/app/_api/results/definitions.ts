@@ -18,9 +18,6 @@ export interface Irp {
   paceWithTimeCumulative: PaceWithTime
   personalGoalDescription: string
   raceAge: number
-  raceId: number
-  raceName: string
-  raceSeriesLocationInfoWithRank: LocationInfoWithRank
   tags: RaceSeriesType[]
   timeZoneAbbreviated: string
   trainingList: string[]
@@ -47,7 +44,6 @@ export interface IrpResultByIntervalDto {
   genderIndicator: number
   primaryDivisionIndicator: number
   crossingTime: string | null
-  isFullCourse: boolean
 }
 
 export interface CompareIrpsAthleteInfoDto {
