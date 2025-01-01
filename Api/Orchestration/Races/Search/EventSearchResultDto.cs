@@ -1,27 +1,4 @@
-﻿using Api.DataModels;
-using System.Diagnostics;
-
-namespace Api.Orchestration.Races.Search;
-
-public static class EventSearchResultDtoMapper
-{
-    public static EventSearchResultDto GetEventSearchResultDto(RaceSeries raceSeries)
-    {
-        var upcomingRace = raceSeries.Races.OrderByDescending(oo => oo.KickOffDate).First();
-        var courses = upcomingRace.Courses.Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
-
-        return new EventSearchResultDto
-        {
-            Courses = courses,
-            Id = raceSeries.Id,
-            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
-            Name = raceSeries.Name,
-            RaceKickOffDate = upcomingRace.KickOffDate.ToShortDateString(),
-            RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
-            UpcomingRaceId = upcomingRace.Id
-        };
-    }
-}
+﻿namespace Api.Orchestration.Races.Search;
 
 public record EventSearchResultDto
 {
