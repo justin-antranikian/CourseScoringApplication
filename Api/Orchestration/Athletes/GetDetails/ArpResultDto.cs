@@ -4,7 +4,7 @@ namespace Api.Orchestration.Athletes.GetDetails;
 
 public static class ArpResultDtoMapper
 {
-    public static ArpResultDto GetArpResultDto(ResultWithBracketType result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
+    public static ArpResultDto GetArpResultDto(Result result, Course course, PaceWithTime paceWithTimeCumulative, MetadataGetTotalHelper metadataGetTotalHelper)
     {
         var race = course.Race;
 

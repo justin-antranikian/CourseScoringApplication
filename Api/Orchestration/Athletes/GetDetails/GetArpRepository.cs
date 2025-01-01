@@ -5,7 +5,7 @@ namespace Api.Orchestration.Athletes.GetDetails;
 
 public class GetArpRepository(ScoringDbContext scoringDbContext)
 {
-    public record QueryResult(List<ResultWithBracketType> Results, List<Course> Courses, List<BracketMetadata> MetadataEntries, Athlete Athlete);
+    public record QueryResult(List<Result> Results, List<Course> Courses, List<BracketMetadata> MetadataEntries, Athlete Athlete);
 
     public async Task<QueryResult> GetQueryResults(int athleteId)
     {
@@ -23,32 +23,17 @@ public class GetArpRepository(ScoringDbContext scoringDbContext)
         return new QueryResult(results, courses, bracketMetadataEntries, athlete);
     }
 
-    private async Task<List<ResultWithBracketType>> GetResults(int athleteId)
+    private async Task<List<Result>> GetResults(int athleteId)
     {
         var bracketTypes = new[] { BracketType.Overall, BracketType.Gender, BracketType.PrimaryDivision };
 
-        var query = from results in scoringDbContext.Results
-                    where
-                        bracketTypes.Contains(results.Bracket.BracketType) &&
-                        results.AthleteCourse.AthleteId == athleteId &&
-                        results.IsHighestIntervalCompleted == true
-                    select new ResultWithBracketType
-                    (
-                        results.AthleteCourseId,
-                        results.BracketId,
-                        results.Bracket.BracketType,
-                        results.CourseId,
-                        results.IntervalId,
-                        results.TimeOnCourse,
-                        results.OverallRank,
-                        results.GenderRank,
-                        results.DivisionRank
-                    );
-
-        return await query.ToListAsync();
+        return await scoringDbContext.Results
+            .Include(oo => oo.Bracket)
+            .Where(oo => bracketTypes.Contains(oo.Bracket.BracketType) && oo.AthleteCourse.AthleteId == athleteId && oo.IsHighestIntervalCompleted)
+            .ToListAsync();
     }
 
-    public async Task<List<Course>> GetCourses(List<ResultWithBracketType> results)
+    public async Task<List<Course>> GetCourses(List<Result> results)
     {
         var courseIds = results.Select(oo => oo.CourseId).Distinct().ToList();
         var query = scoringDbContext.Courses
@@ -61,7 +46,7 @@ public class GetArpRepository(ScoringDbContext scoringDbContext)
         return await query.ToListAsync();
     }
 
-    public async Task<List<BracketMetadata>> GetBracketMetadataEntries(List<ResultWithBracketType> results)
+    public async Task<List<BracketMetadata>> GetBracketMetadataEntries(List<Result> results)
     {
         var bracketIds = results.Select(oo => oo.BracketId).ToList();
         var query = scoringDbContext.BracketMetadataEntries.Where(oo => bracketIds.Contains(oo.BracketId) && oo.IntervalId == null);

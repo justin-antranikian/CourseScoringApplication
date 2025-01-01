@@ -19,9 +19,9 @@ public class GetAthleteDetailsOrchestrator(ScoringDbContext scoringDbContext)
     /// <param name="courses"></param>
     /// <param name="metadataEntries"></param>
     /// <returns></returns>
-    private static IEnumerable<ArpResultDto> GetResults(List<ResultWithBracketType> results, List<Course> courses, List<BracketMetadata> metadataEntries)
+    private static IEnumerable<ArpResultDto> GetResults(List<Result> results, List<Course> courses, List<BracketMetadata> metadataEntries)
     {
-        var primaryBracketResults = results.Where(oo => oo.BracketType == BracketType.PrimaryDivision).ToList();
+        var primaryBracketResults = results.Where(oo => oo.Bracket.BracketType == BracketType.PrimaryDivision).ToList();
 
         foreach (var course in courses.OrderByDescending(oo => oo.StartDate))
         {
