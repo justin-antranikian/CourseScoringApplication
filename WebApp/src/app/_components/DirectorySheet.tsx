@@ -1,6 +1,6 @@
 "use client"
 
-import { LocationDto } from "@/app/_api/locations/definitions"
+import { DirectoryDto } from "@/app/_api/locations/definitions"
 import { LocationType } from "@/app/_components/LocationInfoRankings"
 import { DirectoryTree } from "@/app/_components/DirectoryTree"
 import { BreadcrumbEllipsis } from "@/components/ui/breadcrumb"
@@ -11,7 +11,7 @@ export default function DirectorySheet({
   locations,
   locationType,
 }: {
-  locations: LocationDto[]
+  locations: DirectoryDto[]
   locationType: LocationType
 }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)

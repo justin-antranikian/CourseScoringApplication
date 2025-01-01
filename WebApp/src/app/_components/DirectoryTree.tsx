@@ -1,12 +1,12 @@
 "use client"
 
-import { LocationDto } from "@/app/_api/locations/definitions"
+import { DirectoryDto } from "@/app/_api/locations/definitions"
 import { Minus, Plus } from "lucide-react"
 import { useState } from "react"
 import { LocationType } from "./LocationInfoRankings"
 import { twMerge } from "tailwind-merge"
 
-export const DirectoryTree: React.FC<{ locations: LocationDto[]; locationType: LocationType }> = ({
+export const DirectoryTree: React.FC<{ locations: DirectoryDto[]; locationType: LocationType }> = ({
   locations,
   locationType,
 }) => {
@@ -19,7 +19,7 @@ export const DirectoryTree: React.FC<{ locations: LocationDto[]; locationType: L
   )
 }
 
-const LocationNode: React.FC<{ location: LocationDto; locationType: LocationType }> = ({ location, locationType }) => {
+const LocationNode: React.FC<{ location: DirectoryDto; locationType: LocationType }> = ({ location, locationType }) => {
   const [isExpanded, setIsExpanded] = useState(location.isExpanded)
   const hasChildren = location.childLocations.length > 0
 
