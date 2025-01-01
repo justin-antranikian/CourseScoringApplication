@@ -45,7 +45,6 @@ public static class IrpResultByIntervalDtoMapper
     }
 }
 
-
 public record IrpResultByIntervalDto
 {
     public required string? CrossingTime { get; init; }

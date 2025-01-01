@@ -14,7 +14,6 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<BracketMetadata> BracketMetadataEntries { get; set; }
     public DbSet<Course> Courses { get; set; }
-    public DbSet<CourseInformationEntry> CourseInformationEntries { get; set; }
     public DbSet<Interval> Intervals { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Race> Races { get; set; }
@@ -33,7 +32,6 @@ public class ScoringDbContext(DbContextOptions<ScoringDbContext> options) : DbCo
         BracketConfiguration.Configure(modelBuilder.Entity<Bracket>());
         BracketMetadataConfiguration.Configure(modelBuilder.Entity<BracketMetadata>());
         CourseConfiguration.Configure(modelBuilder.Entity<Course>());
-        CourseInformationEntryConfiguration.Configure(modelBuilder.Entity<CourseInformationEntry>());
         IntervalConfiguration.Configure(modelBuilder.Entity<Interval>());
         LocationConfiguration.Configure(modelBuilder.Entity<Location>());
         RaceConfiguration.Configure(modelBuilder.Entity<Race>());

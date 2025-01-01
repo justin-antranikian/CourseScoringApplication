@@ -8,8 +8,9 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
     public async Task<IrpDto> Get(int athleteCourseId)
     {
         var athleteCourse = await dbContext.AthleteCourses.Include(oo => oo.AthleteCourseBrackets).Include(oo => oo.AthleteCourseTrainings).SingleAsync(oo => oo.Id == athleteCourseId);
+
+        var course = await dbContext.Courses.Include(oo => oo.Brackets).Include(oo => oo.Intervals).Include(oo => oo.Race).SingleAsync(oo => oo.Id == athleteCourse.CourseId);
         var athlete = await GetAthlete(athleteCourse);
-        var course = await GetCourse(athleteCourse);
 
         var bracketIdsForAthlete = athleteCourse.AthleteCourseBrackets.Select(oo => oo.BracketId).ToList();
         var metadataEntries = await dbContext.BracketMetadataEntries.Where(oo => oo.IntervalId == null && bracketIdsForAthlete.Contains(oo.BracketId)).ToListAsync();
@@ -33,15 +34,6 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
             .Include(oo => oo.StateLocation)
             .Include(oo => oo.AthleteRaceSeriesGoals)
             .SingleAsync(oo => oo.Id == athleteCourse.AthleteId);
-    }
-
-    private async Task<Course> GetCourse(AthleteCourse athleteCourse)
-    {
-        return await dbContext.Courses
-            .Include(oo => oo.Brackets)
-            .Include(oo => oo.Intervals)
-            .Include(oo => oo.Race)
-            .SingleAsync(oo => oo.Id == athleteCourse.CourseId);
     }
 
     private async Task<List<Result>> GetResults(AthleteCourse athleteCourse, Course course, int athleteCourseId)
@@ -74,11 +66,11 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
 
     private static IEnumerable<IrpResultByIntervalDto> GetIrpResultByIntervals(Course course, List<BracketMetadata> metadataEntries, List<Result> results, AthleteCourse athleteCourse)
     {
-        var bracketsForAthlete = GetBracketsForAthlete(course, athleteCourse);
+        var bracketsForAthlete = course.Brackets.FilterBrackets(athleteCourse.AthleteCourseBrackets);
         var primaryDivision = bracketsForAthlete.Single(oo => oo.BracketType == BracketType.PrimaryDivision);
 
         var metadataHelper = new MetadataGetTotalHelper(metadataEntries, bracketsForAthlete);
-        var resultsForIntervals = FilterResultsForIntervals(results, primaryDivision.Id);
+        var resultsForIntervals = results.Where(oo => !oo.IsHighestIntervalCompleted && oo.BracketId == primaryDivision.Id).ToList();
 
         IrpResultByIntervalDto? previousInterval = null;
         foreach (var interval in course.Intervals.OrderBy(oo => oo.Order))
@@ -88,15 +80,5 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
             yield return result;
             previousInterval = result;
         }
-    }
-
-    private static List<Result> FilterResultsForIntervals(List<Result> results, int primaryDivisionId)
-    {
-        return results.Where(oo => !oo.IsHighestIntervalCompleted && oo.BracketId == primaryDivisionId).ToList();
-    }
-
-    private static List<Bracket> GetBracketsForAthlete(Course course, AthleteCourse athleteCourse)
-    {
-        return course.Brackets.FilterBrackets(athleteCourse.AthleteCourseBrackets);
     }
 }

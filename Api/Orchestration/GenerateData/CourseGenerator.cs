@@ -49,29 +49,6 @@ public static class CourseGenerator
     private static Course GetCourse(Course oo, int index, Race race)
     {
         var raceSeriesType = race.RaceSeries.RaceSeriesType;
-
-        var descriptionEntries = new CourseInformationEntry[]
-        {
-            new() { CourseInformationType = CourseInformationType.Description, Description = "The most difficult course of the series." },
-            new() { CourseInformationType = CourseInformationType.Description, Description = "This course is a great intro to the sport." },
-            new() { CourseInformationType = CourseInformationType.Description, Description = "This is an intermediate level course." },
-        };
-
-        var motivationalEntries = new CourseInformationEntry[]
-        {
-            new() { CourseInformationType = CourseInformationType.Promotional, Description = "Train up for this event and come see us." },
-            new() { CourseInformationType = CourseInformationType.Promotional, Description = "Help race for a cause." },
-            new() { CourseInformationType = CourseInformationType.Promotional, Description = "Train up for this event and come see us." },
-        };
-
-        var howToPrepareEntries = new CourseInformationEntry[]
-        {
-            new() { CourseInformationType = CourseInformationType.HowToPrepare, Description = "A wetsuit is a good idea." },
-            new() { CourseInformationType = CourseInformationType.HowToPrepare, Description = "This is an intense race through the desert. Bring a lot of water." },
-            new() { CourseInformationType = CourseInformationType.HowToPrepare, Description = "There will not be any cell coverage. GPS is recommended." },
-        };
-
-        var courseInfos = new[] { descriptionEntries, motivationalEntries, howToPrepareEntries }.SelectMany(oo => oo.GetRandomValues()).ToList();
         var courseStart = new DateTime(race.KickOffDate.Year, race.KickOffDate.Month, race.KickOffDate.Day, 6, 30, 0);
 
         return new()
@@ -84,7 +61,6 @@ public static class CourseGenerator
             PreferedMetric = oo.PreferedMetric,
             SortOrder = index,
             StartDate = courseStart,
-            CourseInformationEntries = courseInfos,
         };
     }
 }
