@@ -2,13 +2,13 @@
 
 namespace ApiTests.Orchestration.Results.Details;
 
-public class GetAprOrchestratorTests
+public class GetIrpOrchestratorTests
 {
     [Fact]
     public async Task MapsAllFields()
     {
         var dbContext = ScoringDbContextCreator.GetScoringDbContext();
-        var orchestrator = new GetAprOrchestrator(dbContext);
+        var orchestrator = new GetIrpOrchestrator(dbContext);
         var irpDto = await orchestrator.Get(1);
 
         Assert.Equal(1, irpDto.AthleteId);
@@ -178,7 +178,7 @@ public class GetAprOrchestratorTests
     {
         var dbContext = ScoringDbContextCreator.GetScoringDbContext();
 
-        var orchestrator = new GetAprOrchestrator(dbContext);
+        var orchestrator = new GetIrpOrchestrator(dbContext);
         var irpDto = await orchestrator.Get(6);
 
         Assert.Equal("46:44", irpDto.PaceWithTimeCumulative.TimeFormatted);

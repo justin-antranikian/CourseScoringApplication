@@ -13,7 +13,7 @@ public class ResultsController(ScoringDbContext dbContext) : ControllerBase
     [HttpGet("{athleteCourseId:int}")]
     public async Task<IrpDto> Get([FromRoute] int athleteCourseId)
     {
-        var orchestrator = new GetAprOrchestrator(dbContext);
+        var orchestrator = new GetIrpOrchestrator(dbContext);
         return await orchestrator.Get(athleteCourseId);
     }
 

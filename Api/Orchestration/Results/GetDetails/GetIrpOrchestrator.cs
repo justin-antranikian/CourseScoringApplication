@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Results.GetDetails;
 
-public class GetAprOrchestrator(ScoringDbContext dbContext)
+public class GetIrpOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<IrpDto> Get(int athleteCourseId)
     {
