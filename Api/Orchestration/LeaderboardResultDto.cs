@@ -12,7 +12,7 @@ public static class LeaderboardResultDtoMapper
             Bib = result.AthleteCourse.Bib,
             DivisionRank = result.DivisionRank,
             FullName = athlete.FullName,
-            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            GenderAbbreviated = athlete.GetGenderFormatted(),
             GenderRank = result.GenderRank,
             OverallRank = result.OverallRank,
             PaceWithTimeCumulative = paceWithTimeCumulative,

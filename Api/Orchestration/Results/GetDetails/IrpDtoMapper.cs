@@ -22,7 +22,7 @@ public static class IrpDtoMapper
             FinishTime = finishTime,
             FirstName = athlete.FirstName,
             FullName = athlete.FullName,
-            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            GenderAbbreviated = athlete.GetGenderFormatted(),
             IntervalResults = intervalResults,
             LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             PaceWithTimeCumulative = paceWithTime,

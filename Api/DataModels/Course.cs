@@ -1,4 +1,5 @@
-﻿using NetTopologySuite.Geometries;
+﻿using Api.Orchestration;
+using NetTopologySuite.Geometries;
 
 namespace Api.DataModels;
 
@@ -25,4 +26,19 @@ public class Course
     public Race Race { get; set; }
     public List<Result> Results { get; init; } = [];
     public List<TagRead> TagReads { get; init; } = [];
+
+    /// <summary>
+    /// Shows the finishTime from when the course starts.
+    /// If the course starts at 7:30, and you had a time of 1000 this returns "7:46:40 AM"
+    /// </summary>
+    public string GetCrossingTime(int timeInSeconds)
+    {
+        return DateTimeHelper.GetCrossingTime(StartDate, timeInSeconds);
+    }
+
+    public PaceWithTime GetPaceWithTime(int timeInSeconds, double? intervalDistance = null)
+    {
+        var distance = intervalDistance ?? Distance;
+        return PaceCalculator.GetPaceWithTime(PaceType, PreferedMetric, timeInSeconds, distance);
+    }
 }

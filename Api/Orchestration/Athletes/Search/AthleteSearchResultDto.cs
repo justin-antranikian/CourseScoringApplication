@@ -11,7 +11,7 @@ public static class AthleteSearchResultDtoMapper
             Id = athlete.Id,
             Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
             FullName = athlete.FullName,
-            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            GenderAbbreviated = athlete.GetGenderFormatted(),
             LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
         };
     }

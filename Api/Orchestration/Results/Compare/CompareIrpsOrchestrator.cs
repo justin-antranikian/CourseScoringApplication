@@ -48,7 +48,7 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
             AthleteCourseId = athleteCourse.Id,
             City = athlete!.CityLocation!.Name,
             FullName = athlete.FullName,
-            GenderAbbreviated = athlete.Gender.ToAbbreviation(),
+            GenderAbbreviated = athlete.GetGenderFormatted(),
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
             State = athlete.StateLocation!.Name,
             CompareIrpsIntervalDtos = GetIntervals().ToList()

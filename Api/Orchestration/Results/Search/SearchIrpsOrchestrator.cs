@@ -36,7 +36,7 @@ public class SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
             Bib = athleteCourse.Bib,
             CourseName = athleteCourse.Course.Name,
             FirstName = athlete.FirstName,
-            Gender = athlete.Gender.ToAbbreviation(),
+            Gender = athlete.GetGenderFormatted(),
             LastName = athlete.LastName,
         };
     }
