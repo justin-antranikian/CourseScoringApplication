@@ -15,13 +15,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 using var serviceScope = app.Services.CreateScope();
-await using var scoringDbContext = serviceScope.ServiceProvider.GetService<ScoringDbContext>()!;
+await using var dbContext = serviceScope.ServiceProvider.GetService<ScoringDbContext>()!;
 
-var anyAthletes = await scoringDbContext.Athletes.AnyAsync();
+var anyAthletes = await dbContext.Athletes.AnyAsync();
 
 if (!anyAthletes)
 {
-    var orchestrator = new GenerateDataOrchestrator(scoringDbContext);
+    var orchestrator = new GenerateDataOrchestrator(dbContext);
     await orchestrator.Generate();
 }
 

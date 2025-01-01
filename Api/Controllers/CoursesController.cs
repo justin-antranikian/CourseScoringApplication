@@ -8,26 +8,26 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("courses")]
-public class CoursesController(ScoringDbContext scoringDbContext) : ControllerBase
+public class CoursesController(ScoringDbContext dbContext) : ControllerBase
 {
     [HttpGet("{courseId:int}")]
     public async Task<CourseDetailsDto> GetDetails([FromRoute] int courseId)
     {
-        var orchestrator = new GetDetailsOrchestrator(scoringDbContext);
+        var orchestrator = new GetDetailsOrchestrator(dbContext);
         return await orchestrator.Get(courseId);
     }
 
     [HttpGet("{courseId:int}/leaderboard")]
     public async Task<CourseLeaderboardDto> GetLeaderboard(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
-        var orchestrator = new GetCourseLeaderboardOrchestrator(scoringDbContext);
+        var orchestrator = new GetCourseLeaderboardOrchestrator(dbContext);
         return await orchestrator.GetCourseLeaderboardDto(courseId, bracketId, intervalId, startingRank, take);
     }
 
     [HttpGet("{courseId:int}/awards")]
     public async Task<List<AwardsDto>> Awards([FromRoute] int courseId)
     {
-        var orchestrator = new GetAwardsOrchestrator(scoringDbContext);
+        var orchestrator = new GetAwardsOrchestrator(dbContext);
         return await orchestrator.GetPodiumEntries(courseId);
     }
 }

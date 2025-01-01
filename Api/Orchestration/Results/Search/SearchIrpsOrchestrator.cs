@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Results.Search;
 
-public class SearchIrpsOrchestrator(ScoringDbContext scoringDbContext)
+public class SearchIrpsOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<IrpSearchResult>> Get(IrpSearchRequest request)
     {
         var searchTerm = request.SearchTerm.ToLower();
 
-        var query = scoringDbContext.AthleteCourses
+        var query = dbContext.AthleteCourses
             .Include(oo => oo.Athlete)
             .Include(oo => oo.Course)
             .Where(oo => oo.Course.RaceId == request.RaceId);

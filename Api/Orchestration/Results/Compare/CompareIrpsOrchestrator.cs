@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Results.Compare;
 
-public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
+public class CompareIrpsOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<CompareIrpsAthleteInfoDto>> GetCompareIrpsDto(List<int> athleteCourseIds)
     {
-        var courseId = (await scoringDbContext.AthleteCourses.SingleAsync(oo => oo.Id == athleteCourseIds.First())).CourseId;
-        var course = await scoringDbContext.Courses.Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
-        var primaryBracket = await scoringDbContext.Brackets.SingleAsync(oo => oo.CourseId == courseId && oo.BracketType == BracketType.Overall);
+        var courseId = (await dbContext.AthleteCourses.SingleAsync(oo => oo.Id == athleteCourseIds.First())).CourseId;
+        var course = await dbContext.Courses.Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
+        var primaryBracket = await dbContext.Brackets.SingleAsync(oo => oo.CourseId == courseId && oo.BracketType == BracketType.Overall);
         var athleteCourses = await GetAthleteCourses(athleteCourseIds);
 
         return GetCompareIrpsAthleteInfoDtos(athleteCourses, primaryBracket.Id, course);
@@ -23,8 +23,7 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
                                         .Select(oo => oo.AthleteCourse)
                                         .ToList();
 
-        var athleteInfoDtos = orderedAthleteCourses.Select(oo => MapToCompareIrpsAthleteInfoDto(oo, course, primaryBracketId)).ToList();
-        return athleteInfoDtos;
+        return orderedAthleteCourses.Select(oo => MapToCompareIrpsAthleteInfoDto(oo, course, primaryBracketId)).ToList();
     }
 
     private static CompareIrpsAthleteInfoDto MapToCompareIrpsAthleteInfoDto(AthleteCourse athleteCourse, Course course, int primaryBracketId)
@@ -86,7 +85,7 @@ public class CompareIrpsOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<AthleteCourse>> GetAthleteCourses(List<int> athleteCourseIds)
     {
-        var query = scoringDbContext.AthleteCourses
+        var query = dbContext.AthleteCourses
                         .Include(oo => oo.Results)
                         .Include(oo => oo.Athlete).ThenInclude(oo => oo.StateLocation)
                         .Include(oo => oo.Athlete).ThenInclude(oo => oo.AreaLocation)

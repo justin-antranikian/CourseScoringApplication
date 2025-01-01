@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.GenerateData;
 
-public class CreateIntervalsOrchestrator(ScoringDbContext scoringDbContext)
+public class CreateIntervalsOrchestrator(ScoringDbContext dbContext)
 {
     public async Task Create()
     {
-        var courses = await scoringDbContext.Courses.ToListAsync();
+        var courses = await dbContext.Courses.ToListAsync();
         var courseIntervals = courses.SelectMany(GetIntervals);
 
-        await scoringDbContext.Intervals.AddRangeAsync(courseIntervals);
-        await scoringDbContext.SaveChangesAsync();
+        await dbContext.Intervals.AddRangeAsync(courseIntervals);
+        await dbContext.SaveChangesAsync();
     }
 
     private List<Interval> GetIntervals(Course course)

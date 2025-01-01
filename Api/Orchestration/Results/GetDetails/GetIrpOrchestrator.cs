@@ -2,9 +2,9 @@
 
 namespace Api.Orchestration.Results.GetDetails;
 
-public class GetIrpOrchestrator(ScoringDbContext scoringDbContext)
+public class GetIrpOrchestrator(ScoringDbContext dbContext)
 {
-    private readonly GetIrpRepository _getIrpRepository = new(scoringDbContext);
+    private readonly GetIrpRepository _getIrpRepository = new(dbContext);
 
     public async Task<IrpDto> GetIrpDto(int athleteCourseId)
     {

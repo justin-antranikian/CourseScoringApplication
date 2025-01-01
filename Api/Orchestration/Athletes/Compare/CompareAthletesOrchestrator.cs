@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Athletes.Compare;
 
-public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
+public class CompareAthletesOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<AthleteCompareDto>> GetCompareAthletesDto(List<int> athleteIds)
     {
         var athletes = await GetAthletes(athleteIds);
         var results = await GetResults(athleteIds);
 
-        var goals = await scoringDbContext.AthleteRaceSeriesGoals.Where(oo => athleteIds.Contains(oo.AthleteId)).ToListAsync();
+        var goals = await dbContext.AthleteRaceSeriesGoals.Where(oo => athleteIds.Contains(oo.AthleteId)).ToListAsync();
 
         var distinctCourseIds = results.Select(oo => oo.CourseId).Distinct().ToArray();
         var courses = await GetCourses(distinctCourseIds);
@@ -29,7 +29,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<Athlete>> GetAthletes(List<int> athleteIds)
     {
-        var query = scoringDbContext.Athletes
+        var query = dbContext.Athletes
             .Include(oo => oo.StateLocation)
             .Include(oo => oo.AreaLocation)
             .Include(oo => oo.CityLocation)
@@ -41,7 +41,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<Result>> GetResults(List<int> athleteIds)
     {
-        var query = scoringDbContext.Results
+        var query = dbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .Where(oo => athleteIds.Contains(oo.AthleteCourse!.AthleteId))
                         .Where(oo => oo.Bracket.BracketType == BracketType.Overall && oo.IsHighestIntervalCompleted);
@@ -51,7 +51,7 @@ public class CompareAthletesOrchestrator(ScoringDbContext scoringDbContext)
 
     private async Task<List<Course>> GetCourses(int[] courseIds)
     {
-        var query = scoringDbContext.Courses
+        var query = dbContext.Courses
                         .Include(oo => oo.Race)
                         .ThenInclude(oo => oo.RaceSeries)
                         .Where(oo => courseIds.Contains(oo.Id));

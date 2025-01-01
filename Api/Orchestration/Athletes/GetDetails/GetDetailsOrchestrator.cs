@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Athletes.GetDetails;
 
-public class GetDetailsOrchestrator(ScoringDbContext scoringDbContext)
+public class GetDetailsOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<ArpDto> Get(int athleteId)
     {
-        var athlete = await scoringDbContext.Athletes
+        var athlete = await dbContext.Athletes
             .Include(oo => oo.AthleteWellnessEntries)
             .Include(oo => oo.StateLocation)
             .Include(oo => oo.AreaLocation)
@@ -51,7 +51,7 @@ public class GetDetailsOrchestrator(ScoringDbContext scoringDbContext)
     {
         BracketType[] bracketTypes = [BracketType.Overall, BracketType.Gender, BracketType.PrimaryDivision];
 
-        return await scoringDbContext.Results
+        return await dbContext.Results
             .Include(oo => oo.Bracket)
             .Where(oo => bracketTypes.Contains(oo.Bracket.BracketType) && oo.AthleteCourse.AthleteId == athleteId && oo.IsHighestIntervalCompleted)
             .ToListAsync();
@@ -61,7 +61,7 @@ public class GetDetailsOrchestrator(ScoringDbContext scoringDbContext)
     {
         var courseIds = results.Select(oo => oo.CourseId).Distinct().ToList();
 
-        return await scoringDbContext.Courses
+        return await dbContext.Courses
             .Include(oo => oo.Brackets)
             .Include(oo => oo.Intervals)
             .Include(oo => oo.Race)
@@ -73,6 +73,6 @@ public class GetDetailsOrchestrator(ScoringDbContext scoringDbContext)
     private async Task<List<BracketMetadata>> GetBracketMetadataEntries(List<Result> results)
     {
         var bracketIds = results.Select(oo => oo.BracketId).ToList();
-        return await scoringDbContext.BracketMetadataEntries.Where(oo => bracketIds.Contains(oo.BracketId) && oo.IntervalId == null).ToListAsync();
+        return await dbContext.BracketMetadataEntries.Where(oo => bracketIds.Contains(oo.BracketId) && oo.IntervalId == null).ToListAsync();
     }
 }

@@ -7,26 +7,26 @@ internal static class ScoringDbContextCreator
 {
     internal static ScoringDbContext GetScoringDbContext()
     {
-        var scoringDbContext = GetEmptyDbContext();
+        var dbContext = GetEmptyDbContext();
 
-        scoringDbContext.Courses.AddRange(TestDataGenerator.GetCourses());
-        scoringDbContext.Athletes.AddRange(TestDataGenerator.GetAthletes());
+        dbContext.Courses.AddRange(TestDataGenerator.GetCourses());
+        dbContext.Athletes.AddRange(TestDataGenerator.GetAthletes());
 
-        scoringDbContext.SaveChanges();
+        dbContext.SaveChanges();
 
-        var (metadataEntries, results) = TestDataGenerator.GetScoringResults(scoringDbContext, 1, 2, 3);
+        var (metadataEntries, results) = TestDataGenerator.GetScoringResults(dbContext, 1, 2, 3);
 
-        scoringDbContext.Results.AddRange(results);
-        scoringDbContext.BracketMetadataEntries.AddRange(metadataEntries);
+        dbContext.Results.AddRange(results);
+        dbContext.BracketMetadataEntries.AddRange(metadataEntries);
 
         var athleteCourseBrackets = TestDataGenerator.GetAthleteCourseBrackets();
-        scoringDbContext.AtheleteCourseBrackets.AddRange(athleteCourseBrackets);
+        dbContext.AtheleteCourseBrackets.AddRange(athleteCourseBrackets);
 
-        scoringDbContext.Races.AddRange(TestDataGenerator.GetRaces());
-        scoringDbContext.RaceSeries.AddRange(TestDataGenerator.GetRaceSeries());
+        dbContext.Races.AddRange(TestDataGenerator.GetRaces());
+        dbContext.RaceSeries.AddRange(TestDataGenerator.GetRaceSeries());
 
-        scoringDbContext.SaveChanges();
-        return scoringDbContext;
+        dbContext.SaveChanges();
+        return dbContext;
     }
 
     internal static ScoringDbContext GetEmptyDbContext()

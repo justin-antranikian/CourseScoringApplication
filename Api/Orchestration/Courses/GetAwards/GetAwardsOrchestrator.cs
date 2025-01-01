@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Courses.GetAwards;
 
-public class GetAwardsOrchestrator(ScoringDbContext scoringDbContext)
+public class GetAwardsOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<AwardsDto>> GetPodiumEntries(int courseId)
     {
-        var course = await scoringDbContext.Courses.SingleAsync(oo => oo.Id == courseId);
-        var brackets = await scoringDbContext.Brackets.Where(oo => oo.CourseId == courseId).ToListAsync();
-        var fullCourseInterval = await scoringDbContext.Intervals.SingleAsync(oo => oo.CourseId == courseId && oo.IsFullCourse);
+        var course = await dbContext.Courses.SingleAsync(oo => oo.Id == courseId);
+        var brackets = await dbContext.Brackets.Where(oo => oo.CourseId == courseId).ToListAsync();
+        var fullCourseInterval = await dbContext.Intervals.SingleAsync(oo => oo.CourseId == courseId && oo.IsFullCourse);
         var resultsForAllBrackets = await GetResults(courseId, fullCourseInterval);
         return GetAwards(resultsForAllBrackets, brackets, course).ToList();
     }
 
     private async Task<List<Result>> GetResults(int courseId, Interval fullCourseInterval)
     {
-        var query = scoringDbContext.Results
+        var query = dbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .ThenInclude(oo => oo!.Athlete)
                         .Where(oo => oo.CourseId == courseId && !oo.IsHighestIntervalCompleted)

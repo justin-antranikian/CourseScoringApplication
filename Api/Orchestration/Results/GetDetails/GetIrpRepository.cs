@@ -3,13 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Results.GetDetails;
 
-public class GetIrpRepository(ScoringDbContext scoringDbContext)
+public class GetIrpRepository(ScoringDbContext dbContext)
 {
     public record QueryResult(List<Result> results, Course course, List<BracketMetadata> metadataEntries, AthleteCourse athleteCourse);
 
     public async Task<QueryResult> GetQueryResult(int athleteCourseId)
     {
-        var athleteCourse = await scoringDbContext.AthleteCourses
+        
+
+        var athleteCourse = await dbContext.AthleteCourses
                                 .Include(oo => oo.Athlete).ThenInclude(oo => oo.AthleteRaceSeriesGoals)
                                 .Include(oo => oo.Athlete).ThenInclude(oo => oo.AreaLocation)
                                 .Include(oo => oo.Athlete).ThenInclude(oo => oo.CityLocation)
@@ -18,7 +20,7 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
                                 .Include(oo => oo.AthleteCourseTrainings)
                                 .SingleAsync(oo => oo.Id == athleteCourseId);
 
-        var course = await scoringDbContext.Courses
+        var course = await dbContext.Courses
                             .Include(oo => oo.Brackets)
                             .Include(oo => oo.Intervals)
                             .Include(oo => oo.Race)
@@ -27,14 +29,14 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
 
         var raceSeriesId = course.Race.RaceSeriesId;
 
-        var raceSeries = await scoringDbContext.RaceSeries
+        var raceSeries = await dbContext.RaceSeries
             .Include(oo => oo.StateLocation)
             .Include(oo => oo.AreaLocation)
             .Include(oo => oo.CityLocation)
             .SingleAsync(oo => oo.Id == raceSeriesId);
 
         var bracketIdsForAthlete = athleteCourse.AthleteCourseBrackets.Select(oo => oo.BracketId).ToList();
-        var metadataEntries = await scoringDbContext.BracketMetadataEntries.Where(oo => oo.IntervalId == null && bracketIdsForAthlete.Contains(oo.BracketId)).ToListAsync();
+        var metadataEntries = await dbContext.BracketMetadataEntries.Where(oo => oo.IntervalId == null && bracketIdsForAthlete.Contains(oo.BracketId)).ToListAsync();
         var results = await GetResults(athleteCourse, course, athleteCourseId);
 
         return new QueryResult(results, course, metadataEntries, athleteCourse);
@@ -45,7 +47,7 @@ public class GetIrpRepository(ScoringDbContext scoringDbContext)
         var filteredBrackets = course.Brackets.FilterBrackets(athleteCourse.AthleteCourseBrackets);
         var primaryBracket = filteredBrackets.Single(oo => oo.BracketType == BracketType.PrimaryDivision);
 
-        var query = scoringDbContext.Results
+        var query = dbContext.Results
                         .Where(oo => oo.AthleteCourseId == athleteCourseId)
                         .Where(oo => oo.BracketId == primaryBracket.Id || oo.IsHighestIntervalCompleted);
 

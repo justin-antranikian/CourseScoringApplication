@@ -8,8 +8,6 @@ public static class IrpDtoMapper
     {
         var athlete = athleteCourse.Athlete;
         var race = course.Race;
-        var trainingList = athleteCourse.AthleteCourseTrainings.Select(oo => oo.Description).ToList();
-        var finishTime = intervalResults.Single(oo => oo.IsFullCourse).CrossingTime;
 
         return new IrpDto
         {
@@ -19,7 +17,7 @@ public static class IrpDtoMapper
             CourseId = course.Id,
             CourseName = course.Name,
             CourseGoalDescription = athleteCourse.CourseGoalDescription,
-            FinishTime = finishTime,
+            FinishTime = intervalResults.Single(oo => oo.IsFullCourse).CrossingTime,
             FirstName = athlete.FirstName,
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.GetGenderFormatted(),
@@ -30,10 +28,22 @@ public static class IrpDtoMapper
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
             RaceId = race.Id,
             RaceName = race.Name,
-            RaceSeriesLocationInfoWithRank = race.RaceSeries!.ToLocationInfoWithRank(),
+            RaceSeriesLocationInfoWithRank = race.RaceSeries.ToLocationInfoWithRank(),
             Tags = athlete.AthleteRaceSeriesGoals.Select(oo => oo.RaceSeriesType.ToString()).ToList(),
-            TimeZoneAbbreviated = race.TimeZoneId.ToAbbreviation(),
-            TrainingList = trainingList
+            TimeZoneAbbreviated = ToTimeZoneAbbreviation(race.TimeZoneId),
+            TrainingList = athleteCourse.AthleteCourseTrainings.Select(oo => oo.Description).ToList()
+        };
+    }
+
+    private static string ToTimeZoneAbbreviation(string timeZoneId)
+    {
+        return timeZoneId switch
+        {
+            "Pacific Standard Time" => "PST",
+            "Mountain Standard Time" => "MST",
+            "Central Standard Time" => "CST",
+            "Eastern Standard Time" => "EST",
+            _ => throw new NotImplementedException()
         };
     }
 }

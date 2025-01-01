@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.GenerateData;
 
-public class ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
+public class ScoreCoursesOrchestrator(ScoringDbContext dbContext)
 {
     public async Task Score()
     {
-        var allCourses = await scoringDbContext.Courses.AsNoTracking().ToListAsync();
-        var allBrackets = await scoringDbContext.Brackets.AsNoTracking().ToListAsync();
-        var allIntervals = await scoringDbContext.Intervals.AsNoTracking().ToListAsync();
-        var allReads = await scoringDbContext.TagReads.AsNoTracking().ToListAsync();
-        var allAthleteCourseBrackets = await scoringDbContext.AtheleteCourseBrackets.AsNoTracking().ToListAsync();
+        var allCourses = await dbContext.Courses.AsNoTracking().ToListAsync();
+        var allBrackets = await dbContext.Brackets.AsNoTracking().ToListAsync();
+        var allIntervals = await dbContext.Intervals.AsNoTracking().ToListAsync();
+        var allReads = await dbContext.TagReads.AsNoTracking().ToListAsync();
+        var allAthleteCourseBrackets = await dbContext.AtheleteCourseBrackets.AsNoTracking().ToListAsync();
 
         var allScoringResults = allCourses.Select(course =>
         {
@@ -35,8 +35,8 @@ public class ScoreCoursesOrchestrator(ScoringDbContext scoringDbContext)
         var metaResults = allScoringResults.SelectMany(oo => oo.MetadataResults);
         var results = allScoringResults.SelectMany(oo => oo.Results);
 
-        await scoringDbContext.BracketMetadataEntries.AddRangeAsync(metaResults);
-        await scoringDbContext.Results.AddRangeAsync(results);
-        await scoringDbContext.SaveChangesAsync();
+        await dbContext.BracketMetadataEntries.AddRangeAsync(metaResults);
+        await dbContext.Results.AddRangeAsync(results);
+        await dbContext.SaveChangesAsync();
     }
 }

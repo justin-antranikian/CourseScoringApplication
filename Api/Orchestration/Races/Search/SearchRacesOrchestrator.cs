@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Races.Search;
 
-public class SearchRacesOrchestrator(ScoringDbContext scoringDbContext)
+public class SearchRacesOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<EventSearchResultDto>> Get(int? locationId, string? locationType, string? searchTerm)
     {
-        var baseQuery = scoringDbContext.RaceSeries
+        var baseQuery = dbContext.RaceSeries
             .Include(oo => oo.StateLocation)
             .Include(oo => oo.AreaLocation)
             .Include(oo => oo.CityLocation)
