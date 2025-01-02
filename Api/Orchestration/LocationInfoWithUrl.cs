@@ -1,6 +1,6 @@
 ﻿namespace Api.Orchestration;
 
-public class LocationInfoWithUrl
+public record LocationInfoWithUrl
 {
     public required string Area { get; init; }
     public required string AreaUrl { get; init; }

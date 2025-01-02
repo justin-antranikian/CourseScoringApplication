@@ -1,6 +1,6 @@
 ﻿namespace Api.Orchestration;
 
-public class LocationInfoWithRank : LocationInfoWithUrl
+public record LocationInfoWithRank : LocationInfoWithUrl
 {
     public required int AreaRank { get; init; }
     public required int CityRank { get; init; }

@@ -1,6 +1,7 @@
 ﻿using Api.DataModels;
 
 namespace Api.Orchestration;
+
 public static class LeaderboardResultDtoMapper
 {
     public static LeaderboardResultDto GetLeaderboardResultDto(Result result, Athlete athlete, PaceWithTime paceWithTimeCumulative, Course course)

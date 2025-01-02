@@ -7,11 +7,11 @@ public class SearchAthletesOrchestrator(ScoringDbContext dbContext)
 {
     public async Task<List<AthleteSearchResultDto>> Get(int? locationId, string? locationType, string? searchTerm)
     {
-        var baseQuery = dbContext.GetAthletesWithLocationInfo();
+        var query = dbContext.GetAthletesWithLocationInfo();
 
         if (searchTerm != null)
         {
-            baseQuery = baseQuery.Where(oo => oo.FullName.Contains(searchTerm));
+            query = query.Where(oo => oo.FullName.Contains(searchTerm));
         }
 
         if (locationId.HasValue && locationType != null)
@@ -23,16 +23,16 @@ public class SearchAthletesOrchestrator(ScoringDbContext dbContext)
             {
                 return type switch
                 {
-                    LocationType.State => baseQuery.Where(oo => oo.StateLocationId == locationIdValue),
-                    LocationType.Area => baseQuery.Where(oo => oo.AreaLocationId == locationIdValue),
-                    LocationType.City => baseQuery.Where(oo => oo.CityLocationId == locationIdValue),
+                    LocationType.State => query.Where(oo => oo.StateLocationId == locationIdValue),
+                    LocationType.Area => query.Where(oo => oo.AreaLocationId == locationIdValue),
+                    LocationType.City => query.Where(oo => oo.CityLocationId == locationIdValue),
                 };
             }
 
-            baseQuery = GetQuery();
+            query = GetQuery();
         }
 
-        var results = await baseQuery.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();
+        var results = await query.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();
         return results.Select(MapToDto).ToList();
     }
 

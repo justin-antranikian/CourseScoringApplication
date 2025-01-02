@@ -2,9 +2,9 @@
 
 public static class IEnumerableExtensions
 {
-    public static T GetRandomValue<T>(this IEnumerable<T> items)
+    public static T? GetRandomValue<T>(this IEnumerable<T> items)
     {
-        return items.OrderBy(static oo => Guid.NewGuid()).FirstOrDefault();
+        return items.OrderBy(static _ => Guid.NewGuid()).FirstOrDefault();
     }
 
     /// <summary>
@@ -17,11 +17,6 @@ public static class IEnumerableExtensions
     public static List<T> ConcatSingle<T>(this IEnumerable<T> items, T itemToAdd)
     {
         return items.Concat([itemToAdd]).ToList();
-    }
-
-    public static IEnumerable<T> GetRandomValues<T>(this IEnumerable<T> items)
-    {
-        return items.GetRandomValues(items.Count());
     }
 
     public static IEnumerable<T> GetRandomValues<T>(this IEnumerable<T> items, int maxValue)

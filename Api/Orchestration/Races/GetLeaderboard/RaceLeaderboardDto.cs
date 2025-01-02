@@ -1,24 +1,4 @@
-﻿using Api.DataModels;
-
-namespace Api.Orchestration.Races.GetLeaderboard;
-
-public static class RaceLeaderboardDtoMapper
-{
-    public static RaceLeaderboardDto GetRaceLeaderboardDto(Race race, List<RaceLeaderboardByCourseDto> leaderboards)
-    {
-        var raceSeries = race.RaceSeries;
-
-        return new RaceLeaderboardDto
-        {
-            Leaderboards = leaderboards,
-            LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
-            RaceKickOffDate = race.KickOffDate.ToShortDateString(),
-            RaceName = race.Name,
-            RaceSeriesDescription = raceSeries.Description,
-            RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
-        };
-    }
-}
+﻿namespace Api.Orchestration.Races.GetLeaderboard;
 
 public record RaceLeaderboardDto
 {

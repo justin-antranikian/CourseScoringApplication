@@ -9,9 +9,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverActions"
 import { Irp } from "@/app/_api/results/definitions"
-import { CourseLeaderboardDto, LeaderboardResultDto } from "@/app/_api/courses/definitions"
+import { CourseLeaderboardByIntervalDto, LeaderboardResultDto } from "@/app/_api/courses/definitions"
 
-export default function CourseContent({ courseLeaderboard }: { courseLeaderboard: CourseLeaderboardDto }) {
+export default function CourseContent({
+  courseLeaderboards,
+}: {
+  courseLeaderboards: CourseLeaderboardByIntervalDto[]
+}) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
@@ -39,7 +43,7 @@ export default function CourseContent({ courseLeaderboard }: { courseLeaderboard
 
   return (
     <>
-      {courseLeaderboard.leaderboards.map((leaderboard, index) => (
+      {courseLeaderboards.map((leaderboard, index) => (
         <div key={index}>
           <div className="mb-8 text-purple-500 bold text-2xl">{leaderboard.intervalName}</div>
           <Table className="mb-8">

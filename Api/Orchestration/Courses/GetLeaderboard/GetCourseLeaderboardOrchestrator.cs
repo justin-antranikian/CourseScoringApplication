@@ -5,24 +5,14 @@ namespace Api.Orchestration.Courses.GetLeaderboard;
 
 public class GetCourseLeaderboardOrchestrator(ScoringDbContext dbContext)
 {
-    public async Task<CourseLeaderboardDto> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
+    public async Task<List<CourseLeaderboardByIntervalDto>> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
         var course = await dbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
-
-        var race = await dbContext.Races
-            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.StateLocation)
-            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.AreaLocation)
-            .Include(oo => oo.RaceSeries).ThenInclude(oo => oo.CityLocation)
-            .Include(oo => oo.Courses)
-            .SingleAsync(oo => oo.Id == course.RaceId);
-
         var bracketToUse = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);
 
         var results = await GetResults(bracketToUse.Id, intervalId, startingRank, take);
         var metadataEntries = await GetMetadataEntries(bracketToUse.Id, intervalId);
-        var courseResultDtos = GetCourseResultByIntervalDtos(results, metadataEntries, course, bracketToUse.Id).ToList();
-
-        return CourseLeaderboardDtoMapper.GetCourseLeaderboardDto(course, race, courseResultDtos);
+        return GetCourseResultByIntervals(results, metadataEntries, course, bracketToUse.Id).ToList();
     }
 
     private async Task<List<Result>> GetResults(int bracketId, int? intervalId, int startingRank, int take)
@@ -52,7 +42,7 @@ public class GetCourseLeaderboardOrchestrator(ScoringDbContext dbContext)
     {
         var query = dbContext.BracketMetadataEntries.Where(oo => oo.BracketId == bracketId);
 
-        if (intervalId is int)
+        if (intervalId != null)
         {
             query = query.Where(oo => oo.IntervalId == intervalId);
         }
@@ -65,30 +55,28 @@ public class GetCourseLeaderboardOrchestrator(ScoringDbContext dbContext)
         return await query.ToListAsync();
     }
 
-    private static IEnumerable<CourseLeaderboardByIntervalDto> GetCourseResultByIntervalDtos(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)
+    private static IEnumerable<CourseLeaderboardByIntervalDto> GetCourseResultByIntervals(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)
     {
         foreach (var resultsByInterval in results.GroupBy(oo => oo.IntervalId))
         {
             var interval = course.Intervals.Single(oo => oo.Id == resultsByInterval.Key);
             var bracketMeta = metadata.Single(oo => oo.BracketId == bracketId && oo.IntervalId == resultsByInterval.Key);
-            var resultDtos = resultsByInterval.Select(oo => GetResultByCourseDto(oo, course, interval)).ToList();
+            var leaderboardResults = resultsByInterval.Select(oo => MapToLeaderboardResult(oo, course, interval)).ToList();
 
-            var dto = new CourseLeaderboardByIntervalDto
+            yield return new CourseLeaderboardByIntervalDto
             {
                 IntervalName = interval.Name,
                 IntervalType = interval.IntervalType,
-                Results = resultDtos,
+                Results = leaderboardResults,
                 TotalRacers = bracketMeta.TotalRacers
             };
-
-            yield return dto;
         }
     }
 
-    private static LeaderboardResultDto GetResultByCourseDto(Result result, Course course, Interval interval)
+    private static LeaderboardResultDto MapToLeaderboardResult(Result result, Course course, Interval interval)
     {
         var timeOnCoursePace = course.GetPaceWithTime(result.TimeOnCourse, interval.DistanceFromStart);
-        var athlete = result.AthleteCourse!.Athlete!;
+        var athlete = result.AthleteCourse.Athlete;
         return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, athlete, timeOnCoursePace, course);
     }
 }

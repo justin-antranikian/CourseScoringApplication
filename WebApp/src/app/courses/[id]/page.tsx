@@ -29,8 +29,10 @@ export default async function Page({
   }
 }) {
   const courseLeaderboard = await api.courses.leaderboard(id)
+  const courseDetails = await api.courses.details(id)
   const directory = await api.locations.directory()
-  const { locationInfoWithRank } = courseLeaderboard
+
+  const { locationInfoWithRank } = courseDetails
 
   return (
     <>
@@ -51,41 +53,36 @@ export default async function Page({
               <BreadcrumbSeparator />
               <LocationBreadcrumbs locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/races/${courseLeaderboard.raceId}`}>
-                  {courseLeaderboard.raceName}
-                </BreadcrumbLink>
+                <BreadcrumbLink href={`/races/${courseDetails.raceId}`}>{courseDetails.raceName}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>{courseLeaderboard.courseName}</BreadcrumbPage>
+                <BreadcrumbPage>{courseDetails.name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
           <div>
-            <ResultSearch raceId={courseLeaderboard.raceId} courseId={id} />
+            <ResultSearch raceId={courseDetails.raceId} courseId={id} />
           </div>
         </div>
       </div>
       <div className="flex gap-1">
         <div className="w-1/4">
           <div>
-            <RaceSeriesImage raceSeriesType={courseLeaderboard.raceSeriesType} width="75%" />
+            <RaceSeriesImage raceSeriesType={courseDetails.raceSeriesType} width="75%" />
           </div>
-          <div className="mt-2 text-2xl font-bold">{courseLeaderboard.raceName}</div>
-          <div className="text-lg text-blue-500 font-bold">{courseLeaderboard.courseName}</div>
+          <div className="mt-2 text-2xl font-bold">{courseDetails.raceName}</div>
+          <div className="text-lg text-blue-500 font-bold">{courseDetails.name}</div>
           <div className="text-sm mb-2">
             <div>
-              {courseLeaderboard.locationInfoWithRank.city}, {courseLeaderboard.locationInfoWithRank.state}
+              {locationInfoWithRank.city}, {locationInfoWithRank.state}
             </div>
-            <div>Distance: {courseLeaderboard.courseDistance}</div>
+            <div>Distance: {courseDetails.distance}</div>
             <div>
-              {courseLeaderboard.courseDate} at <strong>{courseLeaderboard.courseTime}</strong>
+              {courseDetails.courseDate} at <strong>{courseDetails.courseTime}</strong>
             </div>
           </div>
-          <LocationInfoRankings
-            locationInfoWithRank={courseLeaderboard.locationInfoWithRank}
-            locationType={LocationType.races}
-          />
+          <LocationInfoRankings locationInfoWithRank={locationInfoWithRank} locationType={LocationType.races} />
           <div className="mt-5">
             <a href={`/courses/${id}/awards`}>
               <Button>Awards</Button>
@@ -93,7 +90,7 @@ export default async function Page({
           </div>
         </div>
         <div className="w-3/4">
-          <CourseContent courseLeaderboard={courseLeaderboard} />
+          <CourseContent courseLeaderboards={courseLeaderboard} />
         </div>
       </div>
     </>

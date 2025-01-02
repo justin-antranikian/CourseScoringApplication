@@ -1,7 +1,7 @@
 "server only"
 
 import { ApiFetch } from "../api"
-import { CourseLeaderboardDto, AwardsDto, CourseDetailsDto } from "./definitions"
+import { AwardsDto, CourseDetailsDto, CourseLeaderboardByIntervalDto } from "./definitions"
 
 const baseUrl = "courses"
 
@@ -10,7 +10,7 @@ export default (apiFetch: ApiFetch) => ({
     const response = await apiFetch(`${baseUrl}/${courseId}`)
     return await response.json()
   },
-  leaderboard: async (courseId: string | number): Promise<CourseLeaderboardDto> => {
+  leaderboard: async (courseId: string | number): Promise<CourseLeaderboardByIntervalDto[]> => {
     const response = await apiFetch(`${baseUrl}/${courseId}/leaderboard`)
     return await response.json()
   },

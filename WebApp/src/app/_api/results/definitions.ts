@@ -31,19 +31,20 @@ export interface IrpResultByBracketDto {
 }
 
 export interface IrpResultByIntervalDto {
+  crossingTime: string | null
+  genderCount: number
+  genderIndicator: number
+  genderRank: number | null
   intervalName: string
+  isFullCourse: boolean
+  overallCount: number
+  overallIndicator: number
+  overallRank: number | null
   paceWithTimeCumulative: PaceWithTime | null
   paceWithTimeIntervalOnly: PaceWithTime | null
-  overallRank: number | null
-  genderRank: number | null
-  primaryDivisionRank: number | null
-  overallCount: number
-  genderCount: number
   primaryDivisionCount: number
-  overallIndicator: number
-  genderIndicator: number
   primaryDivisionIndicator: number
-  crossingTime: string | null
+  primaryDivisionRank: number | null
 }
 
 export interface CompareIrpsAthleteInfoDto {
