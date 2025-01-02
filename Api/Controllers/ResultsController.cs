@@ -18,10 +18,10 @@ public class ResultsController(ScoringDbContext dbContext) : ControllerBase
     }
 
     [HttpPost("compare")]
-    public async Task<List<CompareIrpsAthleteInfoDto>> Post([FromBody] List<int> athleteCourseIds)
+    public async Task<List<ResultCompareAthleteInfoDto>> Post([FromBody] List<int> athleteCourseIds)
     {
         var orchestrator = new CompareIrpsOrchestrator(dbContext);
-        return await orchestrator.GetCompareIrpsDto(athleteCourseIds.Take(4).ToList());
+        return await orchestrator.Get(athleteCourseIds.Take(4).ToList());
     }
 
     [HttpPost("search")]

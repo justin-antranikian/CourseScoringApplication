@@ -1,7 +1,7 @@
 import React from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getApi } from "@/app/_api/api"
-import { CompareIrpsIntervalDto } from "@/app/_api/results/definitions"
+import { ResultCompareIntervalDto } from "@/app/_api/results/definitions"
 import { PaceWithTime } from "@/app/_components/IntervalTime"
 import {
   Breadcrumb,
@@ -27,12 +27,11 @@ export default async function Page({
     ids: string[]
   }
 }) {
-  const irpsToCompare = await api.results.compare(ids)
-  const intervalNames = irpsToCompare[0].compareIrpsIntervalDtos.map((inteval) => inteval.intervalName)
-  const courseId = irpsToCompare[0].courseId
+  const athletes = await api.results.compare(ids)
+  const intervalNames = athletes[0].intervals.map((inteval) => inteval.intervalName)
+  const courseId = athletes[0].courseId
 
-  const courseDetails = await api.courses.details(courseId)
-  const directory = await api.locations.directory()
+  const [courseDetails, directory] = await Promise.all([api.courses.details(courseId), api.locations.directory()])
   const { locationInfoWithRank } = courseDetails
 
   return (
@@ -77,23 +76,23 @@ export default async function Page({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {irpsToCompare.map((athleteInfo) => {
+          {athletes.map((athlete) => {
             return (
-              <TableRow key={athleteInfo.athleteCourseId}>
+              <TableRow key={athlete.athleteCourseId}>
                 <TableCell>
-                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">{athleteInfo.fullName}</div>
+                  <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">{athlete.fullName}</div>
                   <div className="overflow-hidden text-ellipsis whitespace-nowrap">
-                    {athleteInfo.city}, {athleteInfo.state}
+                    {athlete.locationInfoWithRank.city}, {athlete.locationInfoWithRank.state}
                   </div>
                   <div className="text-xs">
-                    {athleteInfo.genderAbbreviated} | {athleteInfo.raceAge}
+                    {athlete.genderAbbreviated} | {athlete.raceAge}
                   </div>
                 </TableCell>
-                {athleteInfo.compareIrpsIntervalDtos.map((result) => {
+                {athlete.intervals.map((interval) => {
                   return (
                     <TableCell>
-                      <div>{result.crossingTime ? result.crossingTime : "--"}</div>
-                      <PaceContent result={result} />
+                      <div>{interval.crossingTime ? interval.crossingTime : "--"}</div>
+                      <PaceContent interval={interval} />
                     </TableCell>
                   )
                 })}
@@ -106,8 +105,8 @@ export default async function Page({
   )
 }
 
-const PaceContent = ({ result }: { result: CompareIrpsIntervalDto }) => {
-  if (!result.paceWithTime) {
+const PaceContent = ({ interval }: { interval: ResultCompareIntervalDto }) => {
+  if (!interval.paceWithTime) {
     return <div>--</div>
   }
 
@@ -121,8 +120,8 @@ const PaceContent = ({ result }: { result: CompareIrpsIntervalDto }) => {
 
   return (
     <div>
-      <span className="text-sm font-bold mr-1">{result.paceWithTime.timeFormatted}</span>
-      <Pace paceWithTime={result.paceWithTime} />
+      <span className="text-sm font-bold mr-1">{interval.paceWithTime.timeFormatted}</span>
+      <Pace paceWithTime={interval.paceWithTime} />
     </div>
   )
 }

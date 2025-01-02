@@ -47,18 +47,17 @@ export interface IrpResultByIntervalDto {
   primaryDivisionRank: number | null
 }
 
-export interface CompareIrpsAthleteInfoDto {
+export interface ResultCompareAthleteInfoDto {
   courseId: number
   athleteCourseId: number
-  city: string
   fullName: string
   genderAbbreviated: string
+  locationInfoWithRank: LocationInfoWithRank
   raceAge: number
-  state: string
-  compareIrpsIntervalDtos: CompareIrpsIntervalDto[]
+  intervals: ResultCompareIntervalDto[]
 }
 
-export interface CompareIrpsIntervalDto {
+export interface ResultCompareIntervalDto {
   intervalName: string
   paceWithTime: PaceWithTime | null
   crossingTime: string | null

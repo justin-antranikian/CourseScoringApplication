@@ -2,7 +2,7 @@
 
 namespace Api.Orchestration.Courses.GetLeaderboard;
 
-public record CourseLeaderboardByIntervalDto
+public record CourseLeaderboard
 {
     public required string IntervalName { get; init; }
     public required IntervalType IntervalType { get; init; }

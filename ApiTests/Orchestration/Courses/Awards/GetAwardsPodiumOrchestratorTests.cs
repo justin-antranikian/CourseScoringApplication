@@ -134,7 +134,7 @@ public class GetAwardsOrchestratorTests
         await dbContext.SaveChangesAsync();
 
         var orchestrator = new GetAwardsOrchestrator(dbContext);
-        var podiumEntries = await orchestrator.GetPodiumEntries(1);
+        var podiumEntries = await orchestrator.Get(1);
 
         var overallPodiumWinners = GetPodiumEntryDto(podiumEntries, "Overall");
 

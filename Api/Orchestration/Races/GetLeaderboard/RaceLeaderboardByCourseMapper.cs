@@ -14,7 +14,7 @@ public class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedInterv
         foreach (var course in courses)
         {
             var interval = highestCompletedIntervalsForAllCourses.Single(oo => oo.CourseId == course.Id);
-            var results = GetLeaderboardResultDtos(course, interval).ToList();
+            var results = GetLeaderboardResults(course, interval).ToList();
 
             yield return new RaceLeaderboardByCourseDto
             {
@@ -26,16 +26,16 @@ public class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedInterv
         }
     }
 
-    private IEnumerable<LeaderboardResultDto> GetLeaderboardResultDtos(Course course, Interval intervalForCourse)
+    private IEnumerable<LeaderboardResultDto> GetLeaderboardResults(Course course, Interval intervalForCourse)
     {
         var resultsForCourse = resultsForAllCourses.Where(oo => oo.IntervalId == intervalForCourse.Id);
 
         foreach (var result in resultsForCourse)
         {
             var distanceCompleted = intervalForCourse.DistanceFromStart;
-            var timeOnCoursePace = course.GetPaceWithTime(result.TimeOnCourse, distanceCompleted);
+            var paceWithTimeCumulative = course.GetPaceWithTime(result.TimeOnCourse, distanceCompleted);
             var athlete = result.AthleteCourse.Athlete;
-            yield return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, athlete, timeOnCoursePace, course);
+            yield return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, athlete, paceWithTimeCumulative, course);
         }
     }
 }

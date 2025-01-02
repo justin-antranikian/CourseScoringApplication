@@ -5,57 +5,37 @@ namespace Api.Orchestration.Courses.GetLeaderboard;
 
 public class GetCourseLeaderboardOrchestrator(ScoringDbContext dbContext)
 {
-    public async Task<List<CourseLeaderboardByIntervalDto>> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
+    public async Task<List<CourseLeaderboard>> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
         var course = await dbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
-        var bracketToUse = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);
+        var bracket = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);
 
-        var results = await GetResults(bracketToUse.Id, intervalId, startingRank, take);
-        var metadataEntries = await GetMetadataEntries(bracketToUse.Id, intervalId);
-        return GetCourseResultByIntervals(results, metadataEntries, course, bracketToUse.Id).ToList();
+        var results = await GetResults(bracket.Id, intervalId, startingRank, take);
+        var metadataEntries = await GetMetadataEntries(bracket.Id, intervalId);
+        return GetCourseLeaderboards(results, metadataEntries, course, bracket.Id).ToList();
     }
 
     private async Task<List<Result>> GetResults(int bracketId, int? intervalId, int startingRank, int take)
     {
         var endingRank = startingRank + (take - 1);
-        var wantsHighestIntervalCompleted = !intervalId.HasValue;
 
         var query = dbContext.Results
                         .Include(oo => oo.AthleteCourse)
                         .ThenInclude(oo => oo.Athlete)
-                        .Where(oo =>
-                            oo.BracketId == bracketId &&
-                            oo.IsHighestIntervalCompleted == wantsHighestIntervalCompleted &&
-                            oo.Rank >= startingRank &&
-                            oo.Rank <= endingRank
-                        );
+                        .Where(oo => oo.BracketId == bracketId && oo.Rank >= startingRank && oo.Rank <= endingRank);
 
-        if (intervalId.HasValue)
-        {
-            query = query.Where(oo => oo.IntervalId == intervalId);
-        }
-
+        query = intervalId.HasValue ? query.Where(oo => oo.IntervalId == intervalId) : query.Where(oo => oo.IsHighestIntervalCompleted);
         return await query.OrderBy(oo => oo.Rank).ToListAsync();
     }
 
     private async Task<List<BracketMetadata>> GetMetadataEntries(int bracketId, int? intervalId)
     {
         var query = dbContext.BracketMetadataEntries.Where(oo => oo.BracketId == bracketId);
-
-        if (intervalId != null)
-        {
-            query = query.Where(oo => oo.IntervalId == intervalId);
-        }
-        else
-        {
-            // just get metadata for all intervals. There might be some extra intervals retrieved, but that amount is negligible.
-            query = query.Where(oo => oo.IntervalId != null);
-        }
-
+        query = intervalId.HasValue ? query.Where(oo => oo.IntervalId == intervalId) : query.Where(oo => oo.IntervalId != null);
         return await query.ToListAsync();
     }
 
-    private static IEnumerable<CourseLeaderboardByIntervalDto> GetCourseResultByIntervals(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)
+    private static IEnumerable<CourseLeaderboard> GetCourseLeaderboards(List<Result> results, List<BracketMetadata> metadata, Course course, int bracketId)
     {
         foreach (var resultsByInterval in results.GroupBy(oo => oo.IntervalId))
         {
@@ -63,7 +43,7 @@ public class GetCourseLeaderboardOrchestrator(ScoringDbContext dbContext)
             var bracketMeta = metadata.Single(oo => oo.BracketId == bracketId && oo.IntervalId == resultsByInterval.Key);
             var leaderboardResults = resultsByInterval.Select(oo => MapToLeaderboardResult(oo, course, interval)).ToList();
 
-            yield return new CourseLeaderboardByIntervalDto
+            yield return new CourseLeaderboard
             {
                 IntervalName = interval.Name,
                 IntervalType = interval.IntervalType,

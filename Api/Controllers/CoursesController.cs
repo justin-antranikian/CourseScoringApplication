@@ -18,7 +18,7 @@ public class CoursesController(ScoringDbContext dbContext) : ControllerBase
     }
 
     [HttpGet("{courseId:int}/leaderboard")]
-    public async Task<List<CourseLeaderboardByIntervalDto>> GetLeaderboard(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
+    public async Task<List<CourseLeaderboard>> GetLeaderboard(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
         var orchestrator = new GetCourseLeaderboardOrchestrator(dbContext);
         return await orchestrator.GetCourseLeaderboardDto(courseId, bracketId, intervalId, startingRank, take);
@@ -28,6 +28,6 @@ public class CoursesController(ScoringDbContext dbContext) : ControllerBase
     public async Task<List<AwardsDto>> Awards([FromRoute] int courseId)
     {
         var orchestrator = new GetAwardsOrchestrator(dbContext);
-        return await orchestrator.GetPodiumEntries(courseId);
+        return await orchestrator.Get(courseId);
     }
 }

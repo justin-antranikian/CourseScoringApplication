@@ -8,7 +8,6 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
     /// <summary>
     /// Returns the top 3 athletes for a course for all the courses in a race. The results are determined from the overall bracket.
     /// </summary>
-    /// <param name="raceId"></param>
     public async Task<RaceLeaderboardDto> GetRaceLeaderboardDto(int raceId)
     {
         var race = await dbContext.Races.SingleAsync(oo => oo.Id == raceId);
@@ -38,12 +37,8 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
     }
 
     /// <summary>
-    /// We only care about the highest intervals completed for each course. Meaning if there is one athlete in the higher interval,
-    /// the leaderboard for that course will have one athlete. It would be too much information to display multiple intervals per couse.
+    /// We only care about the highest intervals completed for each course.
     /// </summary>
-    /// <param name="intervals"></param>
-    /// <param name="overallBracketIds"></param>
-    /// <returns></returns>
     private async Task<List<Result>> GetResults(List<Interval> intervals, List<int> overallBracketIds)
     {
         var intervalIds = intervals.Select(oo => oo.Id).ToList();
@@ -51,7 +46,7 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
         return await dbContext.Results
             .Include(oo => oo.AthleteCourse)
             .ThenInclude(oo => oo.Athlete)
-            .Where(oo => 
+            .Where(oo =>
                 intervalIds.Contains(oo.IntervalId) &&
                 overallBracketIds.Contains(oo.BracketId) &&
                 oo.IsHighestIntervalCompleted == false &&
@@ -66,12 +61,12 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
     {
         return new RaceLeaderboardDto
         {
-            Leaderboards = leaderboards,
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             RaceKickOffDate = race.KickOffDate.ToShortDateString(),
             RaceName = race.Name,
             RaceSeriesDescription = raceSeries.Description,
             RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
+            Leaderboards = leaderboards,
         };
     }
 }

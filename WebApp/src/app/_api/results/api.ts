@@ -1,7 +1,7 @@
 "server only"
 
 import { ApiFetch, getPostRequestInit } from "../api"
-import { CompareIrpsAthleteInfoDto, Irp, IrpSearchRequest, IrpSearchResult } from "./definitions"
+import { ResultCompareAthleteInfoDto, Irp, IrpSearchRequest, IrpSearchResult } from "./definitions"
 
 const baseUrl = "results"
 
@@ -10,7 +10,7 @@ export default (apiFetch: ApiFetch) => ({
     const response = await apiFetch(`${baseUrl}/${athleteCourseId}`)
     return await response.json()
   },
-  compare: async (athleteCourseIds: string[]): Promise<CompareIrpsAthleteInfoDto[]> => {
+  compare: async (athleteCourseIds: string[]): Promise<ResultCompareAthleteInfoDto[]> => {
     const response = await apiFetch(`${baseUrl}/compare`, getPostRequestInit(athleteCourseIds))
     return await response.json()
   },

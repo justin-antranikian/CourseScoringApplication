@@ -28,9 +28,11 @@ export default async function Page({
     id: string
   }
 }) {
-  const courseLeaderboard = await api.courses.leaderboard(id)
-  const courseDetails = await api.courses.details(id)
-  const directory = await api.locations.directory()
+  const [courseLeaderboard, courseDetails, directory] = await Promise.all([
+    api.courses.leaderboard(id),
+    api.courses.details(id),
+    api.locations.directory(),
+  ])
 
   const { locationInfoWithRank } = courseDetails
 

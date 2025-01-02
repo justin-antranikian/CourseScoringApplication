@@ -25,9 +25,9 @@ public class Athlete
     public required int OverallRank { get; set; }
     public required int StateRank { get; set; }
 
-    public Location? AreaLocation { get; set; }
-    public Location? CityLocation { get; set; }
-    public Location? StateLocation { get; set; }
+    public Location AreaLocation { get; set; }
+    public Location CityLocation { get; set; }
+    public Location StateLocation { get; set; }
     public List<AthleteCourse> AthleteCourses { get; init; } = [];
     public List<AthleteRaceSeriesGoal> AthleteRaceSeriesGoals { get; init; } = [];
     public List<AthleteWellnessEntry> AthleteWellnessEntries { get; init; } = [];

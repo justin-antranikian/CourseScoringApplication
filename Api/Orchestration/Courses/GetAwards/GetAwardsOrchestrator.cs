@@ -5,27 +5,23 @@ namespace Api.Orchestration.Courses.GetAwards;
 
 public class GetAwardsOrchestrator(ScoringDbContext dbContext)
 {
-    public async Task<List<AwardsDto>> GetPodiumEntries(int courseId)
+    public async Task<List<AwardsDto>> Get(int courseId)
     {
         var course = await dbContext.Courses.SingleAsync(oo => oo.Id == courseId);
         var brackets = await dbContext.Brackets.Where(oo => oo.CourseId == courseId).ToListAsync();
         var fullCourseInterval = await dbContext.Intervals.SingleAsync(oo => oo.CourseId == courseId && oo.IsFullCourse);
-        var resultsForAllBrackets = await GetResults(courseId, fullCourseInterval);
-        return GetAwards(resultsForAllBrackets, brackets, course).ToList();
+
+        var results = await dbContext.Results
+            .Include(oo => oo.AthleteCourse)
+            .ThenInclude(oo => oo.Athlete)
+            .Where(oo => oo.CourseId == courseId && !oo.IsHighestIntervalCompleted)
+            .Where(oo => oo.IntervalId == fullCourseInterval.Id && oo.Rank <= 9)
+            .ToListAsync();
+
+        return GetAwards(results, brackets, course).ToList();
     }
 
-    private async Task<List<Result>> GetResults(int courseId, Interval fullCourseInterval)
-    {
-        var query = dbContext.Results
-                        .Include(oo => oo.AthleteCourse)
-                        .ThenInclude(oo => oo!.Athlete)
-                        .Where(oo => oo.CourseId == courseId && !oo.IsHighestIntervalCompleted)
-                        .Where(oo => oo.IntervalId == fullCourseInterval.Id && oo.Rank <= 9);
-
-        return await query.ToListAsync();
-    }
-
-    private IEnumerable<AwardsDto> GetAwards(List<Result> resultsForAllBrackets, List<Bracket> brackets, Course course)
+    private static IEnumerable<AwardsDto> GetAwards(List<Result> resultsForAllBrackets, List<Bracket> brackets, Course course)
     {
         var overallBracket = brackets.Single(oo => oo.BracketType == BracketType.Overall);
         var overallBracketWinners = FilterWinnersInHigherBrackets(resultsForAllBrackets, overallBracket.Id);
@@ -53,7 +49,7 @@ public class GetAwardsOrchestrator(ScoringDbContext dbContext)
     {
         AwardWinnerDto MapToAwardWinnerDto(Result result)
         {
-            var athlete = result.AthleteCourse!.Athlete!;
+            var athlete = result.AthleteCourse.Athlete;
             var finishTime = course.GetCrossingTime(result.TimeOnCourse);
             var paceWithTime = course.GetPaceWithTime(result.TimeOnCourse);
 

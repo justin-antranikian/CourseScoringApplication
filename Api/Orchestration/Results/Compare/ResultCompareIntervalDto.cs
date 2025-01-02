@@ -1,6 +1,6 @@
 ﻿namespace Api.Orchestration.Results.Compare;
 
-public record CompareIrpsIntervalDto
+public record ResultCompareIntervalDto
 {
     public required string? CrossingTime { get; init; }
     public required string IntervalName { get; init; }
@@ -9,4 +9,3 @@ public record CompareIrpsIntervalDto
     public required int? GenderRank { get; init; }
     public required int? PrimaryDivisionRank { get; init; }
 }
-

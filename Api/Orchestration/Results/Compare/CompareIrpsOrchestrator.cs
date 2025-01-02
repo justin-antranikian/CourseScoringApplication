@@ -5,60 +5,65 @@ namespace Api.Orchestration.Results.Compare;
 
 public class CompareIrpsOrchestrator(ScoringDbContext dbContext)
 {
-    public async Task<List<CompareIrpsAthleteInfoDto>> GetCompareIrpsDto(List<int> athleteCourseIds)
+    public async Task<List<ResultCompareAthleteInfoDto>> Get(List<int> athleteCourseIds)
     {
-        var courseId = (await dbContext.AthleteCourses.SingleAsync(oo => oo.Id == athleteCourseIds.First())).CourseId;
+        var athleteCourses = await dbContext.AthleteCourses.Where(oo => athleteCourseIds.Contains(oo.Id)).ToListAsync();
+        var courseId = athleteCourses.First().CourseId;
+
         var course = await dbContext.Courses.Include(oo => oo.Intervals).SingleAsync(oo => oo.Id == courseId);
         var primaryBracket = await dbContext.Brackets.SingleAsync(oo => oo.CourseId == courseId && oo.BracketType == BracketType.Overall);
-        var athleteCourses = await GetAthleteCourses(athleteCourseIds);
 
-        return GetCompareIrpsAthleteInfoDtos(athleteCourses, primaryBracket.Id, course);
+        var athleteIds = athleteCourses.Select(oo => oo.AthleteId).ToList();
+        var athletes = await dbContext.GetAthletesWithLocationInfo().Where(oo => athleteIds.Contains(oo.Id)).ToListAsync();
+
+        var results = await dbContext.Results.AsNoTracking()
+            .Where(oo => athleteCourseIds.Contains(oo.AthleteCourseId))
+            .Where(oo => oo.BracketId == primaryBracket.Id)
+            .ToListAsync();
+
+        return MapToAthleteInfo(athleteCourses, athletes, results, course).ToList();
     }
 
-    private static List<CompareIrpsAthleteInfoDto> GetCompareIrpsAthleteInfoDtos(List<AthleteCourse> athleteCourses, int primaryBracketId, Course course)
+    private static IEnumerable<ResultCompareAthleteInfoDto> MapToAthleteInfo(List<AthleteCourse> athleteCourses, List<Athlete> athletes, List<Result> results, Course course)
     {
-        var orderedAthleteCourses = athleteCourses
-                                        .Select(oo => oo.Results.Single(oo => oo.BracketId == primaryBracketId && oo.IsHighestIntervalCompleted))
-                                        .OrderBy(oo => oo.Rank)
-                                        .Select(oo => oo.AthleteCourse)
-                                        .ToList();
-
-        return orderedAthleteCourses.Select(oo => MapToCompareIrpsAthleteInfoDto(oo, course, primaryBracketId)).ToList();
+        foreach (var athleteCourseId in results.Where(oo => oo.IsHighestIntervalCompleted).OrderBy(oo => oo.Rank).Select(oo => oo.AthleteCourseId))
+        {
+            var athleteCourse = athleteCourses.Single(oo => oo.Id == athleteCourseId);
+            var athlete = athletes.Single(oo => oo.Id == athleteCourse.AthleteId);
+            var filteredResults = results.Where(oo => oo.AthleteCourseId == athleteCourseId && !oo.IsHighestIntervalCompleted).ToList();
+            yield return MapToDto(athleteCourse, athlete, filteredResults, course);
+        }
     }
 
-    private static CompareIrpsAthleteInfoDto MapToCompareIrpsAthleteInfoDto(AthleteCourse athleteCourse, Course course, int primaryBracketId)
+    private static ResultCompareAthleteInfoDto MapToDto(AthleteCourse athleteCourse, Athlete athlete, List<Result> results, Course course)
     {
-        var athlete = athleteCourse.Athlete;
-        var filteredResults = athleteCourse.Results.Where(result => result.BracketId == primaryBracketId && !result.IsHighestIntervalCompleted).ToList();
-
-        IEnumerable<CompareIrpsIntervalDto> GetIntervals()
+        IEnumerable<ResultCompareIntervalDto> GetIntervals()
         {
             foreach (var interval in course.Intervals.OrderBy(oo => oo.Order))
             {
-                var resultForInterval = filteredResults.SingleOrDefault(result => result.IntervalId == interval.Id);
+                var resultForInterval = results.SingleOrDefault(result => result.IntervalId == interval.Id);
                 var intervalResult = GetIntervalResult(resultForInterval, interval, course);
                 yield return intervalResult;
             }
         }
 
-        return new CompareIrpsAthleteInfoDto
+        return new ResultCompareAthleteInfoDto
         {
-            CourseId = athleteCourse.CourseId,
             AthleteCourseId = athleteCourse.Id,
-            City = athlete!.CityLocation!.Name,
+            CourseId = athleteCourse.CourseId,
             FullName = athlete.FullName,
             GenderAbbreviated = athlete.GetGenderFormatted(),
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             RaceAge = DateTimeHelper.GetRaceAge(athlete.DateOfBirth, course.StartDate),
-            State = athlete.StateLocation!.Name,
-            CompareIrpsIntervalDtos = GetIntervals().ToList()
+            Intervals = GetIntervals().ToList()
         };
     }
 
-    private static CompareIrpsIntervalDto GetIntervalResult(Result? result, Interval interval, Course course)
+    private static ResultCompareIntervalDto GetIntervalResult(Result? result, Interval interval, Course course)
     {
         if (result == null)
         {
-            return new CompareIrpsIntervalDto
+            return new ResultCompareIntervalDto
             {
                 CrossingTime = null,
                 IntervalName = interval.Name,
@@ -72,7 +77,7 @@ public class CompareIrpsOrchestrator(ScoringDbContext dbContext)
         var paceWithTime = course.GetPaceWithTime(result.TimeOnCourse, interval.DistanceFromStart);
         var crossingTime = course.GetCrossingTime(result.TimeOnCourse);
 
-        return new CompareIrpsIntervalDto
+        return new ResultCompareIntervalDto
         {
             CrossingTime = crossingTime,
             IntervalName = interval.Name,
@@ -81,17 +86,5 @@ public class CompareIrpsOrchestrator(ScoringDbContext dbContext)
             GenderRank = result.GenderRank,
             PrimaryDivisionRank = result.DivisionRank
         };
-    }
-
-    private async Task<List<AthleteCourse>> GetAthleteCourses(List<int> athleteCourseIds)
-    {
-        var query = dbContext.AthleteCourses
-                        .Include(oo => oo.Results)
-                        .Include(oo => oo.Athlete).ThenInclude(oo => oo.StateLocation)
-                        .Include(oo => oo.Athlete).ThenInclude(oo => oo.AreaLocation)
-                        .Include(oo => oo.Athlete).ThenInclude(oo => oo.CityLocation)
-                        .Where(oo => athleteCourseIds.Contains(oo.Id));
-
-        return await query.ToListAsync();
     }
 }
