@@ -6,5 +6,6 @@ public record RaceLeaderboardByCourseDto
 
     public required string CourseName { get; init; }
     public required int SortOrder { get; init; }
+
     public required List<LeaderboardResultDto> Results { get; init; }
 }

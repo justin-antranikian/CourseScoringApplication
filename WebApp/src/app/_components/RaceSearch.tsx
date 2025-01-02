@@ -3,12 +3,12 @@
 import { useState } from "react"
 import { searchRaces } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
-import { EventSearchResultDto } from "../_api/races/definitions"
+import { RaceSearchResultDto } from "../_api/races/definitions"
 import SearchResults, { NoResults } from "./SearchResults"
 
 export default function RaceSearch({ locationId, locationType }: { locationId?: number; locationType?: string }) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [races, setRaces] = useState<EventSearchResultDto[]>([])
+  const [races, setRaces] = useState<RaceSearchResultDto[]>([])
 
   const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)

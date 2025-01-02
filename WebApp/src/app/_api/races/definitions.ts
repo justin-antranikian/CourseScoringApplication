@@ -21,7 +21,7 @@ export interface DisplayNameWithId {
   displayName: string
 }
 
-export interface EventSearchResultDto {
+export interface RaceSearchResultDto {
   id: number
   locationInfoWithRank: LocationInfoWithRank
   name: string

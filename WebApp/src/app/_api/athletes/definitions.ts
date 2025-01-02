@@ -4,8 +4,8 @@ import { RaceSeriesType } from "@/app/definitions"
 
 export interface AthleteSearchResultDto {
   id: number
-  fullName: string
   age: number
+  fullName: string
   genderAbbreviated: string
   locationInfoWithRank: LocationInfoWithRank
 }
@@ -17,9 +17,9 @@ export interface ArpDto {
   genderAbbreviated: string
   locationInfoWithRank: LocationInfoWithRank
   results: ArpResultDto[]
-  wellnessTrainingAndDiet: string[]
   wellnessGoals: string[]
   wellnessMotivationalList: string[]
+  wellnessTrainingAndDiet: string[]
 }
 
 export interface ArpResultDto {

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { Dialog } from "@/components/ui/dialog"
-import { EventSearchResultDto, RaceLeaderboardDto } from "@/app/_api/races/definitions"
+import { RaceSearchResultDto, RaceLeaderboardDto } from "@/app/_api/races/definitions"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -18,11 +18,11 @@ import { getRaceLeaderboard } from "@/app/_api/serverActions"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import RaceSeriesImage from "../_components/RaceSeriesImage"
 
-export default function RacesContent({ events }: { events: EventSearchResultDto[] }) {
+export default function RacesContent({ events }: { events: RaceSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [leaderboard, setLeaderboard] = useState<RaceLeaderboardDto | null>(null)
 
-  const handleViewMoreClicked = async ({ upcomingRaceId }: EventSearchResultDto) => {
+  const handleViewMoreClicked = async ({ upcomingRaceId }: RaceSearchResultDto) => {
     const leaderboard = await getRaceLeaderboard(upcomingRaceId)
 
     setLeaderboard(leaderboard)

@@ -1,8 +1,9 @@
 ﻿namespace Api.Orchestration.Races.Search;
 
-public record EventSearchResultDto
+public record RaceSearchResultDto
 {
     public required int Id { get; init; }
+
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required string Name { get; init; }
     public required string RaceKickOffDate { get; init; }

@@ -13,11 +13,9 @@ public class GetArpOrchestrator(ScoringDbContext dbContext)
         var courses = await GetCourses(results);
         var metadataEntries = await GetBracketMetadataEntries(results);
 
-        var wellnessEntries = athlete.AthleteWellnessEntries;
-
-        static List<string> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
+        List<string> GetWellnessEntries(params AthleteWellnessType[] wellnessTypes)
         {
-            return wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType)).Select(oo => oo.Description).ToList();
+            return athlete.AthleteWellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType)).Select(oo => oo.Description).ToList();
         }
 
         return new ArpDto
@@ -28,9 +26,9 @@ public class GetArpOrchestrator(ScoringDbContext dbContext)
             GenderAbbreviated = athlete.GetGenderFormatted(),
             LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
             Results = GetResults(results, courses, metadataEntries).ToList(),
-            WellnessGoals = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Goal),
-            WellnessMotivationalList = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Motivational),
-            WellnessTrainingAndDiet = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Training, AthleteWellnessType.Diet),
+            WellnessGoals = GetWellnessEntries(AthleteWellnessType.Goal),
+            WellnessMotivationalList = GetWellnessEntries(AthleteWellnessType.Motivational),
+            WellnessTrainingAndDiet = GetWellnessEntries(AthleteWellnessType.Training, AthleteWellnessType.Diet),
         };
     }
 
@@ -48,8 +46,8 @@ public class GetArpOrchestrator(ScoringDbContext dbContext)
 
             var distanceCompleted = course.Intervals.Single(oo => oo.Id == result.IntervalId).DistanceFromStart;
             var paceWithTimeCumulative = course.GetPaceWithTime(result.TimeOnCourse, distanceCompleted);
-            var bracketsForAthlete = course.Brackets.FilterBrackets(metadataEntriesForCourse);
-            var metadataHelper = new MetadataGetTotalHelper(metadataEntriesForCourse, bracketsForAthlete);
+            var brackets = course.Brackets.Join(metadataEntries, oo => oo.Id, oo => oo.BracketId, (bracket, _) => bracket).ToList();
+            var metadataHelper = new MetadataGetTotalHelper(metadataEntriesForCourse, brackets);
 
             yield return new ArpResultDto
             {

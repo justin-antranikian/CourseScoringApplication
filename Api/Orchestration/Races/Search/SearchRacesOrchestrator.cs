@@ -5,7 +5,7 @@ namespace Api.Orchestration.Races.Search;
 
 public class SearchRacesOrchestrator(ScoringDbContext dbContext)
 {
-    public async Task<List<EventSearchResultDto>> Get(int? locationId, string? locationType, string? searchTerm)
+    public async Task<List<RaceSearchResultDto>> Get(int? locationId, string? locationType, string? searchTerm)
     {
         var query = dbContext.GetRaceSeriesWithLocationInfo()
             .Include(oo => oo.Races)
@@ -39,12 +39,12 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
         return results.Select(MapToDto).ToList();
     }
 
-    private static EventSearchResultDto MapToDto(RaceSeries raceSeries)
+    private static RaceSearchResultDto MapToDto(RaceSeries raceSeries)
     {
         var upcomingRace = raceSeries.Races.OrderByDescending(oo => oo.KickOffDate).First();
         var courses = upcomingRace.Courses.Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
 
-        return new EventSearchResultDto
+        return new RaceSearchResultDto
         {
             Id = raceSeries.Id,
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),

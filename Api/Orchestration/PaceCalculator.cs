@@ -17,17 +17,17 @@ public static class PaceCalculator
         return new PaceWithTime(timeFormatted, true, paceFormatted, caption);
     }
 
-    public static string GetPaceFormatted(PaceType paceType, PreferredMetric preferedMetric, int timeInSeconds, double distanceInMeters)
+    public static string GetPaceFormatted(PaceType paceType, PreferredMetric preferredMetric, int timeInSeconds, double distanceInMeters)
     {
-        var paceAsDouble = GetPace(paceType, preferedMetric, timeInSeconds, distanceInMeters);
-            
+        var pace = GetPace(paceType, preferredMetric, timeInSeconds, distanceInMeters)!;
+
         if (paceType == PaceType.MilesOrKilometersPerHour)
         {
-            return paceAsDouble.ToString();
+            return pace.ToString();
         }
 
-        var seconds = (int)(paceAsDouble % 1 * 60);
-        var minutesAsSeconds = (int)(paceAsDouble) * 60;
+        var seconds = (int)(pace % 1 * 60);
+        var minutesAsSeconds = (int)pace * 60;
         return TimeFormatter.Format(minutesAsSeconds + seconds);
     }
 

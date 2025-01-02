@@ -14,12 +14,12 @@ export interface LeaderboardResultDto {
   athleteId: number
   bib: string
   divisionRank: number
-  genderRank: number
   genderAbbreviated: string
+  genderRank: number
   fullName: string
   overallRank: number
-  raceAge: number
   paceWithTimeCumulative: PaceWithTime
+  raceAge: number
 }
 
 export interface AwardsDto {
