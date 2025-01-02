@@ -13,17 +13,30 @@ public class GetArpOrchestrator(ScoringDbContext dbContext)
         var courses = await GetCourses(results);
         var metadataEntries = await GetBracketMetadataEntries(results);
 
-        var arpResults = GetResults(results, courses, metadataEntries).ToList();
-        return ArpDtoMapper.GetArpDto(athlete, arpResults);
+        var wellnessEntries = athlete.AthleteWellnessEntries;
+
+        static List<string> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
+        {
+            return wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType)).Select(oo => oo.Description).ToList();
+        }
+
+        return new ArpDto
+        {
+            Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
+            FirstName = athlete.FirstName,
+            FullName = athlete.FullName,
+            GenderAbbreviated = athlete.GetGenderFormatted(),
+            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
+            Results = GetResults(results, courses, metadataEntries).ToList(),
+            WellnessGoals = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Goal),
+            WellnessMotivationalList = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Motivational),
+            WellnessTrainingAndDiet = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Training, AthleteWellnessType.Diet),
+        };
     }
 
     /// <summary>
     /// Only need the primary division results when showing the list of races.
     /// </summary>
-    /// <param name="results"></param>
-    /// <param name="courses"></param>
-    /// <param name="metadataEntries"></param>
-    /// <returns></returns>
     private static IEnumerable<ArpResultDto> GetResults(List<Result> results, List<Course> courses, List<BracketMetadata> metadataEntries)
     {
         var primaryBracketResults = results.Where(oo => oo.Bracket.BracketType == BracketType.PrimaryDivision).ToList();
@@ -38,7 +51,21 @@ public class GetArpOrchestrator(ScoringDbContext dbContext)
             var bracketsForAthlete = course.Brackets.FilterBrackets(metadataEntriesForCourse);
             var metadataHelper = new MetadataGetTotalHelper(metadataEntriesForCourse, bracketsForAthlete);
 
-            yield return ArpResultDtoMapper.GetArpResultDto(result, course, paceWithTimeCumulative, metadataHelper);
+            yield return new ArpResultDto
+            {
+                AthleteCourseId = result.AthleteCourseId,
+                CourseId = course.Id,
+                CourseName = course.Name,
+                GenderCount = metadataHelper.GetGenderTotal(),
+                GenderRank = result.GenderRank,
+                OverallCount = metadataHelper.GetOverallTotal(),
+                OverallRank = result.OverallRank,
+                PaceWithTimeCumulative = paceWithTimeCumulative,
+                PrimaryDivisionCount = metadataHelper.GetPrimaryDivisionTotal(),
+                PrimaryDivisionRank = result.DivisionRank,
+                RaceId = course.RaceId,
+                RaceName = course.Race.Name,
+            };
         }
     }
 

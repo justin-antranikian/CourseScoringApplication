@@ -7,7 +7,6 @@ export interface RaceLeaderboardDto {
   locationInfoWithRank: LocationInfoWithRank
   raceKickOffDate: string
   raceName: string
-  raceSeriesDescription: string
   raceSeriesType: RaceSeriesType
 }
 

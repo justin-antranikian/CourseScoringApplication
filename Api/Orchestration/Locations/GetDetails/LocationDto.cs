@@ -1,4 +1,4 @@
-﻿namespace Api.Orchestration.Locations;
+﻿namespace Api.Orchestration.Locations.GetDetails;
 
 public record LocationDto
 {

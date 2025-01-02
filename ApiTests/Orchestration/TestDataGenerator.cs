@@ -12,7 +12,6 @@ internal static class TestDataGenerator
             new()
             {
                 Name = "Houston Triathalons",
-                Description = "All Houston Triathalons",
                 RaceSeriesType = RaceSeriesType.Triathalon,
                 OverallRank = 4,
                 StateRank = 3,

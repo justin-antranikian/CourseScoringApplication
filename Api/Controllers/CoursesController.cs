@@ -21,7 +21,7 @@ public class CoursesController(ScoringDbContext dbContext) : ControllerBase
     public async Task<List<CourseLeaderboard>> GetLeaderboard(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
         var orchestrator = new GetCourseLeaderboardOrchestrator(dbContext);
-        return await orchestrator.GetCourseLeaderboardDto(courseId, bracketId, intervalId, startingRank, take);
+        return await orchestrator.Get(courseId, bracketId, intervalId, startingRank, take);
     }
 
     [HttpGet("{courseId:int}/awards")]

@@ -14,23 +14,20 @@ public class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedInterv
         foreach (var course in courses)
         {
             var interval = highestCompletedIntervalsForAllCourses.Single(oo => oo.CourseId == course.Id);
-            var results = GetLeaderboardResults(course, interval).ToList();
 
             yield return new RaceLeaderboardByCourseDto
             {
                 CourseId = course.Id,
                 CourseName = course.Name,
                 SortOrder = interval.Order,
-                Results = results
+                Results = GetLeaderboardResults(course, interval).ToList()
             };
         }
     }
 
     private IEnumerable<LeaderboardResultDto> GetLeaderboardResults(Course course, Interval intervalForCourse)
     {
-        var resultsForCourse = resultsForAllCourses.Where(oo => oo.IntervalId == intervalForCourse.Id);
-
-        foreach (var result in resultsForCourse)
+        foreach (var result in resultsForAllCourses.Where(oo => oo.IntervalId == intervalForCourse.Id))
         {
             var distanceCompleted = intervalForCourse.DistanceFromStart;
             var paceWithTimeCumulative = course.GetPaceWithTime(result.TimeOnCourse, distanceCompleted);

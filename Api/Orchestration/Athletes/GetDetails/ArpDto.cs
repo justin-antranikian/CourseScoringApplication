@@ -1,36 +1,8 @@
-﻿using Api.DataModels;
-
-namespace Api.Orchestration.Athletes.GetDetails;
-
-public static class ArpDtoMapper
-{
-    public static ArpDto GetArpDto(Athlete athlete, List<ArpResultDto> results)
-    {
-        var wellnessEntries = athlete.AthleteWellnessEntries;
-
-        return new ArpDto
-        {
-            Age = DateTimeHelper.GetCurrentAge(athlete.DateOfBirth),
-            FirstName = athlete.FirstName,
-            FullName = athlete.FullName,
-            GenderAbbreviated = athlete.GetGenderFormatted(),
-            LocationInfoWithRank = athlete.ToLocationInfoWithRank(),
-            Results = results,
-            WellnessGoals = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Goal),
-            WellnessMotivationalList = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Motivational),
-            WellnessTrainingAndDiet = GetWellnessEntries(wellnessEntries, AthleteWellnessType.Training, AthleteWellnessType.Diet),
-        };
-    }
-
-    private static List<string> GetWellnessEntries(List<AthleteWellnessEntry> wellnessEntries, params AthleteWellnessType[] wellnessTypes)
-    {
-        return wellnessEntries.Where(oo => wellnessTypes.Contains(oo.AthleteWellnessType)).Select(oo => oo.Description).ToList();
-    }
-}
+﻿namespace Api.Orchestration.Athletes.GetDetails;
 
 
 /// <summary>
-/// Results for the athlete. Athlete Results Page.
+/// Abbreviation stands for athlete results page.
 /// </summary>
 public class ArpDto
 {

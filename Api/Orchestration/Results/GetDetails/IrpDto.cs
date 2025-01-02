@@ -44,7 +44,9 @@ public static class IrpDtoMapper
     }
 }
 
-
+/// <summary>
+/// Abbreviation stands for individual results page.
+/// </summary>
 public class IrpDto
 {
     public required int AthleteId { get; init; }

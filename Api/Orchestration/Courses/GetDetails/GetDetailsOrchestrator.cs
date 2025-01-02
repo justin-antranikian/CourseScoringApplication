@@ -10,11 +10,7 @@ public class GetDetailsOrchestrator(ScoringDbContext dbContext)
         var course = await dbContext.Courses.Include(oo => oo.Race).SingleAsync(oo => oo.Id == courseId);
         var raceSeriesId = course.Race.RaceSeriesId;
         var raceSeries = await dbContext.GetRaceSeriesWithLocationInfo().SingleAsync(oo => oo.Id == raceSeriesId);
-        return MapToDto(course, raceSeries);
-    }
 
-    private static CourseDetailsDto MapToDto(Course course, RaceSeries raceSeries)
-    {
         var (dateFormatted, timeFormatted) = DateTimeHelper.GetFormattedFields(course.StartDate);
 
         return new CourseDetailsDto

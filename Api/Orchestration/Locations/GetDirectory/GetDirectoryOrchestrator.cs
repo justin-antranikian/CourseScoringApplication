@@ -3,17 +3,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Orchestration.Locations.GetDirectory;
 
-public class GetDirectoryOrchestrator(ScoringDbContext dbContext)
+public class GetDirectoryOrchestrator(ScoringDbContext dbContext, int? locationId)
 {
-    public async Task<List<DirectoryDto>> Get(int? locationId)
+    public async Task<List<DirectoryDto>> Get()
     {
         var locations = await dbContext.Locations.Include(oo => oo.ChildLocations).ThenInclude(oo => oo.ChildLocations).Where(oo => oo.LocationType == LocationType.State).ToListAsync();
-        return locations.Select(oo => MapToDto(oo, locationId)).ToList();
+        return locations.Select(MapToDto).ToList();
     }
 
-    private static DirectoryDto MapToDto(Location location, int? locationId)
+    private DirectoryDto MapToDto(Location location)
     {
-        var children = location.ChildLocations.Select(oo => MapToDto(oo, locationId)).ToList();
+        var children = location.ChildLocations.Select(MapToDto).ToList();
         var isSelected = location.Id == locationId;
 
         return new DirectoryDto

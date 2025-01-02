@@ -24,7 +24,6 @@ export interface Irp {
 }
 
 export interface IrpResultByBracketDto {
-  id: number
   name: string
   rank: number
   totalRacers: number
@@ -47,7 +46,7 @@ export interface IrpResultByIntervalDto {
   primaryDivisionRank: number | null
 }
 
-export interface ResultCompareAthleteInfoDto {
+export interface ResultCompareDto {
   courseId: number
   athleteCourseId: number
   fullName: string

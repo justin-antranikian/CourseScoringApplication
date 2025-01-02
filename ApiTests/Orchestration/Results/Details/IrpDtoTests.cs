@@ -90,7 +90,6 @@ public class IrpDtoTests
                 RaceSeries = new()
                 {
                     RaceSeriesType = RaceSeriesType.Triathalon,
-                    Description = "DA",
                     AreaRank = 0,
                     AreaLocation = new Location
                     {

@@ -1,6 +1,6 @@
 ﻿namespace Api.Orchestration.Results.Compare;
 
-public record ResultCompareAthleteInfoDto
+public record ResultCompareDto
 {
     public required int AthleteCourseId { get; init; }
 

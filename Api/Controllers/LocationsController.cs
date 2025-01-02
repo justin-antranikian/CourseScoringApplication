@@ -12,8 +12,8 @@ public class LocationsController(ScoringDbContext dbContext) : ControllerBase
     [HttpGet("directory")]
     public async Task<List<DirectoryDto>> Get([FromQuery] int? locationId)
     {
-        var orchestrator = new GetDirectoryOrchestrator(dbContext);
-        return await orchestrator.Get(locationId);
+        var orchestrator = new GetDirectoryOrchestrator(dbContext, locationId);
+        return await orchestrator.Get();
     }
 
     [HttpGet("by-slug")]

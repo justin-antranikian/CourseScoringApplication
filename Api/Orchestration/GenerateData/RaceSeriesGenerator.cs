@@ -18,15 +18,6 @@ public static class RaceSeriesGenerator
             .RuleFor(oo => oo.RaceSeriesType, _ => typeof(RaceSeriesType).GetRandomEnumValue()
         );
 
-        var possibleDescriptions = new[]
-        {
-            "The intense ride through the desert.",
-            "The best event that money can buy.",
-            "A great time through a wonderful location.",
-            "Get your year started off right with this event.",
-            "A great event through the city. Brought to you by our sponsers.",
-        };
-
         var cityLocations = locations.Where(oo => oo.LocationType == LocationType.City).ToList();
 
         var stateRanks = new Dictionary<int, int>();
@@ -36,7 +27,7 @@ public static class RaceSeriesGenerator
         var overallRank = 1;
         foreach (var faker in fakerRuleSet.Generate(50))
         {
-            var cityLocation = cityLocations.GetRandomValue();
+            var cityLocation = cityLocations.GetRandomValue()!;
             var areaLocation = cityLocation.ParentLocation!;
             var stateLocationId = areaLocation.ParentLocationId!.Value;
 
@@ -51,7 +42,6 @@ public static class RaceSeriesGenerator
                 StateLocationId = stateLocationId,
                 AreaRank = areaRank,
                 CityRank = cityRank,
-                Description = possibleDescriptions.GetRandomValue(),
                 Name = faker.Name,
                 OverallRank = overallRank,
                 RaceSeriesType = faker.RaceSeriesType,

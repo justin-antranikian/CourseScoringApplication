@@ -31,7 +31,7 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
     {
         return allIntervals
                 .Where(oo => oo.CourseId == grouping.Key)
-                .Join(grouping, interval => interval.Id, grouping => grouping.IntervalId, (interval, _) => interval)
+                .Join(grouping, oo => oo.Id, oo => oo.IntervalId, (interval, _) => interval)
                 .OrderByDescending(oo => oo.Order)
                 .First();
     }
@@ -64,7 +64,6 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             RaceKickOffDate = race.KickOffDate.ToShortDateString(),
             RaceName = race.Name,
-            RaceSeriesDescription = raceSeries.Description,
             RaceSeriesType = raceSeries.RaceSeriesType.ToString(),
             Leaderboards = leaderboards,
         };

@@ -5,7 +5,7 @@ namespace Api.Orchestration.Courses.GetLeaderboard;
 
 public class GetCourseLeaderboardOrchestrator(ScoringDbContext dbContext)
 {
-    public async Task<List<CourseLeaderboard>> GetCourseLeaderboardDto(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
+    public async Task<List<CourseLeaderboard>> Get(int courseId, int? bracketId, int? intervalId, int startingRank = 1, int take = 50)
     {
         var course = await dbContext.Courses.Include(oo => oo.Intervals).Include(oo => oo.Brackets).SingleAsync(oo => oo.Id == courseId);
         var bracket = bracketId.HasValue ? course.Brackets.Single(oo => oo.Id == bracketId) : course.Brackets.Single(oo => oo.BracketType == BracketType.Overall);

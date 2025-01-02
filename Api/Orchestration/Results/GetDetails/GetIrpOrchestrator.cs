@@ -46,7 +46,6 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
 
             yield return new IrpResultByBracketDto
             {
-                Id = bracket.Id,
                 Name = bracket.Name,
                 Rank = result.Rank,
                 TotalRacers = totalRacers
