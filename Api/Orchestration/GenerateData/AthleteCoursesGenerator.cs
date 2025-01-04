@@ -56,8 +56,6 @@ public static class AthleteCoursesGenerator
                     tranings.GetRandomValue(),
                 };
 
-                var bibNum = index + 1;
-
                 var athleteCourse = new AthleteCourse
                 {
                     AthleteId = athlete.Id,

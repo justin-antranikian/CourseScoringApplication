@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Intervals from "../../_components/Intervals"
@@ -17,6 +17,10 @@ import DirectorySheet from "@/app/_components/DirectorySheet"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 import { RaceSeriesTypeForAthleteNames } from "@/app/definitions"
 import AthleteImage from "@/app/_components/AthleteImage"
+import { CheckCircle, Circle } from "lucide-react"
+import { Irp, IrpResultByIntervalDto } from "@/app/_api/results/definitions"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { BracketRank } from "@/app/_components/BracketRank"
 
 export const dynamic = "force-dynamic"
 
@@ -145,9 +149,79 @@ export default async function Page({
 
           <hr className="my-5" />
           <div className="mb-12 bold text-2xl text-purple-500">Intervals</div>
+          <div className="flex justify-between items-center mb-10 mr-4">
+            <PizzaTracker irp={irp} />
+          </div>
           <Intervals irp={irp} />
         </div>
       </div>
+    </>
+  )
+}
+
+const PizzaTracker = ({ irp }: { irp: Irp }) => {
+  const IntervalPopoverContent = ({
+    intervalResult,
+    children,
+  }: {
+    intervalResult: IrpResultByIntervalDto
+    children: ReactNode
+  }) => {
+    return (
+      <Popover>
+        <PopoverTrigger asChild>{children}</PopoverTrigger>
+        <PopoverContent className="p-4">
+          <div className="mb-4">
+            {intervalResult.intervalName} is <span className="underline">completed</span>
+          </div>
+          <hr className="mb-4" />
+          <div>
+            <span className="mr-2">Overall:</span>
+            <BracketRank rank={intervalResult.overallRank} total={intervalResult.overallCount} indicator={undefined} />
+          </div>
+          <div>
+            <span className="mr-2">Gender:</span>
+            <BracketRank rank={intervalResult.genderRank} total={intervalResult.genderCount} indicator={undefined} />
+          </div>
+          <div className="mb-4">
+            <span className="mr-2">Division:</span>
+            <BracketRank
+              rank={intervalResult.primaryDivisionRank}
+              total={intervalResult.primaryDivisionCount}
+              indicator={undefined}
+            />
+          </div>
+          <hr className="mb-4" />
+          <div>
+            <span className="mr-2">Interval Time:</span>
+            <span className="text-lg font-bold">{intervalResult.paceWithTimeIntervalOnly!.timeFormatted}</span>
+          </div>
+          <div>
+            <span className="mr-2">Cumulative Time:</span>
+            <span className="text-lg font-bold">{intervalResult.paceWithTimeCumulative!.timeFormatted}</span>
+          </div>
+        </PopoverContent>
+      </Popover>
+    )
+  }
+
+  return (
+    <>
+      {irp.intervalResults.map((intervalResult, index) => (
+        <div key={index} className="flex flex-col items-center text-center">
+          {intervalResult.crossingTime ? (
+            <IntervalPopoverContent intervalResult={intervalResult}>
+              <button title={intervalResult.intervalName}>
+                <CheckCircle className="w-6 h-6 text-green-500 cursor-pointer" />
+              </button>
+            </IntervalPopoverContent>
+          ) : (
+            <span title={`${intervalResult.intervalName} (not started)`}>
+              <Circle className="w-6 h-6 text-gray-300" />
+            </span>
+          )}
+        </div>
+      ))}
     </>
   )
 }
