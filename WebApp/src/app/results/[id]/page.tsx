@@ -208,7 +208,7 @@ const PizzaTracker = ({ irp }: { irp: Irp }) => {
   return (
     <>
       {irp.intervalResults.map((intervalResult, index) => (
-        <div key={index} className="flex flex-col items-center text-center">
+        <div key={index} className="flex flex-col items-center">
           {intervalResult.crossingTime ? (
             <IntervalPopoverContent intervalResult={intervalResult}>
               <button title={intervalResult.intervalName}>
