@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import Link from "next/link"
 import NavSearch from "./_components/NavSearch"
+import Image from "next/image"
 
 export const metadata: Metadata = {
   title: "Course Scoring",
@@ -23,7 +24,7 @@ export default function RootLayout({
           <div className="container mx-auto flex justify-between">
             <div>
               <a href="/">
-                <img src="/CourseScoring9.png" />
+                <Image src="/CourseScoring9.png" alt={"Course Scoring Logo"} />
               </a>
             </div>
             <div className="flex items-center space-x-4">

@@ -1,5 +1,6 @@
 import React from "react"
 import { RaceSeriesType } from "../definitions"
+import Image from "next/image"
 
 const RaceSeriesImageMapping: Record<RaceSeriesType, string> = {
   [RaceSeriesType.Running]: "/RunningClipArt.png",
@@ -19,5 +20,5 @@ export default function RaceSeriesImage({
   width?: string
   height?: number
 }) {
-  return <img style={{ width, height }} src={RaceSeriesImageMapping[raceSeriesType]} />
+  return <Image style={{ width, height }} src={RaceSeriesImageMapping[raceSeriesType]} alt={"Rece Series Image"} />
 }
