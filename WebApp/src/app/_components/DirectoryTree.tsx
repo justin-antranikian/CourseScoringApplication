@@ -13,7 +13,7 @@ export const DirectoryTree: React.FC<{ locations: DirectoryDto[]; locationType: 
   return (
     <ul className="list-none">
       {locations.map((location) => (
-        <LocationNode location={location} locationType={locationType} />
+        <LocationNode key={location.id} location={location} locationType={locationType} />
       ))}
     </ul>
   )

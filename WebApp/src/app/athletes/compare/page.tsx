@@ -73,7 +73,7 @@ export default async function Page({
                   })}
                 </div>
               </ContextMenuTrigger>
-              <AthleteCard athlete={athlete} />
+              <AthleteCard key={athlete.id} athlete={athlete} />
             </ContextMenu>
           ))}
         </div>

@@ -62,7 +62,7 @@ export default async function Page({
                   <DropdownMenuContent align="start">
                     {raceLeaderboard.leaderboards.map((board) => {
                       return (
-                        <DropdownMenuItem>
+                        <DropdownMenuItem key={board.courseId}>
                           <a href={`/courses/${board.courseId}`}>{board.courseName}</a>
                         </DropdownMenuItem>
                       )

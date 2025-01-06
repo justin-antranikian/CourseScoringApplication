@@ -11,7 +11,7 @@ export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Respo
 
 const { apiHost } = config
 
-export const getPostRequestInit = (body: any): RequestInit => {
+export const getPostRequestInit = <T>(body: T): RequestInit => {
   const requestInit: RequestInit = {
     method: "POST",
     headers: {

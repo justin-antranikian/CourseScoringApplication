@@ -68,22 +68,24 @@ export default async function Page({
           </div>
           <LocationInfoRankings locationInfoWithRank={arp.locationInfoWithRank} locationType={LocationType.athletes} />
           <hr className="my-5" />
-          <div className="my-3">{arp.firstName}'s training and diet</div>
+          <div className="my-3">{`${arp.firstName}'s training and diet`}</div>
           <ul className="list-disc pl-5 text-xs">
             {arp.wellnessTrainingAndDiet.map((entry, index) => (
               <li key={index}>{entry}</li>
             ))}
           </ul>
-          <div className="my-3">{arp.firstName}'s goals</div>
+          <div className="my-3">{`${arp.firstName}'s goals`}</div>
           <ul className="list-disc pl-5 text-xs">
             {arp.wellnessGoals.map((entry, index) => (
               <li key={index}>{entry}</li>
             ))}
           </ul>
-          <div className="my-3">{arp.firstName}'s inspiration</div>
-          {arp.wellnessMotivationalList.map((entry) => {
-            return <div className="pl-5 text-xs">{entry}</div>
-          })}
+          <div className="my-3">{`${arp.firstName}'s inspiration`}</div>
+          {arp.wellnessMotivationalList.map((entry, index) => (
+            <div className="pl-5 text-xs" key={index}>
+              {entry}
+            </div>
+          ))}
         </div>
         <div className="w-3/4">
           <div className="mb-12 bold text-2xl text-purple-500">Results</div>
@@ -100,7 +102,7 @@ export default async function Page({
             <TableBody>
               {arp.results.map((result) => {
                 return (
-                  <TableRow>
+                  <TableRow key={result.athleteCourseId}>
                     <TableCell>
                       <div>
                         <a href={`/races/${result.raceId}`}>{result.raceName}</a>

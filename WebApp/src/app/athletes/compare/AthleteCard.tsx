@@ -12,13 +12,13 @@ export default function AthleteCard({ athlete }: { athlete: AthleteCompareDto })
   const [slideNumber, setSlideNumber] = useState(1)
 
   const slides = [
-    <div>
+    <div key={1}>
       <div className="text-2xl">
         {athlete.age} | {athlete.genderAbbreviated}
       </div>
       <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} locationType={LocationType.athletes} />
     </div>,
-    <div>
+    <div key={2}>
       {Object.entries(RaceSeriesTypeNames).map(([raceSeriesType, seriesName]) => {
         const stat = athlete.stats.find((stat) => stat.raceSeriesType === raceSeriesType)
         return <StatLine key={raceSeriesType} raceSeriesType={seriesName} stat={stat} />

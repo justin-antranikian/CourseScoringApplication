@@ -46,7 +46,7 @@ export default function QuickViewDialogContent({ leaderboard }: { leaderboard: R
         <div className="flex-[3]">
           {leaderboard.leaderboards.map((board) => {
             return (
-              <div>
+              <div key={board.courseId}>
                 <div className="mb-8 text-purple-500 bold text-2xl">
                   <a href={`/courses/${board.courseId}`}>{board.courseName}</a>
                 </div>

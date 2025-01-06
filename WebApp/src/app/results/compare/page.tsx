@@ -88,9 +88,9 @@ export default async function Page({
                     {athlete.genderAbbreviated} | {athlete.raceAge}
                   </div>
                 </TableCell>
-                {athlete.intervals.map((interval) => {
+                {athlete.intervals.map((interval, index) => {
                   return (
-                    <TableCell>
+                    <TableCell key={index}>
                       <div>{interval.crossingTime ? interval.crossingTime : "--"}</div>
                       <PaceContent interval={interval} />
                     </TableCell>

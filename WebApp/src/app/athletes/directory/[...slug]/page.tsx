@@ -65,7 +65,7 @@ export default async function Page({
                     <DropdownMenuSeparator />
                     {slugEntries.map((slug) => {
                       return (
-                        <DropdownMenuItem>
+                        <DropdownMenuItem key={slug.slug}>
                           <a href={`/races/directory/${slug.slug}`}>{slug.name}</a>
                         </DropdownMenuItem>
                       )

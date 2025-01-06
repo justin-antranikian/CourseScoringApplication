@@ -100,7 +100,7 @@ export default async function Page({
               </span>
             ))}
           </div>
-          <div className="mt-3">{irp.firstName}'s training</div>
+          <div className="mt-3">{`${irp.firstName}'s training`}</div>
           <ul className="mt-3">
             {irp.trainingList.map((training, index) => (
               <li key={index} className="text-xs">
@@ -109,12 +109,12 @@ export default async function Page({
             ))}
           </ul>
 
-          <div className="mt-3">{irp.firstName}'s personal goal</div>
-          <div className="mt-3 text-xs italic">"{irp.personalGoalDescription}"</div>
+          <div className="mt-3">{`${irp.firstName}'s personal goal`}</div>
+          <div className="mt-3 text-xs italic">{`"${irp.personalGoalDescription}"`}</div>
 
-          <div className="mt-3">{irp.firstName}'s course goal</div>
+          <div className="mt-3">{`${irp.firstName}'s course goal`}</div>
           <div className="mt-3 text-xs italic text-blue-500">
-            <strong>"{irp.courseGoalDescription}"</strong>
+            <strong>{irp.courseGoalDescription}</strong>
           </div>
         </div>
         <div className="w-3/4">
