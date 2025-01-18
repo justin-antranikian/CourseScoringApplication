@@ -1,6 +1,5 @@
 import React from "react"
 import { RaceSeriesType } from "../definitions"
-import Image from "next/image"
 
 const RaceSeriesImageMapping: Record<RaceSeriesType, string> = {
   [RaceSeriesType.Running]: "/RunningClipArt.png",

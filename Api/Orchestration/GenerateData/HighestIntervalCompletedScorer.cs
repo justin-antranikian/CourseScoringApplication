@@ -54,7 +54,6 @@ public class HighestIntervalCompletedScorer(
 
         var filteredReads = FilterReadsByBracket(bracket);
         var readsGrouping = filteredReads.GroupBy(oo => oo.AthleteCourseId);
-        var highestAthleteReads = readsGrouping.Select(GetHighestInterval);
-        return SortByBestInterval(highestAthleteReads);
+        return SortByBestInterval(readsGrouping.Select(GetHighestInterval));
     }
 }

@@ -25,14 +25,12 @@ public class RaceLeaderboardByCourseMapper(List<Interval> highestCompletedInterv
         }
     }
 
-    private IEnumerable<LeaderboardResultDto> GetLeaderboardResults(Course course, Interval intervalForCourse)
+    private IEnumerable<LeaderboardResultDto> GetLeaderboardResults(Course course, Interval interval)
     {
-        foreach (var result in resultsForAllCourses.Where(oo => oo.IntervalId == intervalForCourse.Id))
+        foreach (var result in resultsForAllCourses.Where(oo => oo.IntervalId == interval.Id))
         {
-            var distanceCompleted = intervalForCourse.DistanceFromStart;
-            var paceWithTimeCumulative = course.GetPaceWithTime(result.TimeOnCourse, distanceCompleted);
-            var athlete = result.AthleteCourse.Athlete;
-            yield return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, athlete, paceWithTimeCumulative, course);
+            var paceWithTimeCumulative = course.GetPaceWithTime(result.TimeOnCourse, interval.DistanceFromStart);
+            yield return LeaderboardResultDtoMapper.GetLeaderboardResultDto(result, result.AthleteCourse.Athlete, paceWithTimeCumulative, course);
         }
     }
 }
