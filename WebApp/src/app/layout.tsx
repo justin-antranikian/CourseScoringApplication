@@ -24,7 +24,7 @@ export default function RootLayout({
           <div className="container mx-auto flex justify-between">
             <div>
               <a href="/">
-                <Image src="/CourseScoring9.png" alt={"Course Scoring Logo"} />
+                <img src="/CourseScoring9.png" alt={"Course Scoring Logo"} />
               </a>
             </div>
             <div className="flex items-center space-x-4">

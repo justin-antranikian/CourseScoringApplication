@@ -22,10 +22,10 @@ export default function CourseContent({
   const [hideComparePane, setHideComparePane] = useState(false)
 
   const handleCompareClicked = (id: number) => {
-    setSelectedIds((prevSelectedResults) => {
-      return prevSelectedResults.includes(id)
-        ? prevSelectedResults.filter((resultId) => resultId !== id)
-        : [...prevSelectedResults, id]
+    setSelectedIds((prevSelectedIds) => {
+      return prevSelectedIds.includes(id)
+        ? prevSelectedIds.filter((resultId) => resultId !== id)
+        : [...prevSelectedIds, id]
     })
   }
 

@@ -26,10 +26,10 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
   }
 
   const handleCompareClicked = (id: number) => {
-    setSelectedIds((prevSelectedResults) => {
-      return prevSelectedResults.includes(id)
-        ? prevSelectedResults.filter((resultId) => resultId !== id)
-        : [...prevSelectedResults, id]
+    setSelectedIds((prevSelectedIds) => {
+      return prevSelectedIds.includes(id)
+        ? prevSelectedIds.filter((resultId) => resultId !== id)
+        : [...prevSelectedIds, id]
     })
   }
 
@@ -40,7 +40,7 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
   }, [selectedIds])
 
   return (
-    <div className="flex flex-wrap">
+    <>
       {athletes.map((athlete, index) => (
         <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
           <Card className="rounded shadow">
@@ -112,6 +112,6 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         {arp ? <QuickViewDialogContent arp={arp} /> : null}
       </Dialog>
-    </div>
+    </>
   )
 }

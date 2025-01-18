@@ -20,5 +20,5 @@ export default function RaceSeriesImage({
   width?: string
   height?: number
 }) {
-  return <Image style={{ width, height }} src={RaceSeriesImageMapping[raceSeriesType]} alt={"Rece Series Image"} />
+  return <img style={{ width, height }} src={RaceSeriesImageMapping[raceSeriesType]} alt={"Rece Series Image"} />
 }

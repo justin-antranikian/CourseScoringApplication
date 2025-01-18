@@ -11,8 +11,7 @@ export const dynamic = "force-dynamic"
 const api = getApi()
 
 export default async function Page() {
-  const events = await api.races.search()
-  const directory = await api.locations.directory()
+  const [events, directory] = await Promise.all([api.races.search(), api.locations.directory()])
 
   return (
     <>

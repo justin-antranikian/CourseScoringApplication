@@ -1,5 +1,5 @@
 import { DialogContent } from "@/components/ui/dialog"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import { Info } from "lucide-react"
@@ -16,15 +16,10 @@ export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
   const [irpDetails, setIrpDetails] = useState<Irp | null>(null)
 
-  useEffect(() => {
-    if (irpDetails) {
-      setSheetOpen(true)
-    }
-  }, [irpDetails])
-
   const getIrpData = async ({ athleteCourseId }: ArpResultDto) => {
     const irp = await getIrp(athleteCourseId)
     setIrpDetails(irp)
+    setSheetOpen(true)
   }
 
   return (

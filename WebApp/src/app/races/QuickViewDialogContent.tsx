@@ -5,7 +5,7 @@ import { RaceLeaderboardDto } from "@/app/_api/races/definitions"
 import { DialogContent } from "@/components/ui/dialog"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Info } from "lucide-react"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverActions"
 import { Irp } from "@/app/_api/results/definitions"
@@ -14,15 +14,10 @@ export default function QuickViewDialogContent({ leaderboard }: { leaderboard: R
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
   const [irpDetails, setIrpDetails] = useState<Irp | null>(null)
 
-  useEffect(() => {
-    if (irpDetails) {
-      setSheetOpen(true)
-    }
-  }, [irpDetails])
-
   const getIrpData = async ({ athleteCourseId }: LeaderboardResultDto) => {
     const irp = await getIrp(athleteCourseId)
     setIrpDetails(irp)
+    setSheetOpen(true)
   }
 
   return (
