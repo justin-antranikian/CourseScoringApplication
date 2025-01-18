@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Dialog, DialogTitle } from "@/components/ui/dialog"
+import { Dialog } from "@/components/ui/dialog"
 import { RaceSearchResultDto, RaceLeaderboardDto } from "@/app/_api/races/definitions"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Card, CardContent } from "@/components/ui/card"
