@@ -1,4 +1,4 @@
-"server only"
+import "server-only"
 
 import { config } from "@/config"
 import athletes from "./athletes/api"

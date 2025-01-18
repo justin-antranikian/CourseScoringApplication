@@ -1,4 +1,4 @@
-"server only"
+import "server-only"
 
 import { ApiFetch } from "../api"
 import { DirectoryDto } from "./definitions"

@@ -16,19 +16,11 @@ export default function NavSearch() {
     setSearchTerm(searchTerm)
 
     const getAthletes = async () => {
-      if (searchTerm === "") {
-        return []
-      }
-
-      return await searchAthletes(undefined, undefined, searchTerm)
+      return searchTerm === "" ? [] : await searchAthletes(undefined, undefined, searchTerm)
     }
 
     const getRaces = async () => {
-      if (searchTerm === "") {
-        return []
-      }
-
-      return await searchRaces(undefined, undefined, searchTerm)
+      return searchTerm === "" ? [] : await searchRaces(undefined, undefined, searchTerm)
     }
 
     const athletes = await getAthletes()

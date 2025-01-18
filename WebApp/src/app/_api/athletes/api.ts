@@ -1,4 +1,4 @@
-"server only"
+import "server-only"
 
 import { ApiFetch, getPostRequestInit } from "../api"
 import { getLocationBasedSearchParams } from "../utils"

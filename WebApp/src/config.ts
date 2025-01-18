@@ -1,4 +1,4 @@
-"server only"
+import "server-only"
 
 export interface Config {
   apiHost: string
