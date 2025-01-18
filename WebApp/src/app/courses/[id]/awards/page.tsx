@@ -19,16 +19,15 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({
-  params: { id },
-}: {
-  params: {
-    id: string
-  }
-}) {
-  const awards = await api.courses.awards(id)
-  const courseDetails = await api.courses.details(id)
-  const directory = await api.locations.directory()
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+
+  const [awards, courseDetails, directory] = await Promise.all([
+    api.courses.awards(id),
+    api.courses.details(id),
+    api.locations.directory(),
+  ])
+
   const { locationInfoWithRank } = courseDetails
 
   return (

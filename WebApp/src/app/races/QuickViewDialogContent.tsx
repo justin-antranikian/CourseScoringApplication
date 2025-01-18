@@ -2,7 +2,7 @@ import LocationInfoRankings, { LocationType } from "@/app/_components/LocationIn
 import IrpDetails from "@/app/_components/IrpDetails"
 import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
 import { RaceLeaderboardDto } from "@/app/_api/races/definitions"
-import { DialogContent } from "@/components/ui/dialog"
+import { DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Info } from "lucide-react"
 import React, { useState } from "react"
@@ -22,6 +22,7 @@ export default function QuickViewDialogContent({ leaderboard }: { leaderboard: R
 
   return (
     <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
+      <DialogTitle>Quick View</DialogTitle>
       <div className="flex mt-5">
         <div className="flex-[1]">
           <div className="text-2xl bold">{leaderboard.raceName}</div>

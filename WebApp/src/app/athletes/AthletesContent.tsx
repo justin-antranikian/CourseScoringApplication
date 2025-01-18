@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
-import { Dialog } from "@/components/ui/dialog"
+import { Dialog, DialogTitle } from "@/components/ui/dialog"
 import { ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"

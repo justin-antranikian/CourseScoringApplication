@@ -28,13 +28,8 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({
-  params: { slug },
-}: {
-  params: {
-    slug: string[]
-  }
-}) {
+export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
+  const { slug } = await params
   const routeSegment = slug.join("/")
   const locationResponse = await api.locations.bySlug(routeSegment)
 
@@ -43,8 +38,11 @@ export default async function Page({
   }
 
   const location = (await locationResponse.json()) as LocationDto
-  const races = await api.races.search(location.id, location.locationType)
-  const directory = await api.locations.directory(location.id)
+
+  const [races, directory] = await Promise.all([
+    api.races.search(location.id, location.locationType),
+    api.locations.directory(location.id),
+  ])
 
   const slugEntries = getSlugEntries(slug)
 
@@ -101,7 +99,7 @@ export default async function Page({
         <div className="w-1/4">
           <DirectoryTree locations={directory} locationType={LocationType.races} />
         </div>
-        <div className="w-3/4">
+        <div className="w-3/4 flex flex-wrap">
           {races.length === 0 ? (
             <div className="text-lg font-bold text-red-500">There are no races at this location</div>
           ) : (

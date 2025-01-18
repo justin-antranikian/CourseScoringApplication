@@ -1,4 +1,4 @@
-import { DialogContent } from "@/components/ui/dialog"
+import { DialogContent, DialogTitle } from "@/components/ui/dialog"
 import React, { useState } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
@@ -24,6 +24,7 @@ export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
 
   return (
     <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
+      <DialogTitle>Quick View</DialogTitle>
       <div className="flex mt-5">
         <div className="flex-[1]">
           <div className="text-2xl font-bold">{arp.fullName}</div>

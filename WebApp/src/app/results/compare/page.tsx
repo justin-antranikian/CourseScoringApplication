@@ -20,18 +20,14 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({
-  searchParams: { ids },
-}: {
-  searchParams: {
-    ids: string[]
-  }
-}) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ ids: string[] }> }) {
+  const { ids } = await searchParams
   const athletes = await api.results.compare(ids)
   const intervalNames = athletes[0].intervals.map((inteval) => inteval.intervalName)
   const courseId = athletes[0].courseId
 
   const [courseDetails, directory] = await Promise.all([api.courses.details(courseId), api.locations.directory()])
+
   const { locationInfoWithRank } = courseDetails
 
   return (

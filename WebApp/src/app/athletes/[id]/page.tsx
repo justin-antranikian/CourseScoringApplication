@@ -20,13 +20,8 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({
-  params: { id },
-}: {
-  params: {
-    id: string
-  }
-}) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const arp = await api.athletes.details(id)
   const directory = await api.locations.directory()
   const { locationInfoWithRank } = arp

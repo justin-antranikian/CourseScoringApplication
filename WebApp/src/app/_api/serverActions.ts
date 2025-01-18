@@ -5,18 +5,18 @@ import { IrpSearchRequest } from "./results/definitions"
 
 const api = getApi()
 
-export const getIrp = (athleteCourseId: string | number) => api.results.details(athleteCourseId)
+export const getIrp = async (athleteCourseId: string | number) => await api.results.details(athleteCourseId)
 
-export const getRaceLeaderboard = (raceId: string | number) => api.races.details(raceId)
+export const getRaceLeaderboard = async (raceId: string | number) => await api.races.details(raceId)
 
-export const getAthleteDetails = (athleteId: string | number) => api.athletes.details(athleteId)
+export const getAthleteDetails = async (athleteId: string | number) => await api.athletes.details(athleteId)
 
-export const searchResults = (request: IrpSearchRequest) => api.results.search(request)
+export const searchResults = async (request: IrpSearchRequest) => await api.results.search(request)
 
-export const searchRaces = (locationId?: number, locationType?: string, searchTerm?: string) => {
-  return api.races.search(locationId, locationType, searchTerm)
+export const searchRaces = async (locationId?: number, locationType?: string, searchTerm?: string) => {
+  return await api.races.search(locationId, locationType, searchTerm)
 }
 
-export const searchAthletes = (locationId?: number, locationType?: string, searchTerm?: string) => {
-  return api.athletes.search(locationId, locationType, searchTerm)
+export const searchAthletes = async (locationId?: number, locationType?: string, searchTerm?: string) => {
+  return await api.athletes.search(locationId, locationType, searchTerm)
 }

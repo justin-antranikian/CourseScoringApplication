@@ -16,13 +16,8 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({
-  searchParams: { ids },
-}: {
-  searchParams: {
-    ids: string[]
-  }
-}) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ ids: string[] }> }) {
+  const { ids } = await searchParams
   const athletes = await api.athletes.compare(ids)
 
   return (

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import Link from "next/link"
 import Intervals from "../../_components/Intervals"
@@ -16,11 +16,8 @@ import CourseDetailsSheetView from "./CourseDetailsSheetView"
 import DirectorySheet from "@/app/_components/DirectorySheet"
 import LocationBreadcrumbs from "@/app/_components/LocationBreadcrumbs"
 import AthleteImage from "@/app/_components/AthleteImage"
-import { CheckCircle, Circle } from "lucide-react"
-import { Irp, IrpResultByIntervalDto } from "@/app/_api/results/definitions"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { BracketRank } from "@/app/_components/BracketRank"
 import { RaceSeriesType } from "@/app/definitions"
+import PizzaTracker from "./PizzaTracker"
 
 const athleteTypeMap = {
   [RaceSeriesType.Running]: "Runner",
@@ -35,13 +32,9 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({
-  params: { id },
-}: {
-  params: {
-    id: string
-  }
-}) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+
   const irp = await api.results.details(id)
   const [courseDetails, directory] = await Promise.all([api.courses.details(irp.courseId), api.locations.directory()])
 
@@ -144,8 +137,8 @@ export default async function Page({
           </div>
           <hr className="my-5" />
           <div className="flex space-x-4">
-            {irp.bracketResults.map((bracket) => (
-              <div className="flex-1" key={bracket.rank}>
+            {irp.bracketResults.map((bracket, index) => (
+              <div className="flex-1" key={index}>
                 <div className="truncate" title={bracket.name}>
                   {bracket.name}
                 </div>
@@ -164,73 +157,6 @@ export default async function Page({
           <Intervals irp={irp} />
         </div>
       </div>
-    </>
-  )
-}
-
-const PizzaTracker = ({ irp }: { irp: Irp }) => {
-  const IntervalPopoverContent = ({
-    intervalResult,
-    children,
-  }: {
-    intervalResult: IrpResultByIntervalDto
-    children: ReactNode
-  }) => {
-    return (
-      <Popover>
-        <PopoverTrigger asChild>{children}</PopoverTrigger>
-        <PopoverContent className="p-4">
-          <div className="mb-4">
-            {intervalResult.intervalName} is <span className="underline">completed</span>
-          </div>
-          <hr className="mb-4" />
-          <div>
-            <span className="mr-2">Overall:</span>
-            <BracketRank rank={intervalResult.overallRank} total={intervalResult.overallCount} indicator={undefined} />
-          </div>
-          <div>
-            <span className="mr-2">Gender:</span>
-            <BracketRank rank={intervalResult.genderRank} total={intervalResult.genderCount} indicator={undefined} />
-          </div>
-          <div className="mb-4">
-            <span className="mr-2">Division:</span>
-            <BracketRank
-              rank={intervalResult.primaryDivisionRank}
-              total={intervalResult.primaryDivisionCount}
-              indicator={undefined}
-            />
-          </div>
-          <hr className="mb-4" />
-          <div>
-            <span className="mr-2">Interval Time:</span>
-            <span className="text-lg font-bold">{intervalResult.paceWithTimeIntervalOnly!.timeFormatted}</span>
-          </div>
-          <div>
-            <span className="mr-2">Cumulative Time:</span>
-            <span className="text-lg font-bold">{intervalResult.paceWithTimeCumulative!.timeFormatted}</span>
-          </div>
-        </PopoverContent>
-      </Popover>
-    )
-  }
-
-  return (
-    <>
-      {irp.intervalResults.map((intervalResult, index) => (
-        <div key={index} className="flex flex-col items-center">
-          {intervalResult.crossingTime ? (
-            <IntervalPopoverContent intervalResult={intervalResult}>
-              <button title={intervalResult.intervalName}>
-                <CheckCircle className="w-6 h-6 text-green-500 cursor-pointer" />
-              </button>
-            </IntervalPopoverContent>
-          ) : (
-            <span title={`${intervalResult.intervalName} (not started)`}>
-              <Circle className="w-6 h-6 text-gray-300" />
-            </span>
-          )}
-        </div>
-      ))}
     </>
   )
 }
