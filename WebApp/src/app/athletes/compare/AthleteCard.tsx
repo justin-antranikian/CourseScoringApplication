@@ -5,7 +5,7 @@ import LocationInfoRankings, { LocationType } from "@/app/_components/LocationIn
 import { ContextMenuContent } from "@/components/ui/context-menu"
 import { MoveLeft, MoveRight } from "lucide-react"
 import React, { useState } from "react"
-import { RaceSeriesTypeNames } from "../../definitions"
+import { raceSeriesTypeFriendlyNameMap } from "../../definitions"
 import AthleteImage from "../../_components/AthleteImage"
 
 export default function AthleteCard({ athlete }: { athlete: AthleteCompareDto }) {
@@ -19,7 +19,7 @@ export default function AthleteCard({ athlete }: { athlete: AthleteCompareDto })
       <LocationInfoRankings locationInfoWithRank={athlete.locationInfoWithRank} locationType={LocationType.athletes} />
     </div>,
     <div key={2}>
-      {Object.entries(RaceSeriesTypeNames).map(([raceSeriesType, seriesName]) => {
+      {Object.entries(raceSeriesTypeFriendlyNameMap).map(([raceSeriesType, seriesName]) => {
         const stat = athlete.stats.find((stat) => stat.raceSeriesType === raceSeriesType)
         return <StatLine key={raceSeriesType} raceSeriesType={seriesName} stat={stat} />
       })}

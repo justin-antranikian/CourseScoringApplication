@@ -2,7 +2,7 @@ import React from "react"
 import { getApi } from "@/app/_api/api"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import AthleteCard from "./AthleteCard"
-import { RaceSeriesTypeNames } from "../../definitions"
+import { raceSeriesTypeFriendlyNameMap } from "../../definitions"
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -45,7 +45,7 @@ export default async function Page({
         <div className="bg-gray-100 text-sm font-medium text-gray-700">
           <div className="flex divide-x divide-gray-200">
             <div className="p-3 flex-1">Athlete Info</div>
-            {Object.values(RaceSeriesTypeNames).map((seriesName) => (
+            {Object.values(raceSeriesTypeFriendlyNameMap).map((seriesName) => (
               <div key={seriesName} className="p-3 flex-1">
                 {seriesName}
               </div>
@@ -63,7 +63,7 @@ export default async function Page({
                       {athlete.genderAbbreviated} | {athlete.age}
                     </div>
                   </div>
-                  {Object.keys(RaceSeriesTypeNames).map((raceSeriesType: string) => {
+                  {Object.keys(raceSeriesTypeFriendlyNameMap).map((raceSeriesType) => {
                     const stat = athlete.stats.find((stat) => stat.raceSeriesType === raceSeriesType)
                     return (
                       <div key={raceSeriesType} className="p-3 flex-1 text-center">
