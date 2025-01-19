@@ -28,16 +28,23 @@ export const dynamic = "force-dynamic"
 
 const api = getApi()
 
-export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
-  const { slug } = await params
-  const routeSegment = slug.join("/")
-  const locationResponse = await api.locations.bySlug(routeSegment)
+const getLocation = async (slug: string[]): Promise<LocationDto | null> => {
+  const locationResponse = await api.locations.bySlug(slug.join("/"))
 
   if (locationResponse.status === 404) {
-    return <div>Could not find directory by {routeSegment}</div>
+    return null
   }
 
-  const location = (await locationResponse.json()) as LocationDto
+  return await locationResponse.json()
+}
+
+export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
+  const { slug } = await params
+  const location = await getLocation(slug)
+
+  if (!location) {
+    return <div>Could not find location.</div>
+  }
 
   const [races, directory] = await Promise.all([
     api.races.search(location.id, location.locationType),
@@ -52,7 +59,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
         <div className="flex justify-between">
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem>
+              <BreadcrumbItem key={1}>
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex items-center gap-1">
                     <BreadcrumbEllipsis title="Athlete Quick Navigation" className="h-4 w-4" />
@@ -71,21 +78,21 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
-              <BreadcrumbItem>
+              <BreadcrumbItem key={2}>
                 <BreadcrumbLink href="/races">All Races</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-              {slugEntries.slice(0, slugEntries.length - 1).map(({ slug, name }, index) => {
+              {slugEntries.slice(0, slugEntries.length - 1).map(({ slug, name }) => {
                 return (
                   <>
-                    <BreadcrumbItem key={index}>
+                    <BreadcrumbItem key={slug}>
                       <BreadcrumbLink href={`/races/directory/${slug}`}>{name}</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                   </>
                 )
               })}
-              <BreadcrumbItem>
+              <BreadcrumbItem key={3}>
                 <BreadcrumbPage>{location.name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
