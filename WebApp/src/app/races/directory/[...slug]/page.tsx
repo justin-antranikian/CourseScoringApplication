@@ -110,7 +110,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
           {races.length === 0 ? (
             <div className="text-lg font-bold text-red-500">There are no races at this location</div>
           ) : (
-            <RacesContent events={races} />
+            <RacesContent races={races} />
           )}
         </div>
       </div>

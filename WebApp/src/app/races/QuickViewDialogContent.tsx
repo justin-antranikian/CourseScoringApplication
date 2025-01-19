@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { getIrp } from "@/app/_api/serverFunctions"
 import { Irp } from "@/app/_api/results/definitions"
 
-export default function QuickViewDialogContent({ leaderboard }: { leaderboard: RaceLeaderboardDto }) {
+export default function QuickViewDialogContent({ raceLeaderboard }: { raceLeaderboard: RaceLeaderboardDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
   const [irpDetails, setIrpDetails] = useState<Irp | null>(null)
 
@@ -25,22 +25,22 @@ export default function QuickViewDialogContent({ leaderboard }: { leaderboard: R
       <DialogTitle>Quick View</DialogTitle>
       <div className="flex mt-5">
         <div className="flex-[1]">
-          <div className="text-2xl bold">{leaderboard.raceName}</div>
+          <div className="text-2xl bold">{raceLeaderboard.raceName}</div>
           <div className="text-sm mb-2">
             <div>
-              {leaderboard.locationInfoWithRank.city}, {leaderboard.locationInfoWithRank.state}
+              {raceLeaderboard.locationInfoWithRank.city}, {raceLeaderboard.locationInfoWithRank.state}
             </div>
-            <div className="font-bold">{leaderboard.raceKickOffDate}</div>
+            <div className="font-bold">{raceLeaderboard.raceKickOffDate}</div>
             <div className="mt-3">
               <LocationInfoRankings
-                locationInfoWithRank={leaderboard.locationInfoWithRank}
+                locationInfoWithRank={raceLeaderboard.locationInfoWithRank}
                 locationType={LocationType.races}
               />
             </div>
           </div>
         </div>
         <div className="flex-[3]">
-          {leaderboard.leaderboards.map((board) => {
+          {raceLeaderboard.leaderboards.map((board) => {
             return (
               <div key={board.courseId}>
                 <div className="mb-8 text-purple-500 bold text-2xl">

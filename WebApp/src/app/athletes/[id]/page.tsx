@@ -22,8 +22,9 @@ const api = getApi()
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const arp = await api.athletes.details(id)
-  const directory = await api.locations.directory()
+
+  const [arp, directory] = await Promise.all([api.athletes.details(id), api.locations.directory()])
+
   const { locationInfoWithRank } = arp
 
   return (

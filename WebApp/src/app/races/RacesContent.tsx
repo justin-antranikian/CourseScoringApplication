@@ -18,38 +18,37 @@ import { getRaceLeaderboard } from "@/app/_api/serverFunctions"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import RaceSeriesImage from "../_components/RaceSeriesImage"
 
-export default function RacesContent({ events }: { events: RaceSearchResultDto[] }) {
+export default function RacesContent({ races }: { races: RaceSearchResultDto[] }) {
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [leaderboard, setLeaderboard] = useState<RaceLeaderboardDto | null>(null)
+  const [raceLeaderboard, setRaceLeaderboard] = useState<RaceLeaderboardDto | null>(null)
 
   const handleViewMoreClicked = async ({ upcomingRaceId }: RaceSearchResultDto) => {
     const leaderboard = await getRaceLeaderboard(upcomingRaceId)
-
-    setLeaderboard(leaderboard)
+    setRaceLeaderboard(leaderboard)
     setDialogOpen(true)
   }
 
   return (
     <>
-      {events.map((event, index) => (
+      {races.map((race, index) => (
         <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
           <Card className="rounded shadow">
             <ContextMenu>
               <ContextMenuTrigger>
                 <CardContent className="p-0">
                   <div>
-                    <RaceSeriesImage raceSeriesType={event.raceSeriesType} />
+                    <RaceSeriesImage raceSeriesType={race.raceSeriesType} />
                   </div>
                   <div className="bg-purple-200 text-center text-base py-2">
-                    <a href={`/races/${event.upcomingRaceId}`}>
-                      <strong>{event.name}</strong>
+                    <a href={`/races/${race.upcomingRaceId}`}>
+                      <strong>{race.name}</strong>
                     </a>
                   </div>
                   <div className="p-2">
-                    <div>{event.raceKickOffDate}</div>
+                    <div>{race.raceKickOffDate}</div>
                     <div className="my-3">
                       <LocationInfoRankings
-                        locationInfoWithRank={event.locationInfoWithRank}
+                        locationInfoWithRank={race.locationInfoWithRank}
                         locationType={LocationType.races}
                       />
                     </div>
@@ -60,10 +59,10 @@ export default function RacesContent({ events }: { events: RaceSearchResultDto[]
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           <DropdownMenuItem>
-                            <a href={`/races/${event.upcomingRaceId}`}>Leaderboard</a>
+                            <a href={`/races/${race.upcomingRaceId}`}>Leaderboard</a>
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
-                          {event.courses.map((course) => {
+                          {race.courses.map((course) => {
                             return (
                               <DropdownMenuItem key={course.id}>
                                 <a href={`/courses/${course.id}`}>{course.displayName}</a>
@@ -71,7 +70,7 @@ export default function RacesContent({ events }: { events: RaceSearchResultDto[]
                             )
                           })}
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem className="cursor-pointer" onClick={() => handleViewMoreClicked(event)}>
+                          <DropdownMenuItem className="cursor-pointer" onClick={() => handleViewMoreClicked(race)}>
                             <BadgePlus size={10} color="black" />
                             Quick View
                           </DropdownMenuItem>
@@ -82,14 +81,14 @@ export default function RacesContent({ events }: { events: RaceSearchResultDto[]
                 </CardContent>
               </ContextMenuTrigger>
               <ContextMenuContent>
-                <ContextMenuItem onClick={() => handleViewMoreClicked(event)}>Quick View</ContextMenuItem>
+                <ContextMenuItem onClick={() => handleViewMoreClicked(race)}>Quick View</ContextMenuItem>
               </ContextMenuContent>
             </ContextMenu>
           </Card>
         </div>
       ))}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        {leaderboard ? <QuickViewDialogContent leaderboard={leaderboard} /> : null}
+        {raceLeaderboard ? <QuickViewDialogContent raceLeaderboard={raceLeaderboard} /> : null}
       </Dialog>
     </>
   )

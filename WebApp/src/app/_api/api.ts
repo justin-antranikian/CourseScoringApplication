@@ -1,6 +1,5 @@
 import "server-only"
 
-import { config } from "@/config"
 import athletes from "./athletes/api"
 import results from "./results/api"
 import races from "./races/api"
@@ -8,8 +7,6 @@ import courses from "./courses/api"
 import locations from "./locations/api"
 
 export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Response>
-
-const { apiHost } = config
 
 export const getPostRequestInit = <T>(body: T): RequestInit => ({
   method: "POST",
@@ -21,6 +18,8 @@ export const getPostRequestInit = <T>(body: T): RequestInit => ({
 
 export const getApi = () => {
   const apiFetch = (url: string, requestInit?: RequestInit): Promise<Response> => {
+    const apiHost = process.env["API_HOST"]!
+
     return fetch(`${apiHost}/${url}`, {
       cache: "no-store",
       ...requestInit,

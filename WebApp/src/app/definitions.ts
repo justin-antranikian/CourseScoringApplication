@@ -7,7 +7,7 @@ export enum RaceSeriesType {
   Swim = "Swim",
 }
 
-export const raceSeriesTypeFriendlyNameMap = {
+export const raceSeriesTypeNameMap = {
   [RaceSeriesType.Running]: "Running",
   [RaceSeriesType.Triathalon]: "Triathalon",
   [RaceSeriesType.RoadBiking]: "Road Biking",

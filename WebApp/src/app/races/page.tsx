@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic"
 const api = getApi()
 
 export default async function Page() {
-  const [events, directory] = await Promise.all([api.races.search(), api.locations.directory()])
+  const [races, directory] = await Promise.all([api.races.search(), api.locations.directory()])
 
   return (
     <>
@@ -34,7 +34,7 @@ export default async function Page() {
           <DirectoryTree locations={directory} locationType={LocationType.races} />
         </div>
         <div className="w-3/4 flex flex-wrap">
-          <RacesContent events={events} />
+          <RacesContent races={races} />
         </div>
       </div>
     </>
