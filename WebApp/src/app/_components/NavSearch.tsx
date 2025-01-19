@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { searchAthletes, searchRaces } from "../_api/serverActions"
+import { searchAthletes, searchRaces } from "../_api/serverFunctions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
 import { RaceSearchResultDto } from "../_api/races/definitions"
@@ -15,18 +15,10 @@ export default function NavSearch() {
   const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
 
-    const getAthletes = async () => {
-      return searchTerm === "" ? [] : await searchAthletes(undefined, undefined, searchTerm)
-    }
-
-    const getRaces = async () => {
-      return searchTerm === "" ? [] : await searchRaces(undefined, undefined, searchTerm)
-    }
-
-    const athletes = await getAthletes()
+    const athletes = searchTerm === "" ? [] : await searchAthletes(undefined, undefined, searchTerm)
     setAthletes(athletes)
 
-    const races = await getRaces()
+    const races = searchTerm === "" ? [] : await searchRaces(undefined, undefined, searchTerm)
     setRaces(races)
   }
 
@@ -55,9 +47,9 @@ export default function NavSearch() {
         </div>
         <div className="flex-1">
           <div className="font-bold mb-2 underline">Athletes ({athletes.length})</div>
-          {athletes.map((athlete) => {
+          {athletes.map((athlete, index) => {
             return (
-              <div className="mb-2" key={athlete.id}>
+              <div className="mb-2" key={index}>
                 <div className="font-bold">
                   <a className="hover:underline" href={`/athletes/${athlete.id}`}>
                     {athlete.fullName}

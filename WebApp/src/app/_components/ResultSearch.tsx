@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { searchResults } from "../_api/serverActions"
+import { searchResults } from "../_api/serverFunctions"
 import { IrpSearchResult } from "../_api/results/definitions"
 import { Input } from "@/components/ui/input"
 import SearchResults, { NoResults } from "./SearchResults"

@@ -10,7 +10,7 @@ import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
-import { getAthleteDetails } from "@/app/_api/serverActions"
+import { getAthleteDetails } from "@/app/_api/serverFunctions"
 import AthleteImage from "../_components/AthleteImage"
 
 export default function AthletesContent({ athletes }: { athletes: AthleteSearchResultDto[] }) {

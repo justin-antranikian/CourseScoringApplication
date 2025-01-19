@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import RankWithTime from "./RankWithTime"
 import IrpDetails from "../_components/IrpDetails"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "@/app/_api/serverActions"
+import { getIrp } from "@/app/_api/serverFunctions"
 import { ArpDto, ArpResultDto } from "@/app/_api/athletes/definitions"
 import { Irp } from "@/app/_api/results/definitions"
 

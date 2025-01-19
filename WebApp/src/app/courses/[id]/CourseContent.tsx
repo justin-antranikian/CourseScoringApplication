@@ -7,7 +7,7 @@ import IrpQuickView from "@/app/races/[id]/IrpQuickView"
 import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "@/app/_api/serverActions"
+import { getIrp } from "@/app/_api/serverFunctions"
 import { Irp } from "@/app/_api/results/definitions"
 import { CourseLeaderboardByIntervalDto, LeaderboardResultDto } from "@/app/_api/courses/definitions"
 

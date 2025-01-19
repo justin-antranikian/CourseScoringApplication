@@ -8,7 +8,7 @@ import { Dialog } from "@/components/ui/dialog"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "@/app/_api/serverActions"
+import { getIrp } from "@/app/_api/serverFunctions"
 import { Irp } from "@/app/_api/results/definitions"
 import IrpQuickView from "./IrpQuickView"
 

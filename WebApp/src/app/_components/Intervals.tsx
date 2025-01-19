@@ -4,13 +4,13 @@ import { BracketRank } from "@/app/_components/BracketRank"
 import IntervalTime from "@/app/_components/IntervalTime"
 import { Irp } from "../_api/results/definitions"
 
-export default function Intervals({ irp }: { irp: Irp }) {
+export default function Intervals({ irp: { timeZoneAbbreviated, intervalResults } }: { irp: Irp }) {
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead></TableHead>
-          <TableHead>Time ({irp.timeZoneAbbreviated})</TableHead>
+          <TableHead>Time ({timeZoneAbbreviated})</TableHead>
           <TableHead>Overall</TableHead>
           <TableHead>Gender</TableHead>
           <TableHead>Division</TableHead>
@@ -19,7 +19,7 @@ export default function Intervals({ irp }: { irp: Irp }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {irp.intervalResults.map((intervalResult, index) => (
+        {intervalResults.map((intervalResult, index) => (
           <TableRow key={index}>
             <TableCell>
               <div className="truncate max-w-[100px]">{intervalResult.intervalName}</div>

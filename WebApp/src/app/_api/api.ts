@@ -11,20 +11,16 @@ export type ApiFetch = (url: string, requestInit?: RequestInit) => Promise<Respo
 
 const { apiHost } = config
 
-export const getPostRequestInit = <T>(body: T): RequestInit => {
-  const requestInit: RequestInit = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  }
-
-  return requestInit
-}
+export const getPostRequestInit = <T>(body: T): RequestInit => ({
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(body),
+})
 
 export const getApi = () => {
-  const apiFetch = (url: string, requestInit?: RequestInit) => {
+  const apiFetch = (url: string, requestInit?: RequestInit): Promise<Response> => {
     return fetch(`${apiHost}/${url}`, {
       cache: "no-store",
       ...requestInit,

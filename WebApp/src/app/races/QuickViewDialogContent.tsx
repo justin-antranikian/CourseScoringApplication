@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Info } from "lucide-react"
 import React, { useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "@/app/_api/serverActions"
+import { getIrp } from "@/app/_api/serverFunctions"
 import { Irp } from "@/app/_api/results/definitions"
 
 export default function QuickViewDialogContent({ leaderboard }: { leaderboard: RaceLeaderboardDto }) {

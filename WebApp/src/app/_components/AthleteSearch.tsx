@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { searchAthletes } from "../_api/serverActions"
+import { searchAthletes } from "../_api/serverFunctions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
 import SearchResults, { NoResults } from "./SearchResults"
@@ -12,16 +12,7 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
 
   const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
-
-    const getAthletes = async () => {
-      if (searchTerm === "") {
-        return []
-      }
-
-      return await searchAthletes(locationId, locationType, searchTerm)
-    }
-
-    const athletes = await getAthletes()
+    const athletes = searchTerm === "" ? [] : await searchAthletes(locationId, locationType, searchTerm)
     setAthletes(athletes)
   }
 
@@ -33,9 +24,9 @@ export default function AthleteSearch({ locationId, locationType }: { locationId
     return (
       <>
         <div className="font-bold mb-2 underline">Athletes ({athletes.length})</div>
-        {athletes.map((athlete) => {
+        {athletes.map((athlete, index) => {
           return (
-            <div className="mb-2" key={athlete.id}>
+            <div className="mb-2" key={index}>
               <div className="font-bold">
                 <a className="hover:underline" href={`/athletes/${athlete.id}`}>
                   {athlete.fullName}

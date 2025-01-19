@@ -75,11 +75,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
                 <BreadcrumbLink href="/athletes">All Athletes</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-              {slugEntries.slice(0, slugEntries.length - 1).map((slug) => {
+              {slugEntries.slice(0, slugEntries.length - 1).map(({ slug, name }, index) => {
                 return (
                   <>
-                    <BreadcrumbItem>
-                      <BreadcrumbLink href={`/athletes/directory/${slug.slug}`}>{slug.name}</BreadcrumbLink>
+                    <BreadcrumbItem key={index}>
+                      <BreadcrumbLink href={`/athletes/directory/${slug}`}>{name}</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                   </>
