@@ -13,7 +13,7 @@ export default function IntervalTime({ paceTime }: { paceTime: PaceWithTime | nu
   }
 
   return (
-    <div>
+    <>
       <div className="text-lg font-bold">{paceTime.timeFormatted}</div>
       {paceTime.hasPace && (
         <div>
@@ -21,6 +21,6 @@ export default function IntervalTime({ paceTime }: { paceTime: PaceWithTime | nu
           {paceTime.paceLabel}
         </div>
       )}
-    </div>
+    </>
   )
 }

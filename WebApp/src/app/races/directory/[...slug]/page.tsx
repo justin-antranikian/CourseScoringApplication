@@ -61,10 +61,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
                   <DropdownMenuContent align="start">
                     <DropdownMenuLabel>View Athletes</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {slugEntries.map((slug) => {
+                    {slugEntries.map(({ slug, name }, index) => {
                       return (
-                        <DropdownMenuItem key={slug.slug}>
-                          <a href={`/athletes/directory/${slug.slug}`}>{slug.name}</a>
+                        <DropdownMenuItem key={index}>
+                          <a href={`/athletes/directory/${slug}`}>{name}</a>
                         </DropdownMenuItem>
                       )
                     })}
