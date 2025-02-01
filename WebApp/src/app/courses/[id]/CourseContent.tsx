@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo, useState } from "react"
+import React, { useState } from "react"
 import { ChartBarStacked, InfoIcon } from "lucide-react"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/IrpQuickView"
@@ -21,25 +21,20 @@ export default function CourseContent({
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [hideComparePane, setHideComparePane] = useState(false)
 
-  const handleCompareClicked = (id: number) => {
-    setSelectedIds((prevSelectedIds) => {
-      return prevSelectedIds.includes(id)
-        ? prevSelectedIds.filter((resultId) => resultId !== id)
-        : [...prevSelectedIds, id]
-    })
-  }
-
-  const compareUrl = useMemo(() => {
-    const queryParams = new URLSearchParams()
-    selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
-    return `/results/compare?${queryParams.toString()}`
-  }, [selectedIds])
-
   const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto): Promise<void> => {
     const irp = await getIrp(athleteCourseId)
     setIrp(irp)
     setDialogOpen(true)
   }
+
+  const handleCompareClicked = (id: number) => {
+    const ids = selectedIds.includes(id) ? selectedIds.filter((resultId) => resultId !== id) : [...selectedIds, id]
+    setSelectedIds(ids)
+  }
+
+  const queryParams = new URLSearchParams()
+  selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
+  const compareUrl = `/results/compare?${queryParams.toString()}`
 
   return (
     <>

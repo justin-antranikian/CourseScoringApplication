@@ -90,6 +90,6 @@ public class CreateIntervalsOrchestrator(ScoringDbContext dbContext)
         };
 
         course.Distance = cumulativeDistance;
-        return intervals.ConcatSingle(fullCourse);
+        return [.. intervals, fullCourse];
     }
 }

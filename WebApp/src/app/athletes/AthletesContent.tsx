@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo, useState } from "react"
+import React, { useState } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
 import { ChartBarStacked, Ellipsis } from "lucide-react"
@@ -26,18 +26,13 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
   }
 
   const handleCompareClicked = (id: number) => {
-    setSelectedIds((prevSelectedIds) => {
-      return prevSelectedIds.includes(id)
-        ? prevSelectedIds.filter((resultId) => resultId !== id)
-        : [...prevSelectedIds, id]
-    })
+    const ids = selectedIds.includes(id) ? selectedIds.filter((resultId) => resultId !== id) : [...selectedIds, id]
+    setSelectedIds(ids)
   }
 
-  const compareUrl = useMemo(() => {
-    const queryParams = new URLSearchParams()
-    selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
-    return `/athletes/compare?${queryParams.toString()}`
-  }, [selectedIds])
+  const queryParams = new URLSearchParams()
+  selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
+  const compareUrl = `/athletes/compare?${queryParams.toString()}`
 
   return (
     <>

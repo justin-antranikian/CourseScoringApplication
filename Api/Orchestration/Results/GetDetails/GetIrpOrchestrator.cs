@@ -28,7 +28,7 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
 
     private async Task<List<Result>> GetResults(AthleteCourse athleteCourse, Course course, int athleteCourseId)
     {
-        var filteredBrackets = course.Brackets.FilterBrackets(athleteCourse.AthleteCourseBrackets);
+        var filteredBrackets = FilterBrackets(course.Brackets, athleteCourse.AthleteCourseBrackets);
         var primaryBracket = filteredBrackets.Single(oo => oo.BracketType == BracketType.PrimaryDivision);
 
         return await dbContext.Results
@@ -55,7 +55,7 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
 
     private static IEnumerable<IrpResultByIntervalDto> GetIrpResultByIntervals(Course course, List<BracketMetadata> metadataEntries, List<Result> results, AthleteCourse athleteCourse)
     {
-        var bracketsForAthlete = course.Brackets.FilterBrackets(athleteCourse.AthleteCourseBrackets);
+        var bracketsForAthlete = FilterBrackets(course.Brackets, athleteCourse.AthleteCourseBrackets);
         var primaryDivision = bracketsForAthlete.Single(oo => oo.BracketType == BracketType.PrimaryDivision);
 
         var metadataHelper = new MetadataGetTotalHelper(metadataEntries, bracketsForAthlete);
@@ -69,5 +69,10 @@ public class GetIrpOrchestrator(ScoringDbContext dbContext)
             yield return result;
             previousInterval = result;
         }
+    }
+
+    private static List<Bracket> FilterBrackets(IEnumerable<Bracket> brackets, IEnumerable<AthleteCourseBracket> athleteCourseBrackets)
+    {
+        return brackets.Join(athleteCourseBrackets, oo => oo.Id, oo => oo.BracketId, (bracket, _) => bracket).ToList();
     }
 }
