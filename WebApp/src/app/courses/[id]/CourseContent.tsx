@@ -21,7 +21,7 @@ export default function CourseContent({
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [hideComparePane, setHideComparePane] = useState(false)
 
-  const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto): Promise<void> => {
+  const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto) => {
     const irp = await getIrp(athleteCourseId)
     setIrp(irp)
     setDialogOpen(true)
