@@ -97,19 +97,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <div>
-            <AthleteSearch locationId={location.id} locationType={location.locationType} />
-          </div>
         </div>
       </div>
-      <div className="flex gap-1">
-        <div className="w-1/4">
-          <DirectoryTree locations={directory} locationType={LocationType.athletes} />
-        </div>
-        <div className="w-3/4 flex flex-wrap">
-          <AthletesContent athletes={athletes} />
-        </div>
-      </div>
+      <AthletesContent
+        athletes={athletes}
+        directoryTree={<DirectoryTree locations={directory} locationType={LocationType.athletes} />}
+        athleteSearch={<AthleteSearch locationId={location.id} locationType={location.locationType} />}
+      />
     </>
   )
 }

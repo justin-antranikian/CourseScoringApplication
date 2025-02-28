@@ -80,7 +80,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           </div>
           <div className="mt-2 text-2xl font-bold">{raceLeaderboard.raceName}</div>
           <div className="text-lg text-blue-500 font-bold">All Courses</div>
-
           <div className="text-sm mb-2">
             <div>
               {raceLeaderboard.locationInfoWithRank.city}, {raceLeaderboard.locationInfoWithRank.state}

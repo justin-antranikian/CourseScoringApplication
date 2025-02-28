@@ -30,8 +30,8 @@ export default function RacesContent({ races }: { races: RaceSearchResultDto[] }
 
   return (
     <>
-      {races.map((race, index) => (
-        <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
+      {races.map((race) => (
+        <div key={race.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
           <Card className="rounded shadow">
             <ContextMenu>
               <ContextMenuTrigger>

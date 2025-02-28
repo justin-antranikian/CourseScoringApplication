@@ -1,52 +1,57 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { CircleChevronDown, CircleChevronUp } from "lucide-react"
 import React from "react"
+import { AthleteSearchResultDto } from "../_api/athletes/definitions"
+import { Button } from "@/components/ui/button"
 
 interface Props {
-  hideComparePane: boolean
-  setHideComparePane: React.Dispatch<React.SetStateAction<boolean>>
-  selectedIds: number[]
+  setShowComparePane: React.Dispatch<React.SetStateAction<boolean>>
+  selectedAthletes: AthleteSearchResultDto[]
+  setSelectedAthletes: React.Dispatch<React.SetStateAction<AthleteSearchResultDto[]>>
   url: string
 }
 
-export default function ComparePane({ hideComparePane, setHideComparePane, selectedIds, url }: Props) {
-  if (hideComparePane) {
-    return (
-      <div className="fixed bottom-0 left-0 w-full bg-gray-200 text-black px-4 py-1 flex justify-end">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <span onClick={() => setHideComparePane(false)} className="cursor-pointer">
-                <CircleChevronUp size={14} />
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Expand Compare</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
-    )
+export default function ComparePane({ setShowComparePane, selectedAthletes, setSelectedAthletes, url }: Props) {
+  const handleAthleteClicked = (athlete: AthleteSearchResultDto) => {
+    setSelectedAthletes(selectedAthletes.filter((selectedAthlete) => selectedAthlete.id !== athlete.id))
   }
 
   return (
-    <div className="fixed bottom-0 left-0 py-3 w-full bg-gray-200 text-black flex items-center justify-between px-4">
-      <div className="text-center flex-1">
-        <a href={url}>Compare ({selectedIds.length})</a>
-      </div>
-      <div className="text-right">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <span onClick={() => setHideComparePane(true)} className="cursor-pointer">
-                <CircleChevronDown size={16} />
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Hide Compare</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+    <div className="fixed bottom-0 left-0 py-2 w-full bg-gray-200 text-black px-4">
+      <div className="flex justify-around items-center">
+        <div className="flex gap-2 items-center">
+          <div
+            onClick={() => setShowComparePane(false)}
+            className="border border-gray-400 p-2 shadow cursor-pointer rounded"
+          >
+            Close
+          </div>
+          <div
+            onClick={() => setSelectedAthletes([])}
+            className="border border-gray-400 p-2 shadow cursor-pointer rounded"
+          >
+            Clear
+          </div>
+        </div>
+        <div className="flex justify-center gap-4 items-center">
+          {selectedAthletes.map((athlete) => (
+            <div
+              onClick={() => handleAthleteClicked(athlete)}
+              className="text-center text-sm flex items-top gap-2 border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
+              key={athlete.id}
+            >
+              <div>
+                <div>{athlete.fullName}</div>
+                <div>
+                  {athlete.age} | {athlete.genderAbbreviated}
+                </div>
+              </div>
+            </div>
+          ))}
+          <div>
+            <Button>
+              <a href={url}>Compare ({selectedAthletes.length})</a>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   )

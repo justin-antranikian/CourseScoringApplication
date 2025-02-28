@@ -12,12 +12,21 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
 import { getAthleteDetails } from "@/app/_api/serverFunctions"
 import AthleteImage from "../_components/AthleteImage"
+import { Button } from "@/components/ui/button"
 
-export default function AthletesContent({ athletes }: { athletes: AthleteSearchResultDto[] }) {
+export default function AthletesContent({
+  athletes,
+  directoryTree,
+  athleteSearch,
+}: {
+  athletes: AthleteSearchResultDto[]
+  directoryTree: React.ReactNode
+  athleteSearch: React.ReactNode
+}) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [arp, setArp] = useState<ArpDto | null>(null)
-  const [selectedIds, setSelectedIds] = useState<number[]>([])
-  const [hideComparePane, setHideComparePane] = useState(false)
+  const [selectedAthletes, setSelectedAthletes] = useState<AthleteSearchResultDto[]>([])
+  const [showComparePane, setShowComparePane] = useState(false)
 
   const handleViewMoreClicked = async (athlete: AthleteSearchResultDto) => {
     const arp = await getAthleteDetails(athlete.id)
@@ -25,88 +34,104 @@ export default function AthletesContent({ athletes }: { athletes: AthleteSearchR
     setDialogOpen(true)
   }
 
-  const handleCompareClicked = (id: number) => {
-    const ids = selectedIds.includes(id) ? selectedIds.filter((resultId) => resultId !== id) : [...selectedIds, id]
-    setSelectedIds(ids)
+  const getSelectedIds = () => selectedAthletes.map((athlete) => athlete.id)
+
+  const handleCompareClicked = (athlete: AthleteSearchResultDto) => {
+    const selectedAthleteIds = getSelectedIds()
+
+    if (selectedAthleteIds.includes(athlete.id)) {
+      setSelectedAthletes(selectedAthletes.filter((selectedAthlete) => selectedAthlete.id !== athlete.id))
+      return
+    }
+
+    setSelectedAthletes([...selectedAthletes, athlete])
   }
 
+  const selectedAthleteIds = getSelectedIds()
+
   const queryParams = new URLSearchParams()
-  selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
+  selectedAthleteIds.forEach((id) => queryParams.append("ids", id.toString()))
   const compareUrl = `/athletes/compare?${queryParams.toString()}`
 
   return (
     <>
-      {athletes.map((athlete, index) => (
-        <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
-          <Card className="rounded shadow">
-            <ContextMenu>
-              <ContextMenuTrigger>
-                <CardContent className="p-0">
-                  <div>
-                    <AthleteImage width="100%" />
-                  </div>
-                  <div className="bg-purple-200 text-center text-base py-2">
-                    <a href={`/athletes/${athlete.id}`}>
-                      <strong>{athlete.fullName}</strong>
-                    </a>
-                  </div>
-                  <div className="p-2">
-                    <div className="my-3">
-                      <LocationInfoRankings
-                        locationInfoWithRank={athlete.locationInfoWithRank}
-                        locationType={LocationType.athletes}
-                      />
-                    </div>
-                    <div>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Ellipsis onClick={() => handleViewMoreClicked(athlete)} />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Quick View</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                    <div>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <ChartBarStacked
-                              className="cursor-pointer"
-                              onClick={() => handleCompareClicked(athlete.id)}
-                              size={15}
-                              color="green"
+      <div className="flex gap-1">
+        <div className="w-1/4">{directoryTree}</div>
+        <div className="w-3/4">
+          <div className="flex justify-between item-center mb-4 px-2">
+            <div>
+              <Button onClick={() => setShowComparePane(!showComparePane)}>Toggle Compare</Button>
+            </div>
+            <div>{athleteSearch}</div>
+          </div>
+          <div className="flex flex-wrap">
+            {athletes.map((athlete, index) => (
+              <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
+                <Card className="rounded shadow">
+                  <ContextMenu>
+                    <ContextMenuTrigger>
+                      <CardContent className="p-0">
+                        <div>
+                          <AthleteImage width="100%" />
+                        </div>
+                        <div className="bg-purple-200 text-center text-base py-2">
+                          <a href={`/athletes/${athlete.id}`}>
+                            <strong>{athlete.fullName}</strong>
+                          </a>
+                        </div>
+                        <div className="p-2">
+                          <div className="my-3">
+                            <LocationInfoRankings
+                              locationInfoWithRank={athlete.locationInfoWithRank}
+                              locationType={LocationType.athletes}
                             />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Compare Athletes</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                  </div>
-                </CardContent>
-              </ContextMenuTrigger>
-              <ContextMenuContent>
-                <ContextMenuItem onClick={() => handleViewMoreClicked(athlete)}>Quick View</ContextMenuItem>
-              </ContextMenuContent>
-            </ContextMenu>
-          </Card>
+                          </div>
+                          <div>
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Ellipsis onClick={() => handleViewMoreClicked(athlete)} />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>Quick View</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <div>
+                            <button
+                              title="Add to Compare"
+                              className={selectedAthleteIds.includes(athlete.id) ? "opacity-50" : "cursor-pointer"}
+                              onClick={() => handleCompareClicked(athlete)}
+                              disabled={selectedAthleteIds.includes(athlete.id)}
+                            >
+                              <ChartBarStacked size={15} color="green" />
+                            </button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </ContextMenuTrigger>
+                    <ContextMenuContent>
+                      <ContextMenuItem onClick={() => handleViewMoreClicked(athlete)}>Quick View</ContextMenuItem>
+                    </ContextMenuContent>
+                  </ContextMenu>
+                </Card>
+              </div>
+            ))}
+            {showComparePane ? (
+              <ComparePane
+                setShowComparePane={setShowComparePane}
+                selectedAthletes={selectedAthletes}
+                setSelectedAthletes={setSelectedAthletes}
+                url={compareUrl}
+              />
+            ) : null}
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              {arp ? <QuickViewDialogContent arp={arp} /> : null}
+            </Dialog>
+          </div>
         </div>
-      ))}
-      {selectedIds.length > 0 ? (
-        <ComparePane
-          hideComparePane={hideComparePane}
-          setHideComparePane={setHideComparePane}
-          selectedIds={selectedIds}
-          url={compareUrl}
-        />
-      ) : null}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        {arp ? <QuickViewDialogContent arp={arp} /> : null}
-      </Dialog>
+      </div>
     </>
   )
 }

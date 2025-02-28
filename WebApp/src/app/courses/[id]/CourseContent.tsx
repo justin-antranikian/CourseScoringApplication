@@ -109,14 +109,14 @@ export default function CourseContent({
           </Table>
         </div>
       ))}
-      {selectedIds.length > 0 ? (
+      {/* {selectedIds.length > 0 ? (
         <ComparePane
           hideComparePane={hideComparePane}
           setHideComparePane={setHideComparePane}
           url={compareUrl}
           selectedIds={selectedIds}
         />
-      ) : null}
+      ) : null} */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         {irp ? <IrpQuickView irp={irp} /> : null}
       </Dialog>
