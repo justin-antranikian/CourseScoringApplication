@@ -5,7 +5,7 @@ import { ChartBarStacked, InfoIcon } from "lucide-react"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/IrpQuickView"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getIrp } from "@/app/_api/serverFunctions"
+import { getIrp } from "@/app/_api/serverActions"
 import { Irp } from "@/app/_api/results/definitions"
 import { CourseLeaderboardByIntervalDto, LeaderboardResultDto } from "@/app/_api/courses/definitions"
 import ComparePane from "./ComparePane"
@@ -18,10 +18,10 @@ export default function CourseContent({
 }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
-  const [selecetedResults, setSelectedResults] = useState<LeaderboardResultDto[]>([])
+  const [selectedResults, setSelectedResults] = useState<LeaderboardResultDto[]>([])
   const [showComparePane, setShowComparePane] = useState(false)
 
-  const getSelectedIds = () => selecetedResults.map((result) => result.athleteCourseId)
+  const getSelectedIds = () => selectedResults.map((result) => result.athleteCourseId)
 
   const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto) => {
     const irp = await getIrp(athleteCourseId)
@@ -33,13 +33,12 @@ export default function CourseContent({
     const selectedAthleteIds = getSelectedIds()
 
     if (selectedAthleteIds.includes(irp.athleteCourseId)) {
-      setSelectedResults(
-        selecetedResults.filter((selectedResult) => selectedResult.athleteCourseId !== irp.athleteCourseId),
-      )
+      const filteredResults = selectedResults.filter(({ athleteCourseId }) => athleteCourseId !== irp.athleteCourseId)
+      setSelectedResults(filteredResults)
       return
     }
 
-    setSelectedResults([...selecetedResults, irp])
+    setSelectedResults([...selectedResults, irp])
   }
 
   const selectedIds = getSelectedIds()
@@ -120,7 +119,7 @@ export default function CourseContent({
       {showComparePane ? (
         <ComparePane
           setShowComparePane={setShowComparePane}
-          selectedResults={selecetedResults}
+          selectedResults={selectedResults}
           setSelectedResults={setSelectedResults}
           url={compareUrl}
         />

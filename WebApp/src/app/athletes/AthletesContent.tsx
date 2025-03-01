@@ -3,14 +3,14 @@
 import React, { useState } from "react"
 import LocationInfoRankings, { LocationType } from "@/app/_components/LocationInfoRankings"
 import { Dialog } from "@/components/ui/dialog"
-import { ChartBarStacked, Ellipsis } from "lucide-react"
+import { Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import ComparePane from "@/app/athletes/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
-import { getAthleteDetails } from "@/app/_api/serverFunctions"
+import { getAthleteDetails } from "@/app/_api/serverActions"
 import AthleteImage from "../_components/AthleteImage"
 import { Button } from "@/components/ui/button"
 import { twMerge } from "tailwind-merge"
@@ -78,7 +78,6 @@ export default function AthletesContent({
                     showComparePane && !selectedIds.includes(athlete.id) ? "hover:border hover:border-blue-300" : "",
                     showComparePane && selectedIds.includes(athlete.id) ? "border border-blue-800" : "",
                   )}
-                  // className="rounded shadow"
                 >
                   <ContextMenu>
                     <ContextMenuTrigger>
@@ -110,16 +109,6 @@ export default function AthletesContent({
                               </Tooltip>
                             </TooltipProvider>
                           </div>
-                          {/* <div>
-                            <button
-                              title="Add to Compare"
-                              className={selectedIds.includes(athlete.id) ? "opacity-50" : "cursor-pointer"}
-                              onClick={() => handleCompareClicked(athlete)}
-                              disabled={selectedIds.includes(athlete.id)}
-                            >
-                              <ChartBarStacked size={15} color="green" />
-                            </button>
-                          </div> */}
                         </div>
                       </CardContent>
                     </ContextMenuTrigger>

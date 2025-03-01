@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis, BadgePlus } from "lucide-react"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
-import { getRaceLeaderboard } from "@/app/_api/serverFunctions"
+import { getRaceLeaderboard } from "@/app/_api/serverActions"
 import QuickViewDialogContent from "./QuickViewDialogContent"
 import RaceSeriesImage from "../_components/RaceSeriesImage"
 

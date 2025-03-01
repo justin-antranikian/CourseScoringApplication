@@ -11,8 +11,12 @@ interface Props {
 
 export default function ComparePane({ setShowComparePane, selectedAthletes, setSelectedAthletes, url }: Props) {
   const handleCompareClicked = (athlete: AthleteSearchResultDto) => {
-    setSelectedAthletes(selectedAthletes.filter((selectedAthlete) => selectedAthlete.id !== athlete.id))
+    setSelectedAthletes(selectedAthletes.filter(({ id }) => id !== athlete.id))
   }
+
+  const sortedAthletes = selectedAthletes.toSorted((a: AthleteSearchResultDto, b: AthleteSearchResultDto) => {
+    return a.locationInfoWithRank.overallRank - b.locationInfoWithRank.overallRank
+  })
 
   return (
     <div className="fixed bottom-0 left-0 py-2 w-full bg-gray-200 text-black px-4">
@@ -32,23 +36,18 @@ export default function ComparePane({ setShowComparePane, selectedAthletes, setS
           </div>
         </div>
         <div className="flex justify-center gap-4 items-center">
-          {selectedAthletes
-            .sort(
-              (a: AthleteSearchResultDto, b: AthleteSearchResultDto) =>
-                a.locationInfoWithRank.overallRank - b.locationInfoWithRank.overallRank,
-            )
-            .map((athlete) => (
-              <div
-                onClick={() => handleCompareClicked(athlete)}
-                className="text-center text-sm border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
-                key={athlete.id}
-              >
-                <div>{athlete.fullName}</div>
-                <div>
-                  {athlete.age} | {athlete.genderAbbreviated}
-                </div>
+          {sortedAthletes.map((athlete) => (
+            <div
+              onClick={() => handleCompareClicked(athlete)}
+              className="text-center text-sm border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
+              key={athlete.id}
+            >
+              <div>{athlete.fullName}</div>
+              <div>
+                {athlete.age} | {athlete.genderAbbreviated}
               </div>
-            ))}
+            </div>
+          ))}
           <div>
             <Button>
               <a href={url}>Compare ({selectedAthletes.length})</a>
