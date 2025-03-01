@@ -32,18 +32,23 @@ export default function ComparePane({ setShowComparePane, selectedAthletes, setS
           </div>
         </div>
         <div className="flex justify-center gap-4 items-center">
-          {selectedAthletes.map((athlete) => (
-            <div
-              onClick={() => handleCompareClicked(athlete)}
-              className="text-center text-sm border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
-              key={athlete.id}
-            >
-              <div>{athlete.fullName}</div>
-              <div>
-                {athlete.age} | {athlete.genderAbbreviated}
+          {selectedAthletes
+            .sort(
+              (a: AthleteSearchResultDto, b: AthleteSearchResultDto) =>
+                a.locationInfoWithRank.overallRank - b.locationInfoWithRank.overallRank,
+            )
+            .map((athlete) => (
+              <div
+                onClick={() => handleCompareClicked(athlete)}
+                className="text-center text-sm border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
+                key={athlete.id}
+              >
+                <div>{athlete.fullName}</div>
+                <div>
+                  {athlete.age} | {athlete.genderAbbreviated}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
           <div>
             <Button>
               <a href={url}>Compare ({selectedAthletes.length})</a>

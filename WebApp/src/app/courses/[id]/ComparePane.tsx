@@ -12,7 +12,7 @@ interface Props {
 export default function ComparePane({ setShowComparePane, selectedResults, setSelectedResults, url }: Props) {
   const handleCompareClicked = (result: LeaderboardResultDto) => {
     setSelectedResults(
-      selectedResults.filter((selectedResult) => result.athleteCourseId !== selectedResult.athleteCourseId),
+      selectedResults.filter((selectedResult) => selectedResult.athleteCourseId !== result.athleteCourseId),
     )
   }
 

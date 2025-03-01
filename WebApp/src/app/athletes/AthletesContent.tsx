@@ -13,6 +13,7 @@ import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
 import { getAthleteDetails } from "@/app/_api/serverFunctions"
 import AthleteImage from "../_components/AthleteImage"
 import { Button } from "@/components/ui/button"
+import { twMerge } from "tailwind-merge"
 
 export default function AthletesContent({
   athletes,
@@ -66,8 +67,19 @@ export default function AthletesContent({
           </div>
           <div className="flex flex-wrap">
             {athletes.map((athlete, index) => (
-              <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
-                <Card className="rounded shadow">
+              <div
+                key={index}
+                className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4 cursor-pointer"
+                onClick={() => handleCompareClicked(athlete)}
+              >
+                <Card
+                  className={twMerge(
+                    "rounded shadow",
+                    showComparePane && !selectedIds.includes(athlete.id) ? "hover:border hover:border-blue-300" : "",
+                    showComparePane && selectedIds.includes(athlete.id) ? "border border-blue-800" : "",
+                  )}
+                  // className="rounded shadow"
+                >
                   <ContextMenu>
                     <ContextMenuTrigger>
                       <CardContent className="p-0">
@@ -98,7 +110,7 @@ export default function AthletesContent({
                               </Tooltip>
                             </TooltipProvider>
                           </div>
-                          <div>
+                          {/* <div>
                             <button
                               title="Add to Compare"
                               className={selectedIds.includes(athlete.id) ? "opacity-50" : "cursor-pointer"}
@@ -107,7 +119,7 @@ export default function AthletesContent({
                             >
                               <ChartBarStacked size={15} color="green" />
                             </button>
-                          </div>
+                          </div> */}
                         </div>
                       </CardContent>
                     </ContextMenuTrigger>
