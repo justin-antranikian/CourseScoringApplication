@@ -4,12 +4,13 @@ import React, { useState } from "react"
 import { ChartBarStacked, InfoIcon } from "lucide-react"
 import { Dialog } from "@/components/ui/dialog"
 import IrpQuickView from "@/app/races/[id]/IrpQuickView"
-import ComparePane from "@/app/_components/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getIrp } from "@/app/_api/serverFunctions"
 import { Irp } from "@/app/_api/results/definitions"
 import { CourseLeaderboardByIntervalDto, LeaderboardResultDto } from "@/app/_api/courses/definitions"
+import ComparePane from "./ComparePane"
+import { Button } from "@/components/ui/button"
 
 export default function CourseContent({
   courseLeaderboards,
@@ -18,8 +19,10 @@ export default function CourseContent({
 }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [irp, setIrp] = useState<Irp | null>(null)
-  const [selectedIds, setSelectedIds] = useState<number[]>([])
-  const [hideComparePane, setHideComparePane] = useState(false)
+  const [selecetedResults, setSelectedResults] = useState<LeaderboardResultDto[]>([])
+  const [showComparePane, setShowComparePane] = useState(false)
+
+  const getSelectedIds = () => selecetedResults.map((result) => result.athleteCourseId)
 
   const handleQuickViewClicked = async ({ athleteCourseId }: LeaderboardResultDto) => {
     const irp = await getIrp(athleteCourseId)
@@ -27,10 +30,20 @@ export default function CourseContent({
     setDialogOpen(true)
   }
 
-  const handleCompareClicked = (id: number) => {
-    const ids = selectedIds.includes(id) ? selectedIds.filter((resultId) => resultId !== id) : [...selectedIds, id]
-    setSelectedIds(ids)
+  const handleCompareClicked = (irp: LeaderboardResultDto) => {
+    const selectedAthleteIds = getSelectedIds()
+
+    if (selectedAthleteIds.includes(irp.athleteCourseId)) {
+      setSelectedResults(
+        selecetedResults.filter((selectedResult) => selectedResult.athleteCourseId !== irp.athleteCourseId),
+      )
+      return
+    }
+
+    setSelectedResults([...selecetedResults, irp])
   }
+
+  const selectedIds = getSelectedIds()
 
   const queryParams = new URLSearchParams()
   selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
@@ -38,6 +51,9 @@ export default function CourseContent({
 
   return (
     <>
+      <div className="mb-4">
+        <Button onClick={() => setShowComparePane(!showComparePane)}>Toggle Compare</Button>
+      </div>
       {courseLeaderboards.map((leaderboard, index) => (
         <div key={index}>
           <div className="mb-8 text-purple-500 bold text-2xl">{leaderboard.intervalName}</div>
@@ -87,21 +103,14 @@ export default function CourseContent({
                     {irp.paceWithTimeCumulative.paceLabel}
                   </TableCell>
                   <TableCell>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <ChartBarStacked
-                            className="cursor-pointer"
-                            onClick={() => handleCompareClicked(irp.athleteCourseId)}
-                            size={15}
-                            color="green"
-                          />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Compare Results</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                    <button
+                      title="Add to Compare"
+                      className={selectedIds.includes(irp.athleteCourseId) ? "opacity-50" : "cursor-pointer"}
+                      onClick={() => handleCompareClicked(irp)}
+                      disabled={selectedIds.includes(irp.athleteCourseId)}
+                    >
+                      <ChartBarStacked size={15} color="green" />
+                    </button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -109,14 +118,14 @@ export default function CourseContent({
           </Table>
         </div>
       ))}
-      {/* {selectedIds.length > 0 ? (
+      {showComparePane ? (
         <ComparePane
-          hideComparePane={hideComparePane}
-          setHideComparePane={setHideComparePane}
+          setShowComparePane={setShowComparePane}
+          selectedResults={selecetedResults}
+          setSelectedResults={setSelectedResults}
           url={compareUrl}
-          selectedIds={selectedIds}
         />
-      ) : null} */}
+      ) : null}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         {irp ? <IrpQuickView irp={irp} /> : null}
       </Dialog>

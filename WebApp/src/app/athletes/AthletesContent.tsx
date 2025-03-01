@@ -7,7 +7,7 @@ import { ChartBarStacked, Ellipsis } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
 import QuickViewDialogContent from "./QuickViewDialogContent"
-import ComparePane from "@/app/_components/ComparePane"
+import ComparePane from "@/app/athletes/ComparePane"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { AthleteSearchResultDto, ArpDto } from "@/app/_api/athletes/definitions"
 import { getAthleteDetails } from "@/app/_api/serverFunctions"
@@ -47,10 +47,10 @@ export default function AthletesContent({
     setSelectedAthletes([...selectedAthletes, athlete])
   }
 
-  const selectedAthleteIds = getSelectedIds()
+  const selectedIds = getSelectedIds()
 
   const queryParams = new URLSearchParams()
-  selectedAthleteIds.forEach((id) => queryParams.append("ids", id.toString()))
+  selectedIds.forEach((id) => queryParams.append("ids", id.toString()))
   const compareUrl = `/athletes/compare?${queryParams.toString()}`
 
   return (
@@ -101,9 +101,9 @@ export default function AthletesContent({
                           <div>
                             <button
                               title="Add to Compare"
-                              className={selectedAthleteIds.includes(athlete.id) ? "opacity-50" : "cursor-pointer"}
+                              className={selectedIds.includes(athlete.id) ? "opacity-50" : "cursor-pointer"}
                               onClick={() => handleCompareClicked(athlete)}
-                              disabled={selectedAthleteIds.includes(athlete.id)}
+                              disabled={selectedIds.includes(athlete.id)}
                             >
                               <ChartBarStacked size={15} color="green" />
                             </button>

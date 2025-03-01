@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function ComparePane({ setShowComparePane, selectedAthletes, setSelectedAthletes, url }: Props) {
-  const handleAthleteClicked = (athlete: AthleteSearchResultDto) => {
+  const handleCompareClicked = (athlete: AthleteSearchResultDto) => {
     setSelectedAthletes(selectedAthletes.filter((selectedAthlete) => selectedAthlete.id !== athlete.id))
   }
 
@@ -34,15 +34,13 @@ export default function ComparePane({ setShowComparePane, selectedAthletes, setS
         <div className="flex justify-center gap-4 items-center">
           {selectedAthletes.map((athlete) => (
             <div
-              onClick={() => handleAthleteClicked(athlete)}
-              className="text-center text-sm flex items-top gap-2 border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
+              onClick={() => handleCompareClicked(athlete)}
+              className="text-center text-sm border border-gray-400 hover:border-red-500 px-2 py-1 shadow cursor-pointer rounded"
               key={athlete.id}
             >
+              <div>{athlete.fullName}</div>
               <div>
-                <div>{athlete.fullName}</div>
-                <div>
-                  {athlete.age} | {athlete.genderAbbreviated}
-                </div>
+                {athlete.age} | {athlete.genderAbbreviated}
               </div>
             </div>
           ))}
