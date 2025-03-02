@@ -87,7 +87,7 @@ namespace Api.Migrations
                     StateLocationId = table.Column<int>(type: "int", nullable: false),
                     AreaRank = table.Column<int>(type: "int", nullable: false),
                     CityRank = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "VARCHAR(250)", nullable: false),
+                    Location = table.Column<Geometry>(type: "geometry", nullable: true),
                     Name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
                     RaceSeriesType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
@@ -193,8 +193,7 @@ namespace Api.Migrations
                     PaceType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     PreferedMetric = table.Column<string>(type: "VARCHAR(25)", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Location = table.Column<Geometry>(type: "geometry", nullable: true)
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,27 +250,6 @@ namespace Api.Migrations
                     table.PrimaryKey("PK_Brackets", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Brackets_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CourseInformationEntries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    CourseInformationType = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    Description = table.Column<string>(type: "VARCHAR(100)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseInformationEntries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CourseInformationEntries_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
@@ -549,11 +527,6 @@ namespace Api.Migrations
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseInformationEntries_CourseId",
-                table: "CourseInformationEntries",
-                column: "CourseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Courses_RaceId",
                 table: "Courses",
                 column: "RaceId");
@@ -641,9 +614,6 @@ namespace Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "BracketMetadatas");
-
-            migrationBuilder.DropTable(
-                name: "CourseInformationEntries");
 
             migrationBuilder.DropTable(
                 name: "Results");

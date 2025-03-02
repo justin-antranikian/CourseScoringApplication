@@ -17,9 +17,9 @@ public class RacesController(ScoringDbContext dbContext) : ControllerBase
     }
 
     [HttpGet("search")]
-    public async Task<List<RaceSearchResultDto>> Get([FromQuery] int? locationId, [FromQuery] string? locationType, [FromQuery] string? searchTerm)
+    public async Task<List<RaceSearchResultDto>> Get([FromQuery] SearchRacesRequest request)
     {
         var orchestrator = new SearchRacesOrchestrator(dbContext);
-        return await orchestrator.Get(locationId, locationType, searchTerm);
+        return await orchestrator.Get(request);
     }
 }

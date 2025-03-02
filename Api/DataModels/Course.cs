@@ -15,7 +15,6 @@ public class Course
     public required PreferredMetric PreferedMetric { get; set; }
     public required int SortOrder { get; set; }
     public required DateTime StartDate { get; set; }
-    public Geometry? Location { get; set; }
 
     public List<AthleteCourse> AthleteCourses { get; init; } = [];
     public List<AthleteCourseBracket> AthleteCourseBrackets { get; init; } = [];

@@ -5,7 +5,7 @@ namespace Api.Orchestration.GenerateData;
 
 public static class CourseGenerator
 {
-    private static readonly Dictionary<RaceSeriesType, CourseType[]> _raceAndCourseTypeDictionary = new()
+    private static readonly Dictionary<RaceSeriesType, CourseType[]> RaceAndCourseTypeDictionary = new()
     {
         { RaceSeriesType.Triathalon, [CourseType.SprintTriathalon, CourseType.OlympicTriathalon, CourseType.HalfIronmanTriathalon, CourseType.IronmanTriathalon] },
         { RaceSeriesType.Running, [CourseType.Running5K, CourseType.Running10K, CourseType.Running25K, CourseType.HalfMarathon, CourseType.Marathon] },
@@ -15,7 +15,7 @@ public static class CourseGenerator
         { RaceSeriesType.Swim, [CourseType.FifteenHundredMeterSwim, CourseType.OneMileSwim, CourseType.TwoMileSwim] },
     };
 
-    private static readonly Dictionary<RaceSeriesType, PaceType> _racePaceTypeDictionary = new()
+    private static readonly Dictionary<RaceSeriesType, PaceType> RacePaceTypeDictionary = new()
     {
         { RaceSeriesType.Triathalon, PaceType.None },
         { RaceSeriesType.Running, PaceType.MinuteMileOrKilometer },
@@ -32,7 +32,7 @@ public static class CourseGenerator
         foreach (var race in races)
         {
             var raceSeriesType = race.RaceSeries.RaceSeriesType;
-            var possibleCourseTypes = _raceAndCourseTypeDictionary[raceSeriesType];
+            var possibleCourseTypes = RaceAndCourseTypeDictionary[raceSeriesType];
 
             var courseFaker = new Faker<Course>()
                 .RuleFor(oo => oo.PreferedMetric, _ => typeof(PreferredMetric).GetRandomEnumValue())
@@ -57,7 +57,7 @@ public static class CourseGenerator
             CourseType = oo.CourseType,
             Distance = 0,
             Name = oo.CourseType.ToFriendlyText(),
-            PaceType = _racePaceTypeDictionary[raceSeriesType],
+            PaceType = RacePaceTypeDictionary[raceSeriesType],
             PreferedMetric = oo.PreferedMetric,
             SortOrder = index,
             StartDate = courseStart,

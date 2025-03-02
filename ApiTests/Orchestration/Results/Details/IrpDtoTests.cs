@@ -1,6 +1,8 @@
 ﻿using Api.DataModels;
 using Api.Orchestration;
 using Api.Orchestration.Results.GetDetails;
+using NetTopologySuite.Geometries;
+using Location = Api.DataModels.Location;
 
 namespace ApiTests.Orchestration.Results.Details;
 
@@ -98,6 +100,7 @@ public class IrpDtoTests
                         Slug = "a"
                     },
                     CityRank = 0,
+                    Location = new Point(100, 100),
                     Name = "",
                     OverallRank = 0,
                     StateRank = 0

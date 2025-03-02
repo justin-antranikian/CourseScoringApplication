@@ -1,5 +1,6 @@
 ﻿using Api.DataModels;
 using Api.Orchestration.GenerateData;
+using NetTopologySuite.Geometries;
 
 namespace ApiTests.Orchestration;
 
@@ -12,6 +13,7 @@ internal static class TestDataGenerator
             new()
             {
                 Name = "Houston Triathalons",
+                Location = new Point(100, 100),
                 RaceSeriesType = RaceSeriesType.Triathalon,
                 OverallRank = 4,
                 StateRank = 3,

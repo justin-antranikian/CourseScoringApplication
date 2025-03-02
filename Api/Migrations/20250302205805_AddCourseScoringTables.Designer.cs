@@ -13,7 +13,7 @@ using NetTopologySuite.Geometries;
 namespace Api.Migrations
 {
     [DbContext(typeof(ScoringDbContext))]
-    [Migration("20241226035242_AddCourseScoringTables")]
+    [Migration("20250302205805_AddCourseScoringTables")]
     partial class AddCourseScoringTables
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -291,9 +291,6 @@ namespace Api.Migrations
                     b.Property<double>("Distance")
                         .HasColumnType("float");
 
-                    b.Property<Geometry>("Location")
-                        .HasColumnType("geometry");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
@@ -320,32 +317,6 @@ namespace Api.Migrations
                     b.HasIndex("RaceId");
 
                     b.ToTable("Courses", (string)null);
-                });
-
-            modelBuilder.Entity("Api.DataModels.CourseInformationEntry", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CourseInformationType")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("CourseInformationEntries", (string)null);
                 });
 
             modelBuilder.Entity("Api.DataModels.Interval", b =>
@@ -469,9 +440,8 @@ namespace Api.Migrations
                     b.Property<int>("CityRank")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(250)");
+                    b.Property<Geometry>("Location")
+                        .HasColumnType("geometry");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -743,17 +713,6 @@ namespace Api.Migrations
                     b.Navigation("Race");
                 });
 
-            modelBuilder.Entity("Api.DataModels.CourseInformationEntry", b =>
-                {
-                    b.HasOne("Api.DataModels.Course", "Course")
-                        .WithMany("CourseInformationEntries")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("Api.DataModels.Interval", b =>
                 {
                     b.HasOne("Api.DataModels.Course", "Course")
@@ -913,8 +872,6 @@ namespace Api.Migrations
                     b.Navigation("BracketMetadatas");
 
                     b.Navigation("Brackets");
-
-                    b.Navigation("CourseInformationEntries");
 
                     b.Navigation("Intervals");
 

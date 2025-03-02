@@ -1,5 +1,7 @@
 ﻿using Api.DataModels;
 using Bogus;
+using NetTopologySuite.Geometries;
+using Location = Api.DataModels.Location;
 
 namespace Api.Orchestration.GenerateData;
 
@@ -35,6 +37,7 @@ public static class RaceSeriesGenerator
             var areaRank = GetCount(areaRanks, areaLocation.Id);
             var cityRank = GetCount(cityRanks, cityLocation.Id);
 
+            // Todo get real locations.
             yield return new RaceSeries
             {
                 AreaLocationId = areaLocation.Id,
@@ -42,6 +45,7 @@ public static class RaceSeriesGenerator
                 StateLocationId = stateLocationId,
                 AreaRank = areaRank,
                 CityRank = cityRank,
+                Location = new Point(100, 100),
                 Name = faker.Name,
                 OverallRank = overallRank,
                 RaceSeriesType = faker.RaceSeriesType,
