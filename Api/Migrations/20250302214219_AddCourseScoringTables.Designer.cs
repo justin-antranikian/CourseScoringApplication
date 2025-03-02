@@ -13,7 +13,7 @@ using NetTopologySuite.Geometries;
 namespace Api.Migrations
 {
     [DbContext(typeof(ScoringDbContext))]
-    [Migration("20250302205805_AddCourseScoringTables")]
+    [Migration("20250302214219_AddCourseScoringTables")]
     partial class AddCourseScoringTables
     {
         /// <inheritdoc />
@@ -441,7 +441,7 @@ namespace Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<Geometry>("Location")
-                        .HasColumnType("geometry");
+                        .HasColumnType("geography");
 
                     b.Property<string>("Name")
                         .IsRequired()

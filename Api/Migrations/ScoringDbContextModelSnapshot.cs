@@ -438,7 +438,7 @@ namespace Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<Geometry>("Location")
-                        .HasColumnType("geometry");
+                        .HasColumnType("geography");
 
                     b.Property<string>("Name")
                         .IsRequired()

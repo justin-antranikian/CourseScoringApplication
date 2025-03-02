@@ -87,7 +87,7 @@ namespace Api.Migrations
                     StateLocationId = table.Column<int>(type: "int", nullable: false),
                     AreaRank = table.Column<int>(type: "int", nullable: false),
                     CityRank = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<Geometry>(type: "geometry", nullable: true),
+                    Location = table.Column<Geometry>(type: "geography", nullable: true),
                     Name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
                     RaceSeriesType = table.Column<string>(type: "VARCHAR(50)", nullable: false),

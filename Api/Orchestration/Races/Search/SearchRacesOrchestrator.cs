@@ -1,11 +1,12 @@
 ﻿using Api.DataModels;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Geometries;
 
 namespace Api.Orchestration.Races.Search;
 
 public class SearchRacesOrchestrator(ScoringDbContext dbContext)
 {
+    private const double MilesToMeters = 1609.34;
+
     public async Task<List<RaceSearchResultDto>> Get(SearchRacesRequest request)
     {
         var query = dbContext.GetRaceSeriesWithLocationInfo()
@@ -36,12 +37,14 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
             query = GetQuery();
         }
 
-        if (request.Latitude.HasValue)
+        if (request.Longitude.HasValue)
         {
-            var point = new Point(request.Longitude!.Value, request.Latitude.Value);
-            const double milesToMeters = 1609.34;
-            const double distanceInMeters = 50 * milesToMeters;
+            var point = GeometryExtensions.CreatePoint(request.Latitude!.Value, request.Longitude.Value);
+            const double distanceInMeters = 50 * MilesToMeters;
             query = query.Where(oo => oo.Location.IsWithinDistance(point, distanceInMeters));
+
+            //var results1 = query.Select(oo => oo).ToListAsync();
+
         }
 
         var results = await query.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();

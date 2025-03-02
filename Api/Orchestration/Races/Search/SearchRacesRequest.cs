@@ -7,6 +7,10 @@ public record SearchRacesRequest : IValidatableObject
     public required int? LocationId { get; init; }
     public required string? LocationType { get; init; }
     public required string? SearchTerm { get; init; }
+
+    /// <summary>
+    /// If Longitude is populated, Latitude will be as well. (See Validate method).
+    /// </summary>
     public required double? Latitude { get; init; }
     public required double? Longitude { get; init; }
 
