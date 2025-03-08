@@ -1,4 +1,5 @@
 ﻿using Api.DataModels;
+using Api.Orchestration;
 using Api.Orchestration.GenerateData;
 using NetTopologySuite.Geometries;
 
@@ -240,6 +241,7 @@ internal static class TestDataGenerator
                 StateRank = 3,
                 AreaRank = 2,
                 CityRank = 1,
+                Location = GeometryExtensions.GetColoradoGeometry(),
                 DateOfBirth = new DateTime(2000, 1, 1),
                 AthleteCourses = new()
                 {

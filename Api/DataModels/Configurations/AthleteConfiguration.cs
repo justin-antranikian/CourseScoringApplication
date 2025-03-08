@@ -20,6 +20,7 @@ public static class AthleteConfiguration
         builder.Property(oo => oo.AreaRank).IsRequired();
         builder.Property(oo => oo.CityRank).IsRequired();
         builder.Property(oo => oo.DateOfBirth).IsRequired();
+        builder.Property(oo => oo.Location).HasColumnType("geography").IsRequired();
 
         builder.Property(oo => oo.Gender)
             .HasConversion<EnumToStringConverter<Gender>>()

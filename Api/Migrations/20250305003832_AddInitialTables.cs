@@ -7,7 +7,7 @@ using NetTopologySuite.Geometries;
 namespace Api.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCourseScoringTables : Migration
+    public partial class AddInitialTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,7 @@ namespace Api.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FirstName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     FullName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    Location = table.Column<Geometry>(type: "geography", nullable: false),
                     Gender = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     LastName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
@@ -87,7 +88,7 @@ namespace Api.Migrations
                     StateLocationId = table.Column<int>(type: "int", nullable: false),
                     AreaRank = table.Column<int>(type: "int", nullable: false),
                     CityRank = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<Geometry>(type: "geography", nullable: true),
+                    Location = table.Column<Geometry>(type: "geography", nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),
                     RaceSeriesType = table.Column<string>(type: "VARCHAR(50)", nullable: false),

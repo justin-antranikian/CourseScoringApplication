@@ -13,8 +13,8 @@ using NetTopologySuite.Geometries;
 namespace Api.Migrations
 {
     [DbContext(typeof(ScoringDbContext))]
-    [Migration("20250302214219_AddCourseScoringTables")]
-    partial class AddCourseScoringTables
+    [Migration("20250305003832_AddInitialTables")]
+    partial class AddInitialTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,10 @@ namespace Api.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
+
+                    b.Property<Geometry>("Location")
+                        .IsRequired()
+                        .HasColumnType("geography");
 
                     b.Property<int>("OverallRank")
                         .HasColumnType("int");
@@ -441,6 +445,7 @@ namespace Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<Geometry>("Location")
+                        .IsRequired()
                         .HasColumnType("geography");
 
                     b.Property<string>("Name")

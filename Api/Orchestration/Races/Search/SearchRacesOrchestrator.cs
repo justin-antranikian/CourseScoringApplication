@@ -5,8 +5,6 @@ namespace Api.Orchestration.Races.Search;
 
 public class SearchRacesOrchestrator(ScoringDbContext dbContext)
 {
-    private const double MilesToMeters = 1609.34;
-
     public async Task<List<RaceSearchResultDto>> Get(SearchRacesRequest request)
     {
         var query = dbContext.GetRaceSeriesWithLocationInfo()
@@ -40,14 +38,15 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
         if (request.Longitude.HasValue)
         {
             var point = GeometryExtensions.CreatePoint(request.Latitude!.Value, request.Longitude.Value);
-            const double distanceInMeters = 50 * MilesToMeters;
-            query = query.Where(oo => oo.Location.IsWithinDistance(point, distanceInMeters));
-
-            //var results1 = query.Select(oo => oo).ToListAsync();
-
+            const double distanceInMeters = 50 * GeometryExtensions.MilesToMeters;
+            query = query.Where(oo => oo.Location.IsWithinDistance(point, distanceInMeters)).OrderBy(oo => oo.Location.Distance(point));
+        }
+        else
+        {
+            query = query.OrderBy(oo => oo.OverallRank);
         }
 
-        var results = await query.OrderBy(oo => oo.OverallRank).Take(28).ToListAsync();
+        var results = await query.Take(28).ToListAsync();
         return results.Select(MapToDto).ToList();
     }
 

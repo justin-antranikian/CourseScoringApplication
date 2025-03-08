@@ -1,4 +1,5 @@
 ﻿using Api.Orchestration;
+using NetTopologySuite.Geometries;
 
 namespace Api.DataModels;
 
@@ -20,6 +21,7 @@ public class Athlete
     public required DateTime DateOfBirth { get; set; }
     public required string FirstName { get; set; }
     public required string FullName { get; set; }
+    public required Geometry Location { get; set; }
     public required Gender Gender { get; set; }
     public required string LastName { get; set; }
     public required int OverallRank { get; set; }

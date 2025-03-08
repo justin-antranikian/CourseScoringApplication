@@ -22,11 +22,6 @@ public class ScoreCoursesOrchestrator(ScoringDbContext dbContext)
             var courseReads = allReads.Where(oo => oo.CourseId == courseId).ToList();
             var athleteBracketsForCourse = allAthleteCourseBrackets.Where(oo => oo.CourseId == courseId).ToList();
 
-            if (courseReads.Count == 0)
-            {
-                throw new Exception("Cannot Score a race with no tag reads");
-            }
-
             var scorer = new CourseScorer(course, brackets, courseReads, athleteBracketsForCourse, intervals);
             var scoringResult = scorer.GetScoringResult();
             return scoringResult;

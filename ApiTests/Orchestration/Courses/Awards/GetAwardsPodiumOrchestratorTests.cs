@@ -1,4 +1,5 @@
 ﻿using Api.DataModels;
+using Api.Orchestration;
 using Api.Orchestration.Courses.GetAwards;
 
 namespace ApiTests.Orchestration.Courses.Awards;
@@ -40,6 +41,7 @@ public class GetAwardsOrchestratorTests
                 FullName = $"JA{index}",
                 FirstName = "",
                 LastName = "",
+                Location = GeometryExtensions.GetColoradoGeometry(),
                 AreaRank = 0,
                 CityRank = 0,
                 DateOfBirth = default,

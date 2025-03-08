@@ -89,7 +89,6 @@ public static class RaceSeriesGenerator
             var (latitude, longitude) = CityCoordinates[cityLocation.Name];
             var point = GeometryExtensions.CreatePoint(latitude, longitude);
 
-            // Todo get real locations.
             yield return new RaceSeries
             {
                 AreaLocationId = areaLocation.Id,

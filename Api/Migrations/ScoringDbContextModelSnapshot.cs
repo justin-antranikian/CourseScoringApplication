@@ -62,6 +62,10 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
 
+                    b.Property<Geometry>("Location")
+                        .IsRequired()
+                        .HasColumnType("geography");
+
                     b.Property<int>("OverallRank")
                         .HasColumnType("int");
 
@@ -438,6 +442,7 @@ namespace Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<Geometry>("Location")
+                        .IsRequired()
                         .HasColumnType("geography");
 
                     b.Property<string>("Name")

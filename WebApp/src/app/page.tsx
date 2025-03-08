@@ -1,3 +1,5 @@
+import Test from "./_components/Test"
+
 export default function Home() {
-  return <div>Course Scoring Home page.</div>
+  return <Test />
 }
