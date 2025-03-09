@@ -68,9 +68,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
                   <DropdownMenuContent align="start">
                     <DropdownMenuLabel>View Races</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {slugEntries.map(({ slug, name }, index) => {
+                    {slugEntries.map(({ slug, name }) => {
                       return (
-                        <DropdownMenuItem key={index}>
+                        <DropdownMenuItem key={"race-" + slug}>
                           <a href={`/races/directory/${slug}`}>{name}</a>
                         </DropdownMenuItem>
                       )
@@ -84,12 +84,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
               <BreadcrumbSeparator />
               {slugEntries.slice(0, slugEntries.length - 1).map(({ slug, name }) => {
                 return (
-                  <>
-                    <BreadcrumbItem key={slug}>
+                  <React.Fragment key={"athlete-" + slug}>
+                    <BreadcrumbItem key={"athlete-" + slug}>
                       <BreadcrumbLink href={`/athletes/directory/${slug}`}>{name}</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
-                  </>
+                  </React.Fragment>
                 )
               })}
               <BreadcrumbItem key={3}>

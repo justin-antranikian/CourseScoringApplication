@@ -1,6 +1,5 @@
 ﻿using Api.DataModels;
 using Bogus;
-using NetTopologySuite.Geometries;
 using Location = Api.DataModels.Location;
 
 namespace Api.Orchestration.GenerateData;
