@@ -1,37 +1,34 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { searchResults } from "../_api/serverActions"
 import { IrpSearchResult } from "../_api/results/definitions"
 import { Input } from "@/components/ui/input"
 import SearchResults, { NoResults } from "./SearchResults"
+import { debounce } from "lodash"
 
 export default function ResultSearch({ raceId, courseId }: { raceId: string | number; courseId?: string | number }) {
   const [searchTerm, setSearchTerm] = useState("")
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [results, setResults] = useState<IrpSearchResult[]>([])
+
+  const fetchData = useCallback(
+    debounce(async (searchTerm: string) => {
+      setDebouncedSearchTerm(searchTerm)
+      const results = searchTerm === "" ? [] : await searchResults({ raceId, courseId, searchTerm })
+      setResults(results)
+    }, 300),
+    [],
+  )
 
   const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
-
-    const getResults = async () => {
-      if (searchTerm === "") {
-        return []
-      }
-
-      return await searchResults({
-        raceId,
-        courseId,
-        searchTerm,
-      })
-    }
-
-    const results = await getResults()
-    setResults(results)
+    await fetchData(searchTerm)
   }
 
   const Results = () => {
     if (results.length === 0) {
-      return <NoResults searchTerm={searchTerm} />
+      return <NoResults searchTerm={debouncedSearchTerm} />
     }
 
     return (
@@ -59,7 +56,7 @@ export default function ResultSearch({ raceId, courseId }: { raceId: string | nu
   return (
     <div className="w-80">
       <SearchResults
-        searchTerm={searchTerm}
+        searchTerm={debouncedSearchTerm}
         inputComponent={<Input placeholder="bib or name" value={searchTerm} onChange={handleInputChange} />}
       >
         <Results />

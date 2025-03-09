@@ -1,30 +1,39 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { searchAthletes, searchRaces } from "../_api/serverActions"
 import { Input } from "@/components/ui/input"
 import { AthleteSearchResultDto } from "../_api/athletes/definitions"
 import { RaceSearchResultDto } from "../_api/races/definitions"
 import SearchResults, { NoResults } from "./SearchResults"
+import { debounce } from "lodash"
 
 export default function NavSearch() {
   const [searchTerm, setSearchTerm] = useState("")
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [athletes, setAthletes] = useState<AthleteSearchResultDto[]>([])
   const [races, setRaces] = useState<RaceSearchResultDto[]>([])
 
+  const fetchData = useCallback(
+    debounce(async (searchTerm: string) => {
+      setDebouncedSearchTerm(searchTerm)
+      const athletes = searchTerm === "" ? [] : await searchAthletes(undefined, undefined, searchTerm)
+      setAthletes(athletes)
+
+      const races = searchTerm === "" ? [] : await searchRaces(undefined, undefined, searchTerm)
+      setRaces(races)
+    }, 300),
+    [],
+  )
+
   const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(searchTerm)
-
-    const athletes = searchTerm === "" ? [] : await searchAthletes(undefined, undefined, searchTerm)
-    setAthletes(athletes)
-
-    const races = searchTerm === "" ? [] : await searchRaces(undefined, undefined, searchTerm)
-    setRaces(races)
+    await fetchData(searchTerm)
   }
 
   const Results = () => {
     if (athletes.length === 0 && races.length === 0) {
-      return <NoResults searchTerm={searchTerm} />
+      return <NoResults searchTerm={debouncedSearchTerm} />
     }
 
     return (
@@ -71,7 +80,7 @@ export default function NavSearch() {
 
   return (
     <SearchResults
-      searchTerm={searchTerm}
+      searchTerm={debouncedSearchTerm}
       className="w-96 right-0"
       inputComponent={
         <Input placeholder="athlete or race" className="h-7 w-60" value={searchTerm} onChange={handleInputChange} />

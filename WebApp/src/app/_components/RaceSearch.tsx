@@ -12,21 +12,18 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [races, setRaces] = useState<RaceSearchResultDto[]>([])
 
-  // Debounced search function (updates debounced term and fetches races)
-  const fetchRaces = useCallback(
-    debounce(async (term: string) => {
-      setDebouncedSearchTerm(term) // Update debounced term
-      const races = term === "" ? [] : await searchRaces(locationId, locationType, term)
+  const fetchData = useCallback(
+    debounce(async (searchTerm: string) => {
+      setDebouncedSearchTerm(searchTerm)
+      const races = searchTerm === "" ? [] : await searchRaces(locationId, locationType, searchTerm)
       setRaces(races)
     }, 300),
-    [locationId, locationType],
+    [],
   )
 
-  // Handle input and trigger debounced search
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setSearchTerm(value) // Update immediately for real-time UI
-    fetchRaces(value) // Debounced API call
+  const handleInputChange = async ({ target: { value: searchTerm } }: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(searchTerm)
+    await fetchData(searchTerm)
   }
 
   const Results = () => {
@@ -57,7 +54,7 @@ export default function RaceSearch({ locationId, locationType }: { locationId?: 
   return (
     <div className="w-80">
       <SearchResults
-        searchTerm={debouncedSearchTerm} // Only updates after debounce
+        searchTerm={debouncedSearchTerm}
         inputComponent={<Input placeholder="name" value={searchTerm} onChange={handleInputChange} />}
       >
         <Results />
