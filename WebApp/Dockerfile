@@ -1,5 +1,7 @@
-# Use Node.js 23.3.0 for both build and runtime
-FROM node:23.3.0-alpine AS builder
+ARG NODE_VERSION=node:23.3.0-alpine
+
+# Use Node.js for both build and runtime
+FROM $NODE_VERSION AS builder
 
 # Set the working directory
 WORKDIR /app
@@ -13,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Use a lighter Node.js image for runtime
-FROM node:23.3.0-alpine AS runner
+FROM $NODE_VERSION AS runner
 
 WORKDIR /app
 
