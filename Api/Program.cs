@@ -14,6 +14,8 @@ var app = builder.Build();
 app.UseAuthorization();
 app.MapControllers();
 
+app.MapGet("/health", Results.NoContent);
+
 using var serviceScope = app.Services.CreateScope();
 await using var dbContext = serviceScope.ServiceProvider.GetService<ScoringDbContext>()!;
 
