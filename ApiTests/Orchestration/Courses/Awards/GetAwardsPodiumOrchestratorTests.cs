@@ -41,7 +41,7 @@ public class GetAwardsOrchestratorTests
                 FullName = $"JA{index}",
                 FirstName = "",
                 LastName = "",
-                Location = GeometryExtensions.GetColoradoGeometry(),
+                Location = GeometryExtensions.GetRandomGeometry(),
                 AreaRank = 0,
                 CityRank = 0,
                 DateOfBirth = default,

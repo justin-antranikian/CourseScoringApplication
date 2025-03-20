@@ -241,7 +241,7 @@ internal static class TestDataGenerator
                 StateRank = 3,
                 AreaRank = 2,
                 CityRank = 1,
-                Location = GeometryExtensions.GetColoradoGeometry(),
+                Location = GeometryExtensions.GetRandomGeometry(),
                 DateOfBirth = new DateTime(2000, 1, 1),
                 AthleteCourses = new()
                 {

@@ -56,7 +56,7 @@ public static class AthletesGenerator
                 DateOfBirth = faker.DateOfBirth,
                 FirstName = faker.FirstName,
                 FullName = faker.FirstName + " " + faker.LastName,
-                Location = GeometryExtensions.GetColoradoGeometry(),
+                Location = GeometryExtensions.GetRandomGeometry(),
                 Gender = faker.Gender,
                 LastName = faker.LastName,
                 OverallRank = 0,
