@@ -64,7 +64,7 @@ namespace Api.Migrations
 
                     b.Property<Geometry>("Location")
                         .IsRequired()
-                        .HasColumnType("geography");
+                        .HasColumnType("geometry");
 
                     b.Property<int>("OverallRank")
                         .HasColumnType("int");
