@@ -59,8 +59,12 @@ public class GetRaceLeaderboardOrchestrator(ScoringDbContext dbContext)
 
     private static RaceLeaderboardDto MapToRaceLeaderboard(Race race, RaceSeries raceSeries, List<RaceLeaderboardByCourseDto> leaderboards)
     {
+        var (latitude, longitude) = raceSeries.GetLatAndLong();
+
         return new RaceLeaderboardDto
         {
+            Latitude = latitude,
+            Longitude = longitude,
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             RaceKickOffDate = race.KickOffDate.ToShortDateString(),
             RaceName = race.Name,

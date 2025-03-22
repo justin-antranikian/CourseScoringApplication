@@ -3,11 +3,13 @@ import { LeaderboardResultDto } from "@/app/_api/courses/definitions"
 import { RaceSeriesType } from "@/app/definitions"
 
 export interface RaceLeaderboardDto {
-  leaderboards: RaceLeaderboardByCourseDto[]
+  latitude: number
+  longitude: number
   locationInfoWithRank: LocationInfoWithRank
   raceKickOffDate: string
   raceName: string
   raceSeriesType: RaceSeriesType
+  leaderboards: RaceLeaderboardByCourseDto[]
 }
 
 export interface RaceLeaderboardByCourseDto {
@@ -23,6 +25,7 @@ export interface DisplayNameWithId {
 
 export interface RaceSearchResultDto {
   id: number
+  distance: number | null
   locationInfoWithRank: LocationInfoWithRank
   name: string
   raceKickOffDate: string

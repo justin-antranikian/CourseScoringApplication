@@ -1,15 +1,13 @@
-export const getLocationBasedSearchParams = (locationId?: number, locationType?: string, searchTerm?: string) => {
+import { SearchParams } from "./races/api"
+
+export const getLocationBasedSearchParams = (searchParams: SearchParams) => {
   const params = new URLSearchParams()
 
-  if (locationId) {
-    params.append("locationId", locationId.toString())
-  }
-  if (locationType) {
-    params.append("locationType", locationType)
-  }
-  if (searchTerm) {
-    params.append("searchTerm", searchTerm)
-  }
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      params.append(key, value.toString())
+    }
+  })
 
   return params.toString()
 }

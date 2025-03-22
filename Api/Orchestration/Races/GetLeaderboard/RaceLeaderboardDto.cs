@@ -2,6 +2,8 @@
 
 public record RaceLeaderboardDto
 {
+    public required double Latitude { get; init; }
+    public required double Longitude { get; init; }
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required string RaceKickOffDate { get; init; }
     public required string RaceName { get; init; }

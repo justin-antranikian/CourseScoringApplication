@@ -20,7 +20,7 @@ export default (apiFetch: ApiFetch) => ({
     locationType?: string,
     searchTerm?: string,
   ): Promise<AthleteSearchResultDto[]> => {
-    const searchParams = getLocationBasedSearchParams(locationId, locationType, searchTerm)
+    const searchParams = getLocationBasedSearchParams({ locationId, locationType, searchTerm })
     const url = `${baseUrl}/search?${searchParams}`
     const response = await apiFetch(url)
     return await response.json()

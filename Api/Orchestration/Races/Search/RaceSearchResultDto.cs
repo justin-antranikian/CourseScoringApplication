@@ -4,6 +4,7 @@ public record RaceSearchResultDto
 {
     public required int Id { get; init; }
 
+    public required double? Distance { get; init; }
     public required LocationInfoWithRank LocationInfoWithRank { get; init; }
     public required string Name { get; init; }
     public required string RaceKickOffDate { get; init; }

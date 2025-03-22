@@ -40,6 +40,8 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
             var point = GeometryExtensions.CreatePoint(request.Latitude!.Value, request.Longitude.Value);
             const double distanceInMeters = 50 * GeometryExtensions.MilesToMeters;
             query = query.Where(oo => oo.Location.IsWithinDistance(point, distanceInMeters)).OrderBy(oo => oo.Location.Distance(point));
+            var resultsSet = await query.Select(oo => new { distance = oo.Location.Distance(point) / GeometryExtensions.MilesToMeters, raceSeries = oo }).ToListAsync();
+            return resultsSet.Select(oo => MapToDto(oo.raceSeries, oo.distance)).ToList();
         }
         else
         {
@@ -47,10 +49,10 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
         }
 
         var results = await query.Take(28).ToListAsync();
-        return results.Select(MapToDto).ToList();
+        return results.Select(oo => MapToDto(oo)).ToList();
     }
 
-    private static RaceSearchResultDto MapToDto(RaceSeries raceSeries)
+    private static RaceSearchResultDto MapToDto(RaceSeries raceSeries, double? distance = null)
     {
         var upcomingRace = raceSeries.Races.OrderByDescending(oo => oo.KickOffDate).First();
         var courses = upcomingRace.Courses.Select(oo => new DisplayNameWithIdDto(oo.Id, oo.Name)).ToList();
@@ -58,6 +60,7 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
         return new RaceSearchResultDto
         {
             Id = raceSeries.Id,
+            Distance = distance,
             LocationInfoWithRank = raceSeries.ToLocationInfoWithRank(),
             Name = raceSeries.Name,
             RaceKickOffDate = upcomingRace.KickOffDate.ToShortDateString(),

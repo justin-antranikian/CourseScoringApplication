@@ -26,6 +26,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   const [raceLeaderboard, directory] = await Promise.all([api.races.details(id), api.locations.directory()])
 
+  const nearbyRaces = (
+    await api.races.search({
+      latitude: raceLeaderboard.latitude,
+      longitude: raceLeaderboard.longitude,
+    })
+  ).filter((race) => race.upcomingRaceId.toString() !== id)
+
   const { locationInfoWithRank } = raceLeaderboard
 
   return (
@@ -90,6 +97,18 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             locationInfoWithRank={raceLeaderboard.locationInfoWithRank}
             locationType={LocationType.races}
           />
+          <div className="mt-5">
+            <h2 className="text-xl font-bold">Nearby Locations</h2>
+            <ul>
+              {nearbyRaces.map((race) => (
+                <li key={race.upcomingRaceId}>
+                  <a href={`/races/${race.upcomingRaceId}`}>
+                    {race.name} <span className="text-sm">(distance: {Math.round(race.distance!)})</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="w-3/4">
           <RaceContent raceLeaderboard={raceLeaderboard} />

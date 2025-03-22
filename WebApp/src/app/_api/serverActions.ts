@@ -14,7 +14,11 @@ export const getAthleteDetails = async (athleteId: string | number) => await api
 export const searchResults = async (request: IrpSearchRequest) => await api.results.search(request)
 
 export const searchRaces = async (locationId?: number, locationType?: string, searchTerm?: string) => {
-  return await api.races.search(locationId, locationType, searchTerm)
+  return await api.races.search({
+    locationId,
+    locationType,
+    searchTerm,
+  })
 }
 
 export const searchAthletes = async (locationId?: number, locationType?: string, searchTerm?: string) => {

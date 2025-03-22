@@ -33,6 +33,12 @@ public class RaceSeries
     public Location? StateLocation { get; set; }
     public List<Race> Races { get; init; } = [];
 
+    public (double latitude, double longitude) GetLatAndLong()
+    {
+        var coordinates = Location.Coordinate;
+        return (coordinates.Y, coordinates.X);
+    }
+
     public LocationInfoWithRank ToLocationInfoWithRank()
     {
         return new LocationInfoWithRank

@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   }
 
   const [races, directory] = await Promise.all([
-    api.races.search(location.id, location.locationType),
+    api.races.search({ locationId: location.id, locationType: location.locationType }),
     api.locations.directory(location.id),
   ])
 
