@@ -37,19 +37,21 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
 
         if (request.Longitude.HasValue)
         {
-            var point = GeometryExtensions.CreatePoint(request.Latitude!.Value, request.Longitude.Value);
-            const double distanceInMeters = 50 * GeometryExtensions.MilesToMeters;
-            query = query.Where(oo => oo.Location.IsWithinDistance(point, distanceInMeters)).OrderBy(oo => oo.Location.Distance(point));
-            var resultsSet = await query.Select(oo => new { distance = oo.Location.Distance(point) / GeometryExtensions.MilesToMeters, raceSeries = oo }).ToListAsync();
-            return resultsSet.Select(oo => MapToDto(oo.raceSeries, oo.distance)).ToList();
-        }
-        else
-        {
-            query = query.OrderBy(oo => oo.OverallRank);
+            return await GetLatLongBasedResults(request, query);
         }
 
+        query = query.OrderBy(oo => oo.OverallRank);
         var results = await query.Take(28).ToListAsync();
         return results.Select(oo => MapToDto(oo)).ToList();
+    }
+
+    private static async Task<List<RaceSearchResultDto>> GetLatLongBasedResults(SearchRacesRequest request, IQueryable<RaceSeries> query)
+    {
+        var point = GeometryExtensions.CreatePoint(request.Latitude!.Value, request.Longitude!.Value);
+        const double distanceInMeters = 50 * GeometryExtensions.MilesToMeters;
+        query = query.Where(oo => oo.Location.IsWithinDistance(point, distanceInMeters)).OrderBy(oo => oo.Location.Distance(point));
+        var results = await query.Select(oo => new { distance = oo.Location.Distance(point) / GeometryExtensions.MilesToMeters, raceSeries = oo }).ToListAsync();
+        return results.Select(oo => MapToDto(oo.raceSeries, oo.distance)).ToList();
     }
 
     private static RaceSearchResultDto MapToDto(RaceSeries raceSeries, double? distance = null)
