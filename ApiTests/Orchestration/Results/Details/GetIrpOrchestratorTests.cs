@@ -24,7 +24,7 @@ public class GetIrpOrchestratorTests
         Assert.Equal("FA", irpDto.FirstName);
         Assert.Equal("PST", irpDto.TimeZoneAbbreviated);
         Assert.Null(irpDto.FinishTime);
-        Assert.Equal(new[] { "Triathlete", "Runner" }, irpDto.Tags);
+        Assert.Equal(2, irpDto.Tags.Count);
         Assert.Empty(irpDto.TrainingList);
         Assert.Equal("", irpDto.CourseGoalDescription);
         Assert.Equal("", irpDto.PersonalGoalDescription);

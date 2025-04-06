@@ -68,7 +68,25 @@ public class IrpDtoTests
             StateRank = 3,
             AreaRank = 2,
             CityRank = 1,
-            DateOfBirth = new DateTime(2000, 1, 1)
+            CityLocation = new Location
+            {
+                LocationType = LocationType.City,
+                Name = "CA",
+                Slug = "ca"
+            },
+            AreaLocation = new Location
+            {
+                LocationType = LocationType.Area,
+                Name = "AA",
+                Slug = "aa"
+            },
+            StateLocation = new Location
+            {
+                LocationType = LocationType.State,
+                Name = "SA",
+                Slug = "sa"
+            },
+            DateOfBirth = new DateTime(2000, 1, 1),
         };
 
         var athleteCourse = new AthleteCourse

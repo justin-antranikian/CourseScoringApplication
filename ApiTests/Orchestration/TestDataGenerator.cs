@@ -241,6 +241,24 @@ internal static class TestDataGenerator
                 StateRank = 3,
                 AreaRank = 2,
                 CityRank = 1,
+                CityLocation = new Api.DataModels.Location
+                {
+                    LocationType = LocationType.City,
+                    Name = "CA",
+                    Slug = "ca"
+                },
+                AreaLocation = new Api.DataModels.Location
+                {
+                    LocationType = LocationType.Area,
+                    Name = "AA",
+                    Slug = "aa"
+                },
+                StateLocation = new Api.DataModels.Location
+                {
+                    LocationType = LocationType.State,
+                    Name = "SA",
+                    Slug = "sa"
+                },
                 Location = GeometryExtensions.GetRandomGeometry(),
                 DateOfBirth = new DateTime(2000, 1, 1),
                 AthleteCourses = new()
