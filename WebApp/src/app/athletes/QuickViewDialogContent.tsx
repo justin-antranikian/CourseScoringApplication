@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { getIrp } from "@/app/_api/serverActions"
 import { ArpDto, ArpResultDto } from "@/app/_api/athletes/definitions"
 import { Irp } from "@/app/_api/results/definitions"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 
 export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
   const [sheetOpen, setSheetOpen] = useState<boolean>(false)
@@ -24,7 +25,9 @@ export default function QuickViewDialogContent({ arp }: { arp: ArpDto }) {
 
   return (
     <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
-      <DialogTitle>Quick View</DialogTitle>
+      <VisuallyHidden>
+        <DialogTitle>Athlete Quick View</DialogTitle>
+      </VisuallyHidden>
       <div className="flex mt-5">
         <div className="flex-[1]">
           <div className="text-2xl font-bold">{arp.fullName}</div>
