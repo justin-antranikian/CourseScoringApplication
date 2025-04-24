@@ -43,11 +43,11 @@ export default function QuickViewDialogContent({ raceLeaderboard }: { raceLeader
           </div>
         </div>
         <div className="flex-[3]">
-          {raceLeaderboard.leaderboards.map((board) => {
+          {raceLeaderboard.leaderboards.map((leaderboard) => {
             return (
-              <div key={board.courseId}>
+              <div key={leaderboard.courseId}>
                 <div className="mb-8 text-purple-500 bold text-2xl">
-                  <a href={`/courses/${board.courseId}`}>{board.courseName}</a>
+                  <a href={`/courses/${leaderboard.courseId}`}>{leaderboard.courseName}</a>
                 </div>
                 <Table className="mb-8">
                   <TableHeader>
@@ -63,7 +63,7 @@ export default function QuickViewDialogContent({ raceLeaderboard }: { raceLeader
                     </TableRow>
                   </TableHeader>
                   <TableBody className="text-sm">
-                    {board.results.map((irp) => {
+                    {leaderboard.results.map((irp) => {
                       return (
                         <TableRow key={irp.athleteCourseId} className="border-b border-gray-300">
                           <TableCell>

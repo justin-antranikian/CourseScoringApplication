@@ -9,8 +9,8 @@ internal static class TestDataGenerator
 {
     internal static List<RaceSeries> GetRaceSeries()
     {
-        return new()
-        {
+        return
+        [
             new()
             {
                 Name = "Houston Triathalons",
@@ -21,18 +21,22 @@ internal static class TestDataGenerator
                 AreaRank = 2,
                 CityRank = 1,
             }
-        };
+        ];
     }
 
     internal static List<Race> GetRaces()
     {
         var baseRace = new Race { RaceSeriesId = 1, Name = "2010 Houston Triathalon", TimeZoneId = "Pacific Standard Time", KickOffDate = new DateTime(2010, 1, 1) };
 
-        return new List<Race>
-        {
+        return
+        [
             baseRace,
-            baseRace with { Name = "2011 Houston Triathalon", KickOffDate = new DateTime(2011, 1, 1), Courses = new() },
-        };
+            baseRace with
+            {
+                Name = "2011 Houston Triathalon", KickOffDate = new DateTime(2011, 1, 1),
+                Courses = []
+            }
+        ];
     }
 
     internal static List<Course> GetCourses()
@@ -51,8 +55,8 @@ internal static class TestDataGenerator
             };
         }
 
-        return new List<Course>
-        {
+        return
+        [
             new()
             {
                 PaceType = PaceType.None,
@@ -63,8 +67,8 @@ internal static class TestDataGenerator
                 StartDate = new DateTime(2010, 1, 1),
                 CourseType = CourseType.HalfIronmanTriathalon,
                 SortOrder = 2,
-                Brackets = new List<Bracket>
-                {
+                Brackets =
+                [
                     Bracket.Create(0, "Overall", BracketType.Overall), // Id : 1
                     Bracket.Create(0, "Female", BracketType.Gender),
                     Bracket.Create(0, "Male", BracketType.Gender),
@@ -72,17 +76,21 @@ internal static class TestDataGenerator
                     Bracket.Create(0, "F20-30", BracketType.PrimaryDivision),
                     Bracket.Create(0, "Florida 20-30", BracketType.NonPrimaryDivision),
                     Bracket.Create(0, "Elite", BracketType.NonPrimaryDivision)
-                },
-                Intervals = new()
-                {
-                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim), // Id : 1
+                ],
+                Intervals =
+                [
+                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters,
+                        IntervalType.Swim), // Id : 1
+
                     CreateInterval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition),
                     CreateInterval("Bike", 1000, 2000, 3, false, PaceType.MilesOrKilometersPerHour, IntervalType.Bike),
                     CreateInterval("Transition 2", 0, 2000, 4, false, PaceType.None, IntervalType.Transition),
                     CreateInterval("Run", 1000, 3000, 5, false, PaceType.MinuteMileOrKilometer, IntervalType.Run),
-                    CreateInterval("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse),
-                }
+                    CreateInterval("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse)
+
+                ]
             },
+
             new()
             {
                 PaceType = PaceType.MilesOrKilometersPerHour,
@@ -93,24 +101,28 @@ internal static class TestDataGenerator
                 StartDate = new DateTime(2009, 1, 1),
                 CourseType = CourseType.HalfIronmanTriathalon,
                 SortOrder = 1,
-                Brackets = new()
-                {
+                Brackets =
+                [
                     Bracket.Create(0, "Overall", BracketType.Overall), // Id : 8
                     Bracket.Create(0, "Gender", BracketType.Gender),
                     Bracket.Create(0, "M20-30", BracketType.PrimaryDivision),
                     Bracket.Create(0, "Florida 20-30", BracketType.NonPrimaryDivision),
                     Bracket.Create(0, "Elite", BracketType.NonPrimaryDivision)
-                },
-                Intervals = new()
-                {
-                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim), // Id : 7
+                ],
+                Intervals =
+                [
+                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters,
+                        IntervalType.Swim), // Id : 7
+
                     CreateInterval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition),
                     CreateInterval("Bike", 1000, 2000, 3, false, PaceType.MilesOrKilometersPerHour, IntervalType.Bike),
                     CreateInterval("Transition 2", 0, 2000, 4, false, PaceType.None, IntervalType.Transition),
                     CreateInterval("Run", 1000, 3000, 5, false, PaceType.MinuteMileOrKilometer, IntervalType.Run),
-                    CreateInterval("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse),
-                }
+                    CreateInterval("Full Course", 3000, 3000, 6, true, PaceType.None, IntervalType.FullCourse)
+
+                ]
             },
+
             new()
             {
                 PaceType = PaceType.MilesOrKilometersPerHour,
@@ -121,27 +133,30 @@ internal static class TestDataGenerator
                 StartDate = new DateTime(2011, 1, 1),
                 CourseType = CourseType.HalfIronmanTriathalon,
                 SortOrder = 1,
-                Brackets = new List<Bracket>
-                {
+                Brackets =
+                [
                     Bracket.Create(0, "Overall", BracketType.Overall), // Id : 13
-                    Bracket.Create(0 ,"Gender", BracketType.Gender),
-                    Bracket.Create(0, "Primary", BracketType.PrimaryDivision),
-                },
-                Intervals = new List<Interval>
-                {
-                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters, IntervalType.Swim), // Id : 13
+                    Bracket.Create(0, "Gender", BracketType.Gender),
+                    Bracket.Create(0, "Primary", BracketType.PrimaryDivision)
+                ],
+                Intervals =
+                [
+                    CreateInterval("Swim", 1000, 1000, 1, false, PaceType.MinutePer100Meters,
+                        IntervalType.Swim), // Id : 13
+
                     CreateInterval("Transition 1", 0, 1000, 2, false, PaceType.None, IntervalType.Transition),
                     CreateInterval("Run", 1000, 2000, 3, false, PaceType.MinuteMileOrKilometer, IntervalType.Run),
-                    CreateInterval("Full Course", 2000, 2000, 4, true, PaceType.None, IntervalType.FullCourse),
-                },
+                    CreateInterval("Full Course", 2000, 2000, 4, true, PaceType.None, IntervalType.FullCourse)
+
+                ],
             }
-        };
+        ];
     }
 
     internal static List<TagRead> GetTagReads()
     {
-        return new()
-        {
+        return
+        [
             TagRead.Create(1, 1, 1, 700, 700),
             TagRead.Create(1, 1, 2, 700, 1400),
             TagRead.Create(4, 1, 1, 701, 701),
@@ -160,8 +175,8 @@ internal static class TestDataGenerator
             TagRead.Create(6, 3, 13, 699, 699),
             TagRead.Create(6, 3, 14, 703, 1402),
             TagRead.Create(6, 3, 15, 701, 2103),
-            TagRead.Create(6, 3, 16, 701, 2804),
-        };
+            TagRead.Create(6, 3, 16, 701, 2804)
+        ];
     }
 
     internal static List<AthleteCourseBracket> GetAthleteCourseBrackets()
@@ -259,21 +274,20 @@ internal static class TestDataGenerator
                     Name = "SA",
                     Slug = "sa"
                 },
-                Location = GeometryExtensions.GetRandomGeometry(),
                 DateOfBirth = new DateTime(2000, 1, 1),
-                AthleteCourses = new()
-                {
-                    new() { CourseId = 1, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
-                    new() { CourseId = 2, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
-                    new() { CourseId = 3, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
-                },
-                AthleteRaceSeriesGoals = new()
-                {
+                AthleteCourses =
+                [
+                    new AthleteCourse { CourseId = 1, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
+                    new AthleteCourse { CourseId = 2, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" },
+                    new AthleteCourse { CourseId = 3, Bib = bib, CourseGoalDescription = "", PersonalGoalDescription = "" }
+                ],
+                AthleteRaceSeriesGoals =
+                [
                     AthleteRaceSeriesGoal.Create(RaceSeriesType.Triathalon, 15),
                     AthleteRaceSeriesGoal.Create(RaceSeriesType.Running, 1)
-                },
-                AthleteWellnessEntries = new()
-                {
+                ],
+                AthleteWellnessEntries =
+                [
                     AthleteWellnessEntry.Create(AthleteWellnessType.Gear, "G1"),
                     AthleteWellnessEntry.Create(AthleteWellnessType.Gear, "G2"),
                     AthleteWellnessEntry.Create(AthleteWellnessType.Diet, "D1"),
@@ -282,8 +296,8 @@ internal static class TestDataGenerator
                     AthleteWellnessEntry.Create(AthleteWellnessType.Motivational, "M2"),
                     AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T1"),
                     AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T2"),
-                    AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T3"),
-                }
+                    AthleteWellnessEntry.Create(AthleteWellnessType.Training, "T3")
+                ]
             };
         });
 

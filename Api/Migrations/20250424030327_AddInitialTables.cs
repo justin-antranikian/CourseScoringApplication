@@ -48,7 +48,6 @@ namespace Api.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FirstName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     FullName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    Location = table.Column<Geometry>(type: "geometry", nullable: false),
                     Gender = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     LastName = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     OverallRank = table.Column<int>(type: "int", nullable: false),

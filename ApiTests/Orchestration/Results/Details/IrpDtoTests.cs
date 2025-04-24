@@ -63,7 +63,6 @@ public class IrpDtoTests
             LastName = "LA",
             FullName = "FA LA",
             Gender = Gender.Male,
-            Location = GeometryExtensions.GetRandomGeometry(),
             OverallRank = 4,
             StateRank = 3,
             AreaRank = 2,

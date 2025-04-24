@@ -21,7 +21,6 @@ public class Athlete
     public required DateTime DateOfBirth { get; set; }
     public required string FirstName { get; set; }
     public required string FullName { get; set; }
-    public required Geometry Location { get; set; }
     public required Gender Gender { get; set; }
     public required string LastName { get; set; }
     public required int OverallRank { get; set; }
@@ -42,14 +41,14 @@ public class Athlete
     {
         return new LocationInfoWithRank
         {
-            Area = AreaLocation!.Name,
+            Area = AreaLocation.Name,
             AreaRank = AreaRank,
             AreaUrl = AreaLocation.Slug,
-            City = CityLocation!.Name,
+            City = CityLocation.Name,
             CityRank = CityRank,
             CityUrl = CityLocation.Slug,
             OverallRank = OverallRank,
-            State = StateLocation!.Name,
+            State = StateLocation.Name,
             StateRank = StateRank,
             StateUrl = StateLocation.Slug,
         };

@@ -9,9 +9,6 @@ public class GetArpOrchestrator(ScoringDbContext dbContext)
     {
         var athlete = await dbContext.GetAthletesWithLocationInfo().Include(oo => oo.AthleteWellnessEntries).SingleAsync(oo => oo.Id == athleteId);
 
-        //var athleteLocation = athlete.Location;
-        //var intersectingRaceSeries = await dbContext.RaceSeries.Where(oo => athleteLocation.Intersects(oo.Location)).ToListAsync();
-
         var results = await GetResults(athleteId);
         var courses = await GetCourses(results);
         var metadataEntries = await GetBracketMetadataEntries(results);
