@@ -38,9 +38,7 @@ export default function RootLayout({
           </div>
         </nav>
         <div className="p-3 flex-grow">{children}</div>
-        <div className="p-2 bg-[#24325a] flex justify-center text-white text-xs">
-          Copyright: © 2025 Course Scoring. All rights reserved.
-        </div>
+        <div className="p-2 bg-[#24325a] flex justify-center text-white text-xs">Course Scoring application.</div>
       </body>
     </html>
   )
