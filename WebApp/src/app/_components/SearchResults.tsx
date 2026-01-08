@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import { twMerge } from "tailwind-merge"
 
 export default function SearchResults({
@@ -9,7 +9,7 @@ export default function SearchResults({
 }: {
   searchTerm: string
   className?: string
-  inputComponent: JSX.Element
+  inputComponent: ReactNode
   children: ReactNode
 }) {
   return (

@@ -1,35 +1,28 @@
-ARG NODE_VERSION=node:23.3.0-alpine
-
-# Use Node.js for both build and runtime
-FROM $NODE_VERSION AS builder
-
-# Set the working directory
+FROM node:24.12.0-alpine AS build
 WORKDIR /app
 
-# Install dependencies
-COPY package.json package-lock.json ./
-RUN npm ci --production=false
+RUN corepack enable
 
-# Copy source code and build the Next.js app
-COPY . .
-RUN npm run build
+# Copy the files needed for this docker file.
+COPY package.json pnpm-lock.yaml tsconfig.json ./
+COPY src ./src
 
-# Use a lighter Node.js image for runtime
-FROM $NODE_VERSION AS runner
+ENV CI=true
 
+RUN pnpm install --frozen-lockfile
+RUN pnpm build
+
+FROM node:24.12.0-alpine AS runtime
 WORKDIR /app
 
-# Copy only the necessary files from the builder
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
+RUN corepack enable
 
-# Set environment variables
-ENV NODE_ENV=production
+# Copy built app and runtime deps
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/node_modules ./node_modules
 
-# Expose the port Next.js uses
 EXPOSE 3000
 
-# Start the Next.js app
-CMD ["node", ".next/standalone/server.js"]
+CMD ["pnpm", "start"]
