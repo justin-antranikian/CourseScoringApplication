@@ -4,7 +4,7 @@ WORKDIR /app
 RUN corepack enable
 
 # Copy the files needed for this docker file.
-COPY package.json pnpm-lock.yaml tsconfig.json tailwind.config.js postcss.config.js next.config.js ./
+COPY package.json pnpm-lock.yaml tsconfig.json tailwind.config.ts postcss.config.mjs next.config.ts ./
 COPY src ./src
 COPY public ./public
 
