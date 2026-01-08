@@ -32,7 +32,9 @@ app.MapGet("/health", Results.NoContent);
 using var serviceScope = app.Services.CreateScope();
 await using var dbContext = serviceScope.ServiceProvider.GetService<ScoringDbContext>()!;
 
-var anyAthletes = await dbContext.Athletes.AnyAsync();
+await Migrate(dbContext);
+
+var anyAthletes = await dbContext.Athletes.AnyAsync(); 
 
 if (!anyAthletes)
 {
@@ -42,6 +44,15 @@ if (!anyAthletes)
 
 app.Run();
 return;
+
+static async Task Migrate(ScoringDbContext dbContext)
+{
+#if DEBUG
+    return;
+#endif
+
+    await dbContext.Database.MigrateAsync();
+}
 
 static void AddDbContext(IServiceCollection services)
 {
