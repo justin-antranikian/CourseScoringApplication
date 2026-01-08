@@ -53,18 +53,18 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # - name: Deploy adminApiDeploy.bicep
-      #   uses: azure/arm-deploy@v1
-      #   with:
-      #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-      #     resourceGroupName: ${{ vars.RESOURCE_GROUP }}
-      #     template: ./infrastructure/containerApps/adminApi.deploy.bicep
-      #     parameters: >
-      #       environment=dev
-      #       ghcrUsername=${{ secrets.GHCR_USERNAME }}
-      #       ghcrPassword=${{ secrets.GHCR_PASSWORD }}
-      #       tagNumber=dev-${{ github.run_number }}
-      #     deploymentMode: Incremental
+      - name: Deploy apiDeploy.bicep
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ vars.RESOURCE_GROUP }}
+          template: ./infrastructure/containerApps/api.deploy.bicep
+          parameters: >
+            environment=dev
+            ghcrUsername=${{ secrets.GHCR_USERNAME }}
+            ghcrPassword=${{ secrets.GHCR_PASSWORD }}
+            tagNumber=dev-${{ github.run_number }}
+          deploymentMode: Incremental
 
   build-and-deploy-web-app:
     needs: detect-file-changes
@@ -91,15 +91,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # - name: Deploy customerFacingApiDeploy.bicep
-      #   uses: azure/arm-deploy@v1
-      #   with:
-      #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-      #     resourceGroupName: ${{ vars.RESOURCE_GROUP }}
-      #     template: ./infrastructure/containerApps/customerFacingApi.deploy.bicep
-      #     parameters: >
-      #       environment=dev
-      #       ghcrUsername=${{ secrets.GHCR_USERNAME }}
-      #       ghcrPassword=${{ secrets.GHCR_PASSWORD }}
-      #       tagNumber=dev-${{ github.run_number }}
-      #     deploymentMode: Incremental
+      - name: Deploy webAppDeploy.bicep
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ vars.RESOURCE_GROUP }}
+          template: ./infrastructure/containerApps/webApp.deploy.bicep
+          parameters: >
+            environment=dev
+            ghcrUsername=${{ secrets.GHCR_USERNAME }}
+            ghcrPassword=${{ secrets.GHCR_PASSWORD }}
+            tagNumber=dev-${{ github.run_number }}
+          deploymentMode: Incremental
