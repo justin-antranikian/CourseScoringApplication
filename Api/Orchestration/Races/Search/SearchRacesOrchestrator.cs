@@ -22,7 +22,7 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
             var type = Enum.Parse<LocationType>(request.LocationType);
             var locationIdValue = request.LocationId.Value;
 
-            IQueryable<RaceSeries> GetQuery()
+            IQueryable<RaceSeries> GetQuery() 
             {
                 return type switch
                 {
