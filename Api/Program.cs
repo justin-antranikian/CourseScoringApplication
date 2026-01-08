@@ -1,14 +1,27 @@
+using Api;
 using Api.DataModels;
 using Api.Orchestration.GenerateData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
+var customConfigBuilder = new ConfigurationBuilder()
+    .SetBasePath(AppContext.BaseDirectory)
+    .AddJsonFile("appsettings.placeholder.json", optional: false)
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddEnvironmentVariables();
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+var services = builder.Services;
 
-var dbConnection = builder.Configuration.GetConnectionString("DbConnection");
-builder.Services.AddDbContextPool<ScoringDbContext>(
-    options => options.UseSqlServer(dbConnection, oo => oo.UseNetTopologySuite())
-);
+services.AddControllers();
+
+var configuration = customConfigBuilder.Build();
+
+var configHelper = new ConfigHelper(services, configuration);
+
+configHelper.RegisterConfig<ConnectionStringsConfig>();
+
+AddDbContext(services);
 
 var app = builder.Build();
 app.UseAuthorization();
@@ -29,3 +42,14 @@ if (!anyAthletes)
 
 app.Run();
 return;
+
+static void AddDbContext(IServiceCollection services)
+{
+    services.AddDbContextPool<ScoringDbContext>((serviceProvider, optionsBuilder) => {
+        var connectionStrings = serviceProvider.GetRequiredService<IOptions<ConnectionStringsConfig>>();
+        optionsBuilder.UseSqlServer(connectionStrings.Value.Database, oo =>
+        {
+            oo.UseNetTopologySuite();
+        });
+    });
+}
