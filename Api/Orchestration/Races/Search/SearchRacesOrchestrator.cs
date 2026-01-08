@@ -17,7 +17,7 @@ public class SearchRacesOrchestrator(ScoringDbContext dbContext)
             query = query.Where(oo => oo.Name.Contains(request.SearchTerm));
         }
 
-        if (request.LocationId.HasValue && request.LocationType != null)
+        if (request.LocationId.HasValue && request.LocationType != null) 
         {
             var type = Enum.Parse<LocationType>(request.LocationType);
             var locationIdValue = request.LocationId.Value;
