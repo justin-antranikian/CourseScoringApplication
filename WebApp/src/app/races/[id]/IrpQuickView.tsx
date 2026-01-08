@@ -8,7 +8,7 @@ import { Irp } from "@/app/_api/results/definitions"
 export default function IrpQuickView({ irp }: { irp: Irp }) {
   return (
     <DialogContent className="w-[90%] max-w-screen-lg h-[90vh] overflow-y-auto">
-      <DialogTitle>Irp Quick View</DialogTitle>
+      <DialogTitle>Result Quick View</DialogTitle>
       <div className="flex mt-5">
         <div className="flex-[1]">
           <div className="text-2xl bold">{irp.fullName}</div>
