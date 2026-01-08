@@ -12,7 +12,7 @@ I've been working on this project on and off for years. Its primary purpose is a
 
 ## Technology Stack
 
-This project was built using a modern, cloud-native technology stack focused on scalability, maintainability, and developer productivity. The backend is written in **C#** and **SQL Server**, while the frontend uses **Next.js**, **shadcn/ui**, and **Tailwind CSS**. The application is hosted on **Azure**, with deployment automated via **GitHub Actions**.
+This project was built using a modern, cloud-native technology stack, leveraging infrastructure-as-code with Bicep templates. The backend is written in **C#** and **SQL Server**, while the frontend uses **Next.js**, **shadcn/ui**, and **Tailwind CSS**. The application is hosted on **Azure**, with deployment automated via **GitHub Actions**.
 
 🔗 **Visit:**
 [Course Scoring Web App](https://course-scoring-web-app.bravecoast-a5752d43.centralus.azurecontainerapps.io)

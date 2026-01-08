@@ -34,7 +34,7 @@ await using var dbContext = serviceScope.ServiceProvider.GetService<ScoringDbCon
 
 await Migrate(dbContext);
 
-var anyAthletes = await dbContext.Athletes.AnyAsync(); 
+var anyAthletes = await dbContext.Athletes.AnyAsync();
 
 if (!anyAthletes)
 {
