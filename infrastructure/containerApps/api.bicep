@@ -10,7 +10,7 @@ param keyVaultUri string
 param keyVaultName string
 param tagNumber string
 
-var containerAppName string = 'api'
+var containerAppName string = 'course-scoring-api'
 
 module config '../environmentVariables.bicep' = {
   name: '${containerAppName}-config'
