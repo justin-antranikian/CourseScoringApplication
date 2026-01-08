@@ -83,7 +83,7 @@ jobs:
 
       - name: Build image
         run: docker build . -f Dockerfile -t ghcr.io/${{ github.repository_owner }}/course-scoring-web-app:dev-${{ github.run_number }}
-        build-context: WebApp
+        working-directory: WebApp
 
       - name: Push image
         run: docker push ghcr.io/${{ github.repository_owner }}/course-scoring-web-app:dev-${{ github.run_number }}
