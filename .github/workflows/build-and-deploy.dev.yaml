@@ -1,0 +1,108 @@
+name: Build and Deploy Container Apps - Dev
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  detect-file-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      admin-api: ${{ steps.filter.outputs.admin-api }}
+      customer-facing-api: ${{ steps.filter.outputs.customer-facing-api }}
+      admin-app: ${{ steps.filter.outputs.admin-app }}
+      restaurant-app: ${{ steps.filter.outputs.restaurant-app }}
+      retail-app: ${{ steps.filter.outputs.retail-app }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            api:
+              - 'Api/**'
+            web-app:
+              - 'WebApp/**'
+
+  build-and-deploy-api:
+    needs: detect-file-changes
+    if: needs.detect-file-changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: docker build . -f Api/Dockerfile -t ghcr.io/${{ github.repository_owner }}/course-scoring-api:dev-${{ github.run_number }}
+
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/course-scoring-api:dev-${{ github.run_number }}
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # - name: Deploy adminApiDeploy.bicep
+      #   uses: azure/arm-deploy@v1
+      #   with:
+      #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+      #     resourceGroupName: ${{ vars.RESOURCE_GROUP }}
+      #     template: ./infrastructure/containerApps/adminApi.deploy.bicep
+      #     parameters: >
+      #       environment=dev
+      #       ghcrUsername=${{ secrets.GHCR_USERNAME }}
+      #       ghcrPassword=${{ secrets.GHCR_PASSWORD }}
+      #       tagNumber=dev-${{ github.run_number }}
+      #     deploymentMode: Incremental
+
+  build-and-deploy-web-app:
+    needs: detect-file-changes
+    if: needs.detect-file-changes.outputs.web-app == 'true'
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: docker build . -f WebApp/Dockerfile -t ghcr.io/${{ github.repository_owner }}/course-scoring-web-app:dev-${{ github.run_number }}
+
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/course-scoring-web-app:dev-${{ github.run_number }}
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # - name: Deploy customerFacingApiDeploy.bicep
+      #   uses: azure/arm-deploy@v1
+      #   with:
+      #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+      #     resourceGroupName: ${{ vars.RESOURCE_GROUP }}
+      #     template: ./infrastructure/containerApps/customerFacingApi.deploy.bicep
+      #     parameters: >
+      #       environment=dev
+      #       ghcrUsername=${{ secrets.GHCR_USERNAME }}
+      #       ghcrPassword=${{ secrets.GHCR_PASSWORD }}
+      #       tagNumber=dev-${{ github.run_number }}
+      #     deploymentMode: Incremental
