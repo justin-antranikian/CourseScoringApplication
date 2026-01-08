@@ -8,7 +8,7 @@ While this site isn't currently being used by any organization, there are many f
 
 ## Inspiration
 
-I've been working on this project on and off for years. Its primary purpose is as a training ground where I can continually refine my architecture. In fact, this project has served as a reference architecture for other applications I've launched, so it has already provided significant value. While many sites exist that display race results, for this project I am the _“product owner”_ and sole contributor — all features were designed and developed by me.
+I've been working on this project on and off for years. Its primary purpose is as a training ground where I can continually refine my architecture. In fact, this project has served as a reference architecture for other applications I've launched, so it has already provided significant value. While many sites exist that track events, display leaderboards, and display race results, I add a unique take on this domain. For this project I am the _“product owner”_ and sole contributor — all features were designed and developed by me.
 
 ## Technology Stack
 
