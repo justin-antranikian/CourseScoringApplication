@@ -13,11 +13,8 @@ jobs:
   detect-file-changes:
     runs-on: ubuntu-latest
     outputs:
-      admin-api: ${{ steps.filter.outputs.admin-api }}
-      customer-facing-api: ${{ steps.filter.outputs.customer-facing-api }}
-      admin-app: ${{ steps.filter.outputs.admin-app }}
-      restaurant-app: ${{ steps.filter.outputs.restaurant-app }}
-      retail-app: ${{ steps.filter.outputs.retail-app }}
+      api: ${{ steps.filter.outputs.api }}
+      web-app: ${{ steps.filter.outputs.web-app }}
     steps:
       - uses: actions/checkout@v4
 
