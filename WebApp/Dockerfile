@@ -6,6 +6,7 @@ RUN corepack enable
 # Copy the files needed for this docker file.
 COPY package.json pnpm-lock.yaml tsconfig.json ./
 COPY src ./src
+COPY public ./public
 
 ENV CI=true
 
