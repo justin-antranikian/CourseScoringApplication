@@ -12,7 +12,7 @@ param keyVaultUri string
 param keyVaultName string
 param tagNumber string
 
-var containerAppName string = 'admin-app'
+var containerAppName string = 'web-app'
 
 module config '../environmentVariables.bicep' = {
   name: '${containerAppName}-config'
