@@ -4,11 +4,10 @@
   "private": true,
   "packageManager": "pnpm@10.26.1",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack -p 3000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
+    "start": "next start -p 3000",
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-context-menu": "^2.2.2",
