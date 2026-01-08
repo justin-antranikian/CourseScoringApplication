@@ -19,7 +19,7 @@ var configuration = customConfigBuilder.Build();
 
 var configHelper = new ConfigHelper(services, configuration);
 
-configHelper.RegisterConfig<ConnectionStringsConfig>(); 
+configHelper.RegisterConfig<ConnectionStringsConfig>();
 
 AddDbContext(services);
 
