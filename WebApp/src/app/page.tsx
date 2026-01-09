@@ -8,8 +8,13 @@ export default function Home() {
         see their accomplishments across events.
       </p>
       <p className="max-w-2xl text-lg mb-10">
-        Whether you are tracking overall event outcomes or evaluating athlete performance over time, this platform is
-        designed to make scoring data easy to access and understand.
+        This tool can be use to look at an athlete's performance across multiple events, or to analyze results for a
+        specific event. There are many ways which you can compare different athletes and results to get use useful
+        information.
+      </p>
+      <p className="max-w-2xl text-lg mb-10">
+        While the application is functional, the athlete and event names are synthetic — generated using the a .NET
+        library to create realistic data at scale. Any resemblance to real people or events is purely coincidental.
       </p>
       <div className="flex gap-6">
         <a
