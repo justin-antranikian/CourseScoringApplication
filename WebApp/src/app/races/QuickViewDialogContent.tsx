@@ -103,7 +103,7 @@ export default function QuickViewDialogContent({ raceLeaderboard }: { raceLeader
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Irp Details</SheetTitle>
+            <SheetTitle>Result Details</SheetTitle>
           </SheetHeader>
           {irpDetails ? <IrpDetails irpDetails={irpDetails} /> : null}
         </SheetContent>
