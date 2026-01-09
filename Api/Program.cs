@@ -8,7 +8,7 @@ var customConfigBuilder = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)
     .AddJsonFile("appsettings.placeholder.json", optional: false)
     .AddJsonFile("appsettings.json", optional: true)
-    .AddEnvironmentVariables(); 
+    .AddEnvironmentVariables();
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
